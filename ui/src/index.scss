@@ -1,0 +1,58 @@
+body,
+#header {
+  //margin-left: auto;
+  //margin-right: auto;
+  //max-width: 1400px;
+}
+
+a {
+  font-weight: 500;
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--mantine-primary-color-7)
+  }
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+.rhap_container {
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  .rhap_controls-section {
+    max-width: 50px !important;
+  }
+
+  .rhap_footer {
+    text-align: end;
+  }
+}
+
+.parish-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  background-color: red;
+  border-radius: 3px;
+  padding: 2px;
+  opacity: 0.7;
+}
+.leaflet-tooltip.parish-label {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  padding: 0;
+  opacity: 1; /* Make the text fully opaque */
+}
+
+.mantine-MultiSelect-pill {
+  display: none;
+}

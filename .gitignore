@@ -1,0 +1,5 @@
+.idea
+.env
+docker-compose.yml
+ui/public/mp3
+api/resources

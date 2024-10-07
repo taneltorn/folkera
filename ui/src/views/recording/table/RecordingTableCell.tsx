@@ -1,0 +1,90 @@
+import React, {ReactNode, useEffect, useState} from "react";
+import {Group, Input, Table} from "@mantine/core";
+import {Recording} from "../../../model/Recording.ts";
+import {useClickOutside, useFocusTrap} from "@mantine/hooks";
+import {useModifications} from "../../../hooks/useModifications.tsx";
+import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
+
+interface Properties {
+    recording: Recording;
+    field: keyof Recording;
+    children: ReactNode;
+}
+
+const RecordingTableCell: React.FC<Properties> = ({recording, field, children}) => {
+
+    const ref = useClickOutside(() => handleChange());
+
+    const [value, setValue] = useState(recording[field]);
+    const [isEdit, setIsEdit] = useState(false);
+    const focusTrapRef = useFocusTrap();
+    const {hiddenFields, toggleField} = useDataFiltering();
+    const {addModification} = useModifications();
+
+    const handleChange = () => {
+        if (recording[field] !== value) {
+            // @ts-ignore
+            recording[field] = value;
+            addModification(recording);
+        }
+        setIsEdit(false)
+    }
+
+    const handleCancel = () => {
+        setValue(recording[field]);
+        setIsEdit(false);
+    };
+
+    const handleEditClick = (e: any) => {
+        if (hiddenFields.includes(field)) {
+            toggleField(field);
+            return;
+        }
+        if (!(e.target as HTMLElement).className.includes("pill-button") && !isEdit) {
+            setIsEdit(true);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (["Enter", "Tab"].includes(e.key)) {
+            handleChange();
+        }
+        if (e.key === "Escape") {
+            handleCancel();
+        }
+    };
+
+    useEffect(() => {
+        setValue(recording[field]);
+    }, [recording[field]]);
+
+    return (
+        <Table.Td
+            py={0}
+            className={"hover-pointer"}
+            hidden={hiddenFields.includes(field)}
+            onClick={handleEditClick}
+            style={{borderLeft: "1px solid #efefef"}}
+        >
+            {!hiddenFields.includes(field) && <>
+
+                {isEdit
+                    ? <Group wrap={"nowrap"} gap={4} ref={ref} display={"flex"}>
+                        <Input
+                            ref={focusTrapRef}
+                            value={value}
+                            w={"100%"}
+                            size={"xs"}
+                            onKeyDown={handleKeyDown}
+                            onChange={e => setValue(e.target.value)}
+                        />
+                    </Group>
+                    : <Group gap={4}>
+                        {children}
+                    </Group>}
+            </>}
+        </Table.Td>
+    );
+}
+
+export default RecordingTableCell;
