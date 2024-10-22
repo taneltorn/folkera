@@ -2,50 +2,71 @@ import React, {useEffect, useState} from "react";
 import {useStatsService} from "../../../hooks/useStatsService.tsx";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import MapTemplate from "../../../components/MapTemplate.tsx";
-import {DefaultMapOptions} from "../../../utils/map.helpers.ts";
-import {isEmpty} from "../../../utils/common.helpers.tsx";
-import {Recording} from "../../../model/Recording.ts";
+import {MapStats} from "../../../model/Stats.ts";
+import {useActiveView} from "../../../hooks/useActiveView.tsx";
+import {View} from "../../../context/ActiveViewContext.tsx";
+import RecordingTableFiltersBar from "../controls/RecordingTableFiltersBar.tsx";
+import {Box} from "@mantine/core";
+import {useMapOptions} from "../../../hooks/useMapOptions.tsx";
+import {MapType} from "../../../model/MapOptions.ts";
+import {DisplayError} from "../../../utils/common.helpers.tsx";
+import {CountyToParishMap} from "../../../utils/location.mappings.ts";
 
 interface Properties {
-    data: Recording[]
 }
 
-const RecordingMap: React.FC<Properties> = ({data}) => {
+const RecordingMap: React.FC<Properties> = () => {
 
-    const {filters, toggleView, addFilter} = useDataFiltering();
-    const {fetchStats} = useStatsService();
+    const {addFilter} = useDataFiltering();
+    const {setActiveView} = useActiveView();
+    const {fetchMapStats} = useStatsService();
+    const {filteredData} = useDataFiltering();
 
-    const [stats, setStats] = useState<Map<string, number>>(new Map());
-    const [layers, setLayers] = useState<any>(null);
+    const [stats, setStats] = useState<MapStats>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [parishLayers, setParishLayers] = useState<any>(null);
+    const [countyLayers, setCountyLayers] = useState<any>(null);
+
+    const {options} = useMapOptions();
 
     const handleClick = (location: string) => {
-        toggleView();
-        addFilter("location", [location])
+        setActiveView(View.TABLE);
+        addFilter("location", options.type === MapType.COUNTIES ? CountyToParishMap.get(location) || [] : [location]);
     }
 
     useEffect(() => {
-        fetchStats(data, {key: "location", transformer: "location"})
-            .then(data => setStats(data as Map<string, number>));
-    }, [data]);
+        setIsLoading(true);
+        fetchMapStats(filteredData)
+            .then(r => setStats(r))
+            .catch(e => DisplayError(e, "Failed to get stats"))
+    }, [filteredData]);
 
     useEffect(() => {
-        if (isEmpty(stats)) {
-            return;
-        }
-        fetch(`/maps/kihelkonnad.json`)
-            .then((response) => response.json())
-            .then((data) => setLayers(data));
+        Promise.all([
+            fetch(`/maps/${MapType.PARISHES}.json`).then(response => response.json()),
+            fetch(`/maps/${MapType.COUNTIES}.json`).then(response => response.json())
+        ])
+            .then(([parishData, countyData]) => {
+                setParishLayers(parishData);
+                setCountyLayers(countyData);
+            })
+            .finally(() => setIsLoading(false));
+
     }, [stats]);
 
-
     return (
-        <MapTemplate
-            data={stats}
-            layers={layers}
-            filters={filters}
-            options={DefaultMapOptions}
-            onClick={handleClick}
-        />
+        <Box px={"md"}>
+            <RecordingTableFiltersBar/>
+
+            {stats &&
+                <MapTemplate
+                    isLoading={isLoading}
+                    stats={options.type === MapType.COUNTIES ? stats.counties : stats.parishes}
+                    layers={options.type === MapType.COUNTIES ? countyLayers : parishLayers}
+                    options={options}
+                    onClick={handleClick}
+                />}
+        </Box>
     );
 }
 

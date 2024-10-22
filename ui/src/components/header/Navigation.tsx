@@ -8,7 +8,7 @@ import {FaDatabase} from "react-icons/fa";
 // import {useDataFiltering} from "../../hooks/useDataFiltering.tsx";
 
 const routes = [
-    {id: 'archive', icon: <FaDatabase size={Size.icon.XS}/>, link: "/"},
+    {id: 'archive', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
     {id: 'map', icon: <CiMap  size={Size.icon.SM}/>, link: "/map"},
 ];
 
@@ -18,11 +18,9 @@ const Navigation: React.FC= () => {
     const [t] = useTranslation();
     const location = useLocation();
     const navigate = useNavigate();
-    // const {clearFilters} = useDataFiltering();
 
     const handleNavigate = (url: string) => {
         navigate(url);
-        // clearFilters();
     }
 
     return (

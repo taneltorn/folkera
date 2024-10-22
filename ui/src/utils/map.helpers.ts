@@ -1,10 +1,11 @@
-import {MapOptions} from "../model/MapOptions.ts";
+import {MapOptions, MapType} from "../model/MapOptions.ts";
 
 export const DefaultMapOptions: MapOptions = {
+    type: MapType.PARISHES,
     showLabels: true,
     showCounts: true,
     asHeatMap: true,
-    heatIntensity: 0.5,
+    heatIntensity: 0.4,
     textSize: 12,
     position: {
         coords: [58.41692230040431, 25.29367844509054],

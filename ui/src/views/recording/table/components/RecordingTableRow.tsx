@@ -1,14 +1,14 @@
 import React, {useRef} from "react";
 import {Button, Group, Table, Text, useMantineTheme} from "@mantine/core";
 import {Audio} from "react-loader-spinner";
-import {Recording} from "../../../model/Recording.ts";
-import {useAudioPlayer} from "../../../hooks/useAudioContext.tsx";
-import {Size} from "../../../utils/common.constants.ts";
+import {Recording} from "../../../../model/Recording.ts";
+import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
+import {Size} from "../../../../utils/common.constants.ts";
 import RecordingTableCell from "./RecordingTableCell.tsx";
 import FilterButtons from "./FilterButtons.tsx";
 import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 
 interface Properties {
     recording: Recording;

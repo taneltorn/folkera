@@ -38,7 +38,7 @@ export const useDataService = () => {
                 setIsLoading(false);
                 const csvData = Papa.unparse(data);
 
-                const blob = new Blob([csvData], {type: 'text/csv;charset=utf-8;'});
+                const blob = new Blob([csvData], {groupBy: 'text/csv;charset=utf-8;'});
                 const link = document.createElement('a');
                 const url = URL.createObjectURL(blob);
                 link.setAttribute('href', url);

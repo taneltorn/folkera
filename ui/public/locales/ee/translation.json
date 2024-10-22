@@ -30,11 +30,24 @@
     "archive": "Kogu",
     "file": "Fail"
   },
+  "map": {
+    "parishes": "Kihelkondade lõikes",
+    "counties": "Maakondade lõikes"
+  },
+  "stats": {
+    "barChart": "Tulpdiagramm",
+    "pieChart": "Sektordiagramm",
+    "groupByYear": "Aastate lõikes",
+    "groupByInstrument": "Pillide lõikes",
+    "groupByParish": "Kihelkondade lõikes",
+    "groupByPiece": "Lugude lõikes"
+  },
   "view": {
     "recordings": {
       "controls": {
         "search": "Otsi...",
         "export": "Ekspordi",
+        "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
         "clearFilters": "Tühjenda filtrid",

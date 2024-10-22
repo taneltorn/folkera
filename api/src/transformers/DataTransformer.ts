@@ -1,7 +1,7 @@
 class DataTransformer {
 
-    transform = (value: string) => {
-        return [value];
+    transform = (value: string): string | string[] | null => {
+        return value;
     }
 }
 

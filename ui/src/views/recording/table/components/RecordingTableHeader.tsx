@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {CloseButton, Input} from "@mantine/core";
-import {Recording} from "../../../model/Recording.ts";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
-import useDebounce from "../../../hooks/useDebounce.ts";
+import React, {useState} from "react";
+import {Autocomplete, CloseButton} from "@mantine/core";
+import {Recording} from "../../../../model/Recording.ts";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import RecordingTableHeaderWrapper from "./RecordingTableHeaderWrapper.tsx";
+import useDebounce from "../../../../hooks/useDebounce.ts";
 
 interface Properties {
     field: keyof Recording;
     sortField?: keyof Recording;
     placeholder?: string;
+    options?: any[];
 }
 
-const RecordingTableHeaderWithInput: React.FC<Properties> = ({field, sortField, placeholder}) => {
+const RecordingTableHeader: React.FC<Properties> = ({field, sortField, placeholder, options}) => {
 
     const [value, setValue] = useState<string>("");
-
     const {filters, addFilter, removeFilter} = useDataFiltering();
 
     const handleSearch = (value: string) => {
@@ -31,21 +31,13 @@ const RecordingTableHeaderWithInput: React.FC<Properties> = ({field, sortField, 
         addFilter(field, [value]);
     });
 
-    useEffect(() => {
-        const filter = filters.find(f => f.field === field);
-        setValue(filter?.value || "");
-    }, [filters.find(f => f.field === field)]);
-
     return (
         <RecordingTableHeaderWrapper field={field} sortField={sortField}>
-            <Input
-                miw={150}
-                size={"xs"}
-                c={"red"}
-                color={"red"}
+            <Autocomplete
                 value={value}
                 placeholder={placeholder}
-                onChange={e => handleSearch(e.currentTarget.value)}
+                onChange={handleSearch}
+                data={options}
                 rightSectionPointerEvents="all"
                 rightSection={
                     <CloseButton
@@ -60,4 +52,4 @@ const RecordingTableHeaderWithInput: React.FC<Properties> = ({field, sortField, 
     );
 }
 
-export default RecordingTableHeaderWithInput;
+export default RecordingTableHeader;

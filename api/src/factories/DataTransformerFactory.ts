@@ -1,17 +1,20 @@
 import DataTransformer from "../transformers/DataTransformer";
-import ParishTransformer from "../transformers/ParishTransformer";
-import NumberTransformer from "../transformers/NumberTransformer";
+import SplitByComma from "../transformers/SplitByComma";
+import CutFromParentheses from "../transformers/CutFromParentheses";
+import CutFromLessThanSign from "../transformers/CutFromLessThanSign";
+import ParishToCounty from "../transformers/ParishToCounty";
 
 class DataTransformerFactory {
 
-    private static transformers = new Map<string, DataTransformer>([
-        ["base", new DataTransformer()],
-        ["parish", new ParishTransformer()],
-        ["number", new NumberTransformer()],
+    transformers = new Map<string, DataTransformer>([
+        ["SplitByComma", new SplitByComma()],
+        ["CutFromParentheses", new CutFromParentheses()],
+        ["CutFromLessThanSign", new CutFromLessThanSign()],
+        ["ParishToCounty", new ParishToCounty()],
     ]);
 
-    static create = <T extends DataTransformer = DataTransformer>(name: string): T => {
-        return (DataTransformerFactory.transformers.get(name) as T) || (new DataTransformer() as T);
+    get = <T extends DataTransformer = DataTransformer>(name: string): T => {
+        return (this.transformers.get(name) as T) || (new DataTransformer() as T);
     }
 }
 

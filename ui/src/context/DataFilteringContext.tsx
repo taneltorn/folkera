@@ -7,12 +7,6 @@ export enum SortDirection {
     DESC,
 }
 
-export enum View {
-    TABLE,
-    MAP,
-    STATS,
-}
-
 export interface Filter {
     field: string;
     value: string;
@@ -43,10 +37,6 @@ export interface Properties {
 
     filteredData: Recording[];
     filteringOptions: FilteringOptions;
-
-    view: View;
-    setView: (value: View) => void;
-    toggleView: () => void;
 }
 
 export const DataFilteringContext = React.createContext<Properties>({} as Properties);

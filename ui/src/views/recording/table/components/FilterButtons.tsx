@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Group, Text} from "@mantine/core";
-import {Recording} from "../../../model/Recording.ts";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../model/Recording.ts";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 
 interface Properties {
     recording: Recording;
@@ -32,7 +32,7 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, color}) =
             {values.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
-                        color={`${color || "blue"}.${Math.max(0, 9 - i * 1)}`}
+                        color={`${color || "blue"}.${9 - i % 5}`}
                         size={"compact-xs"}
                         onClick={() => handleClick(v)}>
                     <Text size={"xs"} className={"pill-button"}>

@@ -1,28 +1,26 @@
 import React from "react";
-import {useDataFiltering} from "../../hooks/useDataFiltering.tsx";
 import RecordingTable from "./table/RecordingTable.tsx";
 import {Box, Divider} from "@mantine/core";
-import RecordingTableControls from "./table/RecordingTableControls.tsx";
-import RecordingTableFiltersBar from "./table/RecordingTableFiltersBar.tsx";
-import {View} from "../../context/DataFilteringContext.tsx";
+import RecordingTableControls from "./controls/RecordingTableControls.tsx";
 import RecordingMap from "./map/RecordingMap.tsx";
-import RecordingStats from "./map/RecordingStats.tsx";
+import RecordingStats from "./stats/RecordingStats.tsx";
+import {useActiveView} from "../../hooks/useActiveView.tsx";
+import {View} from "../../context/ActiveViewContext.tsx";
+import RecordingTableViewBar from "./controls/RecordingTableViewBar.tsx";
 
 const RecordingListContent: React.FC = () => {
 
-    const {view, filteredData} = useDataFiltering();
+    const {activeView} = useActiveView();
 
     return (
         <Box mb={75}>
             <RecordingTableControls/>
             <Divider my={"md"}/>
+            <RecordingTableViewBar/>
 
-            <RecordingTableFiltersBar/>
-
-            {view === View.TABLE && <RecordingTable data={filteredData}/>}
-            {view === View.MAP && <RecordingMap data={filteredData}/>}
-            {view === View.STATS && <RecordingStats data={filteredData}/>}
-
+            {activeView === View.TABLE && <RecordingTable/>}
+            {activeView === View.MAP && <RecordingMap/>}
+            {activeView === View.STATS && <RecordingStats/>}
         </Box>
     );
 }

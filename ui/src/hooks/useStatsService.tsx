@@ -1,27 +1,30 @@
 import {useState} from 'react';
 import axios from "axios";
+import {MapStats, StatsItem, StatsOptions} from "../model/Stats.ts";
 import {Recording} from "../model/Recording.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-export interface StatsOptions {
-    key: string;
-    transformer?: string;
-}
 
 export const useStatsService = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const fetchStats = async (data: Recording[], options: StatsOptions): Promise<Map<string, number>> => {
+    const fetchStats = async (data: Recording[], options: StatsOptions): Promise<StatsItem[]> => {
         setIsLoading(true);
-        return axios.post(`${API_URL}/api/stats`, data, {
-            headers: {
-                'Content-Type': 'application/json',
+
+        return axios.post(`${API_URL}/api/stats`,
+            {
+                groupBy: options.groupBy,
+                transformers: options.transformers,
+                groups: options.groups,
+                data: data,
             },
-            params: options
-        })
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
             .then(response => {
                 setIsLoading(false);
                 return response.data;
@@ -32,10 +35,29 @@ export const useStatsService = () => {
             });
     }
 
+    const fetchMapStats = async (data: Recording[]): Promise<MapStats> => {
+        setIsLoading(true);
+
+        return axios.post(`${API_URL}/api/stats/map`, data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                setIsLoading(false);
+                return response.data;
+            })
+            .catch(error => {
+                setIsLoading(false);
+                throw error;
+            });
+    }
 
     return {
         isLoading,
         cancelSource,
         fetchStats,
+        fetchMapStats,
     };
 }

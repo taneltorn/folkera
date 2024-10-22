@@ -10,6 +10,9 @@ import "./i18n";
 import 'leaflet/dist/leaflet.css';
 import 'react-h5-audio-player/lib/styles.css';
 import {NotificationContextProvider} from "./hooks/useNotifications.tsx";
+import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
+import {StatsOptionsContextProvider} from "./hooks/useStatsOptions.tsx";
+import {MapOptionsContextProvider} from "./hooks/useMapOptions.tsx";
 
 const theme = createTheme({
     fontFamily: 'Verdana, Montserrat, sans-serif',
@@ -33,7 +36,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <MantineProvider theme={theme}>
         <NotificationContextProvider>
             <AudioContextProvider>
-                <AppRouter/>
+                <ActiveViewContextProvider>
+                    <StatsOptionsContextProvider>
+                        <MapOptionsContextProvider>
+                            <AppRouter/>
+                        </MapOptionsContextProvider>
+                    </StatsOptionsContextProvider>
+                </ActiveViewContextProvider>
             </AudioContextProvider>
         </NotificationContextProvider>
     </MantineProvider>

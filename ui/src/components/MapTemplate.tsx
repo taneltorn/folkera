@@ -1,34 +1,38 @@
 import React, {useMemo, useRef} from "react";
 import {MapContainer, TileLayer, GeoJSON} from "react-leaflet";
-import {isEmpty} from "../utils/common.helpers.tsx";
 import chroma from 'chroma-js';
-import {MapOptions} from "../model/MapOptions.ts";
+import {MapOptions, MapType} from "../model/MapOptions.ts";
 import moment from "moment";
 import {GeoJsonStyle} from "../utils/map.helpers.ts";
-import {Filter} from "../context/DataFilteringContext.tsx";
+import {StatsItem} from "../model/Stats.ts";
+import {Box} from "@mantine/core";
 
 interface Properties {
-    data: Map<string, number>;
+    isLoading: boolean;
+    stats: StatsItem[];
     layers: any;
-    filters: Filter[];
     options: MapOptions;
     onClick?: (value: string) => void;
 }
 
-const MapTemplate: React.FC<Properties> = ({data, layers, filters, options, onClick}) => {
+
+const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, onClick}) => {
 
     const mapContainerRef = useRef<any>(null);
     const geoJsonLayerRef = useRef<any>(null);
 
-    const maxValue = useMemo<number>(() => Math.max(...Object.values(data) as number[]), [data]);
-    const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, filters])
+    // @ts-ignore
+    const maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
+    const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
         if (feature.properties) {
-            const location = feature.properties.KIHELKOND;
+            const location = options.type === MapType.PARISHES && !feature.properties.NIMI.endsWith("linn")
+                ? feature.properties.NIMI + " khk."
+                : feature.properties.NIMI;
 
             // @ts-ignore
-            const count = data[`${location}`] || 0;
+            const count = stats[`${location}`] || 0;
 
             let color = "#ccc";
             if (options.asHeatMap) {
@@ -75,26 +79,28 @@ const MapTemplate: React.FC<Properties> = ({data, layers, filters, options, onCl
     };
 
     return (
-        <MapContainer
-            ref={mapContainerRef}
-            center={{lat: options.position.coords[0], lng: options.position.coords[1]}}
-            zoom={options.position.zoom}
-            style={{height: "100vh", width: "100%"}}
-        >
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {layers && !isEmpty(data) && (
-                <GeoJSON
-                    key={geoJsonKey}
-                    ref={geoJsonLayerRef}
-                    data={layers}
-                    style={GeoJsonStyle}
-                    onEachFeature={onEachFeature}
+        <Box opacity={isLoading ? 0.3 : 1}>
+            <MapContainer
+                ref={mapContainerRef}
+                center={{lat: options.position.coords[0], lng: options.position.coords[1]}}
+                zoom={options.position.zoom}
+                style={{height: "100vh", width: "100%", zIndex: 10}}
+            >
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-            )}
-        </MapContainer>
+                {layers && (
+                    <GeoJSON
+                        key={geoJsonKey}
+                        ref={geoJsonLayerRef}
+                        data={layers}
+                        style={GeoJsonStyle}
+                        onEachFeature={onEachFeature}
+                    />
+                )}
+            </MapContainer>
+        </Box>
     );
 }
 

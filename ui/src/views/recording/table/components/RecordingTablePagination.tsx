@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Group, Pagination, Text, useMantineTheme} from "@mantine/core";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
-import {ItemsPerPageOptions} from "../../../utils/common.lists.ts";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {ItemsPerPageOptions} from "../../../../utils/common.lists.ts";
 import {useTranslation} from "react-i18next";
 
 interface Properties {

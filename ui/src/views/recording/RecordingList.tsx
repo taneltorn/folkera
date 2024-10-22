@@ -8,7 +8,6 @@ import {ModificationsContextProvider} from "../../hooks/useModifications.tsx";
 import {useLocation} from "react-router-dom";
 import {Filter} from "../../context/DataFilteringContext.tsx";
 import RecordingListContent from "./RecordingListContent.tsx";
-import {useStatsService} from "../../hooks/useStatsService.tsx";
 
 const RecordingList: React.FC = () => {
 
@@ -16,19 +15,17 @@ const RecordingList: React.FC = () => {
 
     const [data, setData] = useState<Recording[]>([]);
     const [filters, setFilters] = useState<Filter[]>([]);
-    const {fetchStats} = useStatsService();
+    // const {fetchStats} = useStatsService();
 
     const {fetchData, cancelSource} = useDataService();
     const location = useLocation();
 
     useEffect(() => {
-
-
         fetchData()
-            .then(data => {
-                fetchStats(data, {key: "year", transformer: "number" })
-                return data;
-            })
+            // .then(data => {
+            //     fetchStats(data, {key: "year", transformer: "number"})
+            //     return data;
+            // })
             .then(setData)
             .catch(e => DisplayError(e, t("toast.error.fetchData")));
 
@@ -42,7 +39,6 @@ const RecordingList: React.FC = () => {
             setFilters(location.state.filters)
         }
     }, [location.state]);
-
 
     return (
         <ModificationsContextProvider>

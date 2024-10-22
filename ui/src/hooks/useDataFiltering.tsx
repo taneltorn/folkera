@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/common.helpers.tsx";
-import {DataFilteringContext, Filter, Sort, SortDirection, View} from "../context/DataFilteringContext.tsx";
+import {DataFilteringContext, Filter, Sort, SortDirection} from "../context/DataFilteringContext.tsx";
 import {Recording} from "../model/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
-import {ItemsPerPageOptions, Parishes, Years} from "../utils/common.lists.ts";
+import {ItemsPerPageOptions, Years} from "../utils/common.lists.ts";
 import {extractAndSort, filter, sortByField, withBlankOptions} from "../utils/filtering.helpers.ts";
 
 interface Properties {
@@ -17,7 +17,6 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
     const [filters, setFilters] = useState<Filter[]>(props.filters || []);
     const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", ["collector", "archive", "notes"]);
 
-    const [view, setView] = useState<View>(View.TABLE);
     const [activePage, setActivePage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useLocalStorage("itemsPerPage", ItemsPerPageOptions[0]);
     const [sort, setSort] = useState<Sort | undefined>({field: "order", direction: SortDirection.ASC});
@@ -54,10 +53,6 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         setHiddenFields([...hiddenFields]);
     }
 
-    const toggleView = () => {
-        setView(view === View.TABLE ? View.MAP : View.TABLE);
-    }
-
     const filteredData = useMemo<Recording[]>(() => {
         if (!data) {
             return [];
@@ -74,7 +69,8 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
         performer: withBlankOptions(extractAndSort(data, "performer", ",")),
         collector: withBlankOptions(extractAndSort(data, "collector", ",")),
-        location: Parishes,
+        location: withBlankOptions(extractAndSort(data, "location", ",")),
+        // location: Parishes,
         year: Years,
     }), [data]);
 
@@ -83,7 +79,6 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
             setFilters(props.filters);
         }
     }, [props.filters]);
-
 
     const context = useMemo(() => ({
         filters, setFilters,
@@ -98,10 +93,9 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         itemsPerPage, setItemsPerPage,
 
         filteredData,
-        filteringOptions,
-        view, setView,
-        toggleView,
-    }), [filters, view, hiddenFields, filteringOptions, filteredData, sort, activePage, itemsPerPage]);
+        filteringOptions
+
+    }), [filters, filteredData, hiddenFields, filteringOptions, filteredData, sort, activePage, itemsPerPage]);
 
     return (
         <DataFilteringContext.Provider value={context}>

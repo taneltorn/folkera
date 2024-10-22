@@ -1,8 +1,8 @@
 import React, {ReactNode} from "react";
 import {Group, Table} from "@mantine/core";
 import SortButton from "./SortButton.tsx";
-import {Recording} from "../../../model/Recording.ts";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../model/Recording.ts";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 
 interface Properties {
     field: keyof Recording;
