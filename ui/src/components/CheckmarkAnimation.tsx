@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie';
-import animationData from "../assets/Checkmark.json";
+import animationData from "../../public/assets/Checkmark.json";
 import {Size} from "../utils/common.constants.ts";
 
 interface Properties {

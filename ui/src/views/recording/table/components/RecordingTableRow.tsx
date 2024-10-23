@@ -30,7 +30,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                         px={4}
                         w={32}
                         variant={"transparent"}
-                        title={recording.file ? recording.file: t(`view.recordings.table.fileNotFound"}`)}
+                        title={recording.file ? recording.file: t(`view.recordings.table.fileNotFound`)}
                         onClick={() => isPlaying && recording === track ? pause() : play(recording)}
                     >
                         {!recording?.file

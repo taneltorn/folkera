@@ -13,7 +13,7 @@ export const NotificationContextProvider: React.FC<Properties> = ({children}) =>
     const notify = (message: string, type: NotificationType) => {
         setActiveNotification({
             message: message,
-            groupBy: type
+            type: type
         });
         setTimeout(() => setActiveNotification(undefined), 2000);
     }
