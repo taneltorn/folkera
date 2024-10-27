@@ -28,6 +28,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
     const onEachFeature = (feature: any, layer: any) => {
         if (feature.properties) {
             const location = options.type === MapType.PARISHES && !feature.properties.NIMI.endsWith("linn")
+            && feature.properties.NIMI !== "Setumaa"
                 ? feature.properties.NIMI + " khk."
                 : feature.properties.NIMI;
 

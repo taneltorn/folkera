@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useStatsService} from "../../../hooks/useStatsService.tsx";
 import {isEmpty} from "../../../utils/common.helpers.tsx";
-import {Box} from "@mantine/core";
+import {Box, Text} from "@mantine/core";
 import {useStatsOptions} from "../../../hooks/useStatsOptions.tsx";
 import {StatsItem} from "../../../model/Stats.ts";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
@@ -32,6 +32,10 @@ const RecordingStats: React.FC<Properties> = () => {
             return;
         }
         fetchStats(filteredData, options)
+            .then(r => {
+                console.log(r)
+                return r
+            })
             .then(r => setStats(r));
     }, [filteredData, options]);
 

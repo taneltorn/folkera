@@ -11,7 +11,8 @@
     "sidebar": {
       "navigation": {
         "archive": "Tabel",
-        "map": "Kihelkonnad"
+        "map": "Kihelkonnad",
+        "tempstats": "Mida annoteerida?"
       }
     }
   },

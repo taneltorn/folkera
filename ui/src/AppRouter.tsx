@@ -7,6 +7,7 @@ import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx";
 import Parishes from "./views/Parishes.tsx";
 import RecordingList from "./views/recording/RecordingList.tsx";
+import TempStats from "./views/TempStats.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "/map",
                 element: <Parishes/>,
+            },
+            {
+                path: "/tempstats",
+                element: <TempStats/>,
             }
         ]
     }

@@ -4,7 +4,7 @@ import MapTemplate from "../components/MapTemplate.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
 import {Recording} from "../model/Recording.ts";
 import {useNavigate} from "react-router-dom";
-import {Group, Slider, Switch} from "@mantine/core";
+import {Box, Group, Slider, Switch, Text} from "@mantine/core";
 import {DefaultMapOptions} from "../utils/map.helpers.ts";
 import {MapOptions} from "../model/MapOptions.ts";
 import {isEmpty} from "../utils/common.helpers.tsx";
@@ -58,7 +58,8 @@ const Parishes: React.FC = () => {
 
 
     return (
-        <>
+        <Box px={"md"}>
+            <Text>TODO</Text>
             {/*<Group px={"md"} mb={"md"} style={{zIndex: 22}}>*/}
             {/*    <Switch*/}
             {/*        label="Näita statistikat"*/}
@@ -98,7 +99,7 @@ const Parishes: React.FC = () => {
             {/*    options={options}*/}
             {/*    onClick={handleClick}*/}
             {/*/>*/}
-        </>
+        </Box>
     );
 }
 

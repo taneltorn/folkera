@@ -22,10 +22,6 @@ const RecordingList: React.FC = () => {
 
     useEffect(() => {
         fetchData()
-            // .then(data => {
-            //     fetchStats(data, {key: "year", transformer: "number"})
-            //     return data;
-            // })
             .then(setData)
             .catch(e => DisplayError(e, t("toast.error.fetchData")));
 

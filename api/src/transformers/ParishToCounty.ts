@@ -56,6 +56,7 @@ const ParishToCountyMap = new Map([
     ["Karja khk.", "Saare"],
     ["Kärla khk.", "Saare"],
     ["Kihelkonna khk.", "Saare"],
+    ["Kuressaare linn", "Saare"],
     ["Muhu khk.", "Saare"],
     ["Mustjala khk.", "Saare"],
     ["Pöide khk.", "Saare"],
@@ -106,6 +107,7 @@ const ParishToCountyMap = new Map([
     ["Rõuge khk.", "Võru"],
     ["Urvaste khk.", "Võru"],
     ["Vastseliina khk.", "Võru"],
+    ["Setumaa", "Võru"],
 ]);
 
 class ParishToCounty extends DataTransformer {

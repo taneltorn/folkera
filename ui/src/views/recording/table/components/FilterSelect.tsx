@@ -16,6 +16,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
     return (
         <MultiSelect
             size={"xs"}
+            maw={150}
             placeholder={placeholder}
             searchable
             clearable

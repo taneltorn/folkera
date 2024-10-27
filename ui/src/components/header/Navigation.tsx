@@ -3,17 +3,19 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Group, Text} from "@mantine/core";
 import {Size} from "../../utils/common.constants.ts";
-import {CiMap} from "react-icons/ci";
+// import {CiMap} from "react-icons/ci";
 import {FaDatabase} from "react-icons/fa";
-// import {useDataFiltering} from "../../hooks/useDataFiltering.tsx";
+import {IoIosStats} from "react-icons/io";
+import {BsClipboardDataFill} from "react-icons/bs";
 
 const routes = [
     {id: 'archive', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
-    {id: 'map', icon: <CiMap  size={Size.icon.SM}/>, link: "/map"},
+    // {id: 'map', icon: <CiMap size={Size.icon.SM}/>, link: "/map"},
+    {id: 'tempstats', icon: <BsClipboardDataFill size={Size.icon.SM}/>, link: "/tempstats"},
 ];
 
 
-const Navigation: React.FC= () => {
+const Navigation: React.FC = () => {
 
     const [t] = useTranslation();
     const location = useLocation();
@@ -34,7 +36,7 @@ const Navigation: React.FC= () => {
                     onClick={() => handleNavigate(item.link)}
                 >
                     <Text fw={100} size={"xs"}>
-                    {t(`page.sidebar.navigation.${item.id}`)}
+                        {t(`page.sidebar.navigation.${item.id}`)}
                     </Text>
                 </Button>
             ))}
