@@ -1,4 +1,4 @@
-import {Recording} from "../model/Recording.ts";
+import { Recording } from "../../../domain/Recording.ts";
 import {Filter, SortDirection} from "../context/DataFilteringContext.tsx";
 import {FieldState} from "./common.enums.ts";
 
@@ -35,54 +35,36 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
+const extract = (field: string, filters: Filter[]) => {
+    return filters
+        .filter(f => f.field === field)
+        .map(f => f.value.toLowerCase().trim()) || [];
+}
 
 export const filter = (data: Recording[], filters: Filter[]) => {
 
     const search = filters.find(f => f.field === "search")?.value?.toLowerCase().trim();
     const ref = filters.find(f => f.field === "ref")?.value?.toLowerCase().trim();
     const content = filters.find(f => f.field === "content")?.value?.toLowerCase().trim();
-    const piece = filters.find(f => f.field === "piece")?.value?.trim();
     const archive = filters.find(f => f.field === "archive")?.value?.toLowerCase().trim();
     const notes = filters.find(f => f.field === "notes")?.value?.toLowerCase().trim();
-    const comments = filters.find(f => f.field === "comments")?.value?.toLowerCase().trim();
-
-    const melodies = filters
-        .filter(f => f.field === "melody")
-        .map(f => f.value.toLowerCase().trim());
-
-    const years = filters
-        .filter(f => f.field === "year")
-        .map(f => f.value.trim()) || [];
-
-    const instruments = filters
-        .filter(f => f.field === "instrument")
-        .map(f => f.value.toLowerCase().trim()) || [];
-
-    const performers = filters
-        .filter(f => f.field === "performer")
-        .map(f => f.value.toLowerCase().trim()) || [];
-
-    const locations = filters
-        .filter(f => f.field === "location")
-        .map(f => f.value.toLowerCase().trim()) || [];
-
-    const collectors = filters
-        .filter(f => f.field === "collector")
-        .map(f => f.value.toLowerCase().trim()) || [];
 
     return data.filter(r =>
         isLike(r.ref, ref) &&
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
-        isLike(r.comments, comments) &&
-        is(r.piece, piece) &&
-        isIn(r.melody, melodies) &&
         is(r.archive, archive) &&
-        isBetween(r.year, years) &&
-        isIn(r.instrument, instruments) &&
-        isIn(r.performer, performers) &&
-        isIn(r.collector, collectors) &&
-        isIn(r.location, locations) &&
+        isBetween(r.year, extract("year", filters)) &&
+        isIn(r.piece, extract("piece", filters)) &&
+        isIn(r.melody, extract("melody", filters)) &&
+        isIn(r.parts, extract("parts", filters)) &&
+        isIn(r.instrument, extract("instrument", filters)) &&
+        isIn(r.performer, extract("performer", filters)) &&
+        isIn(r.collector, extract("collector", filters)) &&
+        isIn(r.location, extract("location", filters), "<") &&
+        isIn(r.comments, extract("comments", filters)) &&
+        isIn(r.quality, extract("quality", filters)) &&
+        isIn(r.similarity, extract("similarity", filters)) &&
         (contains(r.ref, search)
             || contains(r.content, search)
             || contains(r.piece, search)
@@ -158,7 +140,7 @@ export const isLike = (value: string | undefined, filterValue: string | undefine
     return value?.toLowerCase().includes(filterValue.toLowerCase());
 }
 
-export const isIn = (value: string | undefined, filters: string[]) => {
+export const isIn = (value: string | undefined, filters: string[], split?: string) => {
     if (!filters.length) {
         return true;
     }
@@ -169,18 +151,27 @@ export const isIn = (value: string | undefined, filters: string[]) => {
         return !!value;
     }
 
-
     if (!value) {
         return false;
     }
 
     return filters.some(filter => {
-        if (!filter.includes("<")) {
-            const fieldValues = value.toLowerCase().split(/[,<]+/).map(v => v.trim());
+        if (split) {
+            const fieldValues = value.toLowerCase().split(split).map(v => v.trim());
             return filters.some(f => fieldValues.includes(f));
         }
         return value.toLowerCase().includes(filter.toLowerCase())
     });
+
+    // return filters.some(filter => {
+    //     if (!filter.includes("<")) {
+    //         const fieldValues = partial === false
+    //             ? value.toLowerCase().split(/[<]+/).map(v => v.trim())
+    //             : value.toLowerCase().split(/[,<]+/).map(v => v.trim());
+    //         return filters.some(f => fieldValues.includes(f));
+    //     }
+    //     return value.toLowerCase().includes(filter.toLowerCase())
+    // });
 }
 
 export const sortByField = (

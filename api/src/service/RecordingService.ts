@@ -2,7 +2,7 @@ import log4js from "log4js";
 import * as fs from 'fs';
 import * as path from 'path';
 import Papa from "papaparse";
-import {Recording} from "../model/Recording";
+import {Recording} from "../../../domain/Recording";
 
 export const Parishes = [
     "Äksi khk.",
@@ -124,29 +124,35 @@ export const Parishes = [
 class RecordingService {
 
     private logger = log4js.getLogger("RecordingService");
-    private csvFilePath = path.resolve(__dirname, '../resources/Heliarhiiv - Latest.csv');
+    private dataFile = "Heliarhiiv - export.csv";
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
     public async findAll(): Promise<any> {
-        this.logger.info(`Reading recordings from file`);
+        return this.findFromFile(this.dataFile);
+    }
+
+    public async findFromFile(filePath: string): Promise<any> {
+        this.logger.info(`Reading data from file ${filePath}`);
 
         try {
-            const csvData = fs.readFileSync(this.csvFilePath, 'utf-8');
+            const csvFilePath = path.resolve(__dirname, `../resources/${filePath}`);
+
+            const csvData = fs.readFileSync(csvFilePath, 'utf-8');
 
             const result = Papa.parse(csvData, {
                 header: true,
                 skipEmptyLines: true,
             });
 
-            this.logger.info(`Found ${result.data.length} recordings`);
+            this.logger.info(`Found ${result.data.length} entries`);
 
             return {success: true, data: result.data as Recording[]};
         } catch (err) {
             this.logger.error(err);
-            return {success: false, error: "Error querying recordings", detail: err.detail};
+            return {success: false, error: "Error reading data", detail: err.detail};
         }
     }
 
@@ -161,7 +167,7 @@ class RecordingService {
                 stats.set(parish, 0);
             }
 
-            for (const { location } of result.data) {
+            for (const {location} of result.data) {
                 if (!location) continue;
 
                 const loc = location as string;
@@ -184,7 +190,9 @@ class RecordingService {
         this.logger.info(`Updating ${data.length} recordings`);
 
         try {
-            const csvFileContent = fs.readFileSync(this.csvFilePath, 'utf-8');
+            const csvFilePath = path.resolve(__dirname, `../resources/${this.dataFile}`);
+
+            const csvFileContent = fs.readFileSync(csvFilePath, 'utf-8');
 
             const recordings = Papa.parse(csvFileContent, {
                 header: true,
@@ -200,12 +208,12 @@ class RecordingService {
 
             const updatedCsvData = Papa.unparse(recordings);
 
-            fs.writeFileSync(this.csvFilePath, updatedCsvData, 'utf-8');
+            fs.writeFileSync(csvFilePath, updatedCsvData, 'utf-8');
 
-            return { success: true, data: data };
+            return {success: true, data: data};
         } catch (err) {
             this.logger.error(err);
-            return { success: false, error: `Error updating the recording`, detail: err.message };
+            return {success: false, error: `Error updating the recording`, detail: err.message};
         }
     }
 }

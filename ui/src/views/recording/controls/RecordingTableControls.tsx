@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import {Button, CloseButton, Group, Input, Pill} from "@mantine/core";
 import {FaFileExport, FaSave} from "react-icons/fa";
-import {Size} from "../../../utils/common.constants.ts";
+import {Color, Size} from "../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
 import {LuFilterX} from "react-icons/lu";
 import {IoSearchOutline} from "react-icons/io5";
@@ -81,9 +81,12 @@ const RecordingTableControls: React.FC = () => {
                     {filters.slice(0, MAX_NUMBER_OF_FILTERS_TO_DISPLAY).map((filter, index) =>
                         <Pill key={index}
                               size={"md"}
+                              bg={Color.get(filter.field) || "gray"}
+                              // bg={"gray.6"}
+                              c={"white"}
                               withRemoveButton
                               onRemove={() => removeFilter(filter.field, filter.value)}>
-                            {filter.value}
+                            {t(`recording.${filter.field}`)}: {filter.value}
                         </Pill>)}
 
                     {filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY && <Pill>...</Pill>}

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Recording} from '../model/Recording';
+import {Recording} from '../../../domain/Recording';
 import axios from "axios";
 import Papa from "papaparse";
 

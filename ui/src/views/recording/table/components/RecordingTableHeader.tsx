@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Autocomplete, CloseButton} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import RecordingTableHeaderWrapper from "./RecordingTableHeaderWrapper.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
 interface Properties {
     field: keyof Recording;

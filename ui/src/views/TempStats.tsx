@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useStatsService} from "../hooks/useStatsService.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
-import {Recording} from "../model/Recording.ts";
-import {Badge, Box, Grid, Group, Select, Table, TableTr} from "@mantine/core";
+import { Box, Grid,  Table, TableTr} from "@mantine/core";
 import {DisplayError, isEmpty} from "../utils/common.helpers.tsx";
 import {StatsItem} from "../model/Stats.ts";
 import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
 import {DataFilteringContextProvider, useDataFiltering} from "../hooks/useDataFiltering.tsx";
 import LoadingOverlay from "../components/LoadingOverlay.tsx";
+import {Recording} from "../../../domain/Recording.ts";
 
 const TempStatsContent: React.FC<{isLoading: boolean}> = ({isLoading}) => {
 

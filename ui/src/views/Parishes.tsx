@@ -1,18 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {useStatsService} from "../hooks/useStatsService.tsx";
-import MapTemplate from "../components/MapTemplate.tsx";
-import {useDataService} from "../hooks/useDataService.tsx";
-import {Recording} from "../model/Recording.ts";
-import {useNavigate} from "react-router-dom";
-import {Box, Group, Slider, Switch, Text} from "@mantine/core";
-import {DefaultMapOptions} from "../utils/map.helpers.ts";
-import {MapOptions} from "../model/MapOptions.ts";
-import {isEmpty} from "../utils/common.helpers.tsx";
-import {StatsItem} from "../model/Stats.ts";
+import React from "react";
+import {Box, Text} from "@mantine/core";
 
 const Parishes: React.FC = () => {
 
-    // const [data, setData] = useState<Recording[]>([]);
+    // const [data, setData] = useState<OldRecording[]>([]);
     // const {fetchData} = useDataService();
     // const {fetchStats} = useStatsService();
     //

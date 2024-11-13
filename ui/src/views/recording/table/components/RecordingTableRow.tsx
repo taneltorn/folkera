@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 import {Button, Group, Table, Text, useMantineTheme} from "@mantine/core";
 import {Audio} from "react-loader-spinner";
-import {Recording} from "../../../../model/Recording.ts";
 import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
 import {Size} from "../../../../utils/common.constants.ts";
 import RecordingTableCell from "./RecordingTableCell.tsx";
@@ -9,6 +8,7 @@ import FilterButtons from "./FilterButtons.tsx";
 import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
 interface Properties {
     recording: Recording;
@@ -59,7 +59,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 <FilterButtons
                     recording={recording}
                     field={"piece"}
-                    color={"pink"}
                 />
             </RecordingTableCell>
 
@@ -67,8 +66,30 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 <FilterButtons
                     recording={recording}
                     field={"melody"}
+                />
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"parts"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"parts"}
                     split={","}
-                    color={"pink"}
+                />
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"quality"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"quality"}
+                    split={","}
+                />
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"similarity"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"similarity"}
+                    split={","}
                 />
             </RecordingTableCell>
 
@@ -77,7 +98,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                     recording={recording}
                     field={"year"}
                     split={","}
-                    color={"red"}
                 />
             </RecordingTableCell>
 
@@ -86,7 +106,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                     recording={recording}
                     field={"instrument"}
                     split={","}
-                    color={"green"}
                 />
             </RecordingTableCell>
 
@@ -95,7 +114,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                     recording={recording}
                     field={"performer"}
                     split={","}
-                    color={"yellow"}
                 />
             </RecordingTableCell>
 
@@ -111,7 +129,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 <FilterButtons
                     recording={recording}
                     field={"archive"}
-                    color={"violet"}
                 />
             </RecordingTableCell>
 

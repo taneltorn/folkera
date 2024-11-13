@@ -1,6 +1,6 @@
 import log4js from "log4js";
-import {Recording} from "../model/Recording";
 import DataTransformer from "../transformers/DataTransformer";
+import {Recording} from "../../../domain/Recording";
 
 class StatsService {
 
@@ -50,7 +50,7 @@ class StatsService {
         }
     }
 
-    // public async getStats(data: Recording[], key: string, transformer: DataTransformer, initial?: Map<string, number>): Promise<any> {
+    // public async getStats(data: OldRecording[], key: string, transformer: DataTransformer, initial?: Map<string, number>): Promise<any> {
     //     this.logger.info(`Counting statistics for field '${key}'`);
     //
     //     try {

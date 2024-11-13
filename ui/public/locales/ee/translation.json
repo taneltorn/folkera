@@ -12,7 +12,7 @@
       "navigation": {
         "archive": "Tabel",
         "map": "Kihelkonnad",
-        "tempstats": "Mida annoteerida?"
+        "tempstats": "Annoteerimine"
       }
     }
   },
@@ -20,7 +20,10 @@
     "ref": "Viide",
     "content": "Sisu",
     "piece": "Lugu",
-    "melody": "Viis",
+    "melody": "Viisitüüp",
+    "parts": "Osad",
+    "quality": "Kvaliteet",
+    "similarity": "Sarnasus",
     "year": "Aasta",
     "instrument": "Pill",
     "performer": "Esitaja",
@@ -41,7 +44,8 @@
     "groupByYear": "Aastate lõikes",
     "groupByInstrument": "Pillide lõikes",
     "groupByParish": "Kihelkondade lõikes",
-    "groupByPiece": "Lugude lõikes"
+    "groupByPiece": "Lugude lõikes",
+    "count": "Erinevaid: {{count}}"
   },
   "view": {
     "recordings": {

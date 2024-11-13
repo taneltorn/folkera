@@ -1,6 +1,6 @@
 import React from 'react';
-import {Recording} from "../model/Recording.ts";
 import {FilteringOptions} from "../utils/filtering.helpers.ts";
+import {Recording} from "../../../domain/Recording.ts";
 
 export enum SortDirection {
     ASC,

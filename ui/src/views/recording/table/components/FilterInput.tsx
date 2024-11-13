@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {CloseButton, Input} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
 interface Properties {
     field: keyof Recording;

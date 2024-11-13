@@ -1,7 +1,8 @@
 import React from "react";
 import {Button, Group, Text} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../../../domain/Recording.ts";
+import {Color} from "../../../../utils/common.constants.ts";
 
 interface Properties {
     recording: Recording;
@@ -32,7 +33,9 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, color}) =
             {values.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
-                        color={`${color || "blue"}.${9 - i % 5}`}
+
+                        color={`${Color.get(field) || "gray"}.${9 - i % 5}`}
+                        // color={`${color || "blue"}.${9 - i % 5}`}
                         size={"compact-xs"}
                         onClick={() => handleClick(v)}>
                     <Text size={"xs"} className={"pill-button"}>

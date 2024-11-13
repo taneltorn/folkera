@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import axios from "axios";
 import {MapStats, StatsItem, StatsOptions} from "../model/Stats.ts";
-import {Recording} from "../model/Recording.ts";
+import {Recording} from "../../../domain/Recording.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -10,7 +10,7 @@ export const useStatsService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const fetchStats = async (data: Recording[], options: StatsOptions): Promise<StatsItem[]> => {
+    const fetchStats = async (data: Recording[] | any, options: StatsOptions): Promise<StatsItem[]> => {
         setIsLoading(true);
 
         return axios.post(`${API_URL}/api/stats`,

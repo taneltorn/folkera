@@ -1,7 +1,7 @@
 import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/common.helpers.tsx";
-import {Recording} from "../model/Recording.ts";
 import {ModificationsContext} from "../context/ModificationsContext.tsx";
+import {Recording} from "../../../domain/Recording.ts";
 
 interface Properties {
     children: React.ReactNode;

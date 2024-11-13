@@ -1,9 +1,9 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import {Group, Input, Table} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import {useClickOutside, useFocusTrap} from "@mantine/hooks";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
 interface Properties {
     recording: Recording;

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/common.helpers.tsx";
 import {DataFilteringContext, Filter, Sort, SortDirection} from "../context/DataFilteringContext.tsx";
-import {Recording} from "../model/Recording.ts";
+import {Recording} from "../../../domain/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {ItemsPerPageOptions, Years} from "../utils/common.lists.ts";
 import {extractAndSort, filter, sortByField, withBlankOptions} from "../utils/filtering.helpers.ts";
@@ -65,11 +65,15 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
     const filteringOptions = useMemo(() => ({
         piece: withBlankOptions(extractAndSort(data, "piece")),
         melody: withBlankOptions(extractAndSort(data, "melody")),
+        parts: withBlankOptions(extractAndSort(data, "parts", ",")),
         archive: extractAndSort(data, "archive"),
         instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
         performer: withBlankOptions(extractAndSort(data, "performer", ",")),
         collector: withBlankOptions(extractAndSort(data, "collector", ",")),
         location: withBlankOptions(extractAndSort(data, "location", ",")),
+        comments: withBlankOptions([]),
+        quality: withBlankOptions(extractAndSort(data, "quality", ",")),
+        similarity: withBlankOptions(extractAndSort(data, "similarity", ",")),
         // location: Parishes,
         year: Years,
     }), [data]);

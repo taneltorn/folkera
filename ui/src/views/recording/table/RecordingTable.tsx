@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Table,} from "@mantine/core";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import RecordingTableRow from "./components/RecordingTableRow.tsx";
@@ -17,34 +17,6 @@ const RecordingTable: React.FC<Properties> = () => {
     const {t} = useTranslation();
     const {activePage, itemsPerPage, filteredData, filteringOptions} = useDataFiltering();
     const {modifications} = useModifications();
-
-    const getData=()=>{
-        fetch('maps/ov.json'
-            ,{
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }
-        )
-            .then(function(response){
-                console.log(response)
-
-
-                return response.json();
-            })
-            .then(function(myJson) {
-
-                const features = myJson["features"];
-
-
-                const seto = features.find(f => f.properties.ONIMI === "Setomaa vald")
-
-            });
-    }
-    useEffect(()=>{
-        getData()
-    },[])
 
     return (
         <>
@@ -75,6 +47,27 @@ const RecordingTable: React.FC<Properties> = () => {
                                 field={"melody"}
                                 placeholder={t("recording.melody")}
                                 options={filteringOptions.melody}
+                            />
+                        </RecordingTableHeaderWrapper>
+                        <RecordingTableHeaderWrapper field={"parts"}>
+                            <FilterSelect
+                                field={"parts"}
+                                placeholder={t("recording.parts")}
+                                options={filteringOptions.parts}
+                            />
+                        </RecordingTableHeaderWrapper>
+                        <RecordingTableHeaderWrapper field={"quality"}>
+                            <FilterSelect
+                                field={"quality"}
+                                placeholder={t("recording.quality")}
+                                options={filteringOptions.quality}
+                            />
+                        </RecordingTableHeaderWrapper>
+                        <RecordingTableHeaderWrapper field={"similarity"}>
+                            <FilterSelect
+                                field={"similarity"}
+                                placeholder={t("recording.similarity")}
+                                options={filteringOptions.similarity}
                             />
                         </RecordingTableHeaderWrapper>
                         <RecordingTableHeaderWrapper field={"year"}>
@@ -126,9 +119,10 @@ const RecordingTable: React.FC<Properties> = () => {
                             />
                         </RecordingTableHeaderWrapper>
                         <RecordingTableHeaderWrapper field={"comments"}>
-                            <FilterInput
+                            <FilterSelect
                                 field={"comments"}
                                 placeholder={t("recording.comments")}
+                                options={filteringOptions.comments}
                             />
                         </RecordingTableHeaderWrapper>
                         <RecordingTableHeaderWrapper field={"file"}>

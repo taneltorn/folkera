@@ -8,6 +8,7 @@ import Home from "./views/Home.tsx";
 import Parishes from "./views/Parishes.tsx";
 import RecordingList from "./views/recording/RecordingList.tsx";
 import TempStats from "./views/TempStats.tsx";
+import NataliMap from "./views/natali/NataliMap.tsx";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "/tempstats",
                 element: <TempStats/>,
+            },
+            {
+                path: "/natali",
+                element: <NataliMap/>,
             }
         ]
     }

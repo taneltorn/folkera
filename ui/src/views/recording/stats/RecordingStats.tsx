@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useStatsService} from "../../../hooks/useStatsService.tsx";
 import {isEmpty} from "../../../utils/common.helpers.tsx";
-import {Box, Text} from "@mantine/core";
+import {Box, Group} from "@mantine/core";
 import {useStatsOptions} from "../../../hooks/useStatsOptions.tsx";
 import {StatsItem} from "../../../model/Stats.ts";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
@@ -9,6 +9,7 @@ import {useActiveView} from "../../../hooks/useActiveView.tsx";
 import {View} from "../../../context/ActiveViewContext.tsx";
 import Chart from "../../../components/Chart.tsx";
 import RecordingTableFiltersBar from "../controls/RecordingTableFiltersBar.tsx";
+import StatsCount from "./StatsCount.tsx";
 
 interface Properties {
 }
@@ -31,17 +32,15 @@ const RecordingStats: React.FC<Properties> = () => {
         if (isEmpty(filteredData)) {
             return;
         }
-        fetchStats(filteredData, options)
-            .then(r => {
-                console.log(r)
-                return r
-            })
-            .then(r => setStats(r));
+        fetchStats(filteredData, options).then(r => setStats(r));
     }, [filteredData, options]);
 
     return (
         <Box px={"md"} h={700}>
-            <RecordingTableFiltersBar/>
+            <Group justify={"space-between"}>
+                <RecordingTableFiltersBar/>
+                <StatsCount stats={stats}/>
+            </Group>
             <Chart data={stats} chartType={chartType} onElementClick={handleClick}/>
         </Box>
     );

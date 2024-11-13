@@ -1,7 +1,7 @@
 import React, {createRef, useContext, useMemo, useState} from 'react';
-import {Recording} from '../model/Recording';
 import {AudioContext} from "../context/AudioContext.tsx";
 import {isEmpty} from "../utils/common.helpers.tsx";
+import {Recording} from "../../../domain/Recording.ts";
 
 interface Properties {
     children: React.ReactNode;

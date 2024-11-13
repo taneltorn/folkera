@@ -17,6 +17,11 @@ const RecordingTableFiltersBar: React.FC = () => {
                 options={filteringOptions.piece}
             />
             <FilterSelect
+                field={"melody"}
+                placeholder={t("recording.melody")}
+                options={filteringOptions.melody}
+            />
+            <FilterSelect
                 field={"year"}
                 placeholder={t("recording.year")}
                 options={filteringOptions.year}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Recording} from "../model/Recording.ts";
+import {Recording} from "../../../domain/Recording.ts";
 
 export interface Properties {
     playerRef: any;

@@ -1,7 +1,7 @@
 import React from "react";
 import {MultiSelect} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
 interface Properties {
     field: keyof Recording;

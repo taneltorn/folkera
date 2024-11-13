@@ -6,11 +6,12 @@ import {MapStats} from "../../../model/Stats.ts";
 import {useActiveView} from "../../../hooks/useActiveView.tsx";
 import {View} from "../../../context/ActiveViewContext.tsx";
 import RecordingTableFiltersBar from "../controls/RecordingTableFiltersBar.tsx";
-import {Box} from "@mantine/core";
+import {Box, Group} from "@mantine/core";
 import {useMapOptions} from "../../../hooks/useMapOptions.tsx";
 import {MapType} from "../../../model/MapOptions.ts";
 import {DisplayError} from "../../../utils/common.helpers.tsx";
 import {CountyToParishMap} from "../../../utils/location.mappings.ts";
+import StatsCount from "../stats/StatsCount.tsx";
 
 interface Properties {
 }
@@ -51,12 +52,14 @@ const RecordingMap: React.FC<Properties> = () => {
                 setCountyLayers(countyData);
             })
             .finally(() => setIsLoading(false));
-
     }, [stats]);
 
     return (
         <Box px={"md"}>
-            <RecordingTableFiltersBar/>
+            <Group justify={"space-between"}>
+                <RecordingTableFiltersBar/>
+                <StatsCount stats={options.type === MapType.COUNTIES ? stats?.counties : stats?.parishes}/>
+            </Group>
 
             {stats &&
                 <MapTemplate

@@ -14,8 +14,11 @@ const Logo: React.FC = () => {
             px={0}
             variant={"transparent"}
             leftSection={<BsDiscFill size={Size.icon.LG}/>}>
-            <Text fz={24} ff={"Roboto"}>
-                {t("page.title")}
+            <Text fz={24}  ff={"Roboto"} >
+                Heli
+            </Text>
+            <Text fz={24} fw={"bold"} ff={"Roboto"}>
+                arhiiv
             </Text>
         </Button>);
 }

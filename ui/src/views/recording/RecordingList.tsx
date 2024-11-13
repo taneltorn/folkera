@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {DataFilteringContextProvider} from "../../hooks/useDataFiltering.tsx";
-import {Recording} from "../../model/Recording.ts";
 import {useDataService} from "../../hooks/useDataService.tsx";
 import {DisplayError} from "../../utils/common.helpers.tsx";
 import {useTranslation} from "react-i18next";
@@ -8,6 +7,7 @@ import {ModificationsContextProvider} from "../../hooks/useModifications.tsx";
 import {useLocation} from "react-router-dom";
 import {Filter} from "../../context/DataFilteringContext.tsx";
 import RecordingListContent from "./RecordingListContent.tsx";
+import {Recording} from "../../../../domain/Recording.ts";
 
 const RecordingList: React.FC = () => {
 

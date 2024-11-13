@@ -1,5 +1,4 @@
 import React from "react";
-import {Recording} from "../../../model/Recording.ts";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import {Button, Menu} from "@mantine/core";
 import {FaEyeSlash, FaRegEye} from "react-icons/fa";
@@ -7,6 +6,7 @@ import {Size} from "../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
 import {RecordingTableFields} from "../../../utils/common.lists.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
+import {Recording} from "../../../../../domain/Recording.ts";
 
 const VisibleFieldSelector: React.FC = () => {
 

@@ -1,4 +1,4 @@
-import {Recording} from "./Recording.ts";
+import {Recording} from "../../../domain/Recording.ts";
 
 export enum GroupBy {
     GROUP_BY_YEAR = "groupByYear",
