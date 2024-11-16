@@ -16,6 +16,7 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
     [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"] }],
     [GroupBy.GROUP_BY_PARISH, {groupBy: "location", transformers: ["splitByComma", "cutFromLessThanSign"], groups: ParishGroups }],
     [GroupBy.GROUP_BY_PIECE, {groupBy: "piece"}],
+    [GroupBy.GROUP_BY_QUALITY, {groupBy: "quality"}],
 ]);
 
 export const StatsOptionsContextProvider: React.FC<Properties> = ({children}) => {

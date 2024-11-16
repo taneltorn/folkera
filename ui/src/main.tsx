@@ -13,6 +13,7 @@ import {NotificationContextProvider} from "./hooks/useNotifications.tsx";
 import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
 import {StatsOptionsContextProvider} from "./hooks/useStatsOptions.tsx";
 import {MapOptionsContextProvider} from "./hooks/useMapOptions.tsx";
+import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 
 const theme = createTheme({
     fontFamily: 'Verdana, Montserrat, sans-serif',
@@ -37,11 +38,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <NotificationContextProvider>
             <AudioContextProvider>
                 <ActiveViewContextProvider>
+                    <ModificationsContextProvider>
                     <StatsOptionsContextProvider>
                         <MapOptionsContextProvider>
                             <AppRouter/>
                         </MapOptionsContextProvider>
                     </StatsOptionsContextProvider>
+                    </ModificationsContextProvider>
                 </ActiveViewContextProvider>
             </AudioContextProvider>
         </NotificationContextProvider>

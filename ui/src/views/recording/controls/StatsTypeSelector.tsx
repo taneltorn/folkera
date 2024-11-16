@@ -27,7 +27,8 @@ const StatsTypeSelector: React.FC = () => {
                 {[GroupBy.GROUP_BY_YEAR,
                     GroupBy.GROUP_BY_INSTRUMENT,
                     GroupBy.GROUP_BY_PARISH,
-                    GroupBy.GROUP_BY_PIECE
+                    GroupBy.GROUP_BY_PIECE,
+                    GroupBy.GROUP_BY_QUALITY,
                 ].map(((it, index) => (
                         <Menu.Item key={index} onClick={() => setGroupBy(it)}>
                             {t(`stats.${it}`)}

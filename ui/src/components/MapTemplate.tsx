@@ -37,7 +37,9 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
 
             let color = "#ccc";
             if (options.asHeatMap) {
+                // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - options.heatIntensity)]);
                 const scale = chroma.scale(['#FFE45E', '#9C0000']).domain([1, maxValue * (1 - options.heatIntensity)]);
+
                 // @ts-ignore
                 color = count === 0 ? "#fff" : scale(count).hex();
             }
@@ -67,7 +69,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
 
             layer.on('mouseover', () => {
                 layer.setStyle({
-                    fillColor: "orange",
+                    fillColor: "#FF7043",
                 });
             });
 
@@ -88,9 +90,15 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
                 style={{height: "100vh", width: "100%", zIndex: 10}}
             >
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
+                    subdomains={['a', 'b', 'c']}
+                    maxZoom={20}
                 />
+                {/*<TileLayer*/}
+                {/*    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"*/}
+                {/*    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/}
+                {/*/>*/}
                 {layers && (
                     <GeoJSON
                         key={geoJsonKey}

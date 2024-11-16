@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useStatsService} from "../hooks/useStatsService.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
-import { Box, Grid,  Table, TableTr} from "@mantine/core";
+import {Box, Grid, Table, TableTr, Text} from "@mantine/core";
 import {DisplayError, isEmpty} from "../utils/common.helpers.tsx";
 import {StatsItem} from "../model/Stats.ts";
 import {useTranslation} from "react-i18next";
@@ -42,6 +42,8 @@ const TempStatsContent: React.FC<{isLoading: boolean}> = ({isLoading}) => {
 
     return (
         <Box px={"md"}>
+            <Text>Kilu-Mari üle vaadata, pooleli</Text>
+            
             <LoadingOverlay isLoading={isLoading}>
 
                 <Grid>

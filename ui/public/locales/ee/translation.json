@@ -21,7 +21,7 @@
     "content": "Sisu",
     "piece": "Lugu",
     "melody": "Viisitüüp",
-    "parts": "Osad",
+    "parts": "Struktuur",
     "quality": "Kvaliteet",
     "similarity": "Sarnasus",
     "year": "Aasta",
@@ -32,7 +32,8 @@
     "notes": "Märkmed",
     "comments": "Kommentaar",
     "archive": "Kogu",
-    "file": "Fail"
+    "file": "Fail",
+    "search": "Otsing"
   },
   "map": {
     "parishes": "Kihelkondade lõikes",
@@ -45,6 +46,7 @@
     "groupByInstrument": "Pillide lõikes",
     "groupByParish": "Kihelkondade lõikes",
     "groupByPiece": "Lugude lõikes",
+    "groupByQuality": "Kvaliteedi lõikes",
     "count": "Erinevaid: {{count}}"
   },
   "view": {
