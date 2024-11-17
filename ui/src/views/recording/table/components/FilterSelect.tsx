@@ -2,6 +2,7 @@ import React from "react";
 import {MultiSelect} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {LuFilterX} from "react-icons/lu";
 
 interface Properties {
     field: keyof Recording;
@@ -17,6 +18,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
         <MultiSelect
             size={"xs"}
             maw={150}
+            className={filters.find(f => f.field === field) ? "active-input" : ""}
             placeholder={placeholder}
             searchable
             clearable
@@ -26,6 +28,9 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
             onChange={values => addFilter(field, values)}
             onClear={() => removeFilter(field)}
             data={options}
+            clearButtonProps={{
+                icon: <LuFilterX />
+            }}
         />
     );
 }

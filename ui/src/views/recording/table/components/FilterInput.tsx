@@ -3,6 +3,7 @@ import {CloseButton, Input} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {LuFilterX} from "react-icons/lu";
 
 interface Properties {
     field: keyof Recording;
@@ -40,13 +41,15 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
             size={"xs"}
             c={"red"}
             color={"red"}
+            className={filters.find(f => f.field === field) ? "active-input" : ""}
             value={value}
             placeholder={placeholder}
             onChange={e => handleSearch(e.currentTarget.value)}
             rightSectionPointerEvents="all"
             rightSection={
-                <CloseButton
-                    size={"xs"}
+                <LuFilterX
+                    size={16}
+                    color={"#495057"}
                     className={"hover-pointer"}
                     onClick={handleClear}
                     style={{display: value ? undefined : 'none'}}

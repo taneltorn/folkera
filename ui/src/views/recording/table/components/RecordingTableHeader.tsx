@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {Autocomplete, CloseButton} from "@mantine/core";
+import {Autocomplete, CloseButton, Text} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import RecordingTableHeaderWrapper from "./RecordingTableHeaderWrapper.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
     field: keyof Recording;
@@ -14,8 +15,9 @@ interface Properties {
 
 const RecordingTableHeader: React.FC<Properties> = ({field, sortField, placeholder, options}) => {
 
+    const {t} = useTranslation();
     const [value, setValue] = useState<string>("");
-    const {filters, addFilter, removeFilter} = useDataFiltering();
+    const { addFilter, removeFilter} = useDataFiltering();
 
     const handleSearch = (value: string) => {
         setValue(value);
@@ -33,21 +35,22 @@ const RecordingTableHeader: React.FC<Properties> = ({field, sortField, placehold
 
     return (
         <RecordingTableHeaderWrapper field={field} sortField={sortField}>
-            <Autocomplete
-                value={value}
-                placeholder={placeholder}
-                onChange={handleSearch}
-                data={options}
-                rightSectionPointerEvents="all"
-                rightSection={
-                    <CloseButton
-                        size={"xs"}
-                        className={"hover-pointer"}
-                        onClick={handleClear}
-                        style={{display: value ? undefined : 'none'}}
-                    />
-                }
-            />
+            <Text ms={"xs"} size={"sm"} fw={"bold"}>{t(`recording.${field}`)}</Text>
+            {/*<Autocomplete*/}
+            {/*    value={value}*/}
+            {/*    placeholder={placeholder}*/}
+            {/*    onChange={handleSearch}*/}
+            {/*    data={options}*/}
+            {/*    rightSectionPointerEvents="all"*/}
+            {/*    rightSection={*/}
+            {/*        <CloseButton*/}
+            {/*            size={"xs"}*/}
+            {/*            className={"hover-pointer"}*/}
+            {/*            onClick={handleClear}*/}
+            {/*            style={{display: value ? undefined : 'none'}}*/}
+            {/*        />*/}
+            {/*    }*/}
+            {/*/>*/}
         </RecordingTableHeaderWrapper>
     );
 }

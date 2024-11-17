@@ -42,6 +42,7 @@ a {
   padding: 2px;
   opacity: 0.7;
 }
+
 .leaflet-tooltip.parish-label {
   background-color: transparent;
   border: none;
@@ -55,4 +56,16 @@ a {
 
 .mantine-MultiSelect-pill {
   display: none;
+}
+
+.mantine-Input-input,
+.mantine-MultiSelect-input {
+  border-width: 2px;
+}
+
+.active-input {
+  .mantine-Input-input,
+  .mantine-MultiSelect-input {
+    border-color: var(--mantine-color-red-9) !important;
+  }
 }
