@@ -14,17 +14,19 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
 
     const {filters, addFilter, removeFilter} = useDataFiltering();
 
+    const value = filters
+        .filter(f => f.field === field)
+        .map(f => f.value as string);
+
     return (
         <MultiSelect
             size={"xs"}
             maw={150}
             className={filters.find(f => f.field === field) ? "active-input" : ""}
-            placeholder={placeholder}
+            placeholder={value?.length ? value.join(", ") : placeholder}
             searchable
             clearable
-            value={filters
-                .filter(f => f.field === field)
-                .map(f => f.value as string)}
+            value={value}
             onChange={values => addFilter(field, values)}
             onClear={() => removeFilter(field)}
             data={options}

@@ -9,6 +9,9 @@ import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {range} from "../../../../utils/common.helpers.tsx";
+import {CiStar} from "react-icons/ci";
+import {FaRegStar, FaStar} from "react-icons/fa";
 
 interface Properties {
     recording: Recording;
@@ -24,25 +27,25 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
 
     return (
         <Table.Tr ref={ref}>
-            <Table.Td hidden={hiddenFields.includes("ref")} py={0}>
+            <Table.Td  px={"xs"} py={0}>
+                <Button
+                    px={0}
+                    variant={"transparent"}
+                    title={recording.file ? recording.file: t(`view.recordings.table.fileNotFound`)}
+                    onClick={() => isPlaying && recording === track ? pause() : play(recording)}
+                >
+                    {!recording?.file
+                        ? <PiSpeakerSlashLight color={theme.colors.dark[1]} size={Size.icon.SM}/>
+                        : (track?.file === recording.file && isPlaying
+                            ? <span title={recording.file}><Audio color={theme.colors.red[9]}
+                                                                  visible={isPlaying}
+                                                                  height={Size.icon.MD}
+                                                                  width={Size.icon.XS}/></span>
+                            : <PiSpeakerHigh color={theme.colors.dark[9]}  size={Size.icon.SM}/>)}
+                </Button>
+            </Table.Td>
+            <Table.Td hidden={hiddenFields.includes("ref")} >
                 <Group wrap={"nowrap"}>
-                    <Button
-                        px={4}
-                        w={32}
-                        variant={"transparent"}
-                        title={recording.file ? recording.file: t(`view.recordings.table.fileNotFound`)}
-                        onClick={() => isPlaying && recording === track ? pause() : play(recording)}
-                    >
-                        {!recording?.file
-                            ? <PiSpeakerSlashLight color={theme.colors.dark[1]} size={Size.icon.SM}/>
-                            : (track?.file === recording.file && isPlaying
-                                ? <span title={recording.file}><Audio color={theme.colors.red[9]}
-                                         visible={isPlaying}
-                                         height={Size.icon.MD}
-                                         width={Size.icon.XS}/></span>
-                                : <PiSpeakerHigh color={theme.colors.dark[9]}  size={Size.icon.SM}/>)}
-                    </Button>
-
                     <Text size={"xs"}>
                         {recording.ref}
                     </Text>
@@ -78,6 +81,15 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
             </RecordingTableCell>
 
             <RecordingTableCell recording={recording} field={"quality"}>
+                {/*{recording.quality && <Group wrap={"nowrap"} gap={0}>*/}
+                {/*    {range(1, 5 - Number(recording.quality?.split("Q")[1])).map(_ => (*/}
+                {/*        <FaStar />*/}
+                {/*    ))}*/}
+                {/*    {range(1, Number(recording.quality?.split("Q")[1])).map(_ => (*/}
+                {/*        <FaRegStar  />*/}
+                {/*    ))}*/}
+                {/*</Group>}*/}
+
                 <FilterButtons
                     recording={recording}
                     field={"quality"}

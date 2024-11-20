@@ -1,5 +1,5 @@
 import React from "react";
-import {Table,} from "@mantine/core";
+import {Checkbox, Table} from "@mantine/core";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import RecordingTableRow from "./components/RecordingTableRow.tsx";
 import FilterInput from "./components/FilterInput.tsx";
@@ -23,6 +23,9 @@ const RecordingTable: React.FC<Properties> = () => {
             <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.75 : 1}>
                 <Table.Thead>
                     <Table.Tr>
+                        <Table.Th px={"xs"}>
+                            <Checkbox/>
+                        </Table.Th>
                         <RecordingTableHeaderWrapper field={"ref"} sortField={"order"}>
                             <FilterInput
                                 field={"ref"}

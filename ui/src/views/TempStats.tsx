@@ -42,8 +42,11 @@ const TempStatsContent: React.FC<{isLoading: boolean}> = ({isLoading}) => {
 
     return (
         <Box px={"md"}>
-            <Text>Kilu-Mari üle vaadata, pooleli</Text>
-            
+            <Text mb={"md"}>
+                Suboota, "neiuke", karoobuska, oirah, kikapuu, üks kaks, kask kasvas,
+
+            </Text>
+
             <LoadingOverlay isLoading={isLoading}>
 
                 <Grid>

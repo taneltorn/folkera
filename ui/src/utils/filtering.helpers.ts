@@ -55,7 +55,7 @@ export const filter = (data: Recording[], filters: Filter[]) => {
         isLike(r.notes, notes) &&
         is(r.archive, archive) &&
         isBetween(r.year, extract("year", filters)) &&
-        isIn(r.piece, extract("piece", filters)) &&
+        isOneOf(r.piece, extract("piece", filters)) &&
         isIn(r.melody, extract("melody", filters)) &&
         isIn(r.parts, extract("parts", filters)) &&
         isIn(r.instrument, extract("instrument", filters)) &&
@@ -162,16 +162,26 @@ export const isIn = (value: string | undefined, filters: string[], split?: strin
         }
         return value.toLowerCase().includes(filter.toLowerCase())
     });
+}
 
-    // return filters.some(filter => {
-    //     if (!filter.includes("<")) {
-    //         const fieldValues = partial === false
-    //             ? value.toLowerCase().split(/[<]+/).map(v => v.trim())
-    //             : value.toLowerCase().split(/[,<]+/).map(v => v.trim());
-    //         return filters.some(f => fieldValues.includes(f));
-    //     }
-    //     return value.toLowerCase().includes(filter.toLowerCase())
-    // });
+export const isOneOf = (value: string | undefined, filters: string[]) => {
+    if (!filters.length) {
+        return true;
+    }
+    if(filters[0] === "_blank") {
+        return !value;
+    }
+    if(filters[0] === "_not_blank") {
+        return !!value;
+    }
+
+    if (!value) {
+        return false;
+    }
+
+    return filters.some(filter => {
+        return value.toLowerCase() === filter.toLowerCase();
+    });
 }
 
 export const sortByField = (

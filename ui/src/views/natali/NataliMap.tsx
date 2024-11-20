@@ -72,8 +72,10 @@ const NataliMap: React.FC = () => {
             const scale = chroma.scale(['#FFE45E', '#9C0000']).domain([1, maxValue * (1 - 0.2)]);
             // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - 0.2)]);
 
-            let color = "orange";
-            let opacity = 0.2;
+            const valid = ["Karuse", "Mihkli", "Lihula", "Kirbla", "Vigala", "Kullamaa", "Martna", "Ridala"];
+            const isValid = valid.includes(location);
+            let color = "#1A237E";
+            let opacity = 0.072;
 
             if (showHeat) {
                 // @ts-ignore
@@ -159,6 +161,8 @@ const NataliMap: React.FC = () => {
                 style={{height: "100vh", width: "100%", zIndex: 10}}
             >
                 <TileLayer
+                    // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
                     subdomains={['a', 'b', 'c']}

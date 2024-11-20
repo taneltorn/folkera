@@ -60,6 +60,7 @@ a {
 
 .mantine-Input-input,
 .mantine-MultiSelect-input {
+  border-color: var(--mantine-color-gray-2);
   border-width: 2px;
 }
 
@@ -67,5 +68,14 @@ a {
   .mantine-Input-input,
   .mantine-MultiSelect-input {
     border-color: var(--mantine-color-red-9) !important;
+  }
+
+  ::placeholder {
+    color: var(--mantine-color-red-9);
+    opacity: 1;
+  }
+
+  ::-ms-input-placeholder {
+    color: var(--mantine-color-red-9);
   }
 }
