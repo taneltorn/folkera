@@ -12,10 +12,10 @@ import L from "leaflet";
 
 const s = 45;
 const customIcon = L.icon({
-    iconUrl: '2.png',
+    iconUrl: 'mm.png',
     // iconUrl: 'map-marker.png',
 
-    shadowSize: [20,20],
+    // shadowSize: [20,20],
     iconSize:     [s, s], // size of the icon
     // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
     // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -72,10 +72,11 @@ const NataliMap: React.FC = () => {
             const scale = chroma.scale(['#FFE45E', '#9C0000']).domain([1, maxValue * (1 - 0.2)]);
             // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - 0.2)]);
 
-            const valid = ["Karuse", "Mihkli", "Lihula", "Kirbla", "Vigala", "Kullamaa", "Martna", "Ridala"];
+            const valid = ["Lääne-Nigula", "Varbla", "Märjamaa", "Hanila", "Karuse", "Mihkli", "Lihula", "Kirbla", "Vigala", "Kullamaa", "Martna", "Ridala"];
             const isValid = valid.includes(location);
-            let color = "#1A237E";
-            let opacity = 0.072;
+            // const isValid = true;
+            let color = isValid ? "#9DC209" : "#999";
+            let opacity = isValid ? 1 : 0;
 
             if (showHeat) {
                 // @ts-ignore
@@ -108,7 +109,7 @@ const NataliMap: React.FC = () => {
                 setData(data);
             });
 
-        fetch(`/maps/natali.json`)
+        fetch(`/maps/natali2.json`)
             .then(response => response.json())
             .then(data => {
                 setLayers(data);

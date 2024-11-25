@@ -19,11 +19,13 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
     [GroupBy.GROUP_BY_QUALITY, {groupBy: "quality"}],
 ]);
 
+const DefaultGroupBy = GroupBy.GROUP_BY_PIECE;
+
 export const StatsOptionsContextProvider: React.FC<Properties> = ({children}) => {
 
-    const [groupBy, setGroupBy] = useState<GroupBy>(GroupBy.GROUP_BY_YEAR);
+    const [groupBy, setGroupBy] = useState<GroupBy>(DefaultGroupBy);
     const [chartType, setChartType] = useState<ChartType>(ChartType.BAR);
-    const [options, setOptions] = useState<StatsOptions>(StatsTypeToStatsOptions.get(GroupBy.GROUP_BY_YEAR)!);
+    const [options, setOptions] = useState<StatsOptions>(StatsTypeToStatsOptions.get(DefaultGroupBy)!);
 
     const handleGroupByChange = (groupBy: GroupBy) => {
         setGroupBy(groupBy);

@@ -43,7 +43,24 @@ const TempStatsContent: React.FC<{isLoading: boolean}> = ({isLoading}) => {
     return (
         <Box px={"md"}>
             <Text mb={"md"}>
-                Suboota, "neiuke", karoobuska, oirah, kikapuu, üks kaks, kask kasvas,
+                 "neiuke"
+                marupolka
+                vinne laul
+                tuljak/terve vald
+                palupõhja valss
+                pirupolka
+                Aala-ilja
+                Mustjala vaimulik
+                vurr-sahkadi
+                mulgi polka
+                saja lumeke
+                Padekaater/padigaater
+                tsingle polka
+                vändra polka
+                õrn ööbik
+                porilaste
+                minjon
+                lustilla
 
             </Text>
 
