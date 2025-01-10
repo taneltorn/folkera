@@ -37,7 +37,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <MantineProvider theme={theme}>
         <NotificationContextProvider>
             <AudioContextProvider>
-                <ActiveViewContextProvider>
                     <ModificationsContextProvider>
                     <StatsOptionsContextProvider>
                         <MapOptionsContextProvider>
@@ -45,7 +44,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         </MapOptionsContextProvider>
                     </StatsOptionsContextProvider>
                     </ModificationsContextProvider>
-                </ActiveViewContextProvider>
             </AudioContextProvider>
         </NotificationContextProvider>
     </MantineProvider>

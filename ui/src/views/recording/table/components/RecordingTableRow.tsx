@@ -9,9 +9,6 @@ import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
-import {range} from "../../../../utils/common.helpers.tsx";
-import {CiStar} from "react-icons/ci";
-import {FaRegStar, FaStar} from "react-icons/fa";
 
 interface Properties {
     recording: Recording;
@@ -27,7 +24,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
 
     return (
         <Table.Tr ref={ref}>
-            <Table.Td  px={"xs"} py={0}>
+            <Table.Td  py={0}>
                 <Button
                     px={0}
                     variant={"transparent"}
@@ -97,14 +94,22 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"similarity"}>
+            <RecordingTableCell recording={recording} field={"dance"}>
                 <FilterButtons
                     recording={recording}
-                    field={"similarity"}
+                    field={"dance"}
                     split={","}
                 />
             </RecordingTableCell>
 
+            <RecordingTableCell recording={recording} field={"datatype"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"datatype"}
+                    split={","}
+                />
+            </RecordingTableCell>
+            
             <RecordingTableCell recording={recording} field={"year"}>
                 <FilterButtons
                     recording={recording}

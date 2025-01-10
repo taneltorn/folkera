@@ -121,6 +121,8 @@ export const RecordingTableFields = [
     "parts",
     "quality",
     "similarity",
+    "dance",
+    "datatype",
     "year",
     "instrument",
     "performer",

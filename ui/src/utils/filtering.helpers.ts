@@ -46,25 +46,26 @@ export const filter = (data: Recording[], filters: Filter[]) => {
     const search = filters.find(f => f.field === "search")?.value?.toLowerCase().trim();
     const ref = filters.find(f => f.field === "ref")?.value?.toLowerCase().trim();
     const content = filters.find(f => f.field === "content")?.value?.toLowerCase().trim();
-    const archive = filters.find(f => f.field === "archive")?.value?.toLowerCase().trim();
     const notes = filters.find(f => f.field === "notes")?.value?.toLowerCase().trim();
 
     return data.filter(r =>
         isLike(r.ref, ref) &&
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
-        is(r.archive, archive) &&
         isBetween(r.year, extract("year", filters)) &&
         isOneOf(r.piece, extract("piece", filters)) &&
+        isIn(r.archive, extract("archive", filters)) &&
         isIn(r.melody, extract("melody", filters)) &&
         isIn(r.parts, extract("parts", filters)) &&
         isIn(r.instrument, extract("instrument", filters)) &&
+        isIn(r.dance, extract("dance", filters)) &&
+        isIn(r.datatype, extract("datatype", filters)) &&
         isIn(r.performer, extract("performer", filters)) &&
         isIn(r.collector, extract("collector", filters)) &&
         isIn(r.location, extract("location", filters), "<") &&
         isIn(r.comments, extract("comments", filters)) &&
+        isIn(r.file, extract("file", filters)) &&
         isIn(r.quality, extract("quality", filters)) &&
-        isIn(r.similarity, extract("similarity", filters)) &&
         (contains(r.ref, search)
             || contains(r.content, search)
             || contains(r.piece, search)

@@ -45,6 +45,11 @@ const RecordingTableFiltersBar: React.FC = () => {
                 placeholder={t("recording.collector")}
                 options={filteringOptions.collector}
             />
+            <FilterSelect
+                field={"datatype"}
+                placeholder={t("recording.datatype")}
+                options={filteringOptions.datatype}
+            />
         </Group>
     );
 }

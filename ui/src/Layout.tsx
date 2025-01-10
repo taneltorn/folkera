@@ -5,12 +5,15 @@ import {Notifications} from "@mantine/notifications";
 import Header from "./components/header/Header.tsx";
 import Footer from "./components/footer/Footer.tsx";
 import {useAudioPlayer} from "./hooks/useAudioContext.tsx";
+import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
 
 const Layout: React.FC = () => {
 
     const {track} = useAudioPlayer();
 
     return (
+        <ActiveViewContextProvider>
+        
         <AppShell
             py={"md"}
             layout={"default"}
@@ -34,6 +37,7 @@ const Layout: React.FC = () => {
                     <Footer/>
                 </AppShell.Footer>}
         </AppShell>
+        </ActiveViewContextProvider>
     );
 }
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {CloseButton, Input} from "@mantine/core";
+import {CloseButton, Input, useMantineTheme} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
 import {Recording} from "../../../../../../domain/Recording.ts";
@@ -12,9 +12,10 @@ interface Properties {
 
 const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
 
-    const [value, setValue] = useState<string>("");
-
+    const theme = useMantineTheme();
     const {filters, addFilter, removeFilter} = useDataFiltering();
+
+    const [value, setValue] = useState<string>("");
 
     const handleSearch = (value: string) => {
         setValue(value);
@@ -39,8 +40,6 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
         <Input
             miw={150}
             size={"xs"}
-            c={"red"}
-            color={"red"}
             className={filters.find(f => f.field === field) ? "active-input" : ""}
             value={value}
             placeholder={placeholder}
@@ -49,7 +48,7 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
             rightSection={
                 <LuFilterX
                     size={16}
-                    color={"#495057"}
+                    color={theme.colors.red[9]}
                     className={"hover-pointer"}
                     onClick={handleClear}
                     style={{display: value ? undefined : 'none'}}

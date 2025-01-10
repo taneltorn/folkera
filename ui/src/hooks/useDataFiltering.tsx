@@ -68,6 +68,8 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         parts: withBlankOptions(extractAndSort(data, "parts", ",")),
         archive: extractAndSort(data, "archive"),
         instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
+        dance: withBlankOptions(extractAndSort(data, "dance", ",")),
+        datatype: withBlankOptions(extractAndSort(data, "datatype", ",")),
         performer: withBlankOptions(extractAndSort(data, "performer", ",")),
         collector: withBlankOptions(extractAndSort(data, "collector", ",")),
         location: withBlankOptions(extractAndSort(data, "location", ",")),

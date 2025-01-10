@@ -7,6 +7,7 @@ import RecordingStats from "./stats/RecordingStats.tsx";
 import {useActiveView} from "../../hooks/useActiveView.tsx";
 import {View} from "../../context/ActiveViewContext.tsx";
 import RecordingTableViewBar from "./controls/RecordingTableViewBar.tsx";
+import RecordingTableFiltersBar from "./controls/RecordingTableFiltersBar.tsx";
 
 const RecordingListContent: React.FC = () => {
 
@@ -15,6 +16,11 @@ const RecordingListContent: React.FC = () => {
     return (
         <Box mb={75}>
             <RecordingTableControls/>
+            {/*<Group justify={"space-between"}>*/}
+            {/*    <RecordingTableFiltersBar/>*/}
+            {/*    <StatsCount stats={options.type === MapType.COUNTIES ? stats?.counties : stats?.parishes}/>*/}
+            {/*</Group>*/}
+
             <Divider my={"md"}/>
             <RecordingTableViewBar/>
 

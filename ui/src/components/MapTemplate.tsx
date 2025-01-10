@@ -87,7 +87,9 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
                 ref={mapContainerRef}
                 center={{lat: options.position.coords[0], lng: options.position.coords[1]}}
                 zoom={options.position.zoom}
-                style={{height: "100vh", width: "100%", zIndex: 10}}
+                minZoom={8}
+                maxZoom={10}
+                style={{height: "800px", width: "100%", zIndex: 10}}
             >
                 <TileLayer
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

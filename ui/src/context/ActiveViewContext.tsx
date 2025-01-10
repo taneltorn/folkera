@@ -1,9 +1,9 @@
 import React from 'react';
 
 export enum View {
-    TABLE,
-    MAP,
-    STATS,
+    TABLE = "table",
+    MAP = "map",
+    STATS = "stats",
 }
 
 export interface Properties {

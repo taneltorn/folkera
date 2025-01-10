@@ -6,6 +6,8 @@ export interface Recording {
     parts?: string;
     year?: string;
     instrument?: string;
+    dance?: string;
+    datatype?: string;
     performer?: string;
     location?: string;
     collector?: string;

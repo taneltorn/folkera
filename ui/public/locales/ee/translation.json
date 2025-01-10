@@ -24,6 +24,8 @@
     "parts": "Struktuur",
     "quality": "Kvaliteet",
     "similarity": "Sarnasus",
+    "datatype": "Andmetüüp",
+    "dance": "Tantsutüüp",
     "year": "Aasta",
     "instrument": "Pill",
     "performer": "Esitaja",

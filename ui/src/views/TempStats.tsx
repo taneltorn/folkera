@@ -51,16 +51,9 @@ const TempStatsContent: React.FC<{isLoading: boolean}> = ({isLoading}) => {
                 pirupolka
                 Aala-ilja
                 Mustjala vaimulik
-                vurr-sahkadi
                 mulgi polka
-                saja lumeke
                 Padekaater/padigaater
-                tsingle polka
-                vändra polka
-                õrn ööbik
                 porilaste
-                minjon
-                lustilla
 
             </Text>
 

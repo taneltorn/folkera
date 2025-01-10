@@ -36,12 +36,15 @@ const RecordingStats: React.FC<Properties> = () => {
     }, [filteredData, options]);
 
     return (
-        <Box px={"md"} h={700}>
+        <Box px={"md"} h={800}>
             <Group justify={"space-between"}>
-                <RecordingTableFiltersBar/>
-                <StatsCount stats={stats}/>
+                {/*<RecordingTableFiltersBar/>*/}
+                {/*<StatsCount stats={stats}/>*/}
             </Group>
+            {/*<StatsCount stats={stats}/>*/}
+            
             <Chart data={stats} chartType={chartType} onElementClick={handleClick}/>
+            
         </Box>
     );
 }

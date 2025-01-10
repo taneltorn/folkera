@@ -5,7 +5,6 @@ export enum GroupBy {
     GROUP_BY_INSTRUMENT = "groupByInstrument",
     GROUP_BY_PARISH = "groupByParish",
     GROUP_BY_PIECE = "groupByPiece",
-    GROUP_BY_QUALITY = "groupByQuality",
 }
 
 export enum ChartType {
@@ -31,6 +30,7 @@ export interface StatsOptions {
     groupBy: string;
     groups?: string[];
     transformers?: string[];
+    sort?: string;
 }
 
 export interface StatsRequest {

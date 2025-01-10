@@ -18,6 +18,7 @@ export const useStatsService = () => {
                 groupBy: options.groupBy,
                 transformers: options.transformers,
                 groups: options.groups,
+                sort: options.sort,
                 data: data,
             },
             {

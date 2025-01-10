@@ -8,7 +8,7 @@ export const DefaultMapOptions: MapOptions = {
     heatIntensity: 0.4,
     textSize: 12,
     position: {
-        coords: [58.41692230040431, 25.29367844509054],
+        coords: [58.61692230040431, 25.29367844509054],
         zoom: 8
     }
 }

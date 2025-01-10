@@ -8,6 +8,7 @@ import RecordingTablePagination from "./components/RecordingTablePagination.tsx"
 import {useModifications} from "../../../hooks/useModifications.tsx";
 import RecordingTableHeaderWrapper from "./components/RecordingTableHeaderWrapper.tsx";
 import FilterSelect from "./components/FilterSelect.tsx";
+import FilterBoolean from "./components/FilterBoolean.tsx";
 
 interface Properties {
 }
@@ -23,8 +24,10 @@ const RecordingTable: React.FC<Properties> = () => {
             <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.75 : 1}>
                 <Table.Thead>
                     <Table.Tr>
-                        <Table.Th px={"xs"}>
-                            <Checkbox/>
+                        <Table.Th >
+                            <FilterBoolean
+                                field={"file"}
+                            />
                         </Table.Th>
                         <RecordingTableHeaderWrapper field={"ref"} sortField={"order"}>
                             <FilterInput
@@ -66,11 +69,18 @@ const RecordingTable: React.FC<Properties> = () => {
                                 options={filteringOptions.quality}
                             />
                         </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"similarity"}>
+                        <RecordingTableHeaderWrapper field={"dance"}>
                             <FilterSelect
-                                field={"similarity"}
-                                placeholder={t("recording.similarity")}
-                                options={filteringOptions.similarity}
+                                field={"dance"}
+                                placeholder={t("recording.dance")}
+                                options={filteringOptions.dance}
+                            />
+                        </RecordingTableHeaderWrapper>
+                        <RecordingTableHeaderWrapper field={"datatype"}>
+                            <FilterSelect
+                                field={"datatype"}
+                                placeholder={t("recording.datatype")}
+                                options={filteringOptions.datatype}
                             />
                         </RecordingTableHeaderWrapper>
                         <RecordingTableHeaderWrapper field={"year"}>

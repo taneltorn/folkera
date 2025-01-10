@@ -1,5 +1,5 @@
 import React from "react";
-import {MultiSelect} from "@mantine/core";
+import {MultiSelect, useMantineTheme} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
 import {LuFilterX} from "react-icons/lu";
@@ -12,6 +12,7 @@ interface Properties {
 
 const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
 
+    const theme = useMantineTheme();
     const {filters, addFilter, removeFilter} = useDataFiltering();
 
     const value = filters
@@ -31,7 +32,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
             onClear={() => removeFilter(field)}
             data={options}
             clearButtonProps={{
-                icon: <LuFilterX />
+                icon: <LuFilterX color={theme.colors.red[9]} />
             }}
         />
     );
