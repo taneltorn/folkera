@@ -1,14 +1,10 @@
 import React, {useRef} from "react";
-import {Button, Group, Table, Text, useMantineTheme} from "@mantine/core";
-import {Audio} from "react-loader-spinner";
-import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
-import {Size} from "../../../../utils/common.constants.ts";
+import {Group, Table, Text} from "@mantine/core";
 import RecordingTableCell from "./RecordingTableCell.tsx";
-import FilterButtons from "./FilterButtons.tsx";
-import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
-import {useTranslation} from "react-i18next";
-import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
+import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 
 interface Properties {
     recording: Recording;
@@ -17,37 +13,19 @@ interface Properties {
 const RecordingTableRow: React.FC<Properties> = ({recording}) => {
 
     const ref = useRef<any>();
-    const {t} = useTranslation();
-    const theme = useMantineTheme();
-    const {track, isPlaying, play, pause} = useAudioPlayer();
-    const {hiddenFields} = useDataFiltering();
+    const {currentUser} = useAuth();
 
     return (
         <Table.Tr ref={ref}>
-            <Table.Td  py={0}>
-                <Button
-                    px={0}
-                    variant={"transparent"}
-                    title={recording.file ? recording.file: t(`view.recordings.table.fileNotFound`)}
-                    onClick={() => isPlaying && recording === track ? pause() : play(recording)}
-                >
-                    {!recording?.file
-                        ? <PiSpeakerSlashLight color={theme.colors.dark[1]} size={Size.icon.SM}/>
-                        : (track?.file === recording.file && isPlaying
-                            ? <span title={recording.file}><Audio color={theme.colors.red[9]}
-                                                                  visible={isPlaying}
-                                                                  height={Size.icon.MD}
-                                                                  width={Size.icon.XS}/></span>
-                            : <PiSpeakerHigh color={theme.colors.dark[9]}  size={Size.icon.SM}/>)}
-                </Button>
-            </Table.Td>
-            <Table.Td hidden={hiddenFields.includes("ref")} >
-                <Group wrap={"nowrap"}>
+            <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
+                <Group gap={"xs"}>
+                    {currentUser?.isUser && <PlayRecordingButton recording={recording}/>}
+
                     <Text size={"xs"}>
                         {recording.ref}
                     </Text>
                 </Group>
-            </Table.Td>
+            </RecordingTableCell>
 
             <RecordingTableCell recording={recording} field={"content"}>
                 <Text size={"xs"}>
@@ -78,15 +56,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
             </RecordingTableCell>
 
             <RecordingTableCell recording={recording} field={"quality"}>
-                {/*{recording.quality && <Group wrap={"nowrap"} gap={0}>*/}
-                {/*    {range(1, 5 - Number(recording.quality?.split("Q")[1])).map(_ => (*/}
-                {/*        <FaStar />*/}
-                {/*    ))}*/}
-                {/*    {range(1, Number(recording.quality?.split("Q")[1])).map(_ => (*/}
-                {/*        <FaRegStar  />*/}
-                {/*    ))}*/}
-                {/*</Group>}*/}
-
                 <FilterButtons
                     recording={recording}
                     field={"quality"}
@@ -109,7 +78,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                     split={","}
                 />
             </RecordingTableCell>
-            
+
             <RecordingTableCell recording={recording} field={"year"}>
                 <FilterButtons
                     recording={recording}

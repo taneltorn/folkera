@@ -2,19 +2,15 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import Navigation from "./Navigation.tsx";
 import Logo from "./Logo.tsx";
-import {Group, Text, useMantineTheme} from "@mantine/core";
-import {useNotifications} from "../../hooks/useNotifications.tsx";
-import CheckmarkAnimation from "../CheckmarkAnimation.tsx";
-import {NotificationType} from "../../context/NotificationContext.tsx";
-import {useModifications} from "../../hooks/useModifications.tsx";
-import {RiErrorWarningFill} from "react-icons/ri";
-import {Size} from "../../utils/common.constants.ts";
+import {Group, useMantineTheme} from "@mantine/core";
+import {useAuth} from "../../hooks/useAuth.tsx";
+import Login from "./Login.tsx";
+import Logout from "./Logout.tsx";
 
 const Header: React.FC = () => {
 
     const theme = useMantineTheme();
-    const {activeNotification} = useNotifications();
-    const {modifications} = useModifications();
+    const auth = useAuth();
 
     return (
         <Group justify={"space-between"} bg={theme.primaryColor[1]} px={"md"} py={"xs"}>
@@ -24,18 +20,10 @@ const Header: React.FC = () => {
                 </Link>
                 <Navigation/>
             </Group>
-
-            {activeNotification &&
-                <Group>
-                    {activeNotification.type === NotificationType.SUCCESS && <CheckmarkAnimation/>}
-                    <Text c={"green.9"}>{activeNotification.message}</Text>
-                </Group>}
-
-            {!activeNotification && modifications.length > 0 &&
-                <Group>
-                    <RiErrorWarningFill color={theme.colors.red[9]} size={Size.icon.MD} />
-                    <Text c={"red.9"}>{"Salvestamata muudatused"}</Text>
-                </Group>}
+            
+            <Group>
+                {!auth.currentUser?.email ? <Login/> : <Logout/>}
+            </Group>
         </Group>
     );
 }

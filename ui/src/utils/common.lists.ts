@@ -134,7 +134,7 @@ export const RecordingTableFields = [
     "file",
 ];
 
-export const ItemsPerPageOptions = [10, 25, 50];
+export const ItemsPerPageOptions = [10, 20, 50];
 
 export const Years = [
     {group: '1910 - 1919', items: ['1912', '1913', '1914', '1915', '1916', '1917', '1918', '1919']},

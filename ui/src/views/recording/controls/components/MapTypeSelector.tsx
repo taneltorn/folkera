@@ -1,10 +1,10 @@
 import React from "react";
 import {Button, Menu} from "@mantine/core";
-import {Size} from "../../../utils/common.constants.ts";
+import {Size} from "../../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {useMapOptions} from "../../../hooks/useMapOptions.tsx";
-import {MapType} from "../../../model/MapOptions.ts";
+import {useMapOptions} from "../../../../hooks/useMapOptions.tsx";
+import {MapType} from "../../../../model/MapOptions.ts";
 
 const MapTypeSelector: React.FC = () => {
 

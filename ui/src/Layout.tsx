@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom";
 import {AppShell, Divider} from "@mantine/core";
 import {Notifications} from "@mantine/notifications";
 import Header from "./components/header/Header.tsx";
-import Footer from "./components/footer/Footer.tsx";
+import BottomAudioPlayer from "./components/footer/BottomAudioPlayer.tsx";
 import {useAudioPlayer} from "./hooks/useAudioContext.tsx";
 import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
 
@@ -13,30 +13,24 @@ const Layout: React.FC = () => {
 
     return (
         <ActiveViewContextProvider>
-        
-        <AppShell
-            py={"md"}
-            layout={"default"}
-            // header={{height: 60}}
-        >
-            <Notifications position="top-right"/>
+            <AppShell
+                // py={"md"}
+                layout={"default"}
+                
+            >
+                <Notifications position="top-right"/>
 
-            {/*<AppShell.Header>*/}
-            {/*<Header/>*/}
-            {/*</AppShell.Header>*/}
+                <AppShell.Main>
+                    <Header/>
+                    <Divider mb={"md"}/>
 
-            <AppShell.Main>
-                <Header/>
-                <Divider mb={"md"}/>
+                    <Outlet/>
+                </AppShell.Main>
 
-                <Outlet/>
-            </AppShell.Main>
-
-            {track &&
                 <AppShell.Footer>
-                    <Footer/>
-                </AppShell.Footer>}
-        </AppShell>
+                    {track && <BottomAudioPlayer/>}
+                </AppShell.Footer>
+            </AppShell>
         </ActiveViewContextProvider>
     );
 }

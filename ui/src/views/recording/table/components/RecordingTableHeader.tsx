@@ -1,57 +1,27 @@
-import React, {useState} from "react";
-import {Autocomplete, CloseButton, Text} from "@mantine/core";
+import React, {ReactNode} from "react";
+import {Group, Table} from "@mantine/core";
+import SortButton from "./controls/SortButton.tsx";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
-import RecordingTableHeaderWrapper from "./RecordingTableHeaderWrapper.tsx";
-import useDebounce from "../../../../hooks/useDebounce.ts";
 import {Recording} from "../../../../../../domain/Recording.ts";
-import {useTranslation} from "react-i18next";
 
 interface Properties {
     field: keyof Recording;
     sortField?: keyof Recording;
-    placeholder?: string;
-    options?: any[];
+    children: ReactNode;
+    colSpan?: number;
 }
 
-const RecordingTableHeader: React.FC<Properties> = ({field, sortField, placeholder, options}) => {
+const RecordingTableHeader: React.FC<Properties> = ({field, sortField, colSpan, children}) => {
 
-    const {t} = useTranslation();
-    const [value, setValue] = useState<string>("");
-    const { addFilter, removeFilter} = useDataFiltering();
-
-    const handleSearch = (value: string) => {
-        setValue(value);
-        searchRequest();
-    };
-
-    const handleClear = () => {
-        setValue("");
-        removeFilter(field);
-    };
-
-    const searchRequest = useDebounce(() => {
-        addFilter(field, [value]);
-    });
+    const {hiddenFields} = useDataFiltering();
 
     return (
-        <RecordingTableHeaderWrapper field={field} sortField={sortField}>
-            <Text ms={"xs"} size={"sm"} fw={"bold"}>{t(`recording.${field}`)}</Text>
-            {/*<Autocomplete*/}
-            {/*    value={value}*/}
-            {/*    placeholder={placeholder}*/}
-            {/*    onChange={handleSearch}*/}
-            {/*    data={options}*/}
-            {/*    rightSectionPointerEvents="all"*/}
-            {/*    rightSection={*/}
-            {/*        <CloseButton*/}
-            {/*            size={"xs"}*/}
-            {/*            className={"hover-pointer"}*/}
-            {/*            onClick={handleClear}*/}
-            {/*            style={{display: value ? undefined : 'none'}}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*/>*/}
-        </RecordingTableHeaderWrapper>
+        <Table.Th hidden={hiddenFields.includes(field)} colSpan={colSpan || 1} >
+            <Group justify={"start"} wrap={"nowrap"} gap={4}>
+                <SortButton field={sortField || field}/>
+                {children}
+            </Group>
+        </Table.Th>
     );
 }
 

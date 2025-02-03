@@ -5,7 +5,7 @@ import {IoIosClose} from "react-icons/io";
 import {Size} from "../../utils/common.constants.ts";
 import AudioPlayer from "react-h5-audio-player";
 
-const Footer: React.FC = () => {
+const BottomAudioPlayer: React.FC = () => {
 
     const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
 
@@ -41,4 +41,4 @@ const Footer: React.FC = () => {
     );
 }
 
-export default Footer;
+export default BottomAudioPlayer;

@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Autocomplete, CloseButton, Input, useMantineTheme} from "@mantine/core";
-import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
-import useDebounce from "../../../../hooks/useDebounce.ts";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Input, useMantineTheme} from "@mantine/core";
+import {useDataFiltering} from "../../../../../hooks/useDataFiltering.tsx";
+import useDebounce from "../../../../../hooks/useDebounce.ts";
+import {Recording} from "../../../../../../../domain/Recording.ts";
 import {LuFilterX} from "react-icons/lu";
 
 interface Properties {
     field: keyof Recording;
     placeholder?: string;
-    options?: any[];
 }
 
-const FilterInputNew: React.FC<Properties> = ({field, placeholder, options}) => {
+const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
 
     const theme = useMantineTheme();
     const {filters, addFilter, removeFilter} = useDataFiltering();
@@ -36,22 +35,8 @@ const FilterInputNew: React.FC<Properties> = ({field, placeholder, options}) => 
         const filter = filters.find(f => f.field === field);
         setValue(filter?.value || "");
     }, [filters.find(f => f.field === field)]);
-    
-    const props = {
-        miw: 150,
-        size: "xs"
-    }
 
-    return (<>
-            options
-            ? 
-            <Autocomplete
-                
-                data={options}
-                {...props}
-            />
-            :
-            
+    return (
         <Input
             miw={150}
             size={"xs"}
@@ -70,9 +55,7 @@ const FilterInputNew: React.FC<Properties> = ({field, placeholder, options}) => 
                 />
             }
         />
-        </>
-        
     );
 }
 
-export default FilterInputNew;
+export default FilterInput;

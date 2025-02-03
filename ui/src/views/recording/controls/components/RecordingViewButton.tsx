@@ -1,14 +1,14 @@
 import React, {ReactNode} from "react";
 import {Button} from "@mantine/core";
-import {useActiveView} from "../../../hooks/useActiveView.tsx";
-import {View} from "../../../context/ActiveViewContext.tsx";
+import {useActiveView} from "../../../../hooks/useActiveView.tsx";
+import {View} from "../../../../context/ActiveViewContext.tsx";
 
 interface Properties {
     view: View;
     icon: ReactNode;
 }
 
-const ViewButton: React.FC<Properties> = ({view, icon}) => {
+const RecordingViewButton: React.FC<Properties> = ({view, icon}) => {
 
     const {activeView, setActiveView} = useActiveView();
 
@@ -25,4 +25,4 @@ const ViewButton: React.FC<Properties> = ({view, icon}) => {
     );
 }
 
-export default ViewButton;
+export default RecordingViewButton;

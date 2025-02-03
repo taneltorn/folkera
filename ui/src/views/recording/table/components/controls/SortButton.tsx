@@ -1,10 +1,10 @@
 import React from "react";
 import {Button, Group, useMantineTheme} from "@mantine/core";
-import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
+import {useDataFiltering} from "../../../../../hooks/useDataFiltering.tsx";
 import {RiSortAsc, RiSortDesc} from "react-icons/ri";
-import {Size} from "../../../../utils/common.constants.ts";
-import {SortDirection} from "../../../../context/DataFilteringContext.tsx";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Size} from "../../../../../utils/common.constants.ts";
+import {SortDirection} from "../../../../../context/DataFilteringContext.tsx";
+import {Recording} from "../../../../../../../domain/Recording.ts";
 
 interface Properties {
     field: keyof Recording;

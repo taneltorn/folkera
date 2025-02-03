@@ -7,8 +7,8 @@ import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx";
 import Parishes from "./views/Parishes.tsx";
 import RecordingList from "./views/recording/RecordingList.tsx";
-import TempStats from "./views/TempStats.tsx";
 import NataliMap from "./views/natali/NataliMap.tsx";
+import ClusterPlot from "./components/ClusterPlot.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,12 +24,12 @@ const router = createBrowserRouter([
                 element: <RecordingList/>,
             },
             {
-                path: "/map",
-                element: <Parishes/>,
+                path: "/clusters",
+                element: <ClusterPlot/>,
             },
             {
-                path: "/tempstats",
-                element: <TempStats/>,
+                path: "/map",
+                element: <Parishes/>,
             },
             {
                 path: "/natali",

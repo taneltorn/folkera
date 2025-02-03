@@ -1,12 +1,12 @@
 import React from "react";
 import {Button, Menu} from "@mantine/core";
-import {Size} from "../../../utils/common.constants.ts";
+import {Size} from "../../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {useStatsOptions} from "../../../hooks/useStatsOptions.tsx";
-import {GroupBy} from "../../../model/Stats.ts";
+import {useStatsOptions} from "../../../../hooks/useStatsOptions.tsx";
+import {GroupBy} from "../../../../model/Stats.ts";
 
-const StatsTypeSelector: React.FC = () => {
+const StatsGroupBySelector: React.FC = () => {
 
     const {t} = useTranslation();
     const {groupBy, setGroupBy} = useStatsOptions();
@@ -38,4 +38,4 @@ const StatsTypeSelector: React.FC = () => {
     );
 }
 
-export default StatsTypeSelector;
+export default StatsGroupBySelector;

@@ -8,6 +8,8 @@ import RecordingController from "./controller/RecordingController";
 import log4js from "log4js";
 import * as process from "process";
 import StatsController from "./controller/StatsController";
+import cookieParser from "cookie-parser";
+import AuthController from "./controller/AuthController";
 
 const app = express();
 const port = 4000;
@@ -22,11 +24,16 @@ logger.info(`Log level: ${process.env.LOG_LEVEL}`)
 logger.info(`Allowed origin: ${process.env.ALLOWED_ORIGIN}`)
 
 app.use(cors({
+    credentials: true,
     origin: process.env.ALLOWED_ORIGIN,
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(cookieParser());
+
+app.use('/auth', AuthController);
+
 
 const recordingController = new RecordingController();
 app.use('/api/recordings', recordingController.router);

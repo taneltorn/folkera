@@ -1,8 +1,7 @@
 import React from "react";
-import {Button, Group, Pagination, Text, useMantineTheme} from "@mantine/core";
+import {Button, Group, Pagination, useMantineTheme} from "@mantine/core";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {ItemsPerPageOptions} from "../../../../utils/common.lists.ts";
-import {useTranslation} from "react-i18next";
 
 interface Properties {
     totalItems: number;
@@ -10,9 +9,7 @@ interface Properties {
 
 const RecordingTablePagination: React.FC<Properties> = ({totalItems}) => {
 
-    const {t} = useTranslation();
     const theme = useMantineTheme();
-
     const {activePage, setActivePage, itemsPerPage, setItemsPerPage} = useDataFiltering();
 
     return (
@@ -32,9 +29,6 @@ const RecordingTablePagination: React.FC<Properties> = ({totalItems}) => {
                     >
                         {it}
                     </Button>))}
-                <Text ml={"md"}>
-                    {t("page.table.totalItems", {count: totalItems})}
-                </Text>
             </Group>
 
             <Pagination

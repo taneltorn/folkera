@@ -10,10 +10,10 @@ import "./i18n";
 import 'leaflet/dist/leaflet.css';
 import 'react-h5-audio-player/lib/styles.css';
 import {NotificationContextProvider} from "./hooks/useNotifications.tsx";
-import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
 import {StatsOptionsContextProvider} from "./hooks/useStatsOptions.tsx";
 import {MapOptionsContextProvider} from "./hooks/useMapOptions.tsx";
 import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
+import {AuthContextProvider} from "./hooks/useAuth.tsx";
 
 const theme = createTheme({
     fontFamily: 'Verdana, Montserrat, sans-serif',
@@ -35,17 +35,19 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <MantineProvider theme={theme}>
-        <NotificationContextProvider>
-            <AudioContextProvider>
+        <AuthContextProvider>
+            <NotificationContextProvider>
+                <AudioContextProvider>
                     <ModificationsContextProvider>
-                    <StatsOptionsContextProvider>
-                        <MapOptionsContextProvider>
-                            <AppRouter/>
-                        </MapOptionsContextProvider>
-                    </StatsOptionsContextProvider>
+                        <StatsOptionsContextProvider>
+                            <MapOptionsContextProvider>
+                                <AppRouter/>
+                            </MapOptionsContextProvider>
+                        </StatsOptionsContextProvider>
                     </ModificationsContextProvider>
-            </AudioContextProvider>
-        </NotificationContextProvider>
+                </AudioContextProvider>
+            </NotificationContextProvider>
+        </AuthContextProvider>
     </MantineProvider>
     // </React.StrictMode>,
 )

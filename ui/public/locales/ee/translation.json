@@ -8,13 +8,25 @@
       "totalItems": "Kokku: {{count}}",
       "noData": "Andmeid ei leitud."
     },
-    "sidebar": {
-      "navigation": {
-        "archive": "Tabel",
-        "map": "Kihelkonnad",
-        "tempstats": "Annoteerimine"
-      }
+    "navigation": {
+      "archive": "Pillilood",
+      "clusters": "Klasterkaart"
     }
+  },
+  "auth": {
+    "button": {
+      "login": "Logi sisse",
+      "logout": "Logi välja"
+    },
+    "form": {
+      "header": "Logi sisse",
+      "email": "Email",
+      "password": "Parool"
+    },
+    "login": "Logi sisse",
+    "logout": "Logi välja",
+    "email": "Email",
+    "password": "Parool"
   },
   "recording": {
     "ref": "Viide",
@@ -175,26 +187,6 @@
       "saveData": "Andmete salvestamine ebaõnnestus!"
     }
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "button": {
     "ok": "OK",
     "copy": "Kopeeri",
@@ -339,6 +331,7 @@
   },
   "field": {
     "required": "Väli on kohustuslik",
+    "invalidEmail": "Sisestatud email ei ole korrektne",
     "voiceExists": "Sellise nimega hääl on juba lisatud"
   },
   "stave": {

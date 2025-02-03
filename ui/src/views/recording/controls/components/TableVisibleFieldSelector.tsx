@@ -1,14 +1,14 @@
 import React from "react";
-import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
+import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Button, Menu} from "@mantine/core";
 import {FaEyeSlash, FaRegEye} from "react-icons/fa";
-import {Size} from "../../../utils/common.constants.ts";
+import {Size} from "../../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
-import {RecordingTableFields} from "../../../utils/common.lists.ts";
+import {RecordingTableFields} from "../../../../utils/common.lists.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {Recording} from "../../../../../domain/Recording.ts";
+import {Recording} from "../../../../../../domain/Recording.ts";
 
-const VisibleFieldSelector: React.FC = () => {
+const TableVisibleFieldSelector: React.FC = () => {
 
     const {t} = useTranslation();
     const {hiddenFields, toggleField} = useDataFiltering();
@@ -42,4 +42,4 @@ const VisibleFieldSelector: React.FC = () => {
     );
 }
 
-export default VisibleFieldSelector;
+export default TableVisibleFieldSelector;

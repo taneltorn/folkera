@@ -8,8 +8,6 @@ import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import {useActiveView} from "../../../hooks/useActiveView.tsx";
 import {View} from "../../../context/ActiveViewContext.tsx";
 import Chart from "../../../components/Chart.tsx";
-import RecordingTableFiltersBar from "../controls/RecordingTableFiltersBar.tsx";
-import StatsCount from "./StatsCount.tsx";
 
 interface Properties {
 }

@@ -1,14 +1,13 @@
 import React from "react";
-import {Checkbox, Table} from "@mantine/core";
+import {Table} from "@mantine/core";
 import {useDataFiltering} from "../../../hooks/useDataFiltering.tsx";
 import RecordingTableRow from "./components/RecordingTableRow.tsx";
-import FilterInput from "./components/FilterInput.tsx";
+import FilterInput from "./components/controls/FilterInput.tsx";
 import {useTranslation} from "react-i18next";
 import RecordingTablePagination from "./components/RecordingTablePagination.tsx";
 import {useModifications} from "../../../hooks/useModifications.tsx";
-import RecordingTableHeaderWrapper from "./components/RecordingTableHeaderWrapper.tsx";
-import FilterSelect from "./components/FilterSelect.tsx";
-import FilterBoolean from "./components/FilterBoolean.tsx";
+import RecordingTableHeader from "./components/RecordingTableHeader.tsx";
+import FilterSelect from "./components/controls/FilterSelect.tsx";
 
 interface Properties {
 }
@@ -21,129 +20,124 @@ const RecordingTable: React.FC<Properties> = () => {
 
     return (
         <>
-            <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.75 : 1}>
+            <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.5 : 1}>
                 <Table.Thead>
                     <Table.Tr>
-                        <Table.Th >
-                            <FilterBoolean
-                                field={"file"}
-                            />
-                        </Table.Th>
-                        <RecordingTableHeaderWrapper field={"ref"} sortField={"order"}>
+                        <RecordingTableHeader field={"ref"} sortField={"order"}>
                             <FilterInput
                                 field={"ref"}
                                 placeholder={t("recording.ref")}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"content"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"content"}>
                             <FilterInput
                                 field={"content"}
                                 placeholder={t("recording.content")}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"piece"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"piece"}>
                             <FilterSelect
                                 field={"piece"}
                                 placeholder={t("recording.piece")}
                                 options={filteringOptions.piece}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"melody"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"melody"}>
                             <FilterSelect
                                 field={"melody"}
                                 placeholder={t("recording.melody")}
                                 options={filteringOptions.melody}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"parts"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"parts"}>
                             <FilterSelect
                                 field={"parts"}
                                 placeholder={t("recording.parts")}
                                 options={filteringOptions.parts}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"quality"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"quality"}>
                             <FilterSelect
                                 field={"quality"}
                                 placeholder={t("recording.quality")}
                                 options={filteringOptions.quality}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"dance"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"dance"}>
                             <FilterSelect
                                 field={"dance"}
                                 placeholder={t("recording.dance")}
                                 options={filteringOptions.dance}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"datatype"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"datatype"}>
                             <FilterSelect
                                 field={"datatype"}
                                 placeholder={t("recording.datatype")}
                                 options={filteringOptions.datatype}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"year"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"year"}>
                             <FilterSelect
                                 field={"year"}
                                 placeholder={t("recording.year")}
                                 options={filteringOptions.year}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"instrument"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"instrument"}>
                             <FilterSelect
                                 field={"instrument"}
                                 placeholder={t("recording.instrument")}
                                 options={filteringOptions.instrument}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"performer"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"performer"}>
                             <FilterSelect
                                 field={"performer"}
                                 placeholder={t("recording.performer")}
                                 options={filteringOptions.performer}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"location"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"location"}>
                             <FilterSelect
                                 field={"location"}
                                 placeholder={t("recording.location")}
                                 options={filteringOptions.location}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"collector"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"collector"}>
                             <FilterSelect
                                 field={"collector"}
                                 placeholder={t("recording.collector")}
                                 options={filteringOptions.collector}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"archive"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"archive"}>
                             <FilterSelect
                                 field={"archive"}
                                 placeholder={t("recording.archive")}
                                 options={filteringOptions.archive}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"notes"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"notes"}>
                             <FilterInput
                                 field={"notes"}
                                 placeholder={t("recording.notes")}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"comments"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"comments"}>
                             <FilterSelect
                                 field={"comments"}
                                 placeholder={t("recording.comments")}
                                 options={filteringOptions.comments}
                             />
-                        </RecordingTableHeaderWrapper>
-                        <RecordingTableHeaderWrapper field={"file"}>
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"file"}>
                             <FilterInput
                                 field={"file"}
                                 placeholder={t("recording.file")}
                             />
-                        </RecordingTableHeaderWrapper>
+                        </RecordingTableHeader>
                     </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>

@@ -4,14 +4,16 @@ import {useClickOutside, useFocusTrap} from "@mantine/hooks";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 interface Properties {
     recording: Recording;
     field: keyof Recording;
     children: ReactNode;
+    unmodifiable?: boolean;
 }
 
-const RecordingTableCell: React.FC<Properties> = ({recording, field, children}) => {
+const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiable,children}) => {
 
     const ref = useClickOutside(() => handleChange());
 
@@ -20,6 +22,7 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, children}) 
     const focusTrapRef = useFocusTrap();
     const {hiddenFields, toggleField} = useDataFiltering();
     const {addModification} = useModifications();
+    const {currentUser} = useAuth();
 
     const handleChange = () => {
         if (recording[field] !== value) {
@@ -36,6 +39,9 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, children}) 
     };
 
     const handleEditClick = (e: any) => {
+        if (!currentUser?.isAdmin || unmodifiable) {
+            return;
+        }
         if (hiddenFields.includes(field)) {
             toggleField(field);
             return;
@@ -60,14 +66,13 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, children}) 
 
     return (
         <Table.Td
-            py={0}
+            py={"xs"}
             className={"hover-pointer"}
             hidden={hiddenFields.includes(field)}
             onClick={handleEditClick}
             style={{borderLeft: "1px solid #efefef"}}
         >
             {!hiddenFields.includes(field) && <>
-
                 {isEdit
                     ? <Group wrap={"nowrap"} gap={4} ref={ref} display={"flex"}>
                         <Input
