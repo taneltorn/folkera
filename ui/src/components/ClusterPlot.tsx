@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
-// import Plot from "react-plotly.js";
 import {Box, LoadingOverlay} from "@mantine/core";
-// import * as Plotly from "plotly.js";
 import {useAudioPlayer} from "../hooks/useAudioContext.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
 import {Recording} from "../../../domain/Recording.ts";
@@ -16,7 +14,7 @@ const markerSymbols = [
     "star", "hexagram", "pentagram", "hourglass", "bowtie",
 ];
 
-interface ClusterPlotData {
+interface ClusterData {
     x: number[];
     y: number[];
     label: string[];
@@ -36,6 +34,37 @@ const ClusterPlot: React.FC = () => {
     const [recordings, setRecordings] = useState<Recording[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const convertToPlotlyData = (data: ClusterData): Plotly.Data[] => {
+        const groupedData: { [key: string]: Plotly.Data } = {};
+
+        for (let i = 0; i < data.work_list.length; i++) {
+            const work = data.work_list[i];
+            if (!groupedData[work]) {
+                groupedData[work] = {
+                    work: work,
+                    x: [],
+                    y: [],
+                    mode: "markers",
+                    type: "scatter",
+                    name: work,
+                    marker: {
+                        size: 10,
+                        color: i,
+                        colorscale: "Viridis",
+                        symbol: markerSymbols[i % markerSymbols.length],
+                    },
+                    text: [],
+                    file: []
+                };
+            }
+
+            groupedData[work].x.push(data.x[i]);
+            groupedData[work].y.push(data.y[i]);
+            groupedData[work].text.push(data.label_list[i] + " | " + data.file_list[i]);
+        }
+
+        return Object.values(groupedData);
+    }
 
     useEffect(() => {
         console.log("fetching recordings");
@@ -53,29 +82,8 @@ const ClusterPlot: React.FC = () => {
         fetch("/cluster_data.json")
             .then((response) => response.json())
             // .then((json) => setData(json))
-            .then((json: ClusterPlotData) => {
-                const uniquePerformances = Array.from(new Set(json.label));
-                const data: Plotly.Data[] = uniquePerformances.map((label, index) => {
-                    const indices = json.label.map((lbl, i) => (lbl === label ? i : -1)).filter(i => i !== -1);
-
-                    return {
-                        x: indices.map(i => json.x[i]),
-                        y: indices.map(i => json.y[i]),
-                        mode: "markers",
-                        type: "scatter",
-                        name: json.work_list[indices[0]],
-                        marker: {
-                            size: 10,
-                            color: index,
-                            colorscale: "Viridis",
-                            symbol: markerSymbols[index % markerSymbols.length],
-                        },
-                        text: indices.map(i => json.label_list[i]),
-                        file: indices.map(i => json.file_list[i]),
-                    };
-                });
-
-                // @ts-ignore
+            .then((json: ClusterData) => {
+                const data = convertToPlotlyData(json);
                 data.sort((a, b) => a.name.localeCompare(b.name));
                 setData(data);
             })
@@ -85,12 +93,11 @@ const ClusterPlot: React.FC = () => {
 
     const handleClick = (event: any) => {
         if (event.points.length > 0) {
-            const recording = recordings.find(r => r.file === event.points[0].data.file[0]);
-
+            const file = event.points[0].text.split("|")[4]?.trim();
+            const recording = recordings.find(r => r.file === file);
             if (recording) {
                 isPlaying && recording === track ? pause() : play(recording)
             }
-
         }
     };
 

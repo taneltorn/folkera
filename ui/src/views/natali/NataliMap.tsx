@@ -12,8 +12,7 @@ import L from "leaflet";
 
 const s = 45;
 const customIcon = L.icon({
-    iconUrl: 'mm.png',
-    // iconUrl: 'map-marker.png',
+    iconUrl: 'map-marker.png',
 
     // shadowSize: [20,20],
     iconSize:     [s, s], // size of the icon
