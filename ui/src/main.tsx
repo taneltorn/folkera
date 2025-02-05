@@ -35,8 +35,8 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <MantineProvider theme={theme}>
-        <AuthContextProvider>
-            <NotificationContextProvider>
+        <NotificationContextProvider>
+            <AuthContextProvider>
                 <AudioContextProvider>
                     <ModificationsContextProvider>
                         <StatsOptionsContextProvider>
@@ -46,8 +46,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         </StatsOptionsContextProvider>
                     </ModificationsContextProvider>
                 </AudioContextProvider>
-            </NotificationContextProvider>
-        </AuthContextProvider>
+            </AuthContextProvider>
+        </NotificationContextProvider>
     </MantineProvider>
     // </React.StrictMode>,
 )

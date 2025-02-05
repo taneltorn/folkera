@@ -1,18 +1,22 @@
 import React from 'react';
+import {Size} from "../utils/common.constants.ts";
+import {RiErrorWarningFill} from "react-icons/ri";
+import {FaRegCheckCircle} from "react-icons/fa";
 
 export enum NotificationType {
+    INFO,
     SUCCESS,
-    FAILURE,
+    ERROR,
 }
 
-export interface Notification {
-    message: string;
-    type: NotificationType;
-}
+export const NotificationTypeFeatures = new Map([
+    [NotificationType.INFO, {color: 'blue', icon: <FaRegCheckCircle size={Size.icon.MD}/>}],
+    [NotificationType.SUCCESS, {color: 'green', icon: <FaRegCheckCircle size={Size.icon.MD}/>}],
+    [NotificationType.ERROR, {color: 'red', icon: <RiErrorWarningFill size={Size.icon.MD}/>}],
+]);
 
 export interface Properties {
-    activeNotification: Notification | undefined;
-    notify: (message: string, type: NotificationType) => void;
+    notify: (message: string, type?: NotificationType, error?: Error) => void;
 }
 
 export const NotificationContext = React.createContext<Properties>({} as Properties);

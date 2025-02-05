@@ -9,7 +9,6 @@ import {useDataService} from "../../../hooks/useDataService.tsx";
 import {useModifications} from "../../../hooks/useModifications.tsx";
 import {NotificationType} from "../../../context/NotificationContext.tsx";
 import {useNotifications} from "../../../hooks/useNotifications.tsx";
-import {DisplayError} from "../../../utils/common.helpers.tsx";
 import RecordingSearch from "./components/RecordingSearch.tsx";
 import RecordingFilters from "./components/RecordingFilters.tsx";
 
@@ -18,6 +17,7 @@ const RecordingTopControls: React.FC = () => {
     const {t} = useTranslation();
     const {
         filters,
+        filteredData,
         clearFilters,
     } = useDataFiltering();
 
@@ -30,9 +30,17 @@ const RecordingTopControls: React.FC = () => {
             .then(() => {
                 notify(t("toast.success.saveData"), NotificationType.SUCCESS)
             })
-            .catch(e => DisplayError(e, t("toast.error.saveData")));
+            .catch(e => notify(t("toast.error.saveData"), NotificationType.ERROR, e));
         clearModifications();
     };
+
+    const handleDataExport = () => {
+        exportData(filteredData, filters)
+            .then(() => {
+                notify(t("toast.success.exportData", {count: filteredData.length}))
+            })
+            .catch(e => notify(t("toast.error.exportData"), NotificationType.ERROR, e));
+    }
 
     return (
         <Group px={"md"} justify={"space-between"} bg={"white"} mb={"xs"}>
@@ -67,7 +75,7 @@ const RecordingTopControls: React.FC = () => {
                     size={"xs"}
                     color={"dark"}
                     leftSection={<FaFileExport size={Size.icon.SM}/>}
-                    onClick={exportData} px={"xs"} mx={0}>
+                    onClick={handleDataExport} px={"xs"} mx={0}>
                     {t("view.recordings.controls.export")}
                 </Button>
             </Group>

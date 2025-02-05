@@ -180,11 +180,16 @@
   },
   "toast": {
     "success": {
-      "saveData": "Andmed salvestatud!"
+      "saveData": "Andmed salvestatud",
+      "exportData": "{{count}} rida eksporditud"
     },
     "error": {
-      "fetchData": "Andmete laadimine ebaõnnestus!",
-      "saveData": "Andmete salvestamine ebaõnnestus!"
+      "fetchData": "Andmete laadimine ebaõnnestus",
+      "saveData": "Andmete salvestamine ebaõnnestus",
+      "exportData": "Andmete eksportimine ebaõnnestus",
+      "verifyToken": "Autentimine ebaõnnestus",
+      "login": "Sisselogimine ebaõnnestus",
+      "wrongCredentials": "Vale kasutajanimi/parool"
     }
   },
   "button": {

@@ -120,7 +120,6 @@ export const RecordingTableFields = [
     "melody",
     "parts",
     "quality",
-    "similarity",
     "dance",
     "datatype",
     "year",
@@ -150,19 +149,6 @@ export const Years = [
         group: 'Periood',
         items: ['1910 - 1919', '1920 - 1929', '1930 - 1939', '1940 - 1949', '1950 - 1959', '1960 - 1969', '1970 - 1979', '1980 - 1989', '1990 - 1999']
     },
-];
-
-export const Melodies = [
-    "I",
-    "II",
-    "III",
-    "IV",
-    "V",
-    "VI",
-    "VII",
-    "VIII",
-    "IX",
-    "X",
 ];
 
 export const ParishGroups = [

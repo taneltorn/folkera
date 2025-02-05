@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Box, LoadingOverlay} from "@mantine/core";
+import {Box, Group, LoadingOverlay, Select} from "@mantine/core";
 import {useAudioPlayer} from "../hooks/useAudioContext.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
 import {Recording} from "../../../domain/Recording.ts";
-import {DisplayError} from "../utils/common.helpers.tsx";
 import {useTranslation} from "react-i18next";
 
 import Plot from "react-plotly.js";
-import Plotly from "plotly.js-dist-min";
+import Plotly from "plotly.js";
+import {useNotifications} from "../hooks/useNotifications.tsx";
+import {NotificationType} from "../context/NotificationContext.tsx";
+
+const clusterMaps = ["cluster_data.json", "cluster_data-testset.json"];
 
 const markerSymbols = [
     "circle", "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
@@ -29,19 +32,18 @@ const ClusterPlot: React.FC = () => {
     const {t} = useTranslation();
     const {track, isPlaying, play, pause} = useAudioPlayer();
     const {fetchData, cancelSource} = useDataService();
+    const {notify} = useNotifications();
 
     const [data, setData] = useState<Plotly.Data[]>();
     const [recordings, setRecordings] = useState<Recording[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const convertToPlotlyData = (data: ClusterData): Plotly.Data[] => {
-        const groupedData: { [key: string]: Plotly.Data } = {};
+        const groupedData: { [key: string]: any } = {};
 
-        for (let i = 0; i < data.work_list.length; i++) {
-            const work = data.work_list[i];
+        data.work_list.forEach((work, i) => {
             if (!groupedData[work]) {
                 groupedData[work] = {
-                    work: work,
                     x: [],
                     y: [],
                     mode: "markers",
@@ -54,41 +56,43 @@ const ClusterPlot: React.FC = () => {
                         symbol: markerSymbols[i % markerSymbols.length],
                     },
                     text: [],
-                    file: []
                 };
             }
 
             groupedData[work].x.push(data.x[i]);
             groupedData[work].y.push(data.y[i]);
             groupedData[work].text.push(data.label_list[i] + " | " + data.file_list[i]);
-        }
+        });
 
         return Object.values(groupedData);
     }
 
     useEffect(() => {
-        console.log("fetching recordings");
         fetchData()
             .then(setRecordings)
-            .catch(e => DisplayError(e, t("toast.error.fetchData")));
+            .catch(e => notify(t("toast.error.fetchData"), NotificationType.ERROR, e));
 
         return () => {
             cancelSource.cancel('Operation canceled by the user.');
         };
     }, []);
 
-    useEffect(() => {
-        setIsLoading(true);
-        fetch("/cluster_data.json")
+    const fetchClusterData = (file: string) => {
+        fetch(`/${file}`)
             .then((response) => response.json())
-            // .then((json) => setData(json))
             .then((json: ClusterData) => {
                 const data = convertToPlotlyData(json);
+                // @ts-ignore
                 data.sort((a, b) => a.name.localeCompare(b.name));
                 setData(data);
             })
             .catch((error) => console.error("Error loading cluster data:", error))
             .finally(() => setIsLoading(false));
+    }
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetchClusterData("cluster_data.json");
     }, []);
 
     const handleClick = (event: any) => {
@@ -103,6 +107,15 @@ const ClusterPlot: React.FC = () => {
 
     return (
         <Box px={"md"}>
+            <Group>
+                <Select data={clusterMaps} defaultValue={"cluster_data.json"}
+                        onChange={(value) => {
+                            if (value) {
+                                fetchClusterData(value)
+                            }
+                        }}
+                />
+            </Group>
             <Plot
                 data={data || []}
                 onClick={handleClick}
@@ -113,9 +126,13 @@ const ClusterPlot: React.FC = () => {
                     autosize: true,
                     xaxis: {
                         visible: false,
+
+                        uirevision: 'time',
                     },
                     yaxis: {
                         visible: false,
+
+                        uirevision: 'time',
                     }
                 }}
                 style={{width: "100%", height: "800px"}}

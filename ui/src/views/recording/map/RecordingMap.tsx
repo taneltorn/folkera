@@ -8,18 +8,22 @@ import {View} from "../../../context/ActiveViewContext.tsx";
 import {Box} from "@mantine/core";
 import {useMapOptions} from "../../../hooks/useMapOptions.tsx";
 import {MapType} from "../../../model/MapOptions.ts";
-import {DisplayError} from "../../../utils/common.helpers.tsx";
 import {CountyToParishMap} from "../../../utils/location.mappings.ts";
+import {useNotifications} from "../../../hooks/useNotifications.tsx";
+import {useTranslation} from "react-i18next";
+import {NotificationType} from "../../../context/NotificationContext.tsx";
 
 interface Properties {
 }
 
 const RecordingMap: React.FC<Properties> = () => {
 
+    const {t} = useTranslation();
     const {addFilter} = useDataFiltering();
     const {setActiveView} = useActiveView();
     const {fetchMapStats} = useStatsService();
     const {filteredData} = useDataFiltering();
+    const {notify} = useNotifications();
 
     const [stats, setStats] = useState<MapStats>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,7 +41,7 @@ const RecordingMap: React.FC<Properties> = () => {
         setIsLoading(true);
         fetchMapStats(filteredData)
             .then(r => setStats(r))
-            .catch(e => DisplayError(e, "Failed to get stats"))
+            .catch(e => notify(t("toast.error.fetchStats"), NotificationType.ERROR, e))
     }, [filteredData]);
 
     useEffect(() => {

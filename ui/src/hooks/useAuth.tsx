@@ -1,10 +1,10 @@
 import React, {ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {useTranslation} from "react-i18next";
 import {AuthContext} from "../context/AuthContext.tsx";
-import { UserDetails } from '../model/UserDetails.ts';
-import { UserRole } from '../../../domain/User.ts';
-import {DisplayError} from "../utils/common.helpers.tsx";
-
+import {UserDetails} from '../model/UserDetails.ts';
+import {UserRole} from '../../../domain/User.ts';
+import {NotificationType} from "../context/NotificationContext.tsx";
+import {useNotifications} from "./useNotifications.tsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,6 +15,7 @@ interface AuthProviderProps {
 export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const {t} = useTranslation();
+    const {notify} = useNotifications();
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<UserDetails | null>();
 
@@ -44,7 +45,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
                 }
             })
             .catch(e => {
-                DisplayError(e, t("toast.error.message"));
+                notify(t("toast.error.login"), NotificationType.ERROR, e);
                 setCurrentUser(null);
             });
     }
@@ -57,8 +58,6 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
             });
             setCurrentUser(null);
         } catch (e) {
-            // todo
-            // DisplayError(e, t("toast.error.message"));
             setCurrentUser(null);
         }
     }
@@ -81,7 +80,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
                 }
             })
             .catch(e => {
-                DisplayError(e, t("toast.error.message"));
+                notify(t("toast.error.verifyToken"), NotificationType.ERROR, e);
                 setCurrentUser(null);
             });
     }

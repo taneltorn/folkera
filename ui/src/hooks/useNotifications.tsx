@@ -1,6 +1,11 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {useContext, useMemo} from 'react';
 import {isEmpty} from "../utils/common.helpers.tsx";
-import {NotificationContext, Notification, NotificationType} from "../context/NotificationContext.tsx";
+import {
+    NotificationContext,
+    NotificationType,
+    NotificationTypeFeatures
+} from "../context/NotificationContext.tsx";
+import {notifications} from "@mantine/notifications";
 
 interface Properties {
     children: React.ReactNode;
@@ -8,20 +13,23 @@ interface Properties {
 
 export const NotificationContextProvider: React.FC<Properties> = ({children}) => {
 
-    const [activeNotification, setActiveNotification] = useState<Notification>();
-
-    const notify = (message: string, type: NotificationType) => {
-        setActiveNotification({
-            message: message,
-            type: type
+    const notify = (message: string, type?: NotificationType, error?: Error) => {
+        if (error) {
+            console.error(error);
+        }
+        notifications.show({
+            color: NotificationTypeFeatures.get(type || NotificationType.INFO)?.color,
+            message: error ? `${message}: ${error.message}` : message,
+            p: "md",
+            radius: "sm",
+            withBorder: true,
+            icon: NotificationTypeFeatures.get(type || NotificationType.INFO)?.icon,
         });
-        setTimeout(() => setActiveNotification(undefined), 2000);
     }
 
     const context = useMemo(() => ({
-        activeNotification,
         notify,
-    }), [activeNotification]);
+    }), []);
 
     return (
         <NotificationContext.Provider value={context}>

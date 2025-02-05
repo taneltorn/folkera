@@ -18,7 +18,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
     return (
         <Table.Tr ref={ref}>
             <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
-                <Group gap={"xs"}>
+                <Group gap={"xs"} wrap={"nowrap"}>
                     {currentUser?.isUser && <PlayRecordingButton recording={recording}/>}
 
                     <Text size={"xs"}>
