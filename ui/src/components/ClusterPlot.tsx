@@ -14,11 +14,15 @@ import chroma from "chroma-js";
 const clusterMaps = [
     {
         name: "Folk150",
-        "file": "folk150.json"
+        "file": "cluster-maps/folk150.json"
     },
     {
         name: "Folk150_TESTSET",
-        "file": "cluster_data-testset.json"
+        "file": "cluster-maps/folk150_testset.json"
+    },
+    {
+        name: "Folk",
+        "file": "cluster-maps/all.json"
     }
 ];
 
@@ -34,7 +38,6 @@ interface ClusterData {
     work_list: string[];
     perf_list: string[];
     label_list: string[];
-    file_list: string[];
 }
 
 const ClusterPlot: React.FC = () => {
@@ -74,7 +77,7 @@ const ClusterPlot: React.FC = () => {
 
             groupedData[work].x.push(data.x[i]);
             groupedData[work].y.push(data.y[i]);
-            groupedData[work].text.push(data.label_list[i] + " | " + data.file_list[i]);
+            groupedData[work].text.push(data.label_list[i]);
         });
 
         colors = chroma.scale("YlGnBu").colors(numberOfColors);
@@ -92,7 +95,7 @@ const ClusterPlot: React.FC = () => {
                 color: colors[100],
                 symbol: "star",
             },
-            text: data.label_list.map((label, i) => label + " | " + data.file_list[i]),
+            text: data.label_list,
         })
 
 
