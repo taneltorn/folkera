@@ -9,8 +9,18 @@ import Plot from "react-plotly.js";
 import Plotly from "plotly.js";
 import {useNotifications} from "../hooks/useNotifications.tsx";
 import {NotificationType} from "../context/NotificationContext.tsx";
+import chroma from "chroma-js";
 
-const clusterMaps = ["cluster_data.json", "cluster_data-testset.json"];
+const clusterMaps = [
+    {
+        name: "Folk150",
+        "file": "cluster_data.json"
+    },
+    {
+        name: "Folk150_TESTSET",
+        "file": "cluster_data-testset.json"
+    }
+];
 
 const markerSymbols = [
     "circle", "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
@@ -40,6 +50,10 @@ const ClusterPlot: React.FC = () => {
 
     const convertToPlotlyData = (data: ClusterData): Plotly.Data[] => {
         const groupedData: { [key: string]: any } = {};
+        const numberOfColors = (new Set(data.work_list)).size;
+        let colors = chroma.scale("GnBu").colors(numberOfColors);
+
+        colors = chroma.scale(['#999', 'black']).colors(numberOfColors);
 
         data.work_list.forEach((work, i) => {
             if (!groupedData[work]) {
@@ -51,8 +65,7 @@ const ClusterPlot: React.FC = () => {
                     name: work,
                     marker: {
                         size: 10,
-                        color: i,
-                        colorscale: "Viridis",
+                        color: colors[i % colors.length],
                         symbol: markerSymbols[i % markerSymbols.length],
                     },
                     text: [],
@@ -64,7 +77,26 @@ const ClusterPlot: React.FC = () => {
             groupedData[work].text.push(data.label_list[i] + " | " + data.file_list[i]);
         });
 
-        return Object.values(groupedData);
+        colors = chroma.scale("YlGnBu").colors(numberOfColors);
+
+        const array = Object.values(groupedData);
+
+        array.push({
+            x: [data.x[0]],
+            y: [data.y[0]],
+            mode: "markers",
+            type: "scatter",
+            name: "All",
+            marker: {
+                size: 266,
+                color: colors[100],
+                symbol: "star",
+            },
+            text: data.label_list.map((label, i) => label + " | " + data.file_list[i]),
+        })
+
+
+        return array
     }
 
     useEffect(() => {
@@ -108,12 +140,15 @@ const ClusterPlot: React.FC = () => {
     return (
         <Box px={"md"}>
             <Group>
-                <Select data={clusterMaps} defaultValue={"cluster_data.json"}
-                        onChange={(value) => {
-                            if (value) {
-                                fetchClusterData(value)
-                            }
-                        }}
+                <Select
+                    data={clusterMaps.map(c => c.name)} 
+                    defaultValue={clusterMaps[0].name}
+                    onChange={(value) => {
+                        const file = clusterMaps.find(c => c.name === value)?.file;
+                        if (file) {
+                            fetchClusterData(file);
+                        }
+                    }}
                 />
             </Group>
             <Plot
@@ -126,13 +161,12 @@ const ClusterPlot: React.FC = () => {
                     autosize: true,
                     xaxis: {
                         visible: false,
-
                         uirevision: 'time',
                     },
                     yaxis: {
                         visible: false,
-
                         uirevision: 'time',
+
                     }
                 }}
                 style={{width: "100%", height: "800px"}}

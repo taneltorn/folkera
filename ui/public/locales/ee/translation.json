@@ -31,11 +31,8 @@
   "recording": {
     "ref": "Viide",
     "content": "Sisu",
-    "piece": "Lugu",
-    "melody": "Viisitüüp",
-    "parts": "Struktuur",
+    "tune": "Viis",
     "quality": "Kvaliteet",
-    "similarity": "Sarnasus",
     "datatype": "Andmetüüp",
     "dance": "Tantsutüüp",
     "year": "Aasta",
@@ -47,6 +44,7 @@
     "comments": "Kommentaar",
     "archive": "Kogu",
     "file": "Fail",
+    "duration": "Kestus",
     "search": "Otsing"
   },
   "map": {
@@ -59,7 +57,7 @@
     "groupByYear": "Aastate lõikes",
     "groupByInstrument": "Pillide lõikes",
     "groupByParish": "Kihelkondade lõikes",
-    "groupByPiece": "Lugude lõikes",
+    "groupByTune": "Lugude lõikes",
     "groupByQuality": "Kvaliteedi lõikes",
     "count": "Erinevaid: {{count}}"
   },

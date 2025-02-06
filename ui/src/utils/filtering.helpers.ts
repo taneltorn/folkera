@@ -53,10 +53,8 @@ export const filter = (data: Recording[], filters: Filter[]) => {
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
         isBetween(r.year, extract("year", filters)) &&
-        isOneOf(r.piece, extract("piece", filters)) &&
+        isOneOf(r.tune, extract("tune", filters)) &&
         isIn(r.archive, extract("archive", filters)) &&
-        isIn(r.melody, extract("melody", filters)) &&
-        isIn(r.parts, extract("parts", filters)) &&
         isIn(r.instrument, extract("instrument", filters)) &&
         isIn(r.dance, extract("dance", filters)) &&
         isIn(r.datatype, extract("datatype", filters)) &&
@@ -68,8 +66,7 @@ export const filter = (data: Recording[], filters: Filter[]) => {
         isIn(r.quality, extract("quality", filters)) &&
         (contains(r.ref, search)
             || contains(r.content, search)
-            || contains(r.piece, search)
-            || contains(r.melody, search)
+            || contains(r.tune, search)
             || contains(r.archive, search)
             || contains(r.year, search)
             || contains(r.instrument, search)

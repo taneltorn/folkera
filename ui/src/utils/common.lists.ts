@@ -116,21 +116,20 @@ export const Parishes = [
 export const RecordingTableFields = [
     "ref",
     "content",
-    "piece",
-    "melody",
-    "parts",
-    "quality",
+    "tune",
     "dance",
-    "datatype",
     "year",
     "instrument",
     "performer",
     "location",
     "collector",
     "notes",
-    "comments",
     "archive",
     "file",
+    "duration",
+    "quality",
+    "datatype",
+    "comments",
 ];
 
 export const ItemsPerPageOptions = [10, 20, 50];

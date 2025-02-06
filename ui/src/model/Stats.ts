@@ -4,7 +4,7 @@ export enum GroupBy {
     GROUP_BY_YEAR = "groupByYear",
     GROUP_BY_INSTRUMENT = "groupByInstrument",
     GROUP_BY_PARISH = "groupByParish",
-    GROUP_BY_PIECE = "groupByPiece",
+    GROUP_BY_TUNE = "groupByTune",
 }
 
 export enum ChartType {

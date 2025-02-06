@@ -30,7 +30,7 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split}) => {
     return (
         <Group gap={4}>
             {/* @ts-ignore*/}
-            {values.filter(v => !!v).map((v, i) => (
+            {values?.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
                         color={`${Color.get(field) || "gray"}.${9 - i % 5}`}

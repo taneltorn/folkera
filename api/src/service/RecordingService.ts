@@ -124,7 +124,7 @@ export const Parishes = [
 class RecordingService {
 
     private logger = log4js.getLogger("RecordingService");
-    private dataFile = "Heliarhiiv - export.csv";
+    private dataFile = "pillilood.csv";
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;

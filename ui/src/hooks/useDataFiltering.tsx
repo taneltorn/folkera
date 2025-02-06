@@ -63,9 +63,7 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
 
 
     const filteringOptions = useMemo(() => ({
-        piece: withBlankOptions(extractAndSort(data, "piece")),
-        melody: withBlankOptions(extractAndSort(data, "melody")),
-        parts: withBlankOptions(extractAndSort(data, "parts", ",")),
+        tune: withBlankOptions(extractAndSort(data, "tune")),
         archive: extractAndSort(data, "archive"),
         instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
         dance: withBlankOptions(extractAndSort(data, "dance", ",")),
@@ -75,7 +73,6 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         location: withBlankOptions(extractAndSort(data, "location", ",")),
         comments: withBlankOptions([]),
         quality: withBlankOptions(extractAndSort(data, "quality", ",")),
-        similarity: withBlankOptions(extractAndSort(data, "similarity", ",")),
         // location: Parishes,
         year: Years,
     }), [data]);

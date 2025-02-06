@@ -33,33 +33,10 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 </Text>
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"piece"}>
+            <RecordingTableCell recording={recording} field={"tune"}>
                 <FilterButtons
                     recording={recording}
-                    field={"piece"}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"melody"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"melody"}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"parts"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"parts"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"quality"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"quality"}
-                    split={","}
+                    field={"tune"}
                 />
             </RecordingTableCell>
 
@@ -67,14 +44,6 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 <FilterButtons
                     recording={recording}
                     field={"dance"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"datatype"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"datatype"}
                     split={","}
                 />
             </RecordingTableCell>
@@ -122,12 +91,32 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 {recording.notes}
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"comments"}>
-                {recording.comments}
-            </RecordingTableCell>
-
             <RecordingTableCell recording={recording} field={"file"}>
                 {recording.file}
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"duration"} unmodifiable>
+                {recording.duration}
+            </RecordingTableCell>
+            
+            <RecordingTableCell recording={recording} field={"quality"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"quality"}
+                    split={","}
+                />
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"datatype"} unmodifiable>
+                <FilterButtons
+                    recording={recording}
+                    field={"datatype"}
+                    split={","}
+                />
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"comments"}>
+                {recording.comments}
             </RecordingTableCell>
         </Table.Tr>
     );

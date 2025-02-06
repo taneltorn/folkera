@@ -35,32 +35,11 @@ const RecordingTable: React.FC<Properties> = () => {
                                 placeholder={t("recording.content")}
                             />
                         </RecordingTableHeader>
-                        <RecordingTableHeader field={"piece"}>
+                        <RecordingTableHeader field={"tune"}>
                             <FilterSelect
-                                field={"piece"}
-                                placeholder={t("recording.piece")}
-                                options={filteringOptions.piece}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"melody"}>
-                            <FilterSelect
-                                field={"melody"}
-                                placeholder={t("recording.melody")}
-                                options={filteringOptions.melody}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"parts"}>
-                            <FilterSelect
-                                field={"parts"}
-                                placeholder={t("recording.parts")}
-                                options={filteringOptions.parts}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"quality"}>
-                            <FilterSelect
-                                field={"quality"}
-                                placeholder={t("recording.quality")}
-                                options={filteringOptions.quality}
+                                field={"tune"}
+                                placeholder={t("recording.tune")}
+                                options={filteringOptions.tune}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"dance"}>
@@ -68,13 +47,6 @@ const RecordingTable: React.FC<Properties> = () => {
                                 field={"dance"}
                                 placeholder={t("recording.dance")}
                                 options={filteringOptions.dance}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"datatype"}>
-                            <FilterSelect
-                                field={"datatype"}
-                                placeholder={t("recording.datatype")}
-                                options={filteringOptions.datatype}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"year"}>
@@ -125,17 +97,36 @@ const RecordingTable: React.FC<Properties> = () => {
                                 placeholder={t("recording.notes")}
                             />
                         </RecordingTableHeader>
+                        <RecordingTableHeader field={"file"}>
+                            <FilterInput
+                                field={"file"}
+                                placeholder={t("recording.file")}
+                            />
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"duration"}>
+                            <FilterInput
+                                field={"duration"}
+                                placeholder={t("recording.duration")}
+                            />
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"quality"}>
+                            <FilterInput
+                                field={"quality"}
+                                placeholder={t("recording.quality")}
+                            />
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"datatype"}>
+                            <FilterSelect
+                                field={"datatype"}
+                                placeholder={t("recording.datatype")}
+                                options={filteringOptions.datatype}
+                            />
+                        </RecordingTableHeader>
                         <RecordingTableHeader field={"comments"}>
                             <FilterSelect
                                 field={"comments"}
                                 placeholder={t("recording.comments")}
                                 options={filteringOptions.comments}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"file"}>
-                            <FilterInput
-                                field={"file"}
-                                placeholder={t("recording.file")}
                             />
                         </RecordingTableHeader>
                     </Table.Tr>

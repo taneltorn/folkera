@@ -15,7 +15,7 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
     }],
     [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"] }],
     [GroupBy.GROUP_BY_PARISH, {groupBy: "location", transformers: ["splitByComma", "cutFromLessThanSign"], groups: ParishGroups }],
-    [GroupBy.GROUP_BY_PIECE, {groupBy: "piece", sort: "count"}],
+    [GroupBy.GROUP_BY_TUNE, {groupBy: "tune", sort: "count"}],
 ]);
 
 const DefaultGroupBy = GroupBy.GROUP_BY_YEAR;
