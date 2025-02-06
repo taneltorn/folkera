@@ -14,7 +14,7 @@ import chroma from "chroma-js";
 const clusterMaps = [
     {
         name: "Folk150",
-        "file": "cluster_data.json"
+        "file": "folk150.json"
     },
     {
         name: "Folk150_TESTSET",
@@ -124,7 +124,7 @@ const ClusterPlot: React.FC = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetchClusterData("cluster_data.json");
+        fetchClusterData("folk150.json");
     }, []);
 
     const handleClick = (event: any) => {
