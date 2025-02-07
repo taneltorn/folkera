@@ -20,7 +20,7 @@ const RecordingTable: React.FC<Properties> = () => {
 
     return (
         <>
-            <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.5 : 1}>
+            <Table highlightOnHover stickyHeader={true} opacity={modifications.length ? 0.7 : 1}>
                 <Table.Thead>
                     <Table.Tr>
                         <RecordingTableHeader field={"ref"} sortField={"order"}>
@@ -110,9 +110,10 @@ const RecordingTable: React.FC<Properties> = () => {
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"quality"}>
-                            <FilterInput
+                            <FilterSelect
                                 field={"quality"}
                                 placeholder={t("recording.quality")}
+                                options={filteringOptions.quality}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"datatype"}>

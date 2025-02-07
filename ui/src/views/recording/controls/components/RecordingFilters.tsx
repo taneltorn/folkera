@@ -16,7 +16,7 @@ const RecordingFilters: React.FC = () => {
             {filters.slice(0, MAX_NUMBER_OF_FILTERS_TO_DISPLAY).map((filter, index) =>
                 <Pill key={index}
                       size={"md"}
-                      bg={Color.get(filter.field) || "gray"}
+                      bg={`${Color.get(filter.field)}.8 `}
                       c={"white"}
                       withRemoveButton
                       onRemove={() => removeFilter(filter.field, filter.value)}>

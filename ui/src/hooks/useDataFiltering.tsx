@@ -5,6 +5,7 @@ import {Recording} from "../../../domain/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {ItemsPerPageOptions, Years} from "../utils/common.lists.ts";
 import {extractAndSort, filter, sortByField, withBlankOptions} from "../utils/filtering.helpers.ts";
+import {Parishes} from "../../../domain/common.lists.ts";
 
 interface Properties {
     data: Recording[];
@@ -70,11 +71,12 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         datatype: withBlankOptions(extractAndSort(data, "datatype", ",")),
         performer: withBlankOptions(extractAndSort(data, "performer", ",")),
         collector: withBlankOptions(extractAndSort(data, "collector", ",")),
-        location: withBlankOptions(extractAndSort(data, "location", ",")),
         comments: withBlankOptions([]),
         quality: withBlankOptions(extractAndSort(data, "quality", ",")),
-        // location: Parishes,
+        // location: withBlankOptions(extractAndSort(data, "location", ",")),
+        location: withBlankOptions([{group: "\n", items: Parishes}]),
         year: Years,
+        
     }), [data]);
 
     useEffect(() => {

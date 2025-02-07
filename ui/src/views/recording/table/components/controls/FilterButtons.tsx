@@ -33,7 +33,8 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split}) => {
             {values?.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
-                        color={`${Color.get(field) || "gray"}.${9 - i % 5}`}
+                        // color={`${chroma.scale(ColorScales.get(field) || "YlOrBr").colors(10)[9 - i % 5]}`}
+                        color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
                         size={"compact-xs"}
                         onClick={() => handleClick(v)}>
                     <Text size={"xs"} className={"pill-button"}>

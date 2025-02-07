@@ -4,11 +4,11 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
-import Home from "./views/Home.tsx";
-import Parishes from "./views/Parishes.tsx";
+import Home from "./views/Home.tsx"; 
 import RecordingList from "./views/recording/RecordingList.tsx";
 import NataliMap from "./views/natali/NataliMap.tsx";
 import ClusterPlot from "./components/ClusterPlot.tsx";
+import Stats from "./views/stats/Stats.tsx";
 
 const router = createBrowserRouter([
     {
@@ -28,9 +28,9 @@ const router = createBrowserRouter([
                 element: <ClusterPlot/>,
             },
             {
-                path: "/map",
-                element: <Parishes/>,
-            },
+                path: "/stats",
+                element: <Stats/>,
+            }, 
             {
                 path: "/natali",
                 element: <NataliMap/>,

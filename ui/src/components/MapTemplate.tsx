@@ -22,7 +22,8 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
     const geoJsonLayerRef = useRef<any>(null);
 
     // @ts-ignore
-    const maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
+    let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
+
     const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -38,7 +39,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
             let color = "#ccc";
             if (options.asHeatMap) {
                 // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - options.heatIntensity)]);
-                const scale = chroma.scale(['#FFE45E', '#9C0000']).domain([1, maxValue * (1 - options.heatIntensity)]);
+                const scale = chroma.scale("YlOrBr").domain([-(maxValue / 4), maxValue * (1 - options.heatIntensity)]);
 
                 // @ts-ignore
                 color = count === 0 ? "#fff" : scale(count).hex();

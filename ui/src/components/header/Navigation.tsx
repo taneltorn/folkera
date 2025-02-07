@@ -8,7 +8,7 @@ import {MdScatterPlot} from "react-icons/md";
 
 const routes = [
     {id: 'archive', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
-    {id: 'clusters', icon: <MdScatterPlot size={Size.icon.XS}/>, link: "/clusters"},
+    {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters"},
 ];
 
 const Navigation: React.FC = () => {

@@ -16,5 +16,6 @@ export interface Recording {
     file?: string;
     duration?: number;
     order?: number;
+    kivike?: string;
 }
 

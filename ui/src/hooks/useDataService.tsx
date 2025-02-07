@@ -3,12 +3,18 @@ import {Recording} from '../../../domain/Recording';
 import axios from "axios";
 import Papa from "papaparse";
 import {Filter} from "../context/DataFilteringContext.tsx";
+import {useTranslation} from 'react-i18next';
+import {useNotifications} from "./useNotifications.tsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const useDataService = () => {
 
+    const {t} = useTranslation();
+    const {notify} = useNotifications();
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    
     const cancelSource = axios.CancelToken.source();
 
     const fetchData = async (): Promise<Recording[]> => {
@@ -18,8 +24,17 @@ export const useDataService = () => {
                 'Content-Type': 'application/json',
             }
         })
-            .then(r => r.data)
-            .finally(() => setIsLoading(false));
+            .then(response => {
+                setIsLoading(false);
+                return response.data;
+            })
+            .catch(error => {
+                notify(t("toast.error.fetchData"), error);
+
+                setIsLoading(false);
+                throw error;
+            });
+
     }
 
     const saveData = async (data: Recording[]): Promise<Recording[]> => {
@@ -40,8 +55,42 @@ export const useDataService = () => {
                 : "pillilood.csv";
 
             setIsLoading(false);
-            const csvData = Papa.unparse(data);
 
+            const headerTranslations: Record<keyof Recording, string> = {
+                ref: t("recording.ref"),
+                content: t("recording.content"),
+                tune: t("recording.tune"),
+                year: t("recording.year"),
+                instrument: t("recording.instrument"),
+                dance: t("recording.dance"),
+                datatype: t("recording.datatype"),
+                performer: t("recording.performer"),
+                location: t("recording.location"),
+                collector: t("recording.collector"),
+                notes: t("recording.notes"),
+                comments: t("recording.comments"),
+                archive: t("recording.archive"),
+                file: t("recording.file"),
+                order: t("recording.order"),
+                kivike: t("recording.kivike"),
+                duration: t("recording.duration"),
+                quality: t("recording.quality"),
+            };
+
+            const transformedData = data.map(record => {
+                const transformedRecord: Record<string, any> = {};
+                Object.keys(record).forEach((key) => {
+                    const typedKey = key as keyof Recording;
+                    transformedRecord[headerTranslations[typedKey] || typedKey] = record[typedKey];
+                });
+                return transformedRecord;
+            });
+            const csvData = Papa.unparse(transformedData);
+
+
+            console.log("csvData")
+            console.log(csvData)
+            
             const blob = new Blob([csvData]);
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);

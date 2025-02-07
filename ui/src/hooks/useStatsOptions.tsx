@@ -2,7 +2,7 @@ import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty, range} from "../utils/common.helpers.tsx";
 import {StatsOptionsContext} from "../context/StatsOptionsContext.tsx";
 import {StatsOptions, GroupBy, ChartType} from "../model/Stats.ts";
-import {ParishGroups} from "../utils/common.lists.ts";
+import {Parishes} from "../../../domain/common.lists.ts";
 
 interface Properties {
     children: React.ReactNode;
@@ -14,7 +14,7 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
         groups: range(1912, 1999).map(n => `${n}`)
     }],
     [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"] }],
-    [GroupBy.GROUP_BY_PARISH, {groupBy: "location", transformers: ["splitByComma", "cutFromLessThanSign"], groups: ParishGroups }],
+    [GroupBy.GROUP_BY_PARISH, {groupBy: "location", transformers: ["splitByComma", "cutFromLessThanSign"], groups: Parishes }],
     [GroupBy.GROUP_BY_TUNE, {groupBy: "tune", sort: "count"}],
 ]);
 

@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import {useMantineTheme} from "@mantine/core";
 import {ChartType, StatsItem} from "../model/Stats.ts";
+import chroma from "chroma-js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
@@ -56,7 +57,7 @@ const ChartComponent: React.FC<ChartProps> = ({data, chartType, onElementClick})
         datasets: [
             {
                 data: values,
-                backgroundColor: chartType === ChartType.BAR ? theme.colors.red[9] : generateColorsArray(),
+                backgroundColor: chartType === ChartType.BAR ? theme.colors.red[9] : chroma.scale("YlGnBu").colors(values.length),
                 borderWidth: 1,
             },
         ],

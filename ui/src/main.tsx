@@ -14,15 +14,25 @@ import {StatsOptionsContextProvider} from "./hooks/useStatsOptions.tsx";
 import {MapOptionsContextProvider} from "./hooks/useMapOptions.tsx";
 import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 import {AuthContextProvider} from "./hooks/useAuth.tsx";
+import chroma from "chroma-js";
+
+const colors = {
+    red: chroma.scale("Reds").colors(10),
+    blue: chroma.scale("Blues").colors(10),
+    green: chroma.scale("PuBuGn").colors(10),
+    orange: chroma.scale("YlOrBr").colors(10),
+    pink: chroma.scale("PuRd").colors(10),
+    purple: chroma.scale("Purples").colors(10),
+    violet: chroma.scale("YlGnBu").colors(10),
+    gray: chroma.scale("Greys").colors(10),
+}
 
 const theme = createTheme({
     fontFamily: 'Verdana, Montserrat, sans-serif',
     defaultRadius: 'xl',
     primaryColor: 'red',
     primaryShade: 9,
-    colors: {
-        'red': ['#970000', '#970000', '#970000', '#970000', '#E70000', '#D70000', '#C70000', '#B70000', '#A70000', '#970000'],
-    },
+    colors: colors,
     breakpoints: {
         xs: '30em',
         sm: '48em',

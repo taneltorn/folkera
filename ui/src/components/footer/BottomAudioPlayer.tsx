@@ -11,10 +11,13 @@ const BottomAudioPlayer: React.FC = () => {
 
     return (
         <SimpleGrid cols={3} py={"md"}>
-            <Group px={"md"}>
-                <Text size={"sm"}>
-                    {track ? `${track.ref} - ${track.content} < ${track.location} < ${track.performer} (${track.year})` : "-"}
-                </Text>
+            <Group px={"md"} gap={0}>
+                {track && <>
+                    <Text size={"sm"}>
+                        {`${track.ref} - ${track.content} < ${track.location} < ${track.performer} (${track.year})`}
+                    </Text>
+                    <Text size={"xs"}>{track.file?.split("/").slice(-1)}</Text>
+                </>}
             </Group>
 
             <AudioPlayer

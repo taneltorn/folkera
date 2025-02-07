@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Group, LoadingOverlay, Select} from "@mantine/core";
+import {Box, Divider, Group, LoadingOverlay, Select, Text} from "@mantine/core";
 import {useAudioPlayer} from "../hooks/useAudioContext.tsx";
 import {useDataService} from "../hooks/useDataService.tsx";
 import {Recording} from "../../../domain/Recording.ts";
@@ -13,16 +13,16 @@ import chroma from "chroma-js";
 
 const clusterMaps = [
     {
-        name: "Folk150",
-        "file": "cluster-maps/folk150.json"
-    },
+        name: "v0",
+        file: "cluster-data/pretrained-folk150_testset.json",
+        mAP: 0.753,
+        rank1: 3.24
+    } ,
     {
-        name: "Folk150_TESTSET",
-        "file": "cluster-maps/folk150_testset.json"
-    },
-    {
-        name: "Folk",
-        "file": "cluster-maps/all.json"
+        name: "v1",
+        file: "cluster-data/v1.json",
+        mAP: 0.753,
+        rank1: 3.24
     }
 ];
 
@@ -53,10 +53,12 @@ const ClusterPlot: React.FC = () => {
 
     const convertToPlotlyData = (data: ClusterData): Plotly.Data[] => {
         const groupedData: { [key: string]: any } = {};
-        const numberOfColors = (new Set(data.work_list)).size;
-        let colors = chroma.scale("GnBu").colors(numberOfColors);
 
-        colors = chroma.scale(['#999', 'black']).colors(numberOfColors);
+        const numberOfColors = Math.ceil((new Set(data.work_list.filter(w => !!w))).size );
+
+        const colors = chroma.scale("Set1").colors(numberOfColors);
+        // const colors = chroma.scale("YlGnBu").colors(numberOfColors);
+        // const colors = chroma.scale(['#999', 'black']).colors(numberOfColors);
 
         data.work_list.forEach((work, i) => {
             if (!groupedData[work]) {
@@ -67,9 +69,11 @@ const ClusterPlot: React.FC = () => {
                     type: "scatter",
                     name: work,
                     marker: {
-                        size: 10,
-                        color: colors[i % colors.length],
-                        symbol: markerSymbols[i % markerSymbols.length],
+                        size: work ? 10 : 6,
+                        color: work
+                            ? colors[i % colors.length]
+                            : "red",
+                        symbol: work ? markerSymbols[i % markerSymbols.length] : "circle",
                     },
                     text: [],
                 };
@@ -80,40 +84,12 @@ const ClusterPlot: React.FC = () => {
             groupedData[work].text.push(data.label_list[i]);
         });
 
-        colors = chroma.scale("YlGnBu").colors(numberOfColors);
-
-        const array = Object.values(groupedData);
-
-        array.push({
-            x: [data.x[0]],
-            y: [data.y[0]],
-            mode: "markers",
-            type: "scatter",
-            name: "All",
-            marker: {
-                size: 266,
-                color: colors[100],
-                symbol: "star",
-            },
-            text: data.label_list,
-        })
-
-
-        return array
+        return Object.values(groupedData);
     }
 
-    useEffect(() => {
-        fetchData()
-            .then(setRecordings)
-            .catch(e => notify(t("toast.error.fetchData"), NotificationType.ERROR, e));
-
-        return () => {
-            cancelSource.cancel('Operation canceled by the user.');
-        };
-    }, []);
 
     const fetchClusterData = (file: string) => {
-        fetch(`/${file}`)
+        fetch(file)
             .then((response) => response.json())
             .then((json: ClusterData) => {
                 const data = convertToPlotlyData(json);
@@ -125,10 +101,6 @@ const ClusterPlot: React.FC = () => {
             .finally(() => setIsLoading(false));
     }
 
-    useEffect(() => {
-        setIsLoading(true);
-        fetchClusterData("folk150.json");
-    }, []);
 
     const handleClick = (event: any) => {
         if (event.points.length > 0) {
@@ -139,12 +111,29 @@ const ClusterPlot: React.FC = () => {
             }
         }
     };
+    
+    useEffect(() => {
+        fetchData()
+            .then(setRecordings)
+            .catch(e => notify(t("toast.error.fetchData"), NotificationType.ERROR, e));
+
+        return () => {
+            cancelSource.cancel('Operation canceled by the user.');
+        };
+    }, []);
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetchClusterData(clusterMaps[0].file);
+    }, []);
+
 
     return (
         <Box px={"md"}>
             <Group>
                 <Select
-                    data={clusterMaps.map(c => c.name)} 
+                    // w={75}
+                    data={clusterMaps.map(c => c.name)}
                     defaultValue={clusterMaps[0].name}
                     onChange={(value) => {
                         const file = clusterMaps.find(c => c.name === value)?.file;
@@ -153,6 +142,7 @@ const ClusterPlot: React.FC = () => {
                         }
                     }}
                 />
+                <Text>{`mAP: ${clusterMaps[0].mAP}  |  rank1: ${clusterMaps[0].rank1}`}</Text>
             </Group>
             <Plot
                 data={data || []}
@@ -172,7 +162,7 @@ const ClusterPlot: React.FC = () => {
 
                     }
                 }}
-                style={{width: "100%", height: "800px"}}
+                style={{width: "100%", height: "1000px"}}
             />
 
             <LoadingOverlay visible={isLoading}/>

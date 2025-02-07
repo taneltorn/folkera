@@ -10,7 +10,8 @@
     },
     "navigation": {
       "archive": "Pillilood",
-      "clusters": "Klasterkaart"
+      "clusters": "Klasterkaart",
+      "stats": "Statistika"
     }
   },
   "auth": {
@@ -45,6 +46,8 @@
     "archive": "Kogu",
     "file": "Fail",
     "duration": "Kestus",
+    "order": "Jrk",
+    "kivike": "Kivike",
     "search": "Otsing"
   },
   "map": {

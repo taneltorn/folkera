@@ -107,7 +107,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"datatype"} unmodifiable>
+            <RecordingTableCell recording={recording} field={"datatype"} >
                 <FilterButtons
                     recording={recording}
                     field={"datatype"}
