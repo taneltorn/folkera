@@ -17,10 +17,10 @@ const RecordingViewButton: React.FC<Properties> = ({view, icon}) => {
     return (
         <Button
             title={t(`view.recordings.viewSelection.${view}`)}
-            px={"xs"}
+            px={"sm"}
             variant={view === activeView ? "light" : "subtle"}
             color={"dark"}
-            size={"xs"}
+            size={"sm"}
             onClick={() => setActiveView(view)}
         >
             {icon}

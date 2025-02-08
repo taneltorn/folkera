@@ -20,6 +20,9 @@ import {
     generateColorSchemeOptions
 } from "../../utils/clusterplot.lists.ts";
 import {ClusterData} from "../../model/ClusterData.ts";
+import MenuSelect from "../recording/controls/components/MenuSelect.tsx";
+import {GroupBy} from "../../model/Stats.ts";
+import LabelValue from "../recording/controls/components/LabelValue.tsx";
 
 const ClusterPlot: React.FC = () => {
 
@@ -94,6 +97,7 @@ const ClusterPlot: React.FC = () => {
     };
 
     const handleClusterMapChange = (value: string | null) => {
+        console.log(value)
         const map = ClusterMaps.find(c => c.name === value);
         if (map) {
             setClusterMap(map);
@@ -129,58 +133,44 @@ const ClusterPlot: React.FC = () => {
         }
     }, [colorScheme, clusterMap, dataset]);
 
-
     return (
         <Box px={"md"}>
-            <Group gap={"xl"}>
-                <Group>
-                    <Text fw={"bold"} size={"sm"}>
-                        {t("view.clusterMap.label.modelVersion")}
-                    </Text>
-                    <Select
-                        allowDeselect={false}
-                        data={generateModelVersionOptions(t)}
-                        value={clusterMap.name}
+            <Group>
+                <Group gap={4}>
+                    <MenuSelect
+                        title={t(`view.clusterMap.modelVersion.title`)}
+                        label={t(`view.clusterMap.modelVersion.label`, {name: t(`view.clusterMap.modelVersion.${clusterMap.name}`)})}
+                        options={generateModelVersionOptions(t)}
                         onChange={(value) => handleClusterMapChange(value)}
                     />
-                </Group>
-                <Group>
-                    <Text fw={"bold"} size={"sm"} >
-                        {t("view.clusterMap.label.dataset")}
-                    </Text>
-                    <Select
-                        allowDeselect={false}
-                        data={generateDatasetOptions(t)}
-                        value={dataset}
-                        onChange={(value) => setDataset(value || Datasets[0])}
+
+                    <MenuSelect
+                        title={t(`view.clusterMap.dataset.title`)}
+                        label={t(`view.clusterMap.dataset.label`, {name: t(`view.clusterMap.dataset.${dataset}`)})}
+                        options={generateDatasetOptions(t)}
+                        onChange={(value) => setDataset(value)}
                     />
-                </Group>
-                <Group>
-                    <Text fw={"bold"} size={"sm"}>
-                        {t("view.clusterMap.label.colorScheme")}
-                    </Text>
-                    <Select
-                        allowDeselect={false}
-                        data={generateColorSchemeOptions(t)}
-                        value={colorScheme.name}
+
+                    <MenuSelect
+                        title={t(`view.clusterMap.colorScheme.title`)}
+                        label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
+                        options={generateColorSchemeOptions(t)}
                         onChange={(value) => handleColorShemeChange(value)}
                     />
-                </Group>
-                <Group>
-                    <Text fw={"bold"} size={"sm"}>
-                        {t("view.clusterMap.label.map")}
-                    </Text>
-                    <Text size={"sm"}>{result?.mAP || "N/A"} </Text>
+
 
                 </Group>
-                <Group>
-                    <Text fw={"bold"} size={"sm"}>
-                        {t("view.clusterMap.label.rank1")}
-                    </Text>
-                    <Text size={"sm"}>{result?.rank1 || "N/A"} </Text>
+                <Group gap={"md"} ml={"xl"}>
+                    <LabelValue
+                        label={t("view.clusterMap.map")}
+                        value={result?.mAP || "N/A"}
+                    />
+                    <LabelValue
+                        label={t("view.clusterMap.rank1")}
+                        value={result?.rank1 || "N/A"}
+                    />
                 </Group>
             </Group>
-
             <Plot
                 data={data || []}
                 onClick={handleClick}

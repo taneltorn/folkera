@@ -8,7 +8,7 @@ import {RecordingTableFields} from "../../../../utils/common.lists.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
 import {Recording} from "../../../../../../domain/Recording.ts";
 
-const TableVisibleFieldSelector: React.FC = () => {
+const TableControls: React.FC = () => {
 
     const {t} = useTranslation();
     const {hiddenFields, toggleField} = useDataFiltering();
@@ -18,7 +18,7 @@ const TableVisibleFieldSelector: React.FC = () => {
             <Menu.Target>
                 <Button
                     variant={"subtle"}
-                    size={"xs"}
+                    size={"sm"}
                     color={"dark"}
                     leftSection={<RiArrowDropDownLine  size={Size.icon.LG}/>}
                 >
@@ -42,4 +42,4 @@ const TableVisibleFieldSelector: React.FC = () => {
     );
 }
 
-export default TableVisibleFieldSelector;
+export default TableControls;

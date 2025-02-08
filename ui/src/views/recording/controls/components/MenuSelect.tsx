@@ -1,33 +1,36 @@
 import React from "react";
 import {Button, Menu} from "@mantine/core";
 import {Size} from "../../../../utils/common.constants.ts";
-import {useTranslation} from "react-i18next";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {useMapOptions} from "../../../../hooks/useMapOptions.tsx";
-import {MapType} from "../../../../model/MapOptions.ts";
+import {MenuSelectOption} from "../../../../model/MenuSelectOption.ts";
 
-const MapTypeSelector: React.FC = () => {
+interface Properties {
+    title?: string;
+    label: string;
+    options: MenuSelectOption[];
+    onChange: (value: string) => void;
+}
 
-    const {t} = useTranslation();
-    const {options, setOptions} = useMapOptions();
+const MenuSelect: React.FC<Properties> = (props) => {
 
     return (
         <Menu shadow="md" closeOnClickOutside={true}>
             <Menu.Target>
                 <Button
+                    title={props.title}
                     variant={"subtle"}
-                    size={"xs"}
+                    size={"sm"}
                     color={"dark"}
                     leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                 >
-                    {t(`map.${options.type}`)}
+                    {props.label}
                 </Button>
             </Menu.Target>
             <Menu.Dropdown>
-                {[MapType.PARISHES, MapType.COUNTIES]
-                    .map(((it, index) => (
-                            <Menu.Item key={index} onClick={() => setOptions({...options, type: it})}>
-                                {t(`map.${it}`)}
+                {props.options
+                    .map(((option, index) => (
+                            <Menu.Item key={index} onClick={() => props.onChange(option.value)}>
+                                {option.label}
                             </Menu.Item>)
                     ))}
             </Menu.Dropdown>
@@ -35,4 +38,4 @@ const MapTypeSelector: React.FC = () => {
     );
 }
 
-export default MapTypeSelector;
+export default MenuSelect;

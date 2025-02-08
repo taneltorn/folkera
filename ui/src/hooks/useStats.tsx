@@ -1,7 +1,7 @@
 import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty, range} from "../utils/common.helpers.tsx";
 import {StatsOptionsContext} from "../context/StatsOptionsContext.tsx";
-import {StatsOptions, GroupBy, ChartType} from "../model/Stats.ts";
+import {StatsOptions, GroupBy, ChartType, StatsItem} from "../model/Stats.ts";
 import {Parishes} from "../../../domain/common.lists.ts";
 
 interface Properties {
@@ -13,8 +13,12 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
         groupBy: "year",
         groups: range(1912, 1999).map(n => `${n}`)
     }],
-    [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"] }],
-    [GroupBy.GROUP_BY_PARISH, {groupBy: "location", transformers: ["splitByComma", "cutFromLessThanSign"], groups: Parishes }],
+    [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"]}],
+    [GroupBy.GROUP_BY_PARISH, {
+        groupBy: "location",
+        transformers: ["splitByComma", "cutFromLessThanSign"],
+        groups: Parishes
+    }],
     [GroupBy.GROUP_BY_TUNE, {groupBy: "tune", sort: "count"}],
 ]);
 
@@ -22,6 +26,7 @@ const DefaultGroupBy = GroupBy.GROUP_BY_YEAR;
 
 export const StatsOptionsContextProvider: React.FC<Properties> = ({children}) => {
 
+    const [stats, setStats] = useState<StatsItem[]>([]);
     const [groupBy, setGroupBy] = useState<GroupBy>(DefaultGroupBy);
     const [chartType, setChartType] = useState<ChartType>(ChartType.BAR);
     const [options, setOptions] = useState<StatsOptions>(StatsTypeToStatsOptions.get(DefaultGroupBy)!);
@@ -31,11 +36,15 @@ export const StatsOptionsContextProvider: React.FC<Properties> = ({children}) =>
         setOptions(StatsTypeToStatsOptions.get(groupBy)!);
     }
 
+    const groupsCount = useMemo<number>(() => Object.values(stats || []).filter(x => !!x).length, [stats]);
+
     const context = useMemo(() => ({
+        stats, setStats,
+        groupsCount,
         groupBy, setGroupBy: handleGroupByChange,
         chartType, setChartType,
         options, setOptions,
-    }), [groupBy, chartType]);
+    }), [stats, groupBy, chartType]);
 
     return (
         <StatsOptionsContext.Provider value={context}>
@@ -44,7 +53,7 @@ export const StatsOptionsContextProvider: React.FC<Properties> = ({children}) =>
     )
 }
 
-export const useStatsOptions = () => {
+export const useStats = () => {
     const context = useContext(StatsOptionsContext);
     if (isEmpty(context)) {
         throw new Error('useStatsOptions must be used within a StatsOptionsContextProvider')

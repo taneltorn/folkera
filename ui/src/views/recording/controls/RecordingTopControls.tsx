@@ -53,7 +53,7 @@ const RecordingTopControls: React.FC = () => {
                 {!!filters.length &&
                     <Button
                         variant={"subtle"}
-                        size={"xs"}
+                        size={"sm"}
                         color={"dark"}
                         leftSection={<LuFilterX size={Size.icon.SM}/>}
                         onClick={clearFilters}>
@@ -63,7 +63,7 @@ const RecordingTopControls: React.FC = () => {
                 {modifications.length > 0 &&
                     <Button
                         variant={"subtle"}
-                        size={"xs"}
+                        size={"sm"}
                         color={"dark"}
                         leftSection={<FaSave size={Size.icon.SM}/>}
                         onClick={handleSave}>
@@ -72,7 +72,7 @@ const RecordingTopControls: React.FC = () => {
 
                 <Button
                     variant={"subtle"}
-                    size={"xs"}
+                    size={"sm"}
                     color={"dark"}
                     leftSection={<FaFileExport size={Size.icon.SM}/>}
                     onClick={handleDataExport} px={"xs"} mx={0}>

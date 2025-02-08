@@ -19,6 +19,7 @@ const RecordingFilters: React.FC = () => {
                       bg={`${Color.get(filter.field) || "gray"}.8`}
                       c={"white"}
                       withRemoveButton
+                      removeButtonProps={{title: t("button.removeFilter")}}
                       onRemove={() => removeFilter(filter.field, filter.value)}>
                     {t(`recording.${filter.field}`)}: {filter.value}
                 </Pill>)}

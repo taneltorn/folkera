@@ -16,7 +16,7 @@ export const ColorSchemes: ColorScheme[] = [
     },
 ];
 
-export const Datasets: string[] = ["folkera", "folk150_testset"];
+export const Datasets: string[] = ["folkera", "folk150", "folk150_testset"];
 
 export const ClusterMaps: ClusterMap[] = [
     {
@@ -30,8 +30,8 @@ export const ClusterMaps: ClusterMap[] = [
             {
                 dataset: "folk150_testset",
                 file: "cluster-data/pretrained-folk150_testset.json",
-                mAP: 0.753,
-                rank1: 3.24,
+                mAP: 0.507,
+                rank1: 5.790,
             },
         ]
     },

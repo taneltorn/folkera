@@ -1,7 +1,11 @@
 import React from 'react';
-import {StatsOptions, GroupBy, ChartType} from "../model/Stats.ts";
+import {StatsOptions, GroupBy, ChartType, StatsItem} from "../model/Stats.ts";
 
 export interface Properties {
+    stats: StatsItem[];
+    setStats: (value: StatsItem[]) => void;
+
+    groupsCount: number;
     groupBy: GroupBy;
     setGroupBy: (value: GroupBy) => void;
 

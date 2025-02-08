@@ -21,11 +21,15 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiabl
     const [isEdit, setIsEdit] = useState(false);
     const focusTrapRef = useFocusTrap();
     const {hiddenFields, toggleField} = useDataFiltering();
-    const {addModification} = useModifications();
+    const {addModification, modifications} = useModifications();
     const {currentUser} = useAuth();
 
     const handleChange = () => {
         if (recording[field] !== value) {
+            if (!modifications.length) {
+                
+            }
+            
             // @ts-ignore
             recording[field] = value;
             addModification(recording);

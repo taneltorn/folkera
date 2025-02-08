@@ -38,16 +38,6 @@
     "kivike": "Kivike",
     "search": "Otsing"
   },
-  "stats": {
-    "barChart": "Tulpdiagramm",
-    "pieChart": "Sektordiagramm",
-    "groupByYear": "Aastate lõikes",
-    "groupByInstrument": "Pillide lõikes",
-    "groupByParish": "Kihelkondade lõikes",
-    "groupByTune": "Lugude lõikes",
-    "groupByQuality": "Kvaliteedi lõikes",
-    "count": "Erinevaid: {{count}}"
-  },
   "view": {
     "recordings": {
       "controls": {
@@ -56,15 +46,36 @@
         "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
-        "clearFilters": "Tühjenda filtrid",
+        "clearFilters": "Eemalda filtrid",
         "tableView": "Tabel",
         "mapView": "Kaart",
         "statsView": "Statistika"
       },
       "table": {
-        "results": "Tulemusi: <strong>{{count}}</strong>",
+        "results": "Salvestusi",
         "play": "Esita",
         "fileNotFound": "Helifail puudub"
+      },
+      "map": {
+        "mapTypeSelection": {
+          "parishes": "Kihelkondade lõikes",
+          "counties": "Maakonndade lõikes"
+        }
+      },
+      "stats": {
+        "uniqueCount": "Unikaalseid: <strong>{{count}}</strong>",
+        "barChart": "Tulpdiagramm",
+        "pieChart": "Sektordiagramm",
+        "groupByYear": "Aastate lõikes",
+        "groupByInstrument": "Pillide lõikes",
+        "groupByParish": "Kihelkondade lõikes",
+        "groupByTune": "Viiside lõikes",
+        "groups": {
+          "groupByYear": "Kombinatsioone (aastad)",
+          "groupByInstrument": "Kombinatsioone (pillid)",
+          "groupByParish": "Kombinatsioone (kihelkonnad)",
+          "groupByTune": "Komninatsioone (viisid)"
+        }
       },
       "viewSelection": {
         "table": "Kuva tabelivaade",
@@ -73,22 +84,23 @@
       }
     },
     "clusterMap": {
-      "label": {
-        "modelVersion": "Mudel",
-        "dataset": "Andmestik",
-        "colorScheme": "Värviskeem",
-        "map": "mAP",
-        "rank1": "Rank1"
-      },
+      "map": "mAP",
+      "rank1": "Rank1",
       "modelVersion": {
+        "title": "Mudel",
+        "label": "Mudel: {{name}}",
         "pretrained": "Eeltreenitud (SHS100k)",
         "covers80": "Covers80"
       },
       "dataset": {
+        "title": "Andmestik",
+        "label": "Andmestik: {{name}}",
         "folkera": "FolkERA",
         "folk150_testset": "Folk150_testset"
       },
       "colorScheme": {
+        "title": "Värviskeem",
+        "label": "Värviskeem: {{name}}",
         "default": "Vaikimisi",
         "alternative": "Alternatiivne"
       }
@@ -120,26 +132,6 @@
     }
   },
   "button": {
-    "ok": "OK",
-    "copy": "Kopeeri",
-    "copied": "Kopeeritud!",
-    "clone": "Tee koopia",
-    "remove": "Kustuta",
-    "save": "Salvesta",
-    "confirm": "Kinnita",
-    "cancel": "Tühista",
-    "edit": "Muuda",
-    "close": "Sulge",
-    "reset": "Lähtesta",
-    "submit": "Saada",
-    "add": "Lisa",
-    "addNew": "Lisa uus",
-    "pngExport": "PNG",
-    "showAll": "Näita kõiki",
-    "showActive": "Näita aktiivset",
-    "removeVoice": "Kustuta hääl",
-    "changeInstrument": "Muuda heliväljundit",
-    "backToTop": "Tagasi üles",
-    "settings": "Seaded ja tööriistad"
+    "removeFilter": "Eemalda filter"
   }
 }

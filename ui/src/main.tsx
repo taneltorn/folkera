@@ -10,7 +10,7 @@ import "./i18n";
 import 'leaflet/dist/leaflet.css';
 import 'react-h5-audio-player/lib/styles.css';
 import {NotificationContextProvider} from "./hooks/useNotifications.tsx";
-import {StatsOptionsContextProvider} from "./hooks/useStatsOptions.tsx";
+import {StatsOptionsContextProvider} from "./hooks/useStats.tsx";
 import {MapOptionsContextProvider} from "./hooks/useMapOptions.tsx";
 import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 import {AuthContextProvider} from "./hooks/useAuth.tsx";

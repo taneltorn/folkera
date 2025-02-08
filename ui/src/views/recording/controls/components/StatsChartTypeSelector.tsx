@@ -3,13 +3,13 @@ import {Button, Menu} from "@mantine/core";
 import {Size} from "../../../../utils/common.constants.ts";
 import {useTranslation} from "react-i18next";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {useStatsOptions} from "../../../../hooks/useStatsOptions.tsx";
+import {useStats} from "../../../../hooks/useStats.tsx";
 import {ChartType} from "../../../../model/Stats.ts";
 
 const StatsChartTypeSelector: React.FC = () => {
 
     const {t} = useTranslation();
-    const {chartType, setChartType} = useStatsOptions();
+    const {chartType, setChartType} = useStats();
 
     return (
         <Menu shadow="md" closeOnClickOutside={true}>

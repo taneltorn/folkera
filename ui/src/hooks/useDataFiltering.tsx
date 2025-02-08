@@ -53,7 +53,7 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         hiddenFields.push(field);
         setHiddenFields([...hiddenFields]);
     }
-
+    
     const filteredData = useMemo<Recording[]>(() => {
         if (!data) {
             return [];
