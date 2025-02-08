@@ -41,12 +41,12 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <Modal opened={opened} onClose={close} title={t("auth.form.header")}>
+            <Modal opened={opened} onClose={close} title={t("view.auth.form.header")}>
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
                     <TextInput
                         mb={"md"}
                         withAsterisk
-                        placeholder={t("auth.form.email")}
+                        placeholder={t("view.auth.form.email")}
                         key={form.key('email')}
                         size={"lg"}
                         {...form.getInputProps('email')}
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
                     <TextInput
                         withAsterisk
                         type={"password"}
-                        placeholder={t("auth.form.password")}
+                        placeholder={t("view.auth.form.password")}
                         key={form.key('password')}
                         size={"lg"}
                         {...form.getInputProps('password')}
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
 
                     <Group justify="flex-end" mt="md">
                         <Button type="submit">
-                            {t("auth.login")}
+                            {t("view.auth.button.login")}
                         </Button>
                     </Group>
                 </form>
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                 variant="subtle"
                 onClick={open}
             >
-                {t("auth.login")}
+                {t("view.auth.button.login")}
             </Button>
         </>
     );

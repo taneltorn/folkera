@@ -14,20 +14,8 @@
       "stats": "Statistika"
     }
   },
-  "auth": {
-    "button": {
-      "login": "Logi sisse",
-      "logout": "Logi välja"
-    },
-    "form": {
-      "header": "Logi sisse",
-      "email": "Email",
-      "password": "Parool"
-    },
-    "login": "Logi sisse",
-    "logout": "Logi välja",
-    "email": "Email",
-    "password": "Parool"
+  "player": {
+    "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused."
   },
   "recording": {
     "ref": "Viide",
@@ -49,10 +37,6 @@
     "order": "Jrk",
     "kivike": "Kivike",
     "search": "Otsing"
-  },
-  "map": {
-    "parishes": "Kihelkondade lõikes",
-    "counties": "Maakondade lõikes"
   },
   "stats": {
     "barChart": "Tulpdiagramm",
@@ -81,102 +65,44 @@
         "results": "Tulemusi: <strong>{{count}}</strong>",
         "play": "Esita",
         "fileNotFound": "Helifail puudub"
-      }
-    },
-    "scoreList": {
-      "title": "Kuula",
-      "header": "Noodistused",
-      "table": {
-        "name": "Nimi",
-        "stave": "Noodijoonestik",
-        "voices": "Hääled",
-        "visibility": "Nähtavus",
-        "createdBy": "Sisestaja",
-        "createdAt": "Sisestatud",
-        "modifiedAt": "Viimati muudetud"
-      }
-    },
-    "scoreDetails": {
-      "lyrics": "Laulusõnad",
-      "notFound": "Noodistust ei leitud.",
-      "showAll": "Vaata kõiki noodistusi",
-      "clonedScore": "{{name}} koopia",
-      "settings": {
-        "selectSimplifiedMode": "Kuva lihtsustatud vaade",
-        "selectDetailMode": "Kuva detailne vaade",
-        "exportPng": "Ekspordi PNG",
-        "embedScore": "Manustamiskood",
-        "cloneScore": "Tee koopia"
-      }
-    },
-    "editor": {
-      "title": "Redaktor",
-      "header": "Redaktor",
-      "form": {
-        "title": "Pealkiri",
-        "name": "Nimi",
-        "description": "Kirjeldus",
-        "defaultTempo": "Vaikimisi tempo (BPM)",
-        "defaultTransposition": "Vaikimisi helikõrgus (pooltoonides)",
-        "lineDetune": "Noodijoonte mikrotonaalsus (tsentides)",
-        "text": "Laulusõnad",
-        "visibility": "Nähtavus",
-        "editor": "Noodistus",
-        "data": "Andmed",
-        "stave": "Sätted"
-      }
-    },
-    "admin": {
-      "title": "Adminpaneel",
-      "tab": {
-        "users": "Kasutajad",
-        "notifications": "Teavitused"
       },
-      "notifications": {
-        "id": "ID",
-        "title": "Pealkiri",
-        "message": "Tekst",
-        "validFrom": "Aktiivne alates",
-        "validTo": "Aktiivne kuni",
-        "status": "Staatus",
-        "active": "Aktiivne",
-        "inactive": "Mitteaktiivne",
-        "date": "Kuupäev"
+      "viewSelection": {
+        "table": "Kuva tabelivaade",
+        "map": "Kuva kaart",
+        "stats": "Kuva statistika"
+      }
+    },
+    "clusterMap": {
+      "label": {
+        "modelVersion": "Mudel",
+        "dataset": "Andmestik",
+        "colorScheme": "Värviskeem",
+        "map": "mAP",
+        "rank1": "Rank1"
       },
-      "users": {
-        "table": {
-          "id": "ID",
-          "username": "Kasutajanimi",
-          "name": "Nimi",
-          "role": "Roll"
-        },
-        "form": {
-          "username": "Kasutajanimi",
-          "password": "Parool",
-          "firstname": "Eesnimi",
-          "lastname": "Perekonnanimi",
-          "role": "Roll",
-          "editor": "Toimetaja",
-          "user": "Tavakasutaja"
-        }
+      "modelVersion": {
+        "pretrained": "Eeltreenitud (SHS100k)",
+        "covers80": "Covers80"
+      },
+      "dataset": {
+        "folkera": "FolkERA",
+        "folk150_testset": "Folk150_testset"
+      },
+      "colorScheme": {
+        "default": "Vaikimisi",
+        "alternative": "Alternatiivne"
       }
     },
-    "login": {
-      "title": "Logi sisse",
+    "auth": {
+      "button": {
+        "login": "Logi sisse",
+        "logout": "Logi välja"
+      },
       "form": {
-        "username": "Kasutajanimi",
-        "password": "Parool",
-        "submit": "Logi sisse"
+        "header": "Logi sisse",
+        "email": "Email",
+        "password": "Parool"
       }
-    },
-    "changelog": {
-      "title": "Muutelugu",
-      "header": "Muudatused"
-    },
-    "error": {
-      "title": "Viga!",
-      "description": "Midagi läks valesti!",
-      "returnToHome": "Tagasi avalehele"
     }
   },
   "toast": {
@@ -215,201 +141,5 @@
     "changeInstrument": "Muuda heliväljundit",
     "backToTop": "Tagasi üles",
     "settings": "Seaded ja tööriistad"
-  },
-  "tooltip": {
-    "activatePosition": "Positsioon {{position}}",
-    "changeDuration": {
-      "2n": "Poolnoot",
-      "4n": "Veerandnoot",
-      "8n": "Kaheksandiknoot"
-    },
-    "openEditor": "Ava redaktor",
-    "closeEditor": "Sulge redaktor",
-    "insertPitch": "Lisa {{pitch}} noot",
-    "changePitch": "Muuda {{pitch}} noodiks",
-    "shiftLeft": "Nihuta vasakule",
-    "shiftVoicesLeft": "Nihuta kõiki noote ja eraldajaid vasakule",
-    "shiftLyricsLeft": "Nihuta laulusõnu vasakule",
-    "shiftRight": "Nihuta paremale",
-    "shiftVoicesRight": "Nihuta kõiki noote ja eraldajaid paremale",
-    "shiftLyricsRight": "Nihuta laulusõnu paremale",
-    "insertBreak": "Lisa reavahe",
-    "removeBreak": "Eemalda reavahe",
-    "insertDivider": "Lisa eraldaja",
-    "removeDivider": "Eemalda eraldaja",
-    "microTuning": "Mikrotonaalsus",
-    "removeNote": "Eemalda noot",
-    "resetScore": "Lähtesta",
-    "saveScore": "Salvesta",
-    "playNext": "Järgmine",
-    "playPrevious": "Eelmine",
-    "startPlayback": "Esita",
-    "startPlaybackRepeat": "Esita kordamisega",
-    "stopPlayback": "Peata",
-    "resetPlayback": "Algusesse",
-    "changeTempo": "Muuda tempot",
-    "showVoice": "Näita häält",
-    "hideVoice": "Peida hääl",
-    "transpose": "Muuda helikõrgust",
-    "changeType": "Muuda suurust",
-    "splitNote": "Poolita noot",
-    "undo": "Võta tagasi",
-    "redo": "Tee uuesti",
-    "changeVolume": "Muuda helitugevust",
-    "staveSelection": "Vaheta noodijoonestikku"
-  },
-  "dialog": {
-    "saveScore": {
-      "title": "Salvesta noodistus",
-      "description": "Salvesta tehtud noodistus."
-    },
-    "addVoice": {
-      "title": "Lisa hääl",
-      "name": "Nimi",
-      "type": {
-        "label": "Hääletüüp",
-        "0": "Torrõ",
-        "1": "Killõ",
-        "2": "Alumine torrõ"
-      },
-      "color": "Värv",
-      "copyFrom": "Kopeeri noodid olemasolevalt häälelt?"
-    },
-    "saveUser": {
-      "title": "Salvesta kasutaja"
-    },
-    "removeScore": {
-      "title": "Oled sa kindel?",
-      "description": "Kustuta noodistus <strong>{{name}}</strong>?"
-    },
-    "removeUser": {
-      "title": "Oled sa kindel?",
-      "description": "Kustuta kasutaja <strong>{{username}}</strong>?"
-    },
-    "removeNotification": {
-      "title": "Oled sa kindel?",
-      "description": "Kustuta teavitus <strong>{{title}}</strong>?"
-    },
-    "embedScore": {
-      "title": "Kuva noodistus välisel lehel",
-      "description": "Sisesta maksimaalsed ekraanimõõdud ja kopeeri kood enda lehele."
-    },
-    "microTuning": {
-      "title": "Mikrotonaalsus",
-      "description": "Muuda noodi {{pitch}} helikõrgust.",
-      "showDetuneIndicator": "Kuva indikaator"
-    },
-    "staveSelection": {
-      "title": "Noodijoonestiku valimine"
-    },
-    "transpose": {
-      "title": "Transponeerimine",
-      "description": "Muuda taasesituse helikõrgust."
-    },
-    "changeTempo": {
-      "title": "Muuda tempot",
-      "description": "Muuda taasesitust kiiremaks või aeglasemaks."
-    },
-    "resetScore": {
-      "title": "Oled sa kindel?",
-      "description": "Kustuta antud noodistus ja alusta uuesti?"
-    },
-    "saveNotification": {
-      "title": "Salvesta teavitus"
-    }
-  },
-  "unit": {
-    "bpm": "BPM",
-    "semitones": "Pooltoonides",
-    "semitonesAbbr": "pt",
-    "cents": "Tsentides",
-    "centsAbbr": "c"
-  },
-  "visibility": {
-    "public": "Avalik",
-    "private": "Privaatne"
-  },
-  "role": {
-    "admin": "Administraator",
-    "editor": "Toimetaja",
-    "user": "Kasutaja",
-    "guest": "külaline"
-  },
-  "field": {
-    "required": "Väli on kohustuslik",
-    "invalidEmail": "Sisestatud email ei ole korrektne",
-    "voiceExists": "Sellise nimega hääl on juba lisatud"
-  },
-  "stave": {
-    "ppt": "PPT",
-    "diatonic": "Diatooniline",
-    "olddiatonic": "Vanem diatooniline",
-    "abbr": {
-      "ppt": "PPT",
-      "diatonic": "Diat.",
-      "olddiatonic": "V.Diat."
-    }
-  },
-  "pitch": {
-    "c3": "C",
-    "c#3": "C♯",
-    "d3": "D",
-    "d#3": "E♭",
-    "e3": "E",
-    "f3": "F",
-    "f#3": "F♯",
-    "g3": "G",
-    "g#3": "G♯",
-    "a3": "A",
-    "a#3": "A♯",
-    "b3": "B",
-    "c4": "C",
-    "c#4": "C♯",
-    "d4": "D",
-    "d#4": "E♭",
-    "e4": "E",
-    "f4": "F",
-    "f#4": "F♯",
-    "g4": "G",
-    "g#4": "G♯",
-    "a4": "A",
-    "a#4": "A♯",
-    "b4": "B",
-    "c5": "C",
-    "c#5": "C♯",
-    "d5": "D",
-    "d#5": "E♭",
-    "e5": "E",
-    "f5": "F",
-    "f#5": "F♯",
-    "g5": "G",
-    "g#5": "G♯",
-    "a5": "A",
-    "a#5": "A♯",
-    "b5": "B",
-    "c6": "C",
-    "c#6": "C♯",
-    "d6": "D",
-    "d#6": "E♭",
-    "e6": "E",
-    "f6": "F",
-    "f#6": "F♯",
-    "g6": "G",
-    "g#6": "G♯",
-    "a6": "A",
-    "a#6": "A♯",
-    "b6": "B"
-  },
-  "duration": {
-    "2n": "2n",
-    "4n": "4n",
-    "8n": "8n"
-  },
-  "instrument": {
-    "synth": "Süntesaator",
-    "piano": "Klaver",
-    "violin": "Viiul",
-    "flute": "Flööt",
-    "guitar": "Kitarr"
   }
 }

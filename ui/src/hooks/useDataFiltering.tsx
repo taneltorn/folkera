@@ -74,7 +74,7 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         comments: withBlankOptions([]),
         quality: withBlankOptions(extractAndSort(data, "quality", ",")),
         // location: withBlankOptions(extractAndSort(data, "location", ",")),
-        location: withBlankOptions([{group: "\n", items: Parishes}]),
+        location: withBlankOptions([{group: "\n ˇˇˇˇˇ", items: Parishes}]),
         year: Years,
         
     }), [data]);

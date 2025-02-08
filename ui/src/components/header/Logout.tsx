@@ -17,7 +17,7 @@ const Logout: React.FC = () => {
             leftSection={<MdOutlineLogout size={24}/>}
             onClick={logout}
         >
-            {t("auth.logout")}
+            {t("view.auth.button.logout")}
         </Button>
     );
 }

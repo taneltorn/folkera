@@ -3,7 +3,6 @@ import {Group, Table, Text} from "@mantine/core";
 import RecordingTableCell from "./RecordingTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
-import {useAuth} from "../../../../hooks/useAuth.tsx";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 
 interface Properties {
@@ -13,13 +12,12 @@ interface Properties {
 const RecordingTableRow: React.FC<Properties> = ({recording}) => {
 
     const ref = useRef<any>();
-    const {currentUser} = useAuth();
 
     return (
         <Table.Tr ref={ref}>
             <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
                 <Group gap={"xs"} wrap={"nowrap"}>
-                    {currentUser?.isUser && <PlayRecordingButton recording={recording}/>}
+                   <PlayRecordingButton recording={recording}/>
 
                     <Text size={"xs"}>
                         {recording.ref}
