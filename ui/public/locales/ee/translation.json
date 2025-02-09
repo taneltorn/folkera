@@ -9,7 +9,7 @@
       "noData": "Andmeid ei leitud."
     },
     "navigation": {
-      "archive": "Pillilood",
+      "recordings": "Pillilood",
       "clusters": "Klasterkaart",
       "stats": "Statistika"
     }
@@ -27,7 +27,8 @@
     "year": "Aasta",
     "instrument": "Pill",
     "performer": "Esitaja",
-    "location": "Kihelkond",
+    "parish": "Kihelkond",
+    "origin": "Päritolukoht (kihelkond)",
     "collector": "Koguja",
     "notes": "Märkmed",
     "comments": "Kommentaar",
@@ -74,7 +75,7 @@
           "groupByYear": "Kombinatsioone (aastad)",
           "groupByInstrument": "Kombinatsioone (pillid)",
           "groupByParish": "Kombinatsioone (kihelkonnad)",
-          "groupByTune": "Komninatsioone (viisid)"
+          "groupByTune": "Kombinatsioone (viisid)"
         }
       },
       "viewSelection": {
@@ -88,21 +89,21 @@
       "rank1": "Rank1",
       "modelVersion": {
         "title": "Mudel",
-        "label": "Mudel: {{name}}",
-        "pretrained": "Eeltreenitud (SHS100k)",
+        "label": "Treenitud: {{name}}",
+        "pretrained": "SHS100k (eeltreenitud)",
         "covers80": "Covers80"
       },
       "dataset": {
         "title": "Andmestik",
-        "label": "Andmestik: {{name}}",
+        "label": "{{name}}",
         "folkera": "FolkERA",
         "folk150_testset": "Folk150_testset"
       },
       "colorScheme": {
         "title": "Värviskeem",
         "label": "Värviskeem: {{name}}",
-        "default": "Vaikimisi",
-        "alternative": "Alternatiivne"
+        "default": "Värviline",
+        "alternative": "Monokroomne"
       }
     },
     "auth": {

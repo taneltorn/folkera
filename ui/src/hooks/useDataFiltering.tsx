@@ -62,7 +62,6 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         return sortByField(filtered, sort?.field, sort?.direction) || [];
     }, [data, filters, sort]);
 
-
     const filteringOptions = useMemo(() => ({
         tune: withBlankOptions(extractAndSort(data, "tune")),
         archive: extractAndSort(data, "archive"),
@@ -73,8 +72,9 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         collector: withBlankOptions(extractAndSort(data, "collector", ",")),
         comments: withBlankOptions([]),
         quality: withBlankOptions(extractAndSort(data, "quality", ",")),
-        // location: withBlankOptions(extractAndSort(data, "location", ",")),
-        location: withBlankOptions([{group: "\n ˇˇˇˇˇ", items: Parishes}]),
+        kivike: withBlankOptions(extractAndSort(data, "kivike", ",")),
+        parish: withBlankOptions([{group: "\n", items: Parishes}]),
+        origin: withBlankOptions([{group: "\n", items: Parishes}]),
         year: Years,
         
     }), [data]);
@@ -100,7 +100,7 @@ export const DataFilteringContextProvider: React.FC<Properties> = ({data, childr
         filteredData,
         filteringOptions
 
-    }), [filters, filteredData, hiddenFields, filteringOptions, filteredData, sort, activePage, itemsPerPage]);
+    }), [data, filters, filteredData, hiddenFields, filteringOptions, filteredData, sort, activePage, itemsPerPage]);
 
     return (
         <DataFilteringContext.Provider value={context}>

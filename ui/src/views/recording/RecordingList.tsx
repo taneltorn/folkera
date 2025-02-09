@@ -6,7 +6,7 @@ import {useLocation} from "react-router-dom";
 import {Filter} from "../../context/DataFilteringContext.tsx";
 import {Recording} from "../../../../domain/Recording.ts";
 import {useActiveView} from "../../hooks/useActiveView.tsx";
-import {Box, Divider} from "@mantine/core";
+import {Box} from "@mantine/core";
 import RecordingTopControls from "./controls/RecordingTopControls.tsx";
 import RecordingBottomControls from "./controls/RecordingBottomControls.tsx";
 import {View} from "../../context/ActiveViewContext.tsx";
@@ -48,15 +48,13 @@ const RecordingList: React.FC = () => {
         <DataFilteringContextProvider data={data} filters={filters}>
             <Box mb={75}>
                 <RecordingTopControls/>
-
-                <Divider my={"md"}/>
                 <RecordingBottomControls/>
 
                 {activeView === View.TABLE && <RecordingTable/>}
                 {activeView === View.MAP && <RecordingMap/>}
                 {activeView === View.STATS && <RecordingStats/>}
             </Box>
-            
+
         </DataFilteringContextProvider>
     );
 }

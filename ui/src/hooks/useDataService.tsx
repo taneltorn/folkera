@@ -65,7 +65,8 @@ export const useDataService = () => {
                 dance: t("recording.dance"),
                 datatype: t("recording.datatype"),
                 performer: t("recording.performer"),
-                location: t("recording.location"),
+                parish: t("recording.parish"),
+                origin: t("recording.origin"),
                 collector: t("recording.collector"),
                 notes: t("recording.notes"),
                 comments: t("recording.comments"),
@@ -87,10 +88,6 @@ export const useDataService = () => {
             });
             const csvData = Papa.unparse(transformedData);
 
-
-            console.log("csvData")
-            console.log(csvData)
-            
             const blob = new Blob([csvData]);
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);

@@ -6,7 +6,8 @@ export const RecordingTableFields = [
     "year",
     "instrument",
     "performer",
-    "location",
+    "parish",
+    "origin",
     "collector",
     "notes",
     "archive",
@@ -14,6 +15,7 @@ export const RecordingTableFields = [
     "duration",
     "quality",
     "datatype",
+    "kivike",
     "comments",
 ];
 

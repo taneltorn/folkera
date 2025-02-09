@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Box, Group, LoadingOverlay, Select, Text} from "@mantine/core";
+import {Box, Group, LoadingOverlay} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useDataService} from "../../hooks/useDataService.tsx";
 import {Recording} from "../../../../domain/Recording.ts";
@@ -21,7 +21,6 @@ import {
 } from "../../utils/clusterplot.lists.ts";
 import {ClusterData} from "../../model/ClusterData.ts";
 import MenuSelect from "../recording/controls/components/MenuSelect.tsx";
-import {GroupBy} from "../../model/Stats.ts";
 import LabelValue from "../recording/controls/components/LabelValue.tsx";
 
 const ClusterPlot: React.FC = () => {

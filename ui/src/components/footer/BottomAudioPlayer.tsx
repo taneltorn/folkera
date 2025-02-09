@@ -1,11 +1,13 @@
 import React from 'react';
-import {Button, Group, SimpleGrid, Text} from "@mantine/core";
+import {Button, CopyButton, Group, SimpleGrid, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {IoIosClose} from "react-icons/io";
 import {Size} from "../../utils/common.constants.ts";
 import AudioPlayer from "react-h5-audio-player";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useTranslation} from "react-i18next";
+import {MdCopyAll} from "react-icons/md";
+import {truncate} from "../../utils/common.helpers.tsx";
 
 const BottomAudioPlayer: React.FC = () => {
 
@@ -15,15 +17,26 @@ const BottomAudioPlayer: React.FC = () => {
 
     return (
         <SimpleGrid cols={3} py={"md"}>
-            {currentUser?.isUser
+            {currentUser?.isUser && track 
                 ? <>
-                    <Group px={"md"} gap={0}>
-                        {track && <>
-                            <Text size={"sm"}>
-                                {`${track.ref} - ${track.content} < ${track.location} < ${track.performer} (${track.year})`}
-                            </Text>
-                            <Text size={"xs"}>{track.file?.split("/").slice(-1)}</Text>
-                        </>}
+                    <Group px={"md"} gap={0} title={track?.file} wrap={"nowrap"}>
+                        <CopyButton value={track.ref}>
+                            {({ copied, copy }) => (
+                                <Button
+                                    px={0}
+                                    mr={"md"}
+                                    variant={"transparent"}
+                                    size={"compact-xs"}
+                                    color={copied ? 'teal' : 'gray'}
+                                    onClick={copy}
+                                >
+                                    <MdCopyAll size={Size.icon.MD} />
+                                </Button>
+                            )}
+                        </CopyButton>
+                        <Text size={"sm"}>
+                            {`${track.ref} - ${truncate(track.content)} < ${track.parish} < ${truncate(track.performer)} (${track.year})`}
+                        </Text>
                     </Group>
                     <AudioPlayer
                         // @ts-ignore
@@ -38,6 +51,9 @@ const BottomAudioPlayer: React.FC = () => {
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
                     />
+                    {/*<Group>*/}
+                    {/*    <Text size={"xs"}>{track.file?.split("/").slice(-1)}</Text>*/}
+                    {/*</Group>*/}
                 </>
                 : <>
                     <Group px={"md"}>

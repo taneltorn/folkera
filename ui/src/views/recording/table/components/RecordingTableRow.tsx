@@ -25,7 +25,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 </Group>
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"content"}>
+            <RecordingTableCell recording={recording} field={"content"} unmodifiable>
                 <Text size={"xs"}>
                     {recording.content}
                 </Text>
@@ -70,8 +70,12 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"location"}>
-                <FilterButtons recording={recording} field={"location"} split={","}/>
+            <RecordingTableCell recording={recording} field={"parish"}>
+                <FilterButtons recording={recording} field={"parish"} split={","}/>
+            </RecordingTableCell>
+
+            <RecordingTableCell recording={recording} field={"origin"}>
+                <FilterButtons recording={recording} field={"origin"} split={","}/>
             </RecordingTableCell>
 
             <RecordingTableCell recording={recording} field={"collector"}>
@@ -85,11 +89,11 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"notes"}>
+            <RecordingTableCell recording={recording} field={"notes"} unmodifiable>
                 {recording.notes}
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"file"}>
+            <RecordingTableCell recording={recording} field={"file"} unmodifiable>
                 {recording.file}
             </RecordingTableCell>
 
@@ -113,6 +117,14 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
+            <RecordingTableCell recording={recording} field={"kivike"} >
+                <FilterButtons
+                    recording={recording}
+                    field={"kivike"}
+                    split={","}
+                />
+            </RecordingTableCell>
+            
             <RecordingTableCell recording={recording} field={"comments"}>
                 {recording.comments}
             </RecordingTableCell>

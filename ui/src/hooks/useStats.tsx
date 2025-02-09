@@ -15,8 +15,8 @@ const StatsTypeToStatsOptions: Map<GroupBy, StatsOptions> = new Map<GroupBy, Sta
     }],
     [GroupBy.GROUP_BY_INSTRUMENT, {groupBy: "instrument", transformers: ["splitByComma"]}],
     [GroupBy.GROUP_BY_PARISH, {
-        groupBy: "location",
-        transformers: ["splitByComma", "cutFromLessThanSign"],
+        groupBy: "parish",
+        transformers: ["splitByComma"],
         groups: Parishes
     }],
     [GroupBy.GROUP_BY_TUNE, {groupBy: "tune", sort: "count"}],

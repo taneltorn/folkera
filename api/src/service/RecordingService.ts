@@ -8,21 +8,16 @@ import {Parishes} from "../../../domain/common.lists";
 class RecordingService {
 
     private logger = log4js.getLogger("RecordingService");
-    private dataFile = "pillilood.csv";
+    private csvFile = "Heliarhiiv - Pillilood.csv";
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
     public async findAll(): Promise<any> {
-        return this.findFromFile(this.dataFile);
-    }
-
-    public async findFromFile(filePath: string): Promise<any> {
-        this.logger.info(`Reading data from file ${filePath}`);
-
         try {
-            const csvFilePath = path.resolve(__dirname, `../resources/${filePath}`);
+            const csvFilePath = path.resolve(__dirname, `../resources/${this.csvFile}`);
+            this.logger.info(`Reading data from file '${csvFilePath}'`);
 
             const csvData = fs.readFileSync(csvFilePath, 'utf-8');
 
@@ -40,41 +35,11 @@ class RecordingService {
         }
     }
 
-    public async getStats(): Promise<any> {
-        this.logger.info(`Getting recording statistics`);
-
-        try {
-            const result = await this.findAll();
-
-            const stats = new Map<string, number>();
-            for (const parish of Parishes) {
-                stats.set(parish, 0);
-            }
-
-            for (const {location} of result.data) {
-                if (!location) continue;
-
-                const loc = location as string;
-
-                for (const parish of Parishes) {
-                    const locations = loc.toLowerCase().split(/[,<]+/).map(l => l.trim());
-                    if (locations.includes(parish.toLowerCase())) {
-                        stats.set(parish, (stats.get(parish) ?? 0) + 1);
-                    }
-                }
-            }
-            return {success: true, data: Object.fromEntries(stats)};
-        } catch (err) {
-            this.logger.error(err);
-            return {success: false, error: "Error querying recordings", detail: err.detail};
-        }
-    }
-
     public async save(data: Recording[]): Promise<any> {
         this.logger.info(`Updating ${data.length} recordings`);
 
         try {
-            const csvFilePath = path.resolve(__dirname, `../resources/${this.dataFile}`);
+            const csvFilePath = path.resolve(__dirname, `../resources/${this.csvFile}`);
 
             const csvFileContent = fs.readFileSync(csvFilePath, 'utf-8');
 

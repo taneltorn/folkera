@@ -28,13 +28,13 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
 
     const onEachFeature = (feature: any, layer: any) => {
         if (feature.properties) {
-            const location = options.type === MapType.PARISHES && !feature.properties.NIMI.endsWith("linn")
+            const parish = options.type === MapType.PARISHES && !feature.properties.NIMI.endsWith("linn")
             && feature.properties.NIMI !== "Setumaa"
                 ? feature.properties.NIMI + " khk."
                 : feature.properties.NIMI;
 
             // @ts-ignore
-            const count = stats[`${location}`] || 0;
+            const count = stats[`${parish}`] || 0;
 
             let color = "#ccc";
             if (options.asHeatMap) {
@@ -47,7 +47,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
 
             const tooltipContent = `
                 <div style="text-align: center;">
-                    <div style="font-size: ${options.textSize}px">${location?.replaceAll(" khk.", "")}</div>
+                    <div style="font-size: ${options.textSize}px">${parish?.replaceAll(" khk.", "")}</div>
                     ${options.showCounts ? `<div style="font-size: ${options.textSize}px; font-weight: bold;">${count}</div>` : ''}
                 </div>
             `;
@@ -65,7 +65,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, o
             );
 
             layer.on('click', () => {
-                onClick && onClick(location);
+                onClick && onClick(parish);
             });
 
             layer.on('mouseover', () => {

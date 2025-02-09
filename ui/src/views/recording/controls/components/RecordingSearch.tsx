@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDataFiltering} from "../../../../hooks/useDataFiltering.tsx";
 import {CloseButton, Input} from "@mantine/core";
 import {Size} from "../../../../utils/common.constants.ts";
@@ -11,7 +11,7 @@ const RecordingSearch: React.FC = () => {
 
     const {t} = useTranslation();
     const {ref} = useFocusWithin();
-    const {addFilter} = useDataFiltering();
+    const {addFilter, filters} = useDataFiltering();
 
     const [value, setValue] = useState<string>("");
 
@@ -23,6 +23,12 @@ const RecordingSearch: React.FC = () => {
     const triggerSearch = useDebounce(() => {
         addFilter("search", [value]);
     });
+
+    useEffect(() => {
+        if (value && filters.length === 0 ) {
+            setValue("");            
+        }
+    }, [filters]);
 
     return (
         <Input

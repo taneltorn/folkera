@@ -60,10 +60,12 @@ export const filter = (data: Recording[], filters: Filter[]) => {
         isIn(r.datatype, extract("datatype", filters)) &&
         isIn(r.performer, extract("performer", filters)) &&
         isIn(r.collector, extract("collector", filters)) &&
-        isIn(r.location, extract("location", filters), "<") &&
+        isIn(r.parish, extract("parish", filters)) &&
+        isIn(r.origin, extract("origin", filters)) &&
         isIn(r.comments, extract("comments", filters)) &&
         isIn(r.file, extract("file", filters)) &&
         isIn(r.quality, extract("quality", filters)) &&
+        isIn(r.kivike, extract("kivike", filters)) &&
         (contains(r.ref, search)
             || contains(r.content, search)
             || contains(r.tune, search)
@@ -72,7 +74,8 @@ export const filter = (data: Recording[], filters: Filter[]) => {
             || contains(r.instrument, search)
             || contains(r.performer, search)
             || contains(r.collector, search)
-            || contains(r.location, search)
+            || contains(r.parish, search)
+            || contains(r.origin, search)
             || contains(r.notes, search)
             || contains(r.comments, search)
         )

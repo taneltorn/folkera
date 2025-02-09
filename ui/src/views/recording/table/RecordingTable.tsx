@@ -70,11 +70,18 @@ const RecordingTable: React.FC<Properties> = () => {
                                 options={filteringOptions.performer}
                             />
                         </RecordingTableHeader>
-                        <RecordingTableHeader field={"location"}>
+                        <RecordingTableHeader field={"parish"}>
                             <FilterSelect
-                                field={"location"}
-                                placeholder={t("recording.location")}
-                                options={filteringOptions.location}
+                                field={"parish"}
+                                placeholder={t("recording.parish")}
+                                options={filteringOptions.parish}
+                            />
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"origin"}>
+                            <FilterSelect
+                                field={"origin"}
+                                placeholder={t("recording.origin")}
+                                options={filteringOptions.origin}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"collector"}>
@@ -121,6 +128,13 @@ const RecordingTable: React.FC<Properties> = () => {
                                 field={"datatype"}
                                 placeholder={t("recording.datatype")}
                                 options={filteringOptions.datatype}
+                            />
+                        </RecordingTableHeader>
+                        <RecordingTableHeader field={"kivike"}>
+                            <FilterSelect
+                                field={"kivike"}
+                                placeholder={t("recording.kivike")}
+                                options={filteringOptions.kivike}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"comments"}>

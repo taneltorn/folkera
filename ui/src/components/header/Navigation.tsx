@@ -7,7 +7,7 @@ import {FaDatabase} from "react-icons/fa";
 import {MdScatterPlot} from "react-icons/md";
 
 const routes = [
-    {id: 'archive', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
+    {id: 'recordings', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
     {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters"},
 ];
 

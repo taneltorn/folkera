@@ -14,3 +14,7 @@ export const range = (start: number, end: number): number[] => {
     }
     return range;
 }
+
+export const truncate = (text: string | undefined, limit: number = 25): string => {
+    return text && text.length > limit ? text.slice(0, limit) + "..." : text || "";
+}

@@ -2,6 +2,7 @@ import express, {Request, Response} from "express";
 import log4js from "log4js";
 import RecordingService from "../service/RecordingService";
 import {Recording} from "../../../domain/Recording";
+import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
 
 class RecordingController {
 
@@ -16,41 +17,11 @@ class RecordingController {
     }
 
     initializeRoutes() {
-        this.logger.info("init routes");
-
-        this.router.get("/file", this.getDataFromFile.bind(this));
-        this.router.get("/", this.getRecordings.bind(this));
-        this.router.put("/", this.saveRecordings.bind(this));
-
-        this.router.get("/stats", this.getRecordingStats.bind(this));
-    }
-
-    async getDataFromFile(req: Request, res: Response): Promise<any> {
-        this.logger.info("GET /api/recordings/file");
-
-        try {
-            const {path} = req.query;
-            if (!path) {
-                res.status(400).json({error: "Missing path URL parameter"});
-                return;
-            }
-
-            const result = await this.recordingService.findFromFile(path as string);
-
-            if (!result.success) {
-                res.status(500).json({error: result.error});
-                return;
-            }
-            res.status(200).json(result.data);
-        } catch (err) {
-            this.logger.error(err);
-            res.status(500).json({error: "An unexpected error occurred."});
-        }
+        this.router.get("/", logRequest, this.getRecordings.bind(this));
+        this.router.put("/", logRequestWithBody, this.saveRecordings.bind(this));
     }
 
     async getRecordings(req: Request, res: Response): Promise<any> {
-        this.logger.info("GET /api/recordings");
-
         try {
             const result = await this.recordingService.findAll();
 
@@ -65,27 +36,7 @@ class RecordingController {
         }
     }
 
-    async getRecordingStats(req: Request, res: Response): Promise<any> {
-        this.logger.info("GET /api/recordings/stats");
-
-        try {
-            const result = await this.recordingService.getStats();
-
-            if (!result.success) {
-                res.status(500).json({error: result.error});
-                return;
-            }
-
-            res.status(200).json(result.data);
-        } catch (err) {
-            this.logger.error(err);
-            res.status(500).json({error: "An unexpected error occurred."});
-        }
-    }
-
     async saveRecordings(req: Request, res: Response): Promise<Recording> {
-        this.logger.info(`PUT /recordings`);
-
         try {
             const data = req.body;
 

@@ -12,7 +12,7 @@ export const Color = new Map([
     ["tune", "red"],
     ["year", "pink"],
     ["performer", "orange"],
-    ["location", "blue"],
+    ["parish", "blue"],
     ["instrument", "green"],
     ["collector", "violet"],
     ["archive", "purple"],

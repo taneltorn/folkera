@@ -20,7 +20,11 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
         // @ts-ignore
         const user = req.user;
 
-        logger.info(`User authenticated as ${user?.username}`)
+        if (user) {
+            logger.info(`User authenticated as ${user?.username}`)
+        } else {
+            logger.info(`User not authenticated`)
+        }
     } catch (err) {
         return res.status(401).json({error: "Invalid or expired token"});
     }

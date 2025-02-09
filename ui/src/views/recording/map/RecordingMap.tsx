@@ -34,7 +34,7 @@ const RecordingMap: React.FC<Properties> = () => {
 
     const handleClick = (location: string) => {
         setActiveView(View.TABLE);
-        addFilter("location", options.type === MapType.COUNTIES ? CountyToParishMap.get(location) || [] : [location]);
+        addFilter("parish", options.type === MapType.COUNTIES ? CountyToParishMap.get(location) || [] : [location]);
     }
 
     useEffect(() => {

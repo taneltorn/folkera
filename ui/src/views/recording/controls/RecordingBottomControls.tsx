@@ -21,7 +21,7 @@ const RecordingBottomControls: React.FC = () => {
     const {activeView} = useActiveView();
 
     return (
-        <Group px={"md"} my={"xs"} justify={"space-between"}>
+        <Group px={"md"} my={"md"} justify={"space-between"}>
             <Group>
                 <LabelValue label={t("view.recordings.table.results")} value={filteredData.length}/>
 

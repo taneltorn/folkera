@@ -32,8 +32,8 @@ const TableControls: React.FC = () => {
                             key={index}
                             c={hiddenFields.includes(it as keyof Recording) ? "dark.1" : "dark.9"}
                             leftSection={hiddenFields.includes(it as keyof Recording)
-                                ? <FaEyeSlash size={Size.icon.MD}/>
-                                : <FaRegEye size={Size.icon.MD}/>}
+                                ? <FaEyeSlash size={Size.icon.SM}/>
+                                : <FaRegEye size={Size.icon.SM}/>}
                             onClick={() => toggleField(it as keyof Recording)}>
                             {t(`recording.${it}`)}
                         </Menu.Item>)}

@@ -4,6 +4,7 @@ import StatsService from "../service/StatsService";
 import DataTransformerFactory from "../factories/DataTransformerFactory";
 import DataTransformer from "../transformers/DataTransformer";
 import RecordingService from "../service/RecordingService";
+import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
 
 class StatsController {
 
@@ -20,13 +21,11 @@ class StatsController {
 
     initializeRoutes() {
         this.logger.info("init routes");
-        this.router.post("/map", this.fetchMapStats.bind(this));
-        this.router.post("/", this.getStats.bind(this));
+        this.router.post("/map", logRequest, this.fetchMapStats.bind(this));
+        this.router.post("/", logRequest, this.getStats.bind(this));
     }
 
     async getStats(req: Request, res: Response): Promise<any> {
-        this.logger.info("POST /api/stats");
-
         try {
             const {data, groups, groupBy, transformers} = req.body;
 
@@ -55,18 +54,16 @@ class StatsController {
     }
 
     async fetchMapStats(req: Request, res: Response): Promise<any> {
-        this.logger.info("GET /api/stats");
-
         try {
             const data = req.body;
 
 
-            const parishResult = await this.statsService.getStats(data, "location", [
+            const parishResult = await this.statsService.getStats(data, "parish", [
                 this.dataTransformerFactory.get("SplitByComma"),
                 this.dataTransformerFactory.get("CutFromLessThanSign")
             ]);
 
-            const countyResult = await this.statsService.getStats(data, "location", [
+            const countyResult = await this.statsService.getStats(data, "parish", [
                 this.dataTransformerFactory.get("SplitByComma"),
                 this.dataTransformerFactory.get("CutFromLessThanSign"),
                 this.dataTransformerFactory.get("ParishToCounty"),
