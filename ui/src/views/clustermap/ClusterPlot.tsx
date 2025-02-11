@@ -1,11 +1,11 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Box, Group, LoadingOverlay} from "@mantine/core";
+import {Box, Button, Group, LoadingOverlay} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useDataService} from "../../hooks/useDataService.tsx";
 import {Recording} from "../../../../domain/Recording.ts";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
-import Plotly from "plotly.js";
+import Plotly, {LegendClickEvent} from "plotly.js";
 import {useNotifications} from "../../hooks/useNotifications.tsx";
 import {NotificationType} from "../../context/NotificationContext.tsx";
 import {ClusterMap} from "../../model/ClusterMap.ts";
@@ -15,13 +15,17 @@ import {
     ColorSchemes,
     Datasets,
     MarkerSymbols,
-    generateModelVersionOptions,
     generateDatasetOptions,
     generateColorSchemeOptions
 } from "../../utils/clusterplot.lists.ts";
 import {ClusterData} from "../../model/ClusterData.ts";
 import MenuSelect from "../recording/controls/components/MenuSelect.tsx";
 import LabelValue from "../recording/controls/components/LabelValue.tsx";
+
+// @ts-ignore
+interface ExtendedPlotlyData extends Plotly.Data {
+    file: string;
+}
 
 const ClusterPlot: React.FC = () => {
 
@@ -33,10 +37,12 @@ const ClusterPlot: React.FC = () => {
     const [colorScheme, setColorScheme] = useState<ColorScheme>(ColorSchemes[0]);
     const [clusterMap, setClusterMap] = useState<ClusterMap>(ClusterMaps[0]);
     const [dataset, setDataset] = useState<string>(Datasets[0]);
+    const [showLegend, setShowLegend] = useState<boolean>(true);
 
-    const [data, setData] = useState<Plotly.Data[]>();
+    const [data, setData] = useState<ExtendedPlotlyData[]>([]);
     const [recordings, setRecordings] = useState<Recording[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [activeWork, setActiveWork] = useState<string | null>(null);
 
     const fetchClusterData = (file: string) => {
         fetch(file)
@@ -51,7 +57,7 @@ const ClusterPlot: React.FC = () => {
             .finally(() => setIsLoading(false));
     }
 
-    const convertToPlotlyData = (data: ClusterData): Plotly.Data[] => {
+    const convertToPlotlyData = (data: ClusterData): ExtendedPlotlyData[] => {
         const groupedData: { [key: string]: any } = {};
 
         const numberOfColors = Math.ceil((new Set(data.work_list.filter(w => !!w))).size);
@@ -66,6 +72,8 @@ const ClusterPlot: React.FC = () => {
                     mode: "markers",
                     type: "scatter",
                     name: work,
+                    visible: true,
+                    opacity: 1,
                     marker: {
                         size: work ? 10 : 6,
                         color: work
@@ -74,12 +82,14 @@ const ClusterPlot: React.FC = () => {
                         symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
                     },
                     text: [],
+                    file: [],
                 };
             }
 
             groupedData[work].x.push(data.x[i]);
             groupedData[work].y.push(data.y[i]);
             groupedData[work].text.push(data.label_list[i]);
+            groupedData[work].file.push(data.file_list[i]);
         });
 
         return Object.values(groupedData);
@@ -87,7 +97,12 @@ const ClusterPlot: React.FC = () => {
 
     const handleClick = (event: any) => {
         if (event.points.length > 0) {
-            const file = event.points[0].text.split("|")[4]?.trim();
+            const trace = event.points[0];
+
+            // @ts-ignore
+            const index = trace.data.text.findIndex(text => text === trace.text);
+            const file = trace.data.file[index];
+
             const recording = recordings.find(r => r.file === file);
             if (recording) {
                 isPlaying && recording === track ? pause() : play(recording)
@@ -96,18 +111,26 @@ const ClusterPlot: React.FC = () => {
     };
 
     const handleClusterMapChange = (value: string | null) => {
-        console.log(value)
         const map = ClusterMaps.find(c => c.name === value);
         if (map) {
             setClusterMap(map);
         }
     }
 
-    const handleColorShemeChange = (value: string | null) => {
+    const handleColorSchemeChange = (value: string | null) => {
         const scheme = ColorSchemes.find(c => c.name === value);
         if (scheme) {
             setColorScheme(scheme);
         }
+    }
+
+    const handleLegendClick = (event: LegendClickEvent) => {
+        setActiveWork(activeWork === event.node.textContent ? null : event.node.textContent);
+        return false;
+    }
+
+    const handleReset = () => {
+        setActiveWork(null);
     }
 
     const result = useMemo(() =>
@@ -132,14 +155,28 @@ const ClusterPlot: React.FC = () => {
         }
     }, [colorScheme, clusterMap, dataset]);
 
+    useEffect(() => {
+        if (!data.length) {
+            return;
+        }
+        setData(data.map(trace => ({
+            ...trace,
+            // @ts-ignore
+            opacity: activeWork === null || trace.name === activeWork ? 1 : 0.1
+        })))
+    }, [activeWork]);
+
     return (
         <Box px={"md"}>
-            <Group>
+            <Group justify={"space-between"}>
                 <Group gap={4}>
                     <MenuSelect
                         title={t(`view.clusterMap.modelVersion.title`)}
                         label={t(`view.clusterMap.modelVersion.label`, {name: t(`view.clusterMap.modelVersion.${clusterMap.name}`)})}
-                        options={generateModelVersionOptions(t)}
+                        options={ClusterMaps.map(map => ({
+                            value: map.name,
+                            label: t(`view.clusterMap.modelVersion.${map.name}`)
+                        }))}
                         onChange={(value) => handleClusterMapChange(value)}
                     />
 
@@ -154,9 +191,15 @@ const ClusterPlot: React.FC = () => {
                         title={t(`view.clusterMap.colorScheme.title`)}
                         label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
                         options={generateColorSchemeOptions(t)}
-                        onChange={(value) => handleColorShemeChange(value)}
+                        onChange={(value) => handleColorSchemeChange(value)}
                     />
 
+                    
+                    
+                    {activeWork &&
+                        <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
+                            {t("button.reset")}
+                        </Button>}
 
                 </Group>
                 <Group gap={"md"} ml={"xl"}>
@@ -171,11 +214,13 @@ const ClusterPlot: React.FC = () => {
                 </Group>
             </Group>
             <Plot
-                data={data || []}
+                data={(data || []) as Plotly.Data[]}
                 onClick={handleClick}
+                onLegendClick={(event) => handleLegendClick(event)}
+                onLegendDoubleClick={() => false}
                 layout={{
                     title: "Interactive t-SNE Cluster Plot",
-                    showlegend: true,
+                    showlegend: showLegend,
                     dragmode: "zoom",
                     autosize: true,
                     xaxis: {

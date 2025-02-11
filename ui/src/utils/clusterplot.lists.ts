@@ -20,12 +20,26 @@ export const Datasets: string[] = ["folkera", "folk150", "folk150_testset"];
 
 export const ClusterMaps: ClusterMap[] = [
     {
+        name: "folk150_v0",
+        results: [
+
+            {
+                dataset: "folkera",
+                file: "cluster-data/folk150_v0-folkera.json",
+            },
+            {
+                dataset: "folk150_testset",
+                file: "cluster-data/folk150_v0-folk150_testset.json",
+            },
+        ]
+    },
+    {
         name: "pretrained",
-        defaultColorScheme: ColorSchemes[0],
         results: [
             {
                 dataset: "folkera",
-                file: "cluster-data/x-pretrained-folkera.json",
+                file: "cluster-data/pretrained-folkera.json",
+                
             },
             {
                 dataset: "folk150_testset",
@@ -37,37 +51,55 @@ export const ClusterMaps: ClusterMap[] = [
     },
     {
         name: "covers80",
-        defaultColorScheme: ColorSchemes[0],
         results: [
             {
                 dataset: "folkera",
-                file: "cluster-data/x-covers80-folkera.json",
+                file: "cluster-data/covers80-folkera.json",
             },
             {
                 dataset: "folk150_testset",
-                file: "cluster-data/x-covers80-folk150_testset.json",
-                mAP: 0.753,
-                rank1: 3.24,
+                file: "cluster-data/covers80-folk150_testset.json",
+                mAP: 0.118,
+                rank1: 23.408,
             },
         ]
     },
+    {
+        name: "reels100",
+        results: [
+            {
+                dataset: "folkera",
+                file: "cluster-data/reels100-folkera.json",
+            },
+            {
+                dataset: "folk150_testset",
+                file: "cluster-data/reels100-folk150_testset.json",
+                mAP: 0.130,
+                rank1: 20.935,
+            },
+        ]
+    },
+    {
+        name: "folk150_trainset",
+        results: [
+            {
+                dataset: "folkera",
+                file: "cluster-data/folk150_trainset-folkera.json",
+            },
+            {
+                dataset: "folk150_testset",
+                file: "cluster-data/folk150_trainset-folk150_testset.json",
+                mAP: 0.262,
+                rank1: 10.231,
+            },
+        ]
+    }
 
 ];
 
 export const MarkerSymbols = [
     "circle", "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
     "star", "hexagram", "pentagram", "hourglass", "bowtie",
-];
-
-export const generateModelVersionOptions = (t: TFunction) => [
-    {
-        value: "pretrained",
-        label: t("view.clusterMap.modelVersion.pretrained"),
-    },
-    {
-        value: "covers80",
-        label: t("view.clusterMap.modelVersion.covers80"),
-    },
 ];
 
 

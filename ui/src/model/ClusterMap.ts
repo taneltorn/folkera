@@ -3,7 +3,6 @@ import {ColorScheme} from "./ColorScheme.ts";
 export interface ClusterMap {
     name: string;
     results: ClusterMapResult[];
-    defaultColorScheme?: ColorScheme;
 }
 
 export interface ClusterMapResult {
@@ -11,5 +10,6 @@ export interface ClusterMapResult {
     file: string;
     mAP?: number;
     rank1?: number;
+    defaultColorScheme?: ColorScheme;
 }
 

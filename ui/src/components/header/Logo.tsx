@@ -14,10 +14,10 @@ const Logo: React.FC = () => {
             leftSection={<BsDiscFill size={Size.icon.LG}/>}
         >
             <Text fz={size} ff={"Roboto"}>
-                Heli
+                Folk
             </Text>
             <Text fz={size} fw={"bold"} ff={"Roboto"}>
-                arhiiv
+                ERA
             </Text>
         </Button>);
 }

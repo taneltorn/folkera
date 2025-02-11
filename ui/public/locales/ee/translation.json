@@ -53,7 +53,7 @@
         "statsView": "Statistika"
       },
       "table": {
-        "results": "Salvestusi",
+        "results": "Tulemusi",
         "play": "Esita",
         "fileNotFound": "Helifail puudub"
       },
@@ -72,10 +72,10 @@
         "groupByParish": "Kihelkondade lõikes",
         "groupByTune": "Viiside lõikes",
         "groups": {
-          "groupByYear": "Kombinatsioone (aastad)",
-          "groupByInstrument": "Kombinatsioone (pillid)",
-          "groupByParish": "Kombinatsioone (kihelkonnad)",
-          "groupByTune": "Kombinatsioone (viisid)"
+          "groupByYear": "Grupeeringuid (aastad)",
+          "groupByInstrument": "Grupeeringuid (pillid)",
+          "groupByParish": "Grupeeringuid (kihelkonnad)",
+          "groupByTune": "Grupeeringuid (viisid)"
         }
       },
       "viewSelection": {
@@ -90,8 +90,11 @@
       "modelVersion": {
         "title": "Mudel",
         "label": "Treenitud: {{name}}",
-        "pretrained": "SHS100k (eeltreenitud)",
-        "covers80": "Covers80"
+        "folk150_v0": "folk150 (v0)",
+        "pretrained": "shs100k (eeltreenitud)",
+        "covers80": "covers80",
+        "reels100": "reels100",
+        "folk150_trainset": "folk150_trainset"
       },
       "dataset": {
         "title": "Andmestik",
@@ -103,7 +106,7 @@
         "title": "Värviskeem",
         "label": "Värviskeem: {{name}}",
         "default": "Värviline",
-        "alternative": "Monokroomne"
+        "alternative": "Monokroomne/punane"
       }
     },
     "auth": {
@@ -133,6 +136,7 @@
     }
   },
   "button": {
+    "reset": "Lähtesta",
     "removeFilter": "Eemalda filter"
   }
 }
