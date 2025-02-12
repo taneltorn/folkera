@@ -193,8 +193,6 @@ const ClusterPlotView: React.FC = () => {
                         onChange={(value) => handleColorSchemeChange(value)}
                     />
 
-                    
-                    
                     {activeWork &&
                         <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
                             {t("button.reset")}
@@ -202,14 +200,14 @@ const ClusterPlotView: React.FC = () => {
 
                 </Group>
                 <Group gap={"md"} ml={"xl"}>
-                    <LabelValue
+                    {result?.mAP && <LabelValue
                         label={t("view.clusterMap.map")}
                         value={result?.mAP || "N/A"}
-                    />
-                    <LabelValue
+                    />}
+                    {result?.rank1 && <LabelValue
                         label={t("view.clusterMap.rank1")}
                         value={result?.rank1 || "N/A"}
-                    />
+                    />}
                 </Group>
             </Group>
             <Plot
