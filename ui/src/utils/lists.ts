@@ -24,7 +24,7 @@ export const RecordingTableFields = [
     "comments",
 ];
 
-export const ItemsPerPageOptions = [10, 25, 100];
+export const ItemsPerPageOptions = [10, 25, 50];
 
 export const ColorSchemes: ColorScheme[] = [
     {

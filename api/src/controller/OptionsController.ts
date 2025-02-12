@@ -1,4 +1,4 @@
-import express, { Response} from "express";
+import express, {Request, Response} from "express";
 import log4js from "log4js";
 import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {logRequest} from "../middleware/requestLogger";
@@ -24,11 +24,11 @@ class OptionsController {
         this.router.get("/", logRequest, useQueryParams, this.getOptions.bind(this));
     }
 
-    async getOptions(req: ApiRequest, res: Response): Promise<any> {
+    async getOptions(req: Request, res: Response): Promise<any> {
         try {
             // @ts-ignore
             const data = await this.recordingService
-                .find(req.filters)
+                .find()
                 .then(result => result.data);
 
             const options: FilteringOptions = {
