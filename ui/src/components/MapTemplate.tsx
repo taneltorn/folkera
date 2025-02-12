@@ -1,40 +1,49 @@
 import React, {useMemo, useRef} from "react";
 import {MapContainer, TileLayer, GeoJSON} from "react-leaflet";
 import chroma from 'chroma-js';
-import {MapOptions, MapType} from "../model/MapOptions.ts";
+import {MapOptions} from "../model/MapOptions.ts";
 import moment from "moment";
 import {GeoJsonStyle} from "../utils/map.helpers.ts";
-import {StatsItem} from "../model/Stats.ts";
 import {Box} from "@mantine/core";
+
+import {GroupBy} from "../../../domain/GroupBy.ts";
 
 interface Properties {
     isLoading: boolean;
-    stats: StatsItem[];
+    stats: { [key: string]: number }[];
     layers: any;
     options: MapOptions;
+    groupBy: GroupBy;
     onClick?: (value: string) => void;
 }
 
 
-const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, options, onClick}) => {
+const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, options, onClick}) => {
 
     const mapContainerRef = useRef<any>(null);
     const geoJsonLayerRef = useRef<any>(null);
 
+
+    const counties = layers?.features.map((feature: any) => feature.properties.NIMI);
+    console.log("counties")
+    console.log(counties)
     // @ts-ignore
     let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
-
+    // let maxValue = 300
     const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
         if (feature.properties) {
-            const parish = options.type === MapType.PARISHES && !feature.properties.NIMI.endsWith("linn")
+            const parish = groupBy === GroupBy.PARISH && !feature.properties.NIMI.endsWith("linn")
             && feature.properties.NIMI !== "Setumaa"
                 ? feature.properties.NIMI + " khk."
                 : feature.properties.NIMI;
 
+
             // @ts-ignore
             const count = stats[`${parish}`] || 0;
+
+            // console.log(count)
 
             let color = "#ccc";
             if (options.asHeatMap) {

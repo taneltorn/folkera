@@ -2,7 +2,7 @@ import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Group} from "@mantine/core";
-import {Size} from "../../utils/common.constants.ts";
+import {Size} from "../../utils/constants.ts";
 import {FaDatabase} from "react-icons/fa";
 import {MdScatterPlot} from "react-icons/md";
 

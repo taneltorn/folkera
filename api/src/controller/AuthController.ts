@@ -2,7 +2,7 @@ import express, {Request, Response} from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {verifyToken} from "../middleware/verifyToken";
-import userService from "../service/UserService";
+import userService from "../service/users/DummyUserService";
 import log4js from "log4js";
 import {logRequest} from "../middleware/requestLogger";
 import {LOG_LEVEL} from "../config/config";

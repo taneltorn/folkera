@@ -1,5 +1,5 @@
 import React, {useContext, useMemo} from 'react';
-import {isEmpty} from "../utils/common.helpers.tsx";
+import {isEmpty} from "../utils/helpers.tsx";
 import {
     NotificationContext,
     NotificationType,
@@ -13,13 +13,13 @@ interface Properties {
 
 export const NotificationContextProvider: React.FC<Properties> = ({children}) => {
 
-    const notify = (message: string, type?: NotificationType, error?: Error) => {
+    const notify = (message: string, type?: NotificationType, error?: any) => {
         if (error) {
             console.error(error);
         }
         notifications.show({
             color: NotificationTypeFeatures.get(type || NotificationType.INFO)?.color,
-            message: error ? `${message}: ${error.message}` : message,
+            message: error ? `${message}: ${error?.message}` : message,
             p: "md",
             radius: "sm",
             withBorder: true,

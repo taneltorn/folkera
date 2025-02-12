@@ -2,12 +2,12 @@ import React from 'react';
 import {Button, CopyButton, Group, SimpleGrid, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {IoIosClose} from "react-icons/io";
-import {Size} from "../../utils/common.constants.ts";
+import {Size} from "../../utils/constants.ts";
 import AudioPlayer from "react-h5-audio-player";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useTranslation} from "react-i18next";
 import {MdCopyAll} from "react-icons/md";
-import {truncate} from "../../utils/common.helpers.tsx";
+import {truncate} from "../../utils/helpers.tsx";
 
 const BottomAudioPlayer: React.FC = () => {
 

@@ -1,15 +1,18 @@
 import express, {Request, Response} from "express";
 import log4js from "log4js";
-import RecordingService from "../service/RecordingService";
+import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {Recording} from "../../../domain/Recording";
 import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
+import {useQueryParams} from "../middleware/useQueryParams";
+import {ApiRequest} from "../model/ApiRequest";
+import {ResultList} from "../model/ResultList";
 
 class RecordingController {
 
     router = express.Router();
     logger = log4js.getLogger("RecordingController");
 
-    recordingService = new RecordingService();
+    recordingService = new CsvRecordingService();
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
@@ -17,19 +20,19 @@ class RecordingController {
     }
 
     initializeRoutes() {
-        this.router.get("/", logRequest, this.getRecordings.bind(this));
+        this.router.get("/", logRequest, useQueryParams, this.getRecordings.bind(this));
         this.router.put("/", logRequestWithBody, this.saveRecordings.bind(this));
     }
 
-    async getRecordings(req: Request, res: Response): Promise<any> {
+    async getRecordings(req: ApiRequest, res: Response): Promise<ResultList<Recording>> {
         try {
-            const result = await this.recordingService.findAll();
+            const result = await this.recordingService.find(req.filters, req.pagination);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;
             }
-            res.status(200).json(result.data);
+            res.status(200).json(result);
         } catch (err) {
             this.logger.error(err);
             res.status(500).json({error: "An unexpected error occurred."});

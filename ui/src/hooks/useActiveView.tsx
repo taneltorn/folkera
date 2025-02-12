@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
-import {isEmpty} from "../utils/common.helpers.tsx";
+import {isEmpty} from "../utils/helpers.tsx";
 import {View, ActiveViewContext} from '../context/ActiveViewContext.tsx';
 import {useSearchParams} from "react-router-dom";
 

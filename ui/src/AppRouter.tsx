@@ -5,9 +5,8 @@ import {
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx"; 
-import RecordingList from "./views/recording/RecordingList.tsx";
-import ClusterPlot from "./views/clustermap/ClusterPlot.tsx";
-import Stats from "./views/stats/Stats.tsx";
+import RecordingsList from "./views/list/RecordingsList.tsx";
+import ClusterPlotView from "./views/clustermap/ClusterPlotView.tsx";
 
 const router = createBrowserRouter([
     {
@@ -20,15 +19,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/recordings",
-                element: <RecordingList/>,
+                element: <RecordingsList/>,
             },
             {
                 path: "/clusters",
-                element: <ClusterPlot/>,
-            },
-            {
-                path: "/stats",
-                element: <Stats/>,
+                element: <ClusterPlotView/>,
             }
         ]
     }

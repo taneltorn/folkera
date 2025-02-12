@@ -1,7 +1,6 @@
-import {MapOptions, MapType} from "../model/MapOptions.ts";
+import {MapOptions} from "../model/MapOptions.ts";
 
 export const DefaultMapOptions: MapOptions = {
-    type: MapType.PARISHES,
     showLabels: true,
     showCounts: true,
     asHeatMap: true,

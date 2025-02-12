@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Text} from "@mantine/core";
 import {BsDiscFill} from "react-icons/bs";
-import {Size} from "../../utils/common.constants.ts";
+import {Size} from "../../utils/constants.ts";
 
 const Logo: React.FC = () => {
 

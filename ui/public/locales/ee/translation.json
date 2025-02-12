@@ -58,24 +58,26 @@
         "fileNotFound": "Helifail puudub"
       },
       "map": {
-        "mapTypeSelection": {
-          "parishes": "Kihelkondade lõikes",
-          "counties": "Maakonndade lõikes"
+        "groupBy": {
+          "parish": "Kihelkondade lõikes",
+          "county": "Maakondade lõikes"
         }
       },
       "stats": {
         "uniqueCount": "Unikaalseid: <strong>{{count}}</strong>",
         "barChart": "Tulpdiagramm",
         "pieChart": "Sektordiagramm",
-        "groupByYear": "Aastate lõikes",
-        "groupByInstrument": "Pillide lõikes",
-        "groupByParish": "Kihelkondade lõikes",
-        "groupByTune": "Viiside lõikes",
+        "groupBy": {
+          "year": "Aastate lõikes",
+          "instrument": "Pillide lõikes",
+          "parish": "Kihelkondade lõikes",
+          "tune": "Viiside lõikes"
+        },
         "groups": {
-          "groupByYear": "Grupeeringuid (aastad)",
-          "groupByInstrument": "Grupeeringuid (pillid)",
-          "groupByParish": "Grupeeringuid (kihelkonnad)",
-          "groupByTune": "Grupeeringuid (viisid)"
+          "year": "Grupeeringuid (aastad)",
+          "instrument": "Grupeeringuid (pillid)",
+          "parish": "Grupeeringuid (kihelkonnad)",
+          "tune": "Grupeeringuid (viisid)"
         }
       },
       "viewSelection": {
@@ -128,6 +130,7 @@
     },
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
+      "fetchOptions": "Filtreerimisvalikute laadimine ebaõnnestus",
       "saveData": "Andmete salvestamine ebaõnnestus",
       "exportData": "Andmete eksportimine ebaõnnestus",
       "verifyToken": "Autentimine ebaõnnestus",

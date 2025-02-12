@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
-
 import log4js from "log4js";
+
 const logger = log4js.getLogger("AuthController");
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {

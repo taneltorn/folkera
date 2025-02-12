@@ -1,5 +1,5 @@
 import React from 'react';
-import {Size} from "../utils/common.constants.ts";
+import {Size} from "../utils/constants.ts";
 import {RiErrorWarningFill} from "react-icons/ri";
 import {FaRegCheckCircle} from "react-icons/fa";
 
@@ -16,7 +16,7 @@ export const NotificationTypeFeatures = new Map([
 ]);
 
 export interface Properties {
-    notify: (message: string, type?: NotificationType, error?: Error) => void;
+    notify: (message: string, type?: NotificationType, error?: any) => void;
 }
 
 export const NotificationContext = React.createContext<Properties>({} as Properties);

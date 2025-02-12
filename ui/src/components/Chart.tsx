@@ -11,9 +11,9 @@ import {
     Legend
 } from 'chart.js';
 import {useMantineTheme} from "@mantine/core";
-import {ChartType} from "../model/Stats.ts";
 import chroma from "chroma-js";
-import {useStats} from "../hooks/useStats.tsx";
+import {useStatsContext} from "../hooks/useStatsContext.tsx";
+import {ChartType} from "../model/ChartType.ts";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
@@ -23,7 +23,7 @@ interface ChartProps {
 
 const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
 
-    const {stats, chartType} = useStats();
+    const {stats, chartType} = useStatsContext();
 
     const chartRef = useRef(null);
     const theme = useMantineTheme();
