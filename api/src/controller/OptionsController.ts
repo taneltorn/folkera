@@ -39,6 +39,7 @@ class OptionsController {
                 performer: withBlankOptions(extractAndSort(data, "performer", ",")),
                 collector: withBlankOptions(extractAndSort(data, "collector", ",")),
                 comments: withBlankOptions([]),
+                file: withBlankOptions([]),
                 quality: withBlankOptions(extractAndSort(data, "quality", ",")),
                 kivike: withBlankOptions(extractAndSort(data, "kivike", ",")),
                 parish: withBlankOptions([{group: "\n", items: Parishes}]),

@@ -40,7 +40,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
 
-    const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", ["collector", "archive", "notes"]);
+    const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", ["quality", "kivike", "comments", "file", "origin", "dance", "duration", "datatype"]);
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
 
     const loadData = () => {

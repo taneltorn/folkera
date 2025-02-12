@@ -93,7 +93,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 {recording.notes}
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"file"} unmodifiable>
+            <RecordingTableCell recording={recording} field={"file"} >
                 {recording.file}
             </RecordingTableCell>
 

@@ -50,7 +50,7 @@ const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
     const options = {
         responsive: true,
         animation: {
-            duration: 300
+            duration: 150
         },
         plugins: {
             legend: {
