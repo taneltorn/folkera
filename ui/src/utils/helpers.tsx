@@ -12,11 +12,11 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     if (!filters) {
         return {};
     }
-    return filters.reduce((acc, {field, value}) => {
-        acc[field] = value;
+    return filters.reduce((acc, { field, value }) => {
+        acc[field] = acc[field] ? `${acc[field]};${value}` : value;
         return acc;
     }, {} as Record<string, string>);
-}
+};
 
 export  const generateFileName = (filters?: Filter[]) => {
     return filters && filters.length > 0

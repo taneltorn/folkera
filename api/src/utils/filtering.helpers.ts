@@ -28,10 +28,15 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
-const extract = (field: string, filters: Filter[]) => {
-    return filters
+const extract = (field: string, filters: Filter[], splitBy : string = ";"): string[] => {
+    const values = filters
         .filter(f => f.field === field)
         .map(f => f.value.toLowerCase().trim()) || [];
+    
+    if (!splitBy) {
+        return values;
+    }
+    return values.map(v => v.split(splitBy).map(v => v.trim())).flat();
 }
 
 export const filter = (data: Recording[], filters?: Filter[]) => {
@@ -49,7 +54,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
         isBetween(r.year, extract("year", filters)) &&
-        isOneOf(r.tune, extract("tune", filters)) &&
+        isIn(r.tune, extract("tune", filters)) &&
         isIn(r.archive, extract("archive", filters)) &&
         isIn(r.instrument, extract("instrument", filters)) &&
         isIn(r.dance, extract("dance", filters)) &&
@@ -60,6 +65,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(r.origin, extract("origin", filters)) &&
         isIn(r.comments, extract("comments", filters)) &&
         isIn(r.file, extract("file", filters)) &&
+        isIn(`${r.duration}`, extract("duration", filters)) &&
         isIn(r.quality, extract("quality", filters)) &&
         isIn(r.kivike, extract("kivike", filters)) &&
         (contains(r.ref, search)
@@ -124,10 +130,10 @@ export const isIn = (value: string | undefined, filters: string[], split?: strin
     if (!filters.length) {
         return true;
     }
-    if(filters[0] === "_blank") {
+    if (filters[0] === "_blank") {
         return !value;
     }
-    if(filters[0] === "_not_blank") {
+    if (filters[0] === "_not_blank") {
         return !!value;
     }
 

@@ -114,9 +114,10 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"duration"}>
-                            <FilterInput
+                            <FilterSelect
                                 field={"duration"}
                                 placeholder={t("recording.duration")}
+                                options={filteringOptions.duration}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"quality"}>

@@ -16,6 +16,7 @@ const filterableKeys = [
     "content",
     "notes",
     "comments",
+    "duration",
     "quality",
     "file",
     "archive",

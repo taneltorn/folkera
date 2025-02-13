@@ -13,6 +13,7 @@ import {NotificationContextProvider} from "./hooks/useNotifications.tsx";
 import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 import {AuthContextProvider} from "./hooks/useAuth.tsx";
 import chroma from "chroma-js";
+import {DataContextProvider} from "./hooks/useDataContext.tsx";
 
 const colors = {
     red: chroma.scale("Reds").colors(10),
@@ -48,7 +49,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <AuthContextProvider>
                 <AudioContextProvider>
                     <ModificationsContextProvider>
-                        <AppRouter/>
+                        <DataContextProvider>
+                            <AppRouter/>
+                        </DataContextProvider>
                     </ModificationsContextProvider>
                 </AudioContextProvider>
             </AuthContextProvider>

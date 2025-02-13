@@ -35,7 +35,7 @@ export const StatsContextProvider: React.FC<Properties> = ({defaultGroupBy, chil
 export const useStatsContext = () => {
     const context = useContext(StatsContext);
     if (isEmpty(context)) {
-        throw new Error('useStatsOptions must be used within a StatsOptionsContextProvider')
+        throw new Error('useStatsContext must be used within a StatsContextProvider')
     }
 
     return context;

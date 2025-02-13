@@ -6,7 +6,6 @@ import useLocalStorage from "./useLocalStorage.tsx";
 import {ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../../../domain/Pagination.ts";
 import {useDataService} from "../services/useDataService.tsx";
-import {useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useNotifications} from "./useNotifications.tsx";
@@ -30,7 +29,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const {t} = useTranslation();
 
     const {notify} = useNotifications();
-    const location = useLocation();
     const dataService = useDataService();
     const optionsService = useOptionsService();
 
@@ -161,11 +159,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         return () => optionsService.cancelSource.cancel();
     }, [data]);
 
-    useEffect(() => {
-        if (location.state?.filters) {
-            setFilters(location.state.filters)
-        }
-    }, [location.state]);
 
     useEffect(() => {
         loadData();
@@ -186,7 +179,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         pagination, setPagination,
 
         filters,
-        addFilter,
+        addFilter, setFilters,
         removeFilter,
         clearFilters,
 
@@ -206,7 +199,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 export const useDataContext = () => {
     const context = useContext(DataContext);
     if (isEmpty(context)) {
-        throw new Error('useDataFiltering must be used within a FilteringContextProvider')
+        throw new Error('useDataContext must be used within a DataContextProvider')
     }
 
     return context;

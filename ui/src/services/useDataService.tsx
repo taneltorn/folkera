@@ -15,7 +15,6 @@ export const useDataService = () => {
 
     const fetchData = async (filters?: Filter[], pagination?: Pagination): Promise<ApiResponse<Recording>> => {
         setIsLoading(true);
-
         return axios.get(`${API_URL}/api/recordings`, {
             headers: {
                 'Content-Type': 'application/json',

@@ -23,6 +23,7 @@ export interface Properties {
     filteringOptions: FilteringOptions;
 
     filters: Filter[];
+    setFilters: (values: Filter[]) => void;
     addFilter: (type: string, values: string[]) => void;
     removeFilter: (type: string, value?: string) => void;
     clearFilters: () => void;
