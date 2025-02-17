@@ -16,7 +16,7 @@ const BottomAudioPlayer: React.FC = () => {
     const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
 
     return (
-        <SimpleGrid cols={3} py={"md"}>
+        <SimpleGrid cols={3} py={"md"} bg={track?.tune && (!track.datatype || track.datatype === "TX" || track.datatype === "TY") ? "red.4" : ""}>
             {currentUser?.isUser && track 
                 ? <>
                     <Group px={"md"} gap={0} title={track?.file} wrap={"nowrap"}>
@@ -35,7 +35,7 @@ const BottomAudioPlayer: React.FC = () => {
                             )}
                         </CopyButton>
                         <Text size={"sm"}>
-                            {`${track.ref} - ${truncate(track.content)} < ${track.parish} < ${truncate(track.performer)} (${track.year})`}
+                            {`${track.ref} - ${truncate(track.content)} < ${track.parish} < ${truncate(track.performer)} (${track.year}) ${track.tune} ${track.datatype}`}
                         </Text>
                     </Group>
                     <AudioPlayer
@@ -51,9 +51,6 @@ const BottomAudioPlayer: React.FC = () => {
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
                     />
-                    {/*<Group>*/}
-                    {/*    <Text size={"xs"}>{track.file?.split("/").slice(-1)}</Text>*/}
-                    {/*</Group>*/}
                 </>
                 : <>
                     <Group px={"md"}>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Menu} from "@mantine/core";
+import {Button, Divider, Menu} from "@mantine/core";
 import {Size} from "../utils/constants.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
 import {MenuSelectOption} from "../model/MenuSelectOption.ts";
@@ -29,9 +29,11 @@ const MenuSelect: React.FC<Properties> = (props) => {
             <Menu.Dropdown>
                 {props.options
                     .map(((option, index) => (
-                            <Menu.Item key={index} onClick={() => props.onChange(option.value)}>
-                                {option.label}
-                            </Menu.Item>)
+                            option.value === ""
+                                ? <Divider my={"xs"}/>
+                                : <Menu.Item key={index} onClick={() => props.onChange(option.value)}>
+                                    {option.label}
+                                </Menu.Item>)
                     ))}
             </Menu.Dropdown>
         </Menu>

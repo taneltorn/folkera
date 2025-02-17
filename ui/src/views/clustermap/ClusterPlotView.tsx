@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Button, Group, LoadingOverlay} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useDataService} from "../../services/useDataService.tsx";
@@ -13,10 +13,7 @@ import {ColorScheme} from "../../model/ColorScheme.ts";
 import {
     ClusterMaps,
     ColorSchemes,
-    Datasets,
     MarkerSymbols,
-    generateDatasetOptions,
-    generateColorSchemeOptions
 } from "../../utils/lists.ts";
 import {ClusterData} from "../../model/ClusterData.ts";
 import MenuSelect from "../../components/MenuSelect.tsx";
@@ -34,9 +31,8 @@ const ClusterPlotView: React.FC = () => {
     const {fetchData, cancelSource} = useDataService();
     const {notify} = useNotifications();
 
-    const [colorScheme, setColorScheme] = useState<ColorScheme>(ColorSchemes[0]);
+    const [colorScheme, setColorScheme] = useState<ColorScheme>(ColorSchemes[1]);
     const [clusterMap, setClusterMap] = useState<ClusterMap>(ClusterMaps[0]);
-    const [dataset, setDataset] = useState<string>(Datasets[0]);
 
     const [data, setData] = useState<ExtendedPlotlyData[]>([]);
     const [recordings, setRecordings] = useState<Recording[]>([]);
@@ -113,6 +109,9 @@ const ClusterPlotView: React.FC = () => {
         const map = ClusterMaps.find(c => c.name === value);
         if (map) {
             setClusterMap(map);
+            if (map.defaultColorScheme) {
+                setColorScheme(map.defaultColorScheme);
+            }
         }
     }
 
@@ -132,9 +131,6 @@ const ClusterPlotView: React.FC = () => {
         setActiveWork(null);
     }
 
-    const result = useMemo(() =>
-        clusterMap.results.find(x => x.dataset === dataset), [clusterMap, dataset]);
-
     useEffect(() => {
         fetchData()
             .then(r => setRecordings(r.data))
@@ -148,11 +144,11 @@ const ClusterPlotView: React.FC = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        const result = clusterMap.results.find(x => x.dataset === dataset);
+        const result = ClusterMaps.find(map => map.name === clusterMap.name);
         if (result) {
             fetchClusterData(result.file);
         }
-    }, [colorScheme, clusterMap, dataset]);
+    }, [colorScheme, clusterMap]);
 
     useEffect(() => {
         if (!data.length) {
@@ -171,43 +167,40 @@ const ClusterPlotView: React.FC = () => {
                 <Group gap={4}>
                     <MenuSelect
                         title={t(`view.clusterMap.modelVersion.title`)}
-                        label={t(`view.clusterMap.modelVersion.label`, {name: t(`view.clusterMap.modelVersion.${clusterMap.name}`)})}
+                        label={t(`view.clusterMap.modelVersion.name.${clusterMap.name}`, clusterMap.name)}
                         options={ClusterMaps.map(map => ({
                             value: map.name,
-                            label: t(`view.clusterMap.modelVersion.${map.name}`)
+                            label: t(`view.clusterMap.modelVersion.name.${map.name}`, map.name)
                         }))}
                         onChange={(value) => handleClusterMapChange(value)}
                     />
 
                     <MenuSelect
-                        title={t(`view.clusterMap.dataset.title`)}
-                        label={t(`view.clusterMap.dataset.label`, {name: t(`view.clusterMap.dataset.${dataset}`)})}
-                        options={generateDatasetOptions(t)}
-                        onChange={(value) => setDataset(value)}
-                    />
-
-                    <MenuSelect
                         title={t(`view.clusterMap.colorScheme.title`)}
                         label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
-                        options={generateColorSchemeOptions(t)}
+                        options={ColorSchemes.map(scheme => ({
+                            value: scheme.name,
+                            label: t(`view.clusterMap.colorScheme.${scheme.name}`)
+                        }))}
                         onChange={(value) => handleColorSchemeChange(value)}
                     />
 
-                    {activeWork &&
-                        <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
-                            {t("button.reset")}
-                        </Button>}
 
                 </Group>
                 <Group gap={"md"} ml={"xl"}>
-                    {result?.mAP && <LabelValue
+                    {clusterMap?.mAP && <LabelValue
                         label={t("view.clusterMap.map")}
-                        value={result?.mAP || "N/A"}
+                        value={clusterMap?.mAP || "N/A"}
                     />}
-                    {result?.rank1 && <LabelValue
+                    {clusterMap?.rank1 && <LabelValue
                         label={t("view.clusterMap.rank1")}
-                        value={result?.rank1 || "N/A"}
+                        value={clusterMap?.rank1 || "N/A"}
                     />}
+
+                    {activeWork &&
+                        <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
+                            {t("button.showAll")}
+                        </Button>}
                 </Group>
             </Group>
             <Plot

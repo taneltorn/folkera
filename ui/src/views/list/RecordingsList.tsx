@@ -36,7 +36,7 @@ const RecordingsList: React.FC = () => {
                 </StatsContextProvider>}
 
             {activeView === View.STATS &&
-                <StatsContextProvider defaultGroupBy={GroupBy.YEAR}>
+                <StatsContextProvider defaultGroupBy={GroupBy.TUNE}>
                     <StatsView/>
                 </StatsContextProvider>}
         </Box>

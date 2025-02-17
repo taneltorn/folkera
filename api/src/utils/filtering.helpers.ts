@@ -79,6 +79,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
             || contains(r.parish, search)
             || contains(r.origin, search)
             || contains(r.notes, search)
+            || contains(r.file, search)
             || contains(r.comments, search)
         )
     );

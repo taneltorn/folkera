@@ -1,7 +1,6 @@
 import chroma from "chroma-js";
 import {ClusterMap} from "../model/ClusterMap";
 import {ColorScheme} from "../model/ColorScheme.ts";
-import {TFunction} from "i18next";
 
 export const RecordingTableFields = [
     "ref",
@@ -39,85 +38,75 @@ export const ColorSchemes: ColorScheme[] = [
     },
 ];
 
-export const Datasets: string[] = ["folkera", "folk150", "folk150_testset"];
-
 export const ClusterMaps: ClusterMap[] = [
     {
-        name: "folk150_v0",
-        results: [
-
-            {
-                dataset: "folkera",
-                file: "cluster-data/folk150_v0-folkera.json",
-            },
-            {
-                dataset: "folk150_testset",
-                file: "cluster-data/folk150_v0-folk150_testset.json",
-            },
-        ]
+        name: "v1.2_pretrained_folk150",
+        file: "cluster-data/v1.2_pretrained_folk150.json",
+        defaultColorScheme: ColorSchemes[1],
+    }, 
+    {
+        name: "v1.1_pretrained_folk150",
+        file: "cluster-data/v1.1_pretrained_folk150.json",
+        defaultColorScheme: ColorSchemes[1],
+    },
+    {
+        name: "v1.0_pretrained_folk150",
+        file: "cluster-data/v1.0_pretrained_folk150.json",
+        defaultColorScheme: ColorSchemes[1],
+    },
+    {
+        name: "folk150",
+        file: "cluster-data/folk150.json",
+        defaultColorScheme: ColorSchemes[1],
     },
     {
         name: "pretrained",
-        results: [
-            {
-                dataset: "folkera",
-                file: "cluster-data/pretrained-folkera.json",
-
-            },
-            {
-                dataset: "folk150_testset",
-                file: "cluster-data/pretrained-folk150_testset.json",
-                mAP: 0.507,
-                rank1: 5.790,
-            },
-        ]
+        file: "cluster-data/pretrained.json",
+        defaultColorScheme: ColorSchemes[1],
+    },
+    {name: "", file: ""},
+    {
+        name: "eval_covers80",
+        file: "cluster-data/eval_covers80.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.120,
+        rank1: 20.331
     },
     {
-        name: "covers80",
-        results: [
-            {
-                dataset: "folkera",
-                file: "cluster-data/covers80-folkera.json",
-            },
-            {
-                dataset: "folk150_testset",
-                file: "cluster-data/covers80-folk150_testset.json",
-                mAP: 0.118,
-                rank1: 23.408,
-            },
-        ]
+        name: "eval_reels100",
+        file: "cluster-data/eval_reels100.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.105,
+        rank1: 22.300
     },
     {
-        name: "reels100",
-        results: [
-            {
-                dataset: "folkera",
-                file: "cluster-data/reels100-folkera.json",
-            },
-            {
-                dataset: "folk150_testset",
-                file: "cluster-data/reels100-folk150_testset.json",
-                mAP: 0.130,
-                rank1: 20.935,
-            },
-        ]
+        name: "eval_folk150_trainset",
+        file: "cluster-data/eval_folk150_trainset.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.232,
+        rank1: 8.923
     },
     {
-        name: "folk150_trainset",
-        results: [
-            {
-                dataset: "folkera",
-                file: "cluster-data/folk150_trainset-folkera.json",
-            },
-            {
-                dataset: "folk150_testset",
-                file: "cluster-data/folk150_trainset-folk150_testset.json",
-                mAP: 0.262,
-                rank1: 10.231,
-            },
-        ]
-    }
-
+        name: "eval_folk150_trainset_alt",
+        file: "cluster-data/eval_folk150_trainset_alt.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.248,
+        rank1: 8.708
+    },
+    {
+        name: "eval_pretrained_folk150_trainset",
+        file: "cluster-data/eval_pretrained_folk150_trainset.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.704,
+        rank1: 3.610
+    },
+    {
+        name: "eval_pretrained_folk150_trainset_alt",
+        file: "cluster-data/eval_pretrained_folk150_trainset_alt.json",
+        defaultColorScheme: ColorSchemes[0],
+        mAP: 0.701,
+        rank1: 3.392
+    },
 ];
 
 export const MarkerSymbols = [
@@ -125,26 +114,3 @@ export const MarkerSymbols = [
     "star", "hexagram", "pentagram", "hourglass", "bowtie",
 ];
 
-
-export const generateDatasetOptions = (t: TFunction) => [
-    {
-        value: "folkera",
-        label: t("view.clusterMap.dataset.folkera"),
-    },
-    {
-        value: "folk150_testset",
-        label: t("view.clusterMap.dataset.folk150_testset"),
-    },
-];
-
-
-export const generateColorSchemeOptions = (t: TFunction) => [
-    {
-        value: "default",
-        label: t("view.clusterMap.colorScheme.default"),
-    },
-    {
-        value: "alternative",
-        label: t("view.clusterMap.colorScheme.alternative"),
-    },
-];
