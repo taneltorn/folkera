@@ -90,7 +90,6 @@
         }
       },
       "stats": {
-        "uniqueCount": "Unikaalseid: <strong>{{count}}</strong>",
         "barChart": "Tulpdiagramm",
         "pieChart": "Sektordiagramm",
         "groupBy": {
@@ -101,11 +100,11 @@
           "performer": "Esitajate lõikes"
         },
         "groups": {
-          "year": "Grupeeringuid (aastad)",
-          "instrument": "Grupeeringuid (pillid)",
-          "parish": "Grupeeringuid (kihelkonnad)",
-          "tune": "Grupeeringuid (viisid)",
-          "performer": "Grupeeringuid (esitajad)"
+          "year": "Erinevaid aastaid",
+          "instrument": "Erinevaid pille",
+          "parish": "Erinevaid kihelkondi",
+          "tune": "Erinevaid viise",
+          "performer": "Erinevaid esitajaid"
         }
       },
       "viewSelection": {
