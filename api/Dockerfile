@@ -4,12 +4,11 @@ WORKDIR /app
 
 ENV NODE_OPTIONS=--max-old-space-size=1536
 
-COPY api/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY api/ ./
-COPY domain/ ./domain
+COPY . .
 
 RUN npm run build
 

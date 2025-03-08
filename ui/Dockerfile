@@ -8,12 +8,11 @@ ENV NODE_OPTIONS=--max-old-space-size=1536
 
 WORKDIR /app
 
-COPY ui/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY ui/ ./
-COPY domain/ ./domain
+COPY . .
 
 RUN npm run build
 
