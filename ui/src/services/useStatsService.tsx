@@ -20,7 +20,7 @@ export const useStatsService = () => {
     const fetchStats = async (filters: Filter[], groupBy: GroupBy): Promise<{ [key: string]: number }[]> => {
         setIsLoading(true);
 
-        return axios.get(`${API_URL}/api/stats`, {
+        return axios.get(`${API_URL}/stats`, {
             params: {
                 groupBy: groupBy,
                 ...urlify(filters)

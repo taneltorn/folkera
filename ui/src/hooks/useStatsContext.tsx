@@ -3,18 +3,18 @@ import {isEmpty} from "../utils/helpers.tsx";
 import {StatsContext} from "../context/StatsContext.tsx";
 
 import {GroupBy} from "../../../domain/GroupBy.ts";
-import { ChartType } from '../model/ChartType.ts';
+import {ChartType} from '../model/ChartType.ts';
+import useLocalStorage from "./useLocalStorage.tsx";
 
 interface Properties {
-    defaultGroupBy: GroupBy;
     children: React.ReactNode;
 }
 
-export const StatsContextProvider: React.FC<Properties> = ({defaultGroupBy, children}) => {
+export const StatsContextProvider: React.FC<Properties> = ({children}) => {
 
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
-    const [groupBy, setGroupBy] = useState<GroupBy>(defaultGroupBy);
-    const [chartType, setChartType] = useState<ChartType>(ChartType.BAR);
+    const [chartType, setChartType] = useLocalStorage<ChartType>("stats.chartType", ChartType.BAR);
+    const [groupBy, setGroupBy] = useLocalStorage<GroupBy>("stats.groupBy", GroupBy.YEAR);
 
     const groupsCount = useMemo<number>(() => Object.values(stats || []).filter(x => !!x).length, [stats]);
 

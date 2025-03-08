@@ -13,11 +13,7 @@ const Layout: React.FC = () => {
 
     return (
         <ActiveViewContextProvider>
-            <AppShell
-                // py={"md"}
-                layout={"default"}
-                
-            >
+            <AppShell layout={"default"}>
                 <Notifications position="top-right"/>
 
                 <AppShell.Main>

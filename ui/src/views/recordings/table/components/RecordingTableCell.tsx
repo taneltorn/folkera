@@ -5,6 +5,7 @@ import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {Recording} from "../../../../../../domain/Recording.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
+import {UserRole} from "../../../../../../domain/User.ts";
 
 interface Properties {
     recording: Recording;
@@ -43,7 +44,7 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiabl
     };
 
     const handleEditClick = (e: any) => {
-        if (!currentUser?.isAdmin || unmodifiable) {
+        if (currentUser?.role !== UserRole.ADMIN || unmodifiable) {
             return;
         }
         if (hiddenFields.includes(field)) {

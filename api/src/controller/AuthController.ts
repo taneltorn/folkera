@@ -2,7 +2,7 @@ import express, {Request, Response} from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {verifyToken} from "../middleware/verifyToken";
-import userService from "../service/users/DummyUserService";
+import userService from "../service/users/PostgresUserService";
 import log4js from "log4js";
 import {logRequest} from "../middleware/requestLogger";
 import {LOG_LEVEL} from "../config/config";
@@ -38,6 +38,7 @@ class AuthController {
                     const token = jwt.sign({
                         id: user.id,
                         email: user.email,
+                        name: user.name,
                         role: user.role,
                     }, process.env.JWT_SECRET_KEY!, {expiresIn: "30d"});
                     res.cookie("token", token, {
@@ -49,6 +50,7 @@ class AuthController {
                         user: {
                             id: user.id,
                             email: user.email,
+                            name: user.name,
                             role: user.role
                         }
                     });

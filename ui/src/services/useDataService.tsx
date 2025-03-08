@@ -15,7 +15,7 @@ export const useDataService = () => {
 
     const fetchData = async (filters?: Filter[], pagination?: Pagination): Promise<ApiResponse<Recording>> => {
         setIsLoading(true);
-        return axios.get(`${API_URL}/api/recordings`, {
+        return axios.get(`${API_URL}/recordings`, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -37,7 +37,7 @@ export const useDataService = () => {
 
     const saveData = async (data: Recording[]): Promise<Recording[]> => {
         setIsLoading(true);
-        return axios.put(`${API_URL}/api/recordings`, data, {
+        return axios.put(`${API_URL}/recordings`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },

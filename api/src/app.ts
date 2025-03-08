@@ -11,9 +11,10 @@ import StatsController from "./controller/StatsController";
 import cookieParser from "cookie-parser";
 import AuthController from "./controller/AuthController";
 import OptionsController from "./controller/OptionsController";
+import UserController from "./controller/UserController";
 
 const app = express();
-const port = 4000;
+const port = 3000;
 
 config({path: path.resolve(__dirname, '../../.env')});
 
@@ -35,14 +36,10 @@ app.use(cookieParser());
 
 app.use('/auth', AuthController);
 
-const recordingController = new RecordingController();
-app.use('/api/recordings', recordingController.router);
-
-const statsController = new StatsController();
-app.use('/api/stats', statsController.router);
-
-const optionsController = new OptionsController();
-app.use('/api/options', optionsController.router);
+app.use('/recordings', new RecordingController().router);
+app.use('/stats', new StatsController().router);
+app.use('/options', new OptionsController().router);
+app.use('/users', new UserController().router);
 
 app.listen(port, () => {
     logger.info(`Application started`);

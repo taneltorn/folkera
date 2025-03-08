@@ -14,6 +14,7 @@ import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 import {AuthContextProvider} from "./hooks/useAuth.tsx";
 import chroma from "chroma-js";
 import {DataContextProvider} from "./hooks/useDataContext.tsx";
+import {ModalsProvider} from "@mantine/modals";
 
 const colors = {
     red: chroma.scale("Reds").colors(10),
@@ -45,17 +46,19 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <MantineProvider theme={theme}>
-        <NotificationContextProvider>
-            <AuthContextProvider>
-                <AudioContextProvider>
-                    <ModificationsContextProvider>
-                        <DataContextProvider>
-                            <AppRouter/>
-                        </DataContextProvider>
-                    </ModificationsContextProvider>
-                </AudioContextProvider>
-            </AuthContextProvider>
-        </NotificationContextProvider>
+        <ModalsProvider>
+            <NotificationContextProvider>
+                <AuthContextProvider>
+                    <AudioContextProvider>
+                        <ModificationsContextProvider>
+                            <DataContextProvider>
+                                <AppRouter/>
+                            </DataContextProvider>
+                        </ModificationsContextProvider>
+                    </AudioContextProvider>
+                </AuthContextProvider>
+            </NotificationContextProvider>
+        </ModalsProvider>
     </MantineProvider>
     // </React.StrictMode>,
 )

@@ -16,7 +16,7 @@ const BottomAudioPlayer: React.FC = () => {
     const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
 
     return (
-        <SimpleGrid cols={3} py={"md"} bg={track?.tune && (!track.datatype || track.datatype === "TX" || track.datatype === "TY") ? "red.4" : ""}>
+        <SimpleGrid cols={3} py={"md"}>
             {currentUser?.isUser && track 
                 ? <>
                     <Group px={"md"} gap={0} title={track?.file} wrap={"nowrap"}>

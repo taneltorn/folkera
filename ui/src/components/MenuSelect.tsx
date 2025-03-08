@@ -30,7 +30,7 @@ const MenuSelect: React.FC<Properties> = (props) => {
                 {props.options
                     .map(((option, index) => (
                             option.value === ""
-                                ? <Divider my={"xs"}/>
+                                ? <Divider key={index} my={"xs"}/>
                                 : <Menu.Item key={index} onClick={() => props.onChange(option.value)}>
                                     {option.label}
                                 </Menu.Item>)

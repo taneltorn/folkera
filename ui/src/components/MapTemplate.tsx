@@ -17,19 +17,17 @@ interface Properties {
     onClick?: (value: string) => void;
 }
 
+const LabelPositions = new Map<string, number[]>([]);
 
+// todo: refactor
 const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, options, onClick}) => {
 
     const mapContainerRef = useRef<any>(null);
     const geoJsonLayerRef = useRef<any>(null);
 
-
-    const counties = layers?.features.map((feature: any) => feature.properties.NIMI);
-    console.log("counties")
-    console.log(counties)
     // @ts-ignore
     let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
-    // let maxValue = 300
+     maxValue = Math.max(maxValue, 50)
     const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -43,8 +41,6 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, o
             // @ts-ignore
             const count = stats[`${parish}`] || 0;
 
-            // console.log(count)
-
             let color = "#ccc";
             if (options.asHeatMap) {
                 // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - options.heatIntensity)]);
@@ -54,8 +50,9 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, o
                 color = count === 0 ? "#fff" : scale(count).hex();
             }
 
+            const correction = LabelPositions.get(parish) || [0, 0];
             const tooltipContent = `
-                <div style="text-align: center;">
+                <div style="text-align: center;position: relative;top: ${correction[0]}px;left: ${correction[1]}px;">
                     <div style="font-size: ${options.textSize}px">${parish?.replaceAll(" khk.", "")}</div>
                     ${options.showCounts ? `<div style="font-size: ${options.textSize}px; font-weight: bold;">${count}</div>` : ''}
                 </div>
@@ -105,12 +102,8 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, o
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
                     subdomains={['a', 'b', 'c']}
-                    maxZoom={20}
+                    maxZoom={15}
                 />
-                {/*<TileLayer*/}
-                {/*    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"*/}
-                {/*    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/}
-                {/*/>*/}
                 {layers && (
                     <GeoJSON
                         key={geoJsonKey}

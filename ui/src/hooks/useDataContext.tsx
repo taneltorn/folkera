@@ -3,7 +3,7 @@ import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {DataContext, Filter} from "../context/DataContext.tsx";
 import {Recording} from "../../../domain/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
-import {ItemsPerPageOptions} from "../utils/lists.ts";
+import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../../../domain/Pagination.ts";
 import {useDataService} from "../services/useDataService.tsx";
 import {useTranslation} from "react-i18next";
@@ -38,7 +38,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
 
-    const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", ["quality", "kivike", "comments", "file", "origin", "dance", "duration", "datatype"]);
+    const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", DefaultHiddenFields);
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
 
     const loadData = () => {

@@ -40,7 +40,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
                         isAdmin: UserRole.ADMIN === data.user.role
                     });
                     return data;
-                } else {
+                } else { 
                     throw new Error(t("toast.error.wrongCredentials"));
                 }
             })

@@ -5,14 +5,14 @@ import {useActiveView} from "../../../../hooks/useActiveView.tsx";
 import {View} from "../../../../context/ActiveViewContext.tsx";
 import {CountyToParishMap} from "../../../../utils/location.mappings.ts";
 import {DefaultMapOptions} from "../../../../utils/map.helpers.ts";
-import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
 import {GroupBy} from "../../../../../../domain/GroupBy.ts";
+import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 
 const RecordingMap: React.FC = () => {
 
     const {addFilter} = useDataContext();
     const {setActiveView} = useActiveView();
-    const {stats, groupBy} = useStatsContext();
+    const {stats, groupBy} = useMapContext();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [layers, setLayers] = useState<any>(null);
@@ -25,7 +25,7 @@ const RecordingMap: React.FC = () => {
     useEffect(() => {
         setLayers(null)
         setIsLoading(true);
-        
+
         fetch(`/map-layers/${groupBy}.json`)
             .then(response => response.json())
             .then((data) => {

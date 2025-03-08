@@ -71,6 +71,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         (contains(r.ref, search)
             || contains(r.content, search)
             || contains(r.tune, search)
+            || contains(r.dance, search)
             || contains(r.archive, search)
             || contains(r.year, search)
             || contains(r.instrument, search)

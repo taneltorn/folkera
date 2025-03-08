@@ -18,6 +18,7 @@ import {
 import {ClusterData} from "../../model/ClusterData.ts";
 import MenuSelect from "../../components/MenuSelect.tsx";
 import LabelValue from "../../components/LabelValue.tsx";
+import Page from "../../Page.tsx";
 
 // @ts-ignore
 interface ExtendedPlotlyData extends Plotly.Data {
@@ -56,35 +57,100 @@ const ClusterPlotView: React.FC = () => {
         const groupedData: { [key: string]: any } = {};
 
         const numberOfColors = Math.ceil((new Set(data.work_list.filter(w => !!w))).size);
+        const identifiedColors = colorScheme.known.colors(numberOfColors);
 
-        const identifiedColors = colorScheme.identified.colors(numberOfColors);
+        const correctly_identified_file_list = recordings.filter(r => !clusterMap.newWorks || clusterMap.newWorks?.includes(r.datatype as string))
+            .map(r => r.file);
+
+        const workMarkers = new Map([]);
 
         data.work_list.forEach((work, i) => {
-            if (!groupedData[work]) {
-                groupedData[work] = {
-                    x: [],
-                    y: [],
-                    mode: "markers",
-                    type: "scatter",
-                    name: work,
-                    visible: true,
-                    opacity: 1,
-                    marker: {
-                        size: work ? 10 : 6,
-                        color: work
-                            ? identifiedColors[i % identifiedColors.length]
-                            : colorScheme.unidentified,
-                        symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
-                    },
-                    text: [],
-                    file: [],
-                };
+
+            const markerSymbol = work ? (workMarkers.get(work) || MarkerSymbols[i % MarkerSymbols.length]) : "circle";
+            if (work && !workMarkers.has(work)) {
+                workMarkers.set(work, markerSymbol);
             }
 
-            groupedData[work].x.push(data.x[i]);
-            groupedData[work].y.push(data.y[i]);
-            groupedData[work].text.push(data.label_list[i]);
-            groupedData[work].file.push(data.file_list[i]);
+            const correctlyIdentified = correctly_identified_file_list.includes(data.file_list[i]);
+
+            if (correctlyIdentified && colorScheme.correctlyIdentified) {
+                const workName = work + " ";
+                if (!groupedData[workName]) {
+                    groupedData[workName] = {
+                        x: [],
+                        y: [],
+                        mode: "markers",
+                        type: "scatter",
+                        name: workName,
+                        visible: true,
+                        opacity: 1,
+                        marker: {
+                            size: 10,
+                            color: colorScheme.correctlyIdentified || colorScheme.unidentified,
+                            symbol: markerSymbol
+                            // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
+                        },
+                        text: [],
+                        file: [],
+                    };
+                }
+
+                groupedData[workName].x.push(data.x[i]);
+                groupedData[workName].y.push(data.y[i]);
+                groupedData[workName].text.push(data.label_list[i]);
+                groupedData[workName].file.push(data.file_list[i]);
+                // } else if ( data.file_list[i].endsWith("M2-2630--n)--Polka__loots.mp3")) {
+                //         groupedData["x"] = {
+                //             x: [],
+                //             y: [],
+                //             mode: "markers",
+                //             type: "scatter",
+                //             name: "x",
+                //             visible: true,
+                //             opacity: 1,
+                //             marker: {
+                //                 size: 80,
+                //                 color: "yellow",
+                //                 symbol: markerSymbol
+                //                 // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
+                //             },
+                //             text: [],
+                //             file: [],
+                //         };
+                //
+                //     groupedData["x"].x.push(data.x[i]);
+                //     groupedData["x"].y.push(data.y[i]);
+                //     groupedData["x"].text.push(data.label_list[i]);
+                //     groupedData["x"].file.push(data.file_list[i]);
+            } else {
+                if (!groupedData[work]) {
+                    groupedData[work] = {
+                        x: [],
+                        y: [],
+                        mode: "markers",
+                        type: "scatter",
+                        name: work,
+                        visible: true,
+                        opacity: 1,
+                        marker: {
+                            size: work ? 10 : 8,
+                            color: work
+                                ? identifiedColors[i % identifiedColors.length]
+                                : colorScheme.unidentified,
+                            symbol: markerSymbol
+                            // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
+                        },
+                        text: [],
+                        file: [],
+                    };
+                }
+
+                groupedData[work].x.push(data.x[i]);
+                groupedData[work].y.push(data.y[i]);
+                groupedData[work].text.push(data.label_list[i]);
+                groupedData[work].file.push(data.file_list[i]);
+            }
+
         });
 
         return Object.values(groupedData);
@@ -142,13 +208,16 @@ const ClusterPlotView: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        if (recordings.length === 0) {
+            return;
+        }
         setIsLoading(true);
 
         const result = ClusterMaps.find(map => map.name === clusterMap.name);
         if (result) {
             fetchClusterData(result.file);
         }
-    }, [colorScheme, clusterMap]);
+    }, [colorScheme, clusterMap, recordings]);
 
     useEffect(() => {
         if (!data.length) {
@@ -157,76 +226,78 @@ const ClusterPlotView: React.FC = () => {
         setData(data.map(trace => ({
             ...trace,
             // @ts-ignore
-            opacity: activeWork === null || trace.name === activeWork ? 1 : 0.1
+            opacity: activeWork === null || trace.name === activeWork ? 1 : 0
         })))
     }, [activeWork]);
 
     return (
-        <Box px={"md"}>
-            <Group justify={"space-between"}>
-                <Group gap={4}>
-                    <MenuSelect
-                        title={t(`view.clusterMap.modelVersion.title`)}
-                        label={t(`view.clusterMap.modelVersion.name.${clusterMap.name}`, clusterMap.name)}
-                        options={ClusterMaps.map(map => ({
-                            value: map.name,
-                            label: t(`view.clusterMap.modelVersion.name.${map.name}`, map.name)
-                        }))}
-                        onChange={(value) => handleClusterMapChange(value)}
-                    />
+        <Page title={t("page.title.clusterMap")}>
+            <Box mx={"md"}>
+                <Group justify={"space-between"}>
+                    <Group gap={4}>
+                        <MenuSelect
+                            title={t(`view.clusterMap.modelVersion.title`)}
+                            label={t(`view.clusterMap.modelVersion.name.${clusterMap.name}`, clusterMap.name)}
+                            options={ClusterMaps.map(map => ({
+                                value: map.name,
+                                label: t(`view.clusterMap.modelVersion.name.${map.name}`, map.name)
+                            }))}
+                            onChange={(value) => handleClusterMapChange(value)}
+                        />
 
-                    <MenuSelect
-                        title={t(`view.clusterMap.colorScheme.title`)}
-                        label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
-                        options={ColorSchemes.map(scheme => ({
-                            value: scheme.name,
-                            label: t(`view.clusterMap.colorScheme.${scheme.name}`)
-                        }))}
-                        onChange={(value) => handleColorSchemeChange(value)}
-                    />
+                        <MenuSelect
+                            title={t(`view.clusterMap.colorScheme.title`)}
+                            label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
+                            options={ColorSchemes.map(scheme => ({
+                                value: scheme.name,
+                                label: t(`view.clusterMap.colorScheme.${scheme.name}`)
+                            }))}
+                            onChange={(value) => handleColorSchemeChange(value)}
+                        />
 
 
+                    </Group>
+                    <Group gap={"md"} ml={"xl"}>
+                        {clusterMap?.mAP && <LabelValue
+                            label={t("view.clusterMap.map")}
+                            value={clusterMap?.mAP || "N/A"}
+                        />}
+                        {clusterMap?.rank1 && <LabelValue
+                            label={t("view.clusterMap.rank1")}
+                            value={clusterMap?.rank1 || "N/A"}
+                        />}
+
+                        {activeWork &&
+                            <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
+                                {t("button.showAll")}
+                            </Button>}
+                    </Group>
                 </Group>
-                <Group gap={"md"} ml={"xl"}>
-                    {clusterMap?.mAP && <LabelValue
-                        label={t("view.clusterMap.map")}
-                        value={clusterMap?.mAP || "N/A"}
-                    />}
-                    {clusterMap?.rank1 && <LabelValue
-                        label={t("view.clusterMap.rank1")}
-                        value={clusterMap?.rank1 || "N/A"}
-                    />}
+                <Plot
+                    data={(data || []) as Plotly.Data[]}
+                    onClick={handleClick}
+                    onLegendClick={(event) => handleLegendClick(event)}
+                    onLegendDoubleClick={() => false}
+                    layout={{
+                        title: "Interactive t-SNE Cluster Plot",
+                        showlegend: true,
+                        dragmode: "zoom",
+                        autosize: true,
+                        xaxis: {
+                            visible: false,
+                            uirevision: 'time',
+                        },
+                        yaxis: {
+                            visible: false,
+                            uirevision: 'time',
 
-                    {activeWork &&
-                        <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
-                            {t("button.showAll")}
-                        </Button>}
-                </Group>
-            </Group>
-            <Plot
-                data={(data || []) as Plotly.Data[]}
-                onClick={handleClick}
-                onLegendClick={(event) => handleLegendClick(event)}
-                onLegendDoubleClick={() => false}
-                layout={{
-                    title: "Interactive t-SNE Cluster Plot",
-                    showlegend: true,
-                    dragmode: "zoom",
-                    autosize: true,
-                    xaxis: {
-                        visible: false,
-                        uirevision: 'time',
-                    },
-                    yaxis: {
-                        visible: false,
-                        uirevision: 'time',
-
-                    }
-                }}
-                style={{width: "100%", height: "1000px"}}
-            />
-            <LoadingOverlay visible={isLoading}/>
-        </Box>
+                        }
+                    }}
+                    style={{width: "100%", height: "1000px"}}
+                />
+                <LoadingOverlay visible={isLoading}/>
+            </Box>
+        </Page>
     );
 };
 

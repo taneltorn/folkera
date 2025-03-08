@@ -1,19 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
-import { Group, Pill} from "@mantine/core";
+import {Group, Pill} from "@mantine/core";
 import {Color} from "../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 
-const MAX_NUMBER_OF_FILTERS_TO_DISPLAY = 8;
+const MAX_NUMBER_OF_FILTERS_TO_DISPLAY = 6;
 
 const RecordingFilters: React.FC = () => {
 
     const {t} = useTranslation();
     const {filters, removeFilter} = useDataContext();
 
+    const [showAllFilters, setShowAllFilters] = useState<boolean>(false);
+
     return (
         <Group gap={4}>
-            {filters.slice(0, MAX_NUMBER_OF_FILTERS_TO_DISPLAY).map((filter, index) =>
+            {filters.slice(0, showAllFilters ? 100 : MAX_NUMBER_OF_FILTERS_TO_DISPLAY).map((filter, index) =>
                 <Pill key={index}
                       size={"md"}
                       bg={`${Color.get(filter.field) || "gray"}.8`}
@@ -24,7 +26,8 @@ const RecordingFilters: React.FC = () => {
                     {t(`recording.${filter.field}`)}: {filter.value}
                 </Pill>)}
 
-            {filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY && <Pill>...</Pill>}
+            {!showAllFilters && filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY &&
+                <Pill onClick={() => setShowAllFilters(true)}>...</Pill>}
         </Group>
     );
 }

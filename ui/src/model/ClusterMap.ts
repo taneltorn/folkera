@@ -6,4 +6,6 @@ export interface ClusterMap {
     mAP?: number;
     rank1?: number;
     defaultColorScheme?: ColorScheme;
+    newWorks?: string[];
+    
 }

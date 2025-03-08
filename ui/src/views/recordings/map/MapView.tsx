@@ -5,11 +5,11 @@ import {Box} from "@mantine/core";
 import ControlBar from "../components/ControlBar.tsx";
 import RecordingMap from "./components/RecordingMap.tsx";
 import RecordingMapControls from "./components/RecordingMapControls.tsx";
-import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
+import {useMapContext} from "../../../hooks/useMapContext.tsx";
 
 const MapView: React.FC = () => {
 
-    const {setStats, groupBy} = useStatsContext();
+    const {setStats, groupBy} = useMapContext();
     const {fetchStats} = useStatsService();
     const {filters} = useDataContext();
 

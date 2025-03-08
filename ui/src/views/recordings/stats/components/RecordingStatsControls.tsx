@@ -22,6 +22,7 @@ const RecordingStatsControls: React.FC = () => {
                     GroupBy.INSTRUMENT,
                     GroupBy.PARISH,
                     GroupBy.TUNE,
+                    GroupBy.PERFORMER,
                 ].map(v => ({
                     label: t(`view.recordings.stats.groupBy.${v}`),
                     value: v

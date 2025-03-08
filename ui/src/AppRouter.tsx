@@ -5,8 +5,11 @@ import {
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx"; 
-import RecordingsList from "./views/list/RecordingsList.tsx";
+import RecordingsList from "./views/recordings/RecordingsList.tsx";
 import ClusterPlotView from "./views/clustermap/ClusterPlotView.tsx";
+import Admin from "./views/admin/Admin.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import {UserRole} from "../../domain/User.ts";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/clusters",
                 element: <ClusterPlotView/>,
+            },
+            {
+                path: "/admin",
+                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><Admin/></ProtectedRoute>,
             }
         ]
     }

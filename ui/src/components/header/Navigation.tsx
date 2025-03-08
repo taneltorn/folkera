@@ -4,11 +4,14 @@ import {useTranslation} from "react-i18next";
 import {Button, Group} from "@mantine/core";
 import {Size} from "../../utils/constants.ts";
 import {FaDatabase} from "react-icons/fa";
-import {MdScatterPlot} from "react-icons/md";
+import {MdAdminPanelSettings, MdScatterPlot} from "react-icons/md";
+import {useAuth} from "../../hooks/useAuth.tsx";
+import {UserRole} from "../../../../domain/User.ts";
 
 const routes = [
     {id: 'recordings', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
-    {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters"},
+    {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters", protected: true},
+    {id: 'admin', icon: <MdAdminPanelSettings size={Size.icon.SM}/>, link: "/admin", protected: true},
 ];
 
 const Navigation: React.FC = () => {
@@ -16,20 +19,23 @@ const Navigation: React.FC = () => {
     const [t] = useTranslation();
     const location = useLocation();
     const navigate = useNavigate();
+    const auth = useAuth();
 
     return (
         <Group gap={4}>
-            {routes.map((item, index) => (
-                <Button
-                    key={index}
-                    size={"xs"}
-                    leftSection={item.icon}
-                    variant={location.pathname.startsWith(item.link) ? "filled" : "subtle"}
-                    onClick={() => navigate(item.link)}
-                >
-                    {t(`page.navigation.${item.id}`)}
-                </Button>
-            ))}
+            {routes
+                .filter(route => !route.protected || auth.currentUser?.role === UserRole.ADMIN)
+                .map((item, index) => (
+                    <Button
+                        key={index}
+                        size={"xs"}
+                        leftSection={item.icon}
+                        variant={location.pathname.startsWith(item.link) ? "filled" : "subtle"}
+                        onClick={() => navigate(item.link)}
+                    >
+                        {t(`page.navigation.${item.id}`)}
+                    </Button>
+                ))}
         </Group>
     );
 }

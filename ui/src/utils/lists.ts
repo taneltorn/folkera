@@ -1,6 +1,6 @@
 import chroma from "chroma-js";
 import {ClusterMap} from "../model/ClusterMap";
-import {ColorScheme} from "../model/ColorScheme.ts";
+import {ColorScheme, ColorSchemeName} from "../model/ColorScheme.ts";
 
 export const RecordingTableFields = [
     "ref",
@@ -23,27 +23,45 @@ export const RecordingTableFields = [
     "comments",
 ];
 
+export const DefaultHiddenFields = [
+    "quality", "kivike", "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
+];
+
 export const ItemsPerPageOptions = [10, 25, 50];
 
 export const ColorSchemes: ColorScheme[] = [
     {
-        name: "default",
-        identified: chroma.scale("Set1"),
+        name: ColorSchemeName.DEFAULT,
+        known: chroma.scale("Set1"),
         unidentified: chroma.scale("Reds").colors(10)[8],
     },
     {
-        name: "alternative",
-        identified: chroma.scale(["#999", "#000"]),
+        name: ColorSchemeName.ALT,
+        known: chroma.scale(["#999", "#000"]),
         unidentified: chroma.scale("Reds").colors(10)[8],
+    },
+    {
+        name: ColorSchemeName.ALT2,
+        known: chroma.scale(["#999", "#000"]),
+        unidentified: chroma.scale("Reds").colors(10)[8],
+        correctlyIdentified: chroma.scale("Greens").colors(10)[6],
     },
 ];
 
 export const ClusterMaps: ClusterMap[] = [
     {
+        name: "v2.0_pretrained_folk160",
+        file: "cluster-data/v2.0_pretrained_folk160.json",
+        defaultColorScheme: ColorSchemes[1],
+        newWorks: ["TX", "TY", "TX2", "TY2"]
+
+    },
+    {
         name: "v1.2_pretrained_folk150",
         file: "cluster-data/v1.2_pretrained_folk150.json",
         defaultColorScheme: ColorSchemes[1],
-    }, 
+        newWorks: ["TX", "TY"]
+    },
     {
         name: "v1.1_pretrained_folk150",
         file: "cluster-data/v1.1_pretrained_folk150.json",
@@ -66,8 +84,8 @@ export const ClusterMaps: ClusterMap[] = [
     },
     {name: "", file: ""},
     {
-        name: "eval_covers80",
-        file: "cluster-data/eval_covers80.json",
+        name: "eval_covers80_folk150test",
+        file: "cluster-data/eval_covers80_folk150_testset.json",
         defaultColorScheme: ColorSchemes[0],
         mAP: 0.120,
         rank1: 20.331
@@ -87,11 +105,11 @@ export const ClusterMaps: ClusterMap[] = [
         rank1: 8.923
     },
     {
-        name: "eval_folk150_trainset_alt",
-        file: "cluster-data/eval_folk150_trainset_alt.json",
+        name: "eval_folk160_trainset",
+        file: "cluster-data/eval_folk160_trainset.json",
         defaultColorScheme: ColorSchemes[0],
-        mAP: 0.248,
-        rank1: 8.708
+        mAP: 0.262,
+        rank1: 9.919
     },
     {
         name: "eval_pretrained_folk150_trainset",
@@ -101,16 +119,23 @@ export const ClusterMaps: ClusterMap[] = [
         rank1: 3.610
     },
     {
-        name: "eval_pretrained_folk150_trainset_alt",
-        file: "cluster-data/eval_pretrained_folk150_trainset_alt.json",
+        name: "eval_pretrained_folk160_trainset",
+        file: "cluster-data/eval_pretrained_folk160_trainset.json",
         defaultColorScheme: ColorSchemes[0],
-        mAP: 0.701,
-        rank1: 3.392
+        mAP: 0.720,
+        rank1: 3.906
+    },
+    {name: "", file: ""},
+
+    {
+        name: "eval_pretrained_folk160_trainset_full",
+        file: "cluster-data/eval_pretrained_folk160_trainset_full.json",
+        defaultColorScheme: ColorSchemes[1],
     },
 ];
 
 export const MarkerSymbols = [
-    "circle", "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
+    "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
     "star", "hexagram", "pentagram", "hourglass", "bowtie",
 ];
 

@@ -7,6 +7,7 @@ const filterableKeys = [
     "ref",
     "tune",
     "year",
+    "dance",
     "datatype",
     "performer",
     "instrument",

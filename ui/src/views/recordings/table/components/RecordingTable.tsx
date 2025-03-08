@@ -22,7 +22,7 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
 
     return (
         <>
-            <Table highlightOnHover stickyHeader={true} opacity={modifications.length || isLoading ? 0.7 : 1}>
+            <Table highlightOnHover stickyHeader={true} opacity={modifications.length || isLoading ? 1 : 1}>
                 <Table.Thead>
                     <Table.Tr>
                         <RecordingTableHeader field={"ref"} sortField={"order"}>

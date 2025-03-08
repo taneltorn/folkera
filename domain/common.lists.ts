@@ -64,6 +64,7 @@ export const Parishes = [
     "Pärnu-Jaagupi khk.",
     "Peetri khk.",
     "Pilistvere khk.",
+    "Pärnu khk.",
     "Pöide khk.",
     "Põltsamaa khk.",
     "Põlva khk.",
@@ -94,6 +95,7 @@ export const Parishes = [
     "Uulu khk.",
     "Väike-Maarja khk.",
     "Vaivara khk.",
+    "Valga khk.",
     "Valjala khk.",
     "Vändra khk.",
     "Varbla khk.",
@@ -112,12 +114,14 @@ export const Parishes = [
     "Otepää linn",
     "Põlva linn",
     "Pärnu linn",
+    "Rakvere linn",
     "Rapla linn",
     "Tallinn",
     "Tartu linn",
     "Türi linn",
     "Viljandi linn",
     "Valga linn",
+    "Võru linn",
 ];
 
 export const Years = [

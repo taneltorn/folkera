@@ -14,7 +14,7 @@ export const useOptionsService = () => {
     const fetchOptions = async (filters?: Filter[]): Promise<FilteringOptions> => {
         setIsLoading(true);
 
-        return axios.get(`${API_URL}/api/options`, {
+        return axios.get(`${API_URL}/options`, {
             headers: {
                 'Content-Type': 'application/json',
             },

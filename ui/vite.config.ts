@@ -2,6 +2,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+const base = new URL(process.env.VITE_PUBLIC_URL || '/', 'http://localhost').pathname;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -10,4 +12,5 @@ export default defineConfig({
   },
   plugins: [react()],
   envDir: '../',
+  base: base || '/',
 })

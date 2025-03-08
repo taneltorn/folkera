@@ -32,6 +32,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
             onClear={() => removeFilter(field)}
             data={options}
             clearButtonProps={{
+                // @ts-ignore
                 icon: <LuFilterX color={theme.colors.red[9]} />
             }}
         />

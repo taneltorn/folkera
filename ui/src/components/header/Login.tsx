@@ -25,8 +25,8 @@ const Login: React.FC = () => {
         },
 
         validate: {
-            email: isEmail(t("field.invalidEmail")),
-            password: isNotEmpty(t("field.required")),
+            email: isEmail(t("validation.invalidEmail")),
+            password: isNotEmpty(t("validation.required")),
         },
     });
 
@@ -70,7 +70,7 @@ const Login: React.FC = () => {
             </Modal>
 
             <Button
-                size={"xs"}
+                size={"sm"}
                 variant="subtle"
                 onClick={open}
             >
