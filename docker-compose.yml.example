@@ -1,7 +1,7 @@
 services:
   api:
     build:
-      context: https://github.com/taneltorn/folkera.git#${BRANCH}:api
+      context: https://github.com/taneltorn/folkera.git#${BRANCH}
       dockerfile: ./api/Dockerfile
     container_name: folkera-api
     ports:
@@ -24,7 +24,8 @@ services:
 
   ui:
     build:
-      context: https://github.com/taneltorn/folkera.git#${BRANCH}:ui
+      context: https://github.com/taneltorn/folkera.git#${BRANCH}
+      dockerfile: ./ui/Dockerfile
       additional_contexts:
         - root=./
       args:
