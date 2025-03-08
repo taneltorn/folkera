@@ -22,7 +22,6 @@
   },
   "include": [
     "src",
-    "../domain/**/*"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
