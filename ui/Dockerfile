@@ -13,6 +13,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+COPY --from=root /domain ./domain
 
 RUN npm run build
 
