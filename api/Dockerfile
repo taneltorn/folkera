@@ -7,8 +7,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-COPY --from=folkera-domain /domain ./domain
+COPY --from=root /domain ./domain
 
 RUN npm run build
 
