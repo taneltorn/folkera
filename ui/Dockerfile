@@ -3,6 +3,8 @@ FROM node:20 as build
 ARG VITE_API_URL
 ARG VITE_PUBLIC_URL
 
+RUN echo "VITE_API_URL=${VITE_API_URL}" && echo "VITE_PUBLIC_URL=${VITE_PUBLIC_URL}"
+
 WORKDIR /app
 
 COPY package*.json ./
