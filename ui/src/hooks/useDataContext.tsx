@@ -10,8 +10,8 @@ import {useTranslation} from "react-i18next";
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useNotifications} from "./useNotifications.tsx";
 import Papa from "papaparse";
-import {FilteringOptions} from "../../../api/src/model/FilteringOptions.ts";
 import {useOptionsService} from "../services/useOptionsService.tsx";
+import {FilteringOptions} from "../model/FilteringOptions.ts";
 
 const DefaultPagination: Pagination = {
     size: ItemsPerPageOptions[0],
@@ -97,6 +97,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                 };
 
                 const transformedData = data.map(record => {
+                    // @ts-ignore
                     const transformedRecord: Record<string, any> = {};
                     Object.keys(record).forEach((key) => {
                         const typedKey = key as keyof Recording;

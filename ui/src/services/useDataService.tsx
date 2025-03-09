@@ -4,7 +4,7 @@ import axios from "axios";
 import {Filter} from "../context/DataContext.tsx";
 import {Pagination} from "../model/Pagination.ts";
 import {urlify} from "../utils/helpers.tsx";
-import {ApiResponse} from "../../../api/src/model/ApiResponse.ts";
+import {ApiResponse} from "../model/ApiResponse.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
