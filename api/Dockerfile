@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-COPY --from=root /domain ./domain
+COPY --from=folkera-domain /domain ./domain
 
 RUN npm run build
 
