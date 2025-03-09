@@ -2,12 +2,11 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
-COPY api/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY api/ ./
-COPY domain/ ../domain
+COPY . .
 
 RUN npm run build
 

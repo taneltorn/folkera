@@ -5,12 +5,11 @@ ARG VITE_PUBLIC_URL
 
 WORKDIR /app
 
-COPY ui/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY ui/ ./
-COPY domain/ ../domain
+COPY . .
 
 RUN npm run build
 
