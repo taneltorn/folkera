@@ -3,10 +3,9 @@ import log4js from "log4js";
 import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {logRequest} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
-import {ApiRequest} from "../model/ApiRequest";
-import {Parishes, Years} from "../../../domain/common.lists";
+import {Parishes, Years} from "../utils/common.lists";
 import {extractAndSort, withBlankOptions} from "../utils/filtering.helpers";
-import {FilteringOptions} from "../../../domain/FilteringOptions";
+import {FilteringOptions} from "../model/FilteringOptions";
 
 class OptionsController {
 

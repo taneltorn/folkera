@@ -1,16 +1,16 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {DataContext, Filter} from "../context/DataContext.tsx";
-import {Recording} from "../../../domain/Recording.ts";
+import {Recording} from "../model/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
-import {Pagination, SortDirection} from "../../../domain/Pagination.ts";
+import {Pagination, SortDirection} from "../model/Pagination.ts";
 import {useDataService} from "../services/useDataService.tsx";
 import {useTranslation} from "react-i18next";
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useNotifications} from "./useNotifications.tsx";
 import Papa from "papaparse";
-import {FilteringOptions} from "../../../domain/FilteringOptions.ts";
+import {FilteringOptions} from "../../../api/src/model/FilteringOptions.ts";
 import {useOptionsService} from "../services/useOptionsService.tsx";
 
 const DefaultPagination: Pagination = {

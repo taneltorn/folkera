@@ -1,5 +1,5 @@
 import React from 'react';
-import {GroupBy} from "../../../domain/GroupBy.ts";
+import {GroupBy} from "../model/GroupBy.ts";
 
 export interface Properties {
     stats: { [key: string]: number }[];

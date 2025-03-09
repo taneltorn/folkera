@@ -2,7 +2,7 @@ import React, {ReactNode, useContext, useEffect, useMemo, useState} from 'react'
 import {useTranslation} from "react-i18next";
 import {AuthContext} from "../context/AuthContext.tsx";
 import {UserDetails} from '../model/UserDetails.ts';
-import {UserRole} from '../../../domain/User.ts';
+import {UserRole} from '../model/User.ts';
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useNotifications} from "./useNotifications.tsx";
 

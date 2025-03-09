@@ -1,7 +1,7 @@
 import React, {ReactNode, useEffect} from "react";
 import {Navigate} from 'react-router-dom';
 import {useAuth} from "../hooks/useAuth.tsx";
-import {UserRole} from "../../../domain/User.ts";
+import {UserRole} from "../model/User.ts";
 
 interface Properties {
     children: ReactNode;

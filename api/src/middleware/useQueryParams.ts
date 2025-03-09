@@ -1,6 +1,6 @@
 import {NextFunction, Response} from "express";
 import {ApiRequest} from "../model/ApiRequest";
-import {Filter} from "../../../domain/Filter";
+import {Filter} from "../model/Filter";
 
 const filterableKeys = [
     "search",

@@ -1,6 +1,6 @@
 import React from "react";
 import {Group, Input, Table, TextInput} from "@mantine/core";
-import {User} from "../../../../../../domain/User.ts";
+import {User} from "../../../../model/User.ts";
 import {Button, Text} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {RiDeleteBinLine, RiEdit2Fill} from "react-icons/ri";

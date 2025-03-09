@@ -1,8 +1,9 @@
 import pool from "../../config/dbConfig";
 import log4js from "log4js";
 import Mapper from "../../utils/Mapper";
+import UserService from "./UserService";
 
-class UserService implements UserService {
+class PostgresUserService implements UserService {
     private logger = log4js.getLogger("UserService");
 
     constructor() {
@@ -148,4 +149,4 @@ class UserService implements UserService {
     }
 }
 
-export default new UserService();
+export default new PostgresUserService();

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Box, Button, Group, LoadingOverlay} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useDataService} from "../../services/useDataService.tsx";
-import {Recording} from "../../../../domain/Recording.ts";
+import {Recording} from "../../model/Recording.ts";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";

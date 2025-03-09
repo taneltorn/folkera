@@ -1,8 +1,8 @@
 import {Result} from "../../model/Result";
-import {User} from "../../../../domain/User";
+import {User} from "../../model/User";
 
-interface UsersService {
+interface UserService {
     findByEmail: (email: string) => Promise<Result<User>>
 }
 
-export default UsersService;
+export default UserService;

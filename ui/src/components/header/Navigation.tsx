@@ -6,7 +6,7 @@ import {Size} from "../../utils/constants.ts";
 import {FaDatabase} from "react-icons/fa";
 import {MdAdminPanelSettings, MdScatterPlot} from "react-icons/md";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {UserRole} from "../../../../domain/User.ts";
+import {UserRole} from "../../model/User.ts";
 
 const routes = [
     {id: 'recordings', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},

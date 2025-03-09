@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import {Group, Table, Text} from "@mantine/core";
 import RecordingTableCell from "./RecordingTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 
 interface Properties {

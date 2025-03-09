@@ -6,7 +6,7 @@ import moment from "moment";
 import {GeoJsonStyle} from "../utils/map.helpers.ts";
 import {Box} from "@mantine/core";
 
-import {GroupBy} from "../../../domain/GroupBy.ts";
+import {GroupBy} from "../model/GroupBy.ts";
 
 interface Properties {
     isLoading: boolean;

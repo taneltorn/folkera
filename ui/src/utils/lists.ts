@@ -1,7 +1,7 @@
 import chroma from "chroma-js";
 import {ClusterMap} from "../model/ClusterMap";
 import {ColorScheme, ColorSchemeName} from "../model/ColorScheme.ts";
-import { Recording } from "../../../domain/Recording.ts";
+import { Recording } from "../model/Recording.ts";
 
 export const RecordingTableFields = [
     "ref",

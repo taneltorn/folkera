@@ -1,4 +1,4 @@
-import {UserDTO} from "../../../domain/UserDTO";
+import {UserDTO} from "../model/UserDTO";
 
 class Mapper {
 

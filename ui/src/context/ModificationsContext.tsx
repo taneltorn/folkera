@@ -1,5 +1,5 @@
 import React from 'react';
-import { Recording } from '../../../domain/Recording';
+import { Recording } from '../model/Recording.ts';
 
 export interface Properties {
 

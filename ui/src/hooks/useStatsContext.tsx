@@ -2,7 +2,7 @@ import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/helpers.tsx";
 import {StatsContext} from "../context/StatsContext.tsx";
 
-import {GroupBy} from "../../../domain/GroupBy.ts";
+import {GroupBy} from "../model/GroupBy.ts";
 import {ChartType} from '../model/ChartType.ts';
 import useLocalStorage from "./useLocalStorage.tsx";
 

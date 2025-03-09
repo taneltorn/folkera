@@ -5,7 +5,7 @@ import {useActiveView} from "../../../../hooks/useActiveView.tsx";
 import {View} from "../../../../context/ActiveViewContext.tsx";
 import {CountyToParishMap} from "../../../../utils/location.mappings.ts";
 import {DefaultMapOptions} from "../../../../utils/map.helpers.ts";
-import {GroupBy} from "../../../../../../domain/GroupBy.ts";
+import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 
 const RecordingMap: React.FC = () => {

@@ -6,7 +6,7 @@ import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {RecordingTableFields} from "../../../../utils/lists.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 
 const RecordingTableControls: React.FC = () => {
 

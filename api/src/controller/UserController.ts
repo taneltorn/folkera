@@ -3,10 +3,10 @@ import bcrypt from "bcrypt";
 import log4js from "log4js";
 import {verifyToken} from "../middleware/verifyToken";
 import {logRequest} from "../middleware/requestLogger";
-import {UserDTO} from "../../../domain/UserDTO";
+import {UserDTO} from "../model/UserDTO";
 import userService from '../service/users/PostgresUserService';
 import Mapper from "../utils/Mapper";
-import {User} from "../../../domain/User";
+import {User} from "../model/User";
 
 class UserController {
 

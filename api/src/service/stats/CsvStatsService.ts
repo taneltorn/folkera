@@ -1,10 +1,10 @@
 import log4js from "log4js";
 import DataTransformer from "../../transformers/DataTransformer";
-import {Recording} from "../../../../domain/Recording";
 import {GroupByToFieldMap} from "../../utils/stats.helpers";
-import {Stats} from "../../../../domain/Stats";
+import {Stats} from "../../model/Stats";
 import {Result} from "../../model/Result";
 import StatsService from "./StatsService";
+import {Recording} from "../../model/Recording";
 
 class CsvStatsService implements StatsService {
 

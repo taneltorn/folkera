@@ -5,7 +5,7 @@ import {useAudioPlayer} from "../../../../../hooks/useAudioContext.tsx";
 import {Size} from "../../../../../utils/constants.ts";
 import {PiSpeakerHigh, PiSpeakerSlashLight} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
-import {Recording} from "../../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../../model/Recording.ts";
 
 interface Properties {
     recording: Recording;

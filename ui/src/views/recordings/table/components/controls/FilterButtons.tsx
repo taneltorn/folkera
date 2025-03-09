@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Group, Text} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
-import {Recording} from "../../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../../model/Recording.ts";
 import {Color} from "../../../../../utils/constants.ts";
 
 interface Properties {

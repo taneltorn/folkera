@@ -2,7 +2,7 @@ import React, {ReactNode} from "react";
 import {Group, Table} from "@mantine/core";
 import SortButton from "./controls/SortButton.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 
 interface Properties {
     field: keyof Recording;

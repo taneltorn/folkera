@@ -1,11 +1,11 @@
 import express, {Request, Response} from "express";
 import log4js from "log4js";
 import CsvRecordingService from "../service/recordings/CsvRecordingService";
-import {Recording} from "../../../domain/Recording";
 import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {ApiRequest} from "../model/ApiRequest";
 import {ResultList} from "../model/ResultList";
+import {Recording} from "../model/Recording";
 
 class RecordingController {
 

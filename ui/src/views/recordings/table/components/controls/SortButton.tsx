@@ -3,8 +3,8 @@ import {Button, Group, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import {RiSortAsc, RiSortDesc} from "react-icons/ri";
 import {Size} from "../../../../../utils/constants.ts";
-import {Recording} from "../../../../../../../domain/Recording.ts";
-import {SortDirection} from "../../../../../../../domain/Pagination.ts";
+import {Recording} from "../../../../../model/Recording.ts";
+import {SortDirection} from "../../../../../model/Pagination.ts";
 
 interface Properties {
     field: keyof Recording;

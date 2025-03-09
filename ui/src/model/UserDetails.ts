@@ -1,4 +1,4 @@
-import {UserRole} from "../../../domain/User.ts";
+import {UserRole} from "./User.ts";
 
 export interface UserDetails {
     id: number;

@@ -1,6 +1,6 @@
 import {Request} from "express";
-import {Pagination} from "../../../domain/Pagination";
-import {Filter} from "../../../domain/Filter";
+import {Pagination} from "../../../ui/src/model/Pagination";
+import {Filter} from "./Filter";
 
 export interface ApiRequest extends Request {
     filters?: Filter[];

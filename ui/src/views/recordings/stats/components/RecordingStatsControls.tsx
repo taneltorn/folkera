@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
 import LabelValue from "../../../../components/LabelValue.tsx";
-import {GroupBy} from "../../../../../../domain/GroupBy.ts";
+import {GroupBy} from "../../../../model/GroupBy.ts";
 import {ChartType} from "../../../../model/ChartType.ts";
 
 const RecordingStatsControls: React.FC = () => {

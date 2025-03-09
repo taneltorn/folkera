@@ -3,9 +3,9 @@ import {Group, Input, Table} from "@mantine/core";
 import {useClickOutside, useFocusTrap} from "@mantine/hooks";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import {UserRole} from "../../../../../../domain/User.ts";
+import {UserRole} from "../../../../model/User.ts";
 
 interface Properties {
     recording: Recording;

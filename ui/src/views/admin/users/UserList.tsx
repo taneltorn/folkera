@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import UserRow from "./components/UserRow.tsx";
 import useUserService from "../../../services/useUserService.tsx";
 import {Button, Group, Input, Table, TextInput} from "@mantine/core";
-import {User, UserRole} from "../../../../../domain/User.ts";
+import {User, UserRole} from "../../../model/User.ts";
 import {FaPlus} from "react-icons/fa";
 import {modals} from "@mantine/modals";
 import {isEmail, isNotEmpty, useForm} from "@mantine/form";

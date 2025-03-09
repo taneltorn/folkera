@@ -8,7 +8,7 @@ import RecordingTablePagination from "./RecordingTablePagination.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import RecordingTableHeader from "./RecordingTableHeader.tsx";
 import FilterSelect from "./controls/FilterSelect.tsx";
-import {Recording} from "../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 
 interface Properties {
     data: Recording[];

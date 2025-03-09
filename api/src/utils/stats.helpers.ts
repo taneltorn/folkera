@@ -1,9 +1,9 @@
 import DataTransformer from "../transformers/DataTransformer";
 import SplitByComma from "../transformers/SplitByComma";
 import ParishToCounty from "../transformers/ParishToCounty";
-import {Recording} from "../../../domain/Recording";
-import {GroupBy} from "../../../domain/GroupBy";
-import {Parishes} from "../../../domain/common.lists";
+import {Parishes} from "./common.lists";
+import {GroupBy} from "../model/GroupBy";
+import {Recording} from "../model/Recording";
 
 const range = (start: number, end: number): number[] => {
     const range: number[] = [];

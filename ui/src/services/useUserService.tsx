@@ -3,7 +3,7 @@ import axios from 'axios';
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useTranslation} from "react-i18next";
 import {useNotifications} from "../hooks/useNotifications.tsx";
-import {User} from "../../../domain/User.ts";
+import {User} from "../model/User.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

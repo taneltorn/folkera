@@ -6,9 +6,8 @@ import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {logRequest} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {GroupByToDataTransformerMap, GroupByToListMap} from "../utils/stats.helpers";
-import {SortDirection} from "../../../domain/Pagination";
-import {Stats} from "../../../domain/Stats";
-import {GroupBy} from "../../../domain/GroupBy";
+import {Stats} from "../model/Stats";
+import {GroupBy} from "../model/GroupBy";
 
 class StatsController {
 

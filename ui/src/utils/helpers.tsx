@@ -1,4 +1,4 @@
-import {Filter} from "../../../domain/Filter.ts";
+import {Filter} from "../model/Filter.ts";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;

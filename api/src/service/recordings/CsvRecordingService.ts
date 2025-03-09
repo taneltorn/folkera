@@ -2,12 +2,12 @@ import log4js from "log4js";
 import * as fs from 'fs';
 import * as path from 'path';
 import Papa from "papaparse";
-import {Recording} from "../../../../domain/Recording";
-import {Pagination, SortDirection} from "../../../../domain/Pagination";
 import RecordingService from "./RecordingService";
-import {Filter} from "../../../../domain/Filter";
+import {Filter} from "../../model/Filter";
 import {filter, sortByField} from "../../utils/filtering.helpers";
 import {ResultList} from "../../model/ResultList";
+import {Pagination, SortDirection} from "../../model/Pagination";
+import {Recording} from "../../model/Recording";
 
 class CsvRecordingService implements RecordingService {
 

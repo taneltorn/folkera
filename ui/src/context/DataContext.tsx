@@ -1,7 +1,7 @@
 import React from 'react';
-import {Recording} from "../../../domain/Recording.ts";
-import {Pagination} from "../../../domain/Pagination.ts";
-import {FilteringOptions} from "../../../domain/FilteringOptions.ts";
+import {Recording} from "../model/Recording.ts";
+import {Pagination} from "../model/Pagination.ts";
+import {FilteringOptions} from "../../../api/src/model/FilteringOptions.ts";
 
 export interface Filter {
     field: string;

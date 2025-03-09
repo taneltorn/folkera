@@ -1,7 +1,7 @@
 import React from "react";
 import {MultiSelect, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
-import {Recording} from "../../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../../model/Recording.ts";
 import {LuFilterX} from "react-icons/lu";
 
 interface Properties {

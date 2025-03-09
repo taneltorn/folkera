@@ -9,7 +9,7 @@ import RecordingsList from "./views/recordings/RecordingsList.tsx";
 import ClusterPlotView from "./views/clustermap/ClusterPlotView.tsx";
 import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import {UserRole} from "../../domain/User.ts";
+import {UserRole} from "./model/User.ts";
 
 const router = createBrowserRouter([
     {

@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
-import {GroupBy} from "../../../../../../domain/GroupBy.ts";
+import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 
 const RecordingMapControls: React.FC = () => {

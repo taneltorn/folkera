@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Input, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import useDebounce from "../../../../../hooks/useDebounce.ts";
-import {Recording} from "../../../../../../../domain/Recording.ts";
+import {Recording} from "../../../../../model/Recording.ts";
 import {LuFilterX} from "react-icons/lu";
 
 interface Properties {

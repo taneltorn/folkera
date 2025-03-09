@@ -2,7 +2,7 @@ import {useState} from 'react';
 import axios from "axios";
 import {Filter} from "../context/DataContext.tsx";
 import {urlify} from "../utils/helpers.tsx";
-import {FilteringOptions} from "../../../domain/FilteringOptions.ts";
+import {FilteringOptions} from "../../../api/src/model/FilteringOptions.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

@@ -1,8 +1,8 @@
-import {Recording} from "../../../domain/Recording";
-import {FieldState} from "../../../domain/FieldState";
-import {Filter} from "../../../domain/Filter";
-import {SortDirection} from "../../../domain/Pagination";
-import {GroupedOption} from "../../../domain/GroupedOption";
+import {FieldState} from "../model/FieldState";
+import {Filter} from "../model/Filter";
+import {GroupedOption} from "../model/GroupedOption";
+import {SortDirection} from "../model/Pagination";
+import {Recording} from "../model/Recording";
 
 export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
     const values = extractByField(recordings, field, split);

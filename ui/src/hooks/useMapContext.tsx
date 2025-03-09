@@ -1,6 +1,6 @@
 import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/helpers.tsx";
-import {GroupBy} from "../../../domain/GroupBy.ts";
+import {GroupBy} from "../model/GroupBy.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {MapContext} from "../context/MapContext.tsx";
 
