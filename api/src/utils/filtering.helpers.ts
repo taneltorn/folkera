@@ -2,7 +2,7 @@ import {Recording} from "../../../domain/Recording";
 import {FieldState} from "../../../domain/FieldState";
 import {Filter} from "../../../domain/Filter";
 import {SortDirection} from "../../../domain/Pagination";
-import {GroupedOption} from "./GroupedOption";
+import {GroupedOption} from "../../../domain/GroupedOption";
 
 export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
     const values = extractByField(recordings, field, split);

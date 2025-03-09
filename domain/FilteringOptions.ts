@@ -1,4 +1,4 @@
-import {GroupedOption} from "../api/src/utils/GroupedOption";
+import {GroupedOption} from "./GroupedOption";
 
 export type FilteringOptions = {
     [key: string]: GroupedOption[];
