@@ -3,7 +3,7 @@ FROM node:20 as build
 ARG VITE_API_URL
 ARG VITE_PUBLIC_URL
 
-ENV NODE_OPTIONS=--max-old-space-size=1536
+ENV NODE_OPTIONS=--max-old-space-size=1024
 
 WORKDIR /app
 
