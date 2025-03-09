@@ -8,8 +8,8 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
-COPY --from=root /domain ./domain
+COPY api/ ./
+COPY domain/ ../domain
 
 RUN npm run build
 
