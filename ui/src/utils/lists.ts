@@ -1,6 +1,7 @@
 import chroma from "chroma-js";
 import {ClusterMap} from "../model/ClusterMap";
 import {ColorScheme, ColorSchemeName} from "../model/ColorScheme.ts";
+import { Recording } from "../../../domain/Recording.ts";
 
 export const RecordingTableFields = [
     "ref",
@@ -23,7 +24,7 @@ export const RecordingTableFields = [
     "comments",
 ];
 
-export const DefaultHiddenFields = [
+export const DefaultHiddenFields: Array<keyof Recording> = [
     "quality", "kivike", "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
 ];
 
