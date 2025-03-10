@@ -93,7 +93,7 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
                 ref={mapContainerRef}
                 center={{lat: options.position.coords[0], lng: options.position.coords[1]}}
                 zoom={options.position.zoom}
-                minZoom={8}
+                minZoom={7}
                 maxZoom={10}
                 style={{height: "800px", width: "100%", zIndex: 10}}
             >
@@ -101,7 +101,6 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
                     subdomains={['a', 'b', 'c']}
-                    maxZoom={15}
                 />
                 {layers && (
                     <GeoJSON
