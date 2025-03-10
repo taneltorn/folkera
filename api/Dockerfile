@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-COPY ./resources ./dist/resources
+COPY ./src/resources ./dist/resources
 
 FROM node:20-alpine
 
