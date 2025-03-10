@@ -23,7 +23,7 @@ const RecordingMapControls: React.FC = () => {
                 onChange={v => setGroupBy(v as GroupBy)}
             />
 
-            <Group gap={"xl"}>
+            <Group gap={"md"}>
                 <Switch
                     label={t(`view.recordings.map.showLabels`)}
                     checked={mapOptions.showLabels}
