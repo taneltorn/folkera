@@ -8,6 +8,7 @@ import {useQueryParams} from "../middleware/useQueryParams";
 import {GroupByToDataTransformerMap, GroupByToListMap} from "../utils/stats.helpers";
 import {Stats} from "../model/Stats";
 import {GroupBy} from "../model/GroupBy";
+import {SortDirection} from "../model/Pagination";
 
 class StatsController {
 
