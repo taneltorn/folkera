@@ -1,16 +1,15 @@
 import React from "react";
-import {Button, Group, Loader, Pagination, useMantineTheme} from "@mantine/core";
+import {Button, Group, Pagination, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {ItemsPerPageOptions} from "../../../../utils/lists.ts";
 
 const RecordingTablePagination: React.FC = () => {
 
     const theme = useMantineTheme();
-    const {pagination, setPagination, totalPages, isLoading} = useDataContext();
+    const {pagination, setPagination, totalPages} = useDataContext();
 
     return (
         <Group mt={"md"} px={"md"} justify={"space-between"}>
-            <Group>
             <Group gap={4}>
                 {ItemsPerPageOptions.map(it => (
                     <Button
@@ -23,10 +22,6 @@ const RecordingTablePagination: React.FC = () => {
                     >
                         {it}
                     </Button>))}
-                
-                
-            </Group>
-                {isLoading && <Loader size={"sm"}/>}
             </Group>
             <Pagination
                 value={pagination.page}
