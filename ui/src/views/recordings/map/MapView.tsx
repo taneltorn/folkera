@@ -18,7 +18,7 @@ const MapView: React.FC = () => {
     }, [filters, groupBy]);
 
     return (
-        <>
+        <Box pos={"relative"}>
             <LoadingOverlay visible={isLoading}/>
             <ControlBar>
                 <RecordingMapControls/>
@@ -27,7 +27,7 @@ const MapView: React.FC = () => {
             <Box px={"md"} h={800}>
                 <RecordingMap/>
             </Box>
-        </>
+        </Box>
     );
 }
 

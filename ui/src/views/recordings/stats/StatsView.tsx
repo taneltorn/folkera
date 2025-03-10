@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useStatsService} from "../../../services/useStatsService.tsx";
-import {Box} from "@mantine/core";
+import {Box, LoadingOverlay} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
 import ControlBar from "../components/ControlBar.tsx";
@@ -13,7 +13,7 @@ interface Properties {
 const StatsView: React.FC<Properties> = () => {
 
     const {groupBy, setStats} = useStatsContext();
-    const {fetchStats} = useStatsService();
+    const {fetchStats, isLoading} = useStatsService();
     const {filters} = useDataContext();
 
     useEffect(() => {
@@ -21,7 +21,9 @@ const StatsView: React.FC<Properties> = () => {
     }, [filters, groupBy]);
 
     return (
-        <>
+        <Box pos={"relative"}>
+            <LoadingOverlay visible={isLoading}/>
+            
             <ControlBar>
                 <RecordingStatsControls/>
             </ControlBar>
@@ -29,7 +31,7 @@ const StatsView: React.FC<Properties> = () => {
             <Box px={"md"} h={800}>
                 <RecordingStats/>
             </Box>
-        </>
+        </Box>
     );
 }
 
