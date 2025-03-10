@@ -69,17 +69,14 @@ const Header: React.FC = () => {
                                     size={"sm"}
                                     color={"dark"}
                                     leftSection={<FaUserCircle size={Size.icon.MD}/>}
-                                    // leftSection={<FaUser size={Size.icon.SM}/>}
-                                    // rightSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                                 >
-                                    {/*<FaUserCircle size={Size.icon.MD}/>*/}
                                     {auth.currentUser?.name?.split(' ')[0]}
                                 </Button>
                             </Menu.Target>
                             <Menu.Dropdown>
                                 <Menu.Item onClick={auth.logout}>
                                     <Group gap={"xs"}>
-                                        <MdOutlineLogout color={theme.colors.red[9]} size={24}/>
+                                        <MdOutlineLogout color={theme.colors.red[9]} size={Size.icon.MD}/>
                                         <Text c={"red.9"} size={"sm"} fw={"bold"}>
                                             {t("view.auth.button.logout")}
                                         </Text>

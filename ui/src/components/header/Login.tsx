@@ -1,9 +1,11 @@
 import React from "react";
-import {Button, Group, Modal, TextInput} from "@mantine/core";
+import {Button, Group, Modal, TextInput, useMantineTheme} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useForm, isNotEmpty, isEmail} from '@mantine/form';
+import {Size} from "../../utils/constants.ts";
+import {MdOutlineLogin} from "react-icons/md";
 
 interface LoginFormValues {
     email: string;
@@ -13,6 +15,7 @@ interface LoginFormValues {
 const Login: React.FC = () => {
 
     const {t} = useTranslation();
+    const theme = useMantineTheme();
     const {login} = useAuth();
 
     const [opened, {open, close}] = useDisclosure(false);
@@ -73,6 +76,7 @@ const Login: React.FC = () => {
                 size={"sm"}
                 variant="subtle"
                 onClick={open}
+                leftSection={<MdOutlineLogin color={theme.colors.red[9]} size={Size.icon.MD}/>}
             >
                 {t("view.auth.button.login")}
             </Button>
