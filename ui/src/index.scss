@@ -73,3 +73,15 @@ a {
     color: var(--mantine-color-red-9);
   }
 }
+
+/* AudioPlayerStyles.css */
+.rhap_main {
+  background-color:  var(--mantine-color-gray-1) !important;
+}
+.rhap_main-controls-button svg {
+  color: var(--mantine-color-red-9);
+}
+.rhap_progress-filled,
+.rhap_progress-indicator {
+  background-color:  var(--mantine-color-red-9) !important;
+}

@@ -34,7 +34,7 @@ const BottomAudioPlayer: React.FC = () => {
                             )}
                         </CopyButton>
                         <Text size={"sm"}>
-                            {`${track.ref} - ${truncate(track.content)} < ${track.parish} < ${truncate(track.performer)} (${track.year}) ${track.tune} ${track.datatype}`}
+                            {`${track.ref} - ${truncate(track.content, 30)} < ${track.parish} < ${truncate(track.performer, 30)} (${track.year})`}
                         </Text>
                     </Group>
                     <AudioPlayer
@@ -43,7 +43,6 @@ const BottomAudioPlayer: React.FC = () => {
                         autoPlay
                         layout={"horizontal-reverse"}
                         showJumpControls={false}
-
                         customVolumeControls={[]}
                         customAdditionalControls={[]}
                         src={`mp3/${track?.file}`}
@@ -53,9 +52,10 @@ const BottomAudioPlayer: React.FC = () => {
                 </>
                 : <>
                     <Group px={"md"}>
-                        <Trans i18nKey={"player.insufficientPrivileges"}
-                               values={{ref: track?.ref || ""}}
-                               components={{b: <Text fw={"bold"}/>}}
+                        <Trans
+                            i18nKey={"player.insufficientPrivileges"}
+                            values={{ref: track?.ref || ""}}
+                            components={{b: <Text fw={"bold"}/>}}
                         />
                     </Group>
                     <Group/>

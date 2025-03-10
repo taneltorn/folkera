@@ -23,7 +23,7 @@ const Layout: React.FC = () => {
                     <Outlet/>
                 </AppShell.Main>
 
-                <AppShell.Footer>
+                <AppShell.Footer bg={"gray.1"} withBorder={true}>
                     {track && <BottomAudioPlayer/>}
                 </AppShell.Footer>
             </AppShell>
