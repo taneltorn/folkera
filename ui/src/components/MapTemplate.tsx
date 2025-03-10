@@ -9,7 +9,6 @@ import {Box} from "@mantine/core";
 import {GroupBy} from "../model/GroupBy.ts";
 
 interface Properties {
-    isLoading: boolean;
     stats: { [key: string]: number }[];
     layers: any;
     options: MapOptions;
@@ -20,14 +19,14 @@ interface Properties {
 const LabelPositions = new Map<string, number[]>([]);
 
 // todo: refactor
-const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, options, onClick}) => {
+const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onClick}) => {
 
     const mapContainerRef = useRef<any>(null);
     const geoJsonLayerRef = useRef<any>(null);
 
     // @ts-ignore
     let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
-     maxValue = Math.max(maxValue, 50)
+    maxValue = Math.max(maxValue, 50)
     const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -89,7 +88,7 @@ const MapTemplate: React.FC<Properties> = ({isLoading, stats, layers, groupBy, o
     };
 
     return (
-        <Box opacity={isLoading ? 0.3 : 1}>
+        <Box>
             <MapContainer
                 ref={mapContainerRef}
                 center={{lat: options.position.coords[0], lng: options.position.coords[1]}}

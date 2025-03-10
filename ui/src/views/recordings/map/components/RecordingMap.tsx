@@ -13,8 +13,6 @@ const RecordingMap: React.FC = () => {
     const {addFilter} = useDataContext();
     const {setActiveView} = useActiveView();
     const {stats, groupBy} = useMapContext();
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [layers, setLayers] = useState<any>(null);
 
     const handleClick = (location: string) => {
@@ -24,21 +22,17 @@ const RecordingMap: React.FC = () => {
 
     useEffect(() => {
         setLayers(null)
-        setIsLoading(true);
-
         fetch(`/map-layers/${groupBy}.json`)
             .then(response => response.json())
             .then((data) => {
                 setLayers(data);
-            })
-            .finally(() => setIsLoading(false));
+            });
     }, [groupBy]);
 
     return (
         <>
-            {stats && layers &&
+            {layers &&
                 <MapTemplate
-                    isLoading={isLoading}
                     stats={stats}
                     layers={layers}
                     groupBy={groupBy}
