@@ -9,7 +9,7 @@ const RecordingTablePagination: React.FC = () => {
     const {pagination, setPagination, totalPages} = useDataContext();
 
     return (
-        <Group mt={"md"} px={"md"} justify={"space-between"}>
+        <Group mt={"md"} mb={85} px={"md"} justify={"space-between"}>
             <Group gap={4}>
                 {ItemsPerPageOptions.map(it => (
                     <Button

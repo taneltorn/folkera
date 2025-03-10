@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
             <AppShell layout={"default"}>
                 <Notifications position="top-right"/>
 
-                <AppShell.Main mb={85}>
+                <AppShell.Main>
                     <Header/>
                     <Divider mb={"md"}/>
 
