@@ -7,12 +7,14 @@ import {useTranslation} from "react-i18next";
 import {LuFilterX} from "react-icons/lu";
 import RecordingSearch from "./RecordingSearch.tsx";
 import RecordingFilters from "./RecordingFilters.tsx";
+import {useAuth} from "../../../hooks/useAuth.tsx";
 
 const TopBar: React.FC = () => {
 
     const {t} = useTranslation();
     const {filters, clearFilters, exportData} = useDataContext();
-
+    const auth = useAuth();
+    
     return (
         <Group px={"md"} justify={"space-between"} bg={"white"} mb={"xs"}>
             <Group>
@@ -34,6 +36,7 @@ const TopBar: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
+                    disabled={!auth.currentUser?.isUser}
                     color={"dark"}
                     leftSection={<FaFileExport size={Size.icon.SM}/>}
                     onClick={exportData} px={"xs"} mx={0}>

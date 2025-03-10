@@ -52,10 +52,16 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
             const correction = LabelPositions.get(parish) || [0, 0];
             const tooltipContent = `
                 <div style="text-align: center;position: relative;top: ${correction[0]}px;left: ${correction[1]}px;">
-                    <div style="font-size: ${options.textSize}px">${parish?.replaceAll(" khk.", "")}</div>
-                    ${options.showCounts ? `<div style="font-size: ${options.textSize}px; font-weight: bold;">${count}</div>` : ''}
+                   ${options.showLabels ? `<div style="font-size: ${options.textSize}px">${parish?.replaceAll(" khk.", "")}</div>` : ""}
+                   ${options.showCounts ? `<div style="font-size: ${options.textSize}px; font-weight: bold;">${count}</div>` : ''}
                 </div>
             `;
+            // const tooltipContent = `
+            //     <div style="text-align: center;position: relative;top: ${correction[0]}px;left: ${correction[1]}px;">
+            //        ${options.showCounts ?  <div style="font-size: ${options.textSize}px">${parish?.replaceAll(" khk.", "")}</div> : ""}
+            //         ${options.showCounts ? `<div style="font-size: ${options.textSize}px; font-weight: bold;">${count}</div>` : ''}
+            //     </div>
+            // `;
 
             layer.setStyle({
                 color: "#333",

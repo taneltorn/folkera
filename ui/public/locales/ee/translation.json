@@ -21,7 +21,7 @@
     }
   },
   "player": {
-    "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused."
+    "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b> "
   },
   "recording": {
     "ref": "Viide",
@@ -84,6 +84,9 @@
         "fileNotFound": "Helifail puudub"
       },
       "map": {
+        "showLabels": "Kuva nimetused",
+        "showCounts": "Kuva statistika",
+        "textSize": "Teksti suurus",
         "groupBy": {
           "parish": "Kihelkondade lõikes",
           "county": "Maakondade lõikes"

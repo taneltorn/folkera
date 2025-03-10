@@ -4,7 +4,6 @@ import MapTemplate from "../../../../components/MapTemplate.tsx";
 import {useActiveView} from "../../../../hooks/useActiveView.tsx";
 import {View} from "../../../../context/ActiveViewContext.tsx";
 import {CountyToParishMap} from "../../../../utils/location.mappings.ts";
-import {DefaultMapOptions} from "../../../../utils/map.helpers.ts";
 import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 
@@ -12,7 +11,7 @@ const RecordingMap: React.FC = () => {
 
     const {addFilter} = useDataContext();
     const {setActiveView} = useActiveView();
-    const {stats, groupBy} = useMapContext();
+    const {stats, groupBy, mapOptions} = useMapContext();
     const [layers, setLayers] = useState<any>(null);
 
     const handleClick = (location: string) => {
@@ -36,7 +35,7 @@ const RecordingMap: React.FC = () => {
                     stats={stats}
                     layers={layers}
                     groupBy={groupBy}
-                    options={DefaultMapOptions}
+                    options={mapOptions}
                     onClick={handleClick}
                 />}
         </>

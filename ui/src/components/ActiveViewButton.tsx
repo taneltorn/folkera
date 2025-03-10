@@ -18,7 +18,7 @@ const ActiveViewButton: React.FC<Properties> = ({view, icon}) => {
         <Button
             title={t(`view.recordings.viewSelection.${view}`)}
             px={"sm"}
-            variant={view === activeView ? "light" : "subtle"}
+            variant={view === activeView ? "filled" : "subtle"}
             color={"dark"}
             size={"sm"}
             onClick={() => setActiveView(view)}
