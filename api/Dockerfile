@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
+COPY ./resources ./dist/resources
+
 FROM node:20-alpine
 
 WORKDIR /app
