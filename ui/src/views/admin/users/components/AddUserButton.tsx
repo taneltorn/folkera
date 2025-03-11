@@ -34,7 +34,10 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
     const onSubmit = async (values: User) => {
         userService
             .createUser(values)
-            .then(onChange)
+            .then(() => {
+                form.reset();
+                onChange();
+            })
             .then(modals.closeAll);
     }
 

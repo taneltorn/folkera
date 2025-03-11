@@ -10,7 +10,7 @@ const UserList: React.FC = () => {
 
     const {t} = useTranslation();
     const {fetchUsers, cancelSource} = useUserService();
-    
+
     const [users, setUsers] = useState<User[]>([]);
 
     const fetchData = () => {
@@ -44,7 +44,7 @@ const UserList: React.FC = () => {
             </Table.Tbody>
         </Table>
 
-        <AddUserButton  onChange={fetchData}/>
+        <AddUserButton onChange={fetchData}/>
     </>);
 }
 
