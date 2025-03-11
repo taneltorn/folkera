@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Box, Group, Text, Title} from "@mantine/core";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import ChangePassword from "../../components/header/ChangePassword.tsx";
+import moment from "moment";
 
 const MyProfileView: React.FC = () => {
 
@@ -39,7 +40,15 @@ const MyProfileView: React.FC = () => {
                             {t("user.role")}
                         </Text>
                         <Text>
-                            {currentUser?.role}
+                            {t(`role.${currentUser?.role}`, {defaultValue: currentUser?.role || "N/A"})}
+                        </Text>
+                    </Box>
+                    <Box>
+                        <Text fz={"sm"} fw={"bold"}>
+                            {t("user.createdAt")}
+                        </Text>
+                        <Text>
+                            {moment(currentUser?.createdAt).format("DD.MM.YYYY")}
                         </Text>
                     </Box>
                 </Group>

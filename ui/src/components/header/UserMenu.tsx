@@ -31,7 +31,7 @@ const UserMenu: React.FC = () => {
                 {auth.currentUser?.role === UserRole.ADMIN &&
                     <Menu.Item onClick={() => navigate("/admin")} py={"xs"}>
                         <Group gap={"xs"}>
-                            <MdAdminPanelSettings size={Size.icon.XS}/>
+                            <MdAdminPanelSettings size={Size.icon.SM}/>
                             <Text size={"sm"} fw={"bold"}>
                                 {t("page.userMenu.admin")}
                             </Text>

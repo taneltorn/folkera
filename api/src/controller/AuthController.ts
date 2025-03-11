@@ -40,6 +40,7 @@ class AuthController {
                         email: user.email,
                         name: user.name,
                         role: user.role,
+                        createdAt: user.createdAt
                     }, process.env.JWT_SECRET_KEY!, {expiresIn: "30d"});
                     res.cookie("token", token, {
                         httpOnly: true,
@@ -51,7 +52,8 @@ class AuthController {
                             id: user.id,
                             email: user.email,
                             name: user.name,
-                            role: user.role
+                            role: user.role,
+                            createdAt: user.createdAt
                         }
                     });
                 } else {

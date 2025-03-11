@@ -24,7 +24,7 @@ const MapView: React.FC = () => {
                 <RecordingMapControls/>
             </ControlBar>
 
-            <Box px={"md"} h={800}>
+            <Box px={"md"}>
                 <RecordingMap/>
             </Box>
         </Box>
