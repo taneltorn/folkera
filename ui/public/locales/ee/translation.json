@@ -3,7 +3,8 @@
     "title": {
       "admin": "Adminpaneel",
       "recordings": "Pillilood",
-      "clusterMap": "Klasterkaart"
+      "clusterMap": "Klasterkaart",
+      "profile": "Minu profiil"
     },
     "loading": "Laen andmeid...",
     "help": "Näita juhendit",
@@ -13,11 +14,16 @@
       "noData": "Andmeid ei leitud."
     },
     "navigation": {
-      "admin": "Adminpaneel",
       "recordings": "Pillilood",
       "clusters": "Klasterkaart",
       "changePassword": "Muuda parooli",
       "stats": "Statistika"
+    },
+    "userMenu": {
+      "admin": "Adminpaneel",
+      "myProfile": "Profiil",
+      "changePassword": "Vaheta parool",
+      "logout": "Logi välja"
     }
   },
   "player": {
@@ -186,12 +192,18 @@
       "content": "Kas oled kindel, et soovid kasutaja kustutada? Kasutajat ei saa taastada pärast kustutamist.",
       "confirm": "Kustuta kasutaja",
       "cancel": "Ei, jäta kasutaja alles."
+    },
+    "changePassword": {
+      "title": "Vaheta parool",
+      "newPassword": "Uus parool"
     }
   },
   "button": {
+    "save": "Salvesta",
+    "cancel": "Tühista",
+    "reset": "Lähtesta",
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
-    "reset": "Lähtesta",
     "removeFilter": "Eemalda filter"
   },
   "validation": {

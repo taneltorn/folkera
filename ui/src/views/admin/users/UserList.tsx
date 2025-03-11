@@ -48,7 +48,7 @@ const UserList: React.FC = () => {
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-                    <Input.Wrapper label={t("user.name")} mb={"md"} labelProps={{ms: "xs"}}>
+                    <Input.Wrapper label={t("user.name")} mb={-30} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
                             placeholder={t("user.name")}

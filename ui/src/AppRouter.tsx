@@ -10,6 +10,7 @@ import ClusterPlotView from "./views/clustermap/ClusterPlotView.tsx";
 import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {UserRole} from "./model/User.ts";
+import MyProfileView from "./views/profile/MyProfileView.tsx";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: "/clusters",
                 element: <ClusterPlotView/>,
+            },
+            {
+                path: "/profile",
+                element: <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.ADMIN]}><MyProfileView/></ProtectedRoute>,
             },
             {
                 path: "/admin",

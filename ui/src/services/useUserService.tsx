@@ -109,6 +109,8 @@ const useUserService = () => {
             withCredentials: true
         })
             .then(response => {
+                notify(t("toast.success.modifyUser"), NotificationType.SUCCESS);
+                
                 setIsLoading(false);
                 return response.data;
             })

@@ -158,7 +158,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     useEffect(() => {
         loadFilteringOptions();
         return () => optionsService.cancelSource.cancel();
-    }, [data]);
+    }, []);
 
 
     useEffect(() => {

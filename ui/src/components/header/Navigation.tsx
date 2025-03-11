@@ -4,14 +4,13 @@ import {useTranslation} from "react-i18next";
 import {Button, Group} from "@mantine/core";
 import {Size} from "../../utils/constants.ts";
 import {FaDatabase} from "react-icons/fa";
-import {MdAdminPanelSettings, MdScatterPlot} from "react-icons/md";
+import {MdScatterPlot} from "react-icons/md";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {UserRole} from "../../model/User.ts";
 
 const routes = [
     {id: 'recordings', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
     {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters", protected: true},
-    {id: 'admin', icon: <MdAdminPanelSettings size={Size.icon.SM}/>, link: "/admin", protected: true},
 ];
 
 const Navigation: React.FC = () => {
