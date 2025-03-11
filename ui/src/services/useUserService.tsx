@@ -146,10 +146,10 @@ const useUserService = () => {
 
     return {
         isLoading,
-        fetchUserByUserName: fetchUserByEmail,
+        fetchUserByEmail,
         fetchUsers,
         createUser,
-        updateUser: modifyUser,
+        modifyUser,
         updateUserPassword,
         removeUser,
         cancelSource

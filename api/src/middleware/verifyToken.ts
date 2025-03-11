@@ -21,7 +21,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
         const user = req.user;
 
         if (user) {
-            logger.info(`User authenticated as ${user?.username}`)
+            logger.info(`User authenticated as ${user?.email}`)
         } else {
             logger.info(`User not authenticated`)
         }

@@ -44,7 +44,7 @@ class PostgresUserService implements UserService {
 
         } catch (err) {
             this.logger.error(err);
-            return {success: false, error: `Error querying user with username = ${email}`, detail: err.detail};
+            return {success: false, error: `Error querying user with email = ${email}`, detail: err.detail};
         }
     }
 
@@ -117,7 +117,7 @@ class PostgresUserService implements UserService {
 
             const result = await pool.query(query, [
                 password,
-                user.username,
+                user.email,
                 id
             ]);
 

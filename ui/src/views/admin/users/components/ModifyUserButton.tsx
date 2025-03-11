@@ -31,7 +31,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
     const onSubmit = async (values: User) => {
         if (user.id) {
             userService
-                .updateUser(user.id, values)
+                .modifyUser(user.id, values)
                 .then(onChange)
                 .then(modals.closeAll);
         }
