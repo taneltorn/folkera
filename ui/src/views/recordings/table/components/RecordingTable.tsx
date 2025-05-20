@@ -44,6 +44,13 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
                                 options={filteringOptions.tune}
                             />
                         </RecordingTableHeader>
+                        <RecordingTableHeader field={"datatype"}>
+                            <FilterSelect
+                                field={"datatype"}
+                                placeholder={t("recording.datatype")}
+                                options={filteringOptions.datatype}
+                            />
+                        </RecordingTableHeader>
                         <RecordingTableHeader field={"dance"}>
                             <FilterSelect
                                 field={"dance"}
@@ -125,13 +132,6 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
                                 field={"quality"}
                                 placeholder={t("recording.quality")}
                                 options={filteringOptions.quality}
-                            />
-                        </RecordingTableHeader>
-                        <RecordingTableHeader field={"datatype"}>
-                            <FilterSelect
-                                field={"datatype"}
-                                placeholder={t("recording.datatype")}
-                                options={filteringOptions.datatype}
                             />
                         </RecordingTableHeader>
                         <RecordingTableHeader field={"kivike"}>

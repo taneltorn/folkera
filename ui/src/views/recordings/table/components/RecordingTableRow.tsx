@@ -4,6 +4,7 @@ import RecordingTableCell from "./RecordingTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
+import {Link} from "react-router-dom";
 
 interface Properties {
     recording: Recording;
@@ -17,11 +18,13 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
         <Table.Tr ref={ref}>
             <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
                 <Group gap={"xs"} wrap={"nowrap"}>
-                   <PlayRecordingButton recording={recording}/>
+                    <PlayRecordingButton recording={recording}/>
 
-                    <Text size={"xs"}>
-                        {recording.ref}
-                    </Text>
+                    <Link to={`/recordings/${recording.id}`}>
+                        <Text size={"xs"} fw={"bolder"} >
+                            {recording.ref} 
+                        </Text>
+                    </Link>
                 </Group>
             </RecordingTableCell>
 
@@ -38,6 +41,14 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
+            <RecordingTableCell recording={recording} field={"datatype"}>
+                <FilterButtons
+                    recording={recording}
+                    field={"datatype"}
+                    split={","}
+                />
+            </RecordingTableCell>
+            
             <RecordingTableCell recording={recording} field={"dance"}>
                 <FilterButtons
                     recording={recording}
@@ -93,14 +104,14 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 {recording.notes}
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"file"} >
+            <RecordingTableCell recording={recording} field={"file"}>
                 {recording.file}
             </RecordingTableCell>
 
             <RecordingTableCell recording={recording} field={"duration"} unmodifiable>
                 {recording.duration}
             </RecordingTableCell>
-            
+
             <RecordingTableCell recording={recording} field={"quality"}>
                 <FilterButtons
                     recording={recording}
@@ -109,22 +120,14 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                 />
             </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"datatype"} >
-                <FilterButtons
-                    recording={recording}
-                    field={"datatype"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"kivike"} >
+            <RecordingTableCell recording={recording} field={"kivike"}>
                 <FilterButtons
                     recording={recording}
                     field={"kivike"}
                     split={","}
                 />
             </RecordingTableCell>
-            
+
             <RecordingTableCell recording={recording} field={"comments"}>
                 {recording.comments}
             </RecordingTableCell>

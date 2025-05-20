@@ -13,7 +13,24 @@ export const useDataService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const fetchData = async (filters?: Filter[], pagination?: Pagination): Promise<ApiResponse<Recording>> => {
+    const fetchRecording = async (id: string): Promise<Recording> => {
+        setIsLoading(true);
+        return axios.get(`${API_URL}/recordings/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                setIsLoading(false);
+                return response.data;
+            })
+            .catch(error => {
+                setIsLoading(false);
+                throw error;
+            });
+    }
+
+    const fetchRecordings = async (filters?: Filter[], pagination?: Pagination): Promise<ApiResponse<Recording>> => {
         setIsLoading(true);
         return axios.get(`${API_URL}/recordings`, {
             headers: {
@@ -32,7 +49,26 @@ export const useDataService = () => {
                 setIsLoading(false);
                 throw error;
             });
+    }
 
+    const fetchRecordingsByIds = async (ids: string[]): Promise<Recording[]> => {
+        setIsLoading(true);
+        return axios.get(`${API_URL}/recordings/by-ids`, {
+            params: {
+                ids: ids.join(",")
+            },
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                setIsLoading(false);
+                return response.data;
+            })
+            .catch(error => {
+                setIsLoading(false);
+                throw error;
+            });
     }
 
     const saveData = async (data: Recording[]): Promise<Recording[]> => {
@@ -55,7 +91,9 @@ export const useDataService = () => {
     return {
         isLoading,
         cancelSource,
-        fetchData,
+        fetchRecording,
+        fetchRecordings,
+        fetchRecordingsByIds,
         saveData,
     };
 }

@@ -6,6 +6,8 @@ import {MenuSelectOption} from "../model/MenuSelectOption.ts";
 
 interface Properties {
     title?: string;
+    color?: string;
+    variant?: string;
     label: string;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
@@ -18,9 +20,9 @@ const MenuSelect: React.FC<Properties> = (props) => {
             <Menu.Target>
                 <Button
                     title={props.title}
-                    variant={"subtle"}
+                    variant={props.variant || "subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={props.color || "dark"}
                     leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                 >
                     {props.label}

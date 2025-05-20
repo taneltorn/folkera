@@ -29,7 +29,7 @@ const ClusterPlotView: React.FC = () => {
 
     const {t} = useTranslation();
     const {track, isPlaying, play, pause} = useAudioPlayer();
-    const {fetchData, cancelSource} = useDataService();
+    const {fetchRecordings, cancelSource} = useDataService();
     const {notify} = useNotifications();
 
     const [colorScheme, setColorScheme] = useState<ColorScheme>(ColorSchemes[1]);
@@ -75,7 +75,8 @@ const ClusterPlotView: React.FC = () => {
 
             if (correctlyIdentified && colorScheme.correctlyIdentified) {
                 const workName = work + " ";
-                if (!groupedData[workName]) {
+             
+                    if (!groupedData[workName]) {
                     groupedData[workName] = {
                         x: [],
                         y: [],
@@ -99,29 +100,29 @@ const ClusterPlotView: React.FC = () => {
                 groupedData[workName].y.push(data.y[i]);
                 groupedData[workName].text.push(data.label_list[i]);
                 groupedData[workName].file.push(data.file_list[i]);
-                // } else if ( data.file_list[i].endsWith("M2-2630--n)--Polka__loots.mp3")) {
-                //         groupedData["x"] = {
-                //             x: [],
-                //             y: [],
-                //             mode: "markers",
-                //             type: "scatter",
-                //             name: "x",
-                //             visible: true,
-                //             opacity: 1,
-                //             marker: {
-                //                 size: 80,
-                //                 color: "yellow",
-                //                 symbol: markerSymbol
-                //                 // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
-                //             },
-                //             text: [],
-                //             file: [],
-                //         };
-                //
-                //     groupedData["x"].x.push(data.x[i]);
-                //     groupedData["x"].y.push(data.y[i]);
-                //     groupedData["x"].text.push(data.label_list[i]);
-                //     groupedData["x"].file.push(data.file_list[i]);
+                // } else if ( data.label_list[i].includes("RKM, Mgn. II 1483 d")) {
+                    //     groupedData["x"] = {
+                    //         x: [],
+                    //         y: [],
+                    //         mode: "markers",
+                    //         type: "scatter",
+                    //         name: "x",
+                    //         visible: true,
+                    //         opacity: 1,
+                    //         marker: {
+                    //             size: 40,
+                    //             color: "yellow",
+                    //             symbol: markerSymbol
+                    //             // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
+                    //         },
+                    //         text: [],
+                    //         file: [],
+                    //     };
+                    //
+                    // groupedData["x"].x.push(data.x[i]);
+                    // groupedData["x"].y.push(data.y[i]);
+                    // groupedData["x"].text.push(data.label_list[i]);
+                    // groupedData["x"].file.push(data.file_list[i]);
             } else {
                 if (!groupedData[work]) {
                     groupedData[work] = {
@@ -198,7 +199,7 @@ const ClusterPlotView: React.FC = () => {
     }
 
     useEffect(() => {
-        fetchData()
+        fetchRecordings()
             .then(r => setRecordings(r.data))
             .catch(e => notify(t("toast.error.fetchData"), NotificationType.ERROR, e));
 

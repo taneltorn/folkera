@@ -11,6 +11,8 @@ import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {UserRole} from "./model/User.ts";
 import MyProfileView from "./views/profile/MyProfileView.tsx";
+import RecordingsDetails from "./views/recordings/RecordingsDetails.tsx";
+import IdentifyView from "./views/identify/IdentifyView.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
             {
                 path: "/recordings",
                 element: <RecordingsList/>,
+            },
+            {
+                path: "/recordings/:id",
+                element: <RecordingsDetails/>,
+            },
+            {
+                path: "/identify",
+                element: <IdentifyView/>,
             },
             {
                 path: "/clusters",

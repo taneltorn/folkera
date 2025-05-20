@@ -12,9 +12,10 @@ interface Properties {
     field: keyof Recording;
     children: ReactNode;
     unmodifiable?: boolean;
+    alwaysVisible?: boolean;
 }
 
-const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiable,children}) => {
+const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiable, alwaysVisible, children}) => {
 
     const ref = useClickOutside(() => handleChange());
 
@@ -28,9 +29,9 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiabl
     const handleChange = () => {
         if (recording[field] !== value) {
             if (!modifications.length) {
-                
+
             }
-            
+
             // @ts-ignore
             recording[field] = value;
             addModification(recording);
@@ -73,7 +74,7 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiabl
         <Table.Td
             py={"xs"}
             className={"hover-pointer"}
-            hidden={hiddenFields.includes(field)}
+            hidden={!alwaysVisible && hiddenFields.includes(field)}
             onClick={handleEditClick}
             style={{borderLeft: "1px solid #efefef"}}
         >

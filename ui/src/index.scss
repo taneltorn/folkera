@@ -75,7 +75,7 @@ a {
 }
 
 /* AudioPlayerStyles.css */
-.rhap_main {
+.rhap_container:not(.transparent) .rhap_main {
   background-color:  var(--mantine-color-gray-1) !important;
 }
 .rhap_main-controls-button svg {

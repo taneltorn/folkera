@@ -1,4 +1,5 @@
 export interface Recording {
+    id: string;
     ref: string;
     content?: string;
     tune?: string;
@@ -18,5 +19,6 @@ export interface Recording {
     duration?: number;
     order?: number;
     kivike?: string;
+    distance?: number;
 }
 

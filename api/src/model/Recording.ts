@@ -1,4 +1,5 @@
 export interface Recording {
+    id: string;
     ref: string;
     content?: string;
     tune?: string;

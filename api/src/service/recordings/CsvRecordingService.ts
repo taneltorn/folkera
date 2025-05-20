@@ -18,10 +18,59 @@ class CsvRecordingService implements RecordingService {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
+    public async findById(id: string): Promise<{ success: boolean, data?: Recording, error?: any }> {
+        try {
+            const data = this.readFromCsvFile();
+            const found = data.find(recording => recording.id === id);
+
+            if (!found) {
+                this.logger.warn(`Recording with id '${id}' not found`);
+                return {
+                    success: false,
+                    error: {message: "Recording not found", detail: `No recording with id '${id}'`}
+                };
+            }
+
+            return {
+                success: true,
+                data: found
+            };
+        } catch (err) {
+            this.logger.error(`Error finding recording with ID ${id}`, err);
+            return {
+                success: false,
+                error: {message: "Error finding recording", detail: err.message}
+            };
+        }
+    }
+
+    public async findByIds(ids: string[]): Promise<{ success: boolean, data: Recording[], error?: any }> {
+        try {
+            const data = this.readFromCsvFile();
+
+            const matched = data.filter(recording => ids.includes(recording.id));
+
+            this.logger.info(`Found ${matched.length} recordings for ${ids.length} requested IDs`);
+
+            return {
+                success: true,
+                data: matched
+            };
+        } catch (err) {
+            this.logger.error(`Error finding recordings by IDs`, err);
+            return {
+                success: false,
+                data: [],
+                error: {message: "Error finding recordings by IDs", detail: err.message}
+            };
+        }
+    }
+
+
     public async find(filters?: Filter[], pagination?: Pagination): Promise<ResultList<Recording>> {
         try {
             const data = this.readFromCsvFile();
-            
+
             let filtered = filter(data, filters);
             let paginated = undefined;
 

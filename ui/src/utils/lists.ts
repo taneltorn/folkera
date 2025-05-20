@@ -28,7 +28,7 @@ export const DefaultHiddenFields: Array<keyof Recording> = [
     "quality", "kivike", "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
 ];
 
-export const ItemsPerPageOptions = [10, 25, 50];
+export const ItemsPerPageOptions = [10, 20, 50];
 
 export const ColorSchemes: ColorScheme[] = [
     {
@@ -139,4 +139,3 @@ export const MarkerSymbols = [
     "square", "diamond", "cross", "x", "triangle-up", "triangle-down", "triangle-left", "triangle-right",
     "star", "hexagram", "pentagram", "hourglass", "bowtie",
 ];
-

@@ -3,17 +3,22 @@ import {Button, Group, Text} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import {Recording} from "../../../../../model/Recording.ts";
 import {Color} from "../../../../../utils/constants.ts";
+import {useNavigate} from "react-router-dom";
 
 interface Properties {
     recording: Recording;
     field: keyof Recording;
     split?: string;
     color?: string;
+    replace?: boolean;
+    returnHome?: boolean;
+    size?: string;
 }
 
-const FilterButtons: React.FC<Properties> = ({recording, field, split}) => {
+const FilterButtons: React.FC<Properties> = ({recording, field, split, size, replace, returnHome}) => {
 
-    const {addFilter} = useDataContext();
+    const navigate = useNavigate();
+    const {addFilter, useFilter} = useDataContext();
 
     const values = split
         ? recording[field]
@@ -24,7 +29,14 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split}) => {
         : [recording[field]];
 
     const handleClick = (value: string) => {
-        addFilter(field, [value]);
+        if (replace) {
+            useFilter(field, [value]);
+        } else {
+            addFilter(field, [value]);
+        }
+        if (returnHome) {
+            navigate("/");
+        }
     }
 
     return (
@@ -35,9 +47,9 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split}) => {
                         className={"pill-button"}
                         // color={`${chroma.scale(ColorScales.get(field) || "YlOrBr").colors(10)[9 - i % 5]}`}
                         color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
-                        size={"compact-xs"}
+                        size={size || "compact-xs"}
                         onClick={() => handleClick(v)}>
-                    <Text size={"xs"} className={"pill-button"}>
+                    <Text size={size || "xs"} className={"pill-button"}>
                         {v}
                     </Text>
                 </Button>

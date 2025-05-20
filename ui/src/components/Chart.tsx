@@ -73,7 +73,7 @@ const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
     return (
         chartType === ChartType.BAR
             // @ts-ignore
-            ? <Bar ref={chartRef} height={100} data={chartData} options={options}/>
+            ? <Bar ref={chartRef} height={150} data={chartData} options={options}/>
             // @ts-ignore
             : <Pie ref={chartRef} height={100} width={100} data={chartData} options={options}/>
     )

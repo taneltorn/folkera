@@ -16,7 +16,7 @@ const TopBar: React.FC = () => {
     const auth = useAuth();
     
     return (
-        <Group px={"md"} justify={"space-between"} bg={"white"} mb={"xs"}>
+        <Group justify={"space-between"}>
             <Group>
                 <RecordingSearch/>
                 <RecordingFilters/>

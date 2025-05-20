@@ -7,6 +7,7 @@
       "profile": "Minu profiil"
     },
     "loading": "Laen andmeid...",
+    "loadMore": "Lae veel",
     "help": "Näita juhendit",
     "example": "Näide",
     "table": {
@@ -15,9 +16,11 @@
     },
     "navigation": {
       "recordings": "Pillilood",
+      "identify": "Tuvasta",
       "clusters": "Klasterkaart",
       "changePassword": "Muuda parooli",
-      "stats": "Statistika"
+      "stats": "Statistika",
+      "showTable": "Kuva tabelis"
     },
     "userMenu": {
       "admin": "Adminpaneel",
@@ -49,7 +52,8 @@
     "duration": "Kestus",
     "order": "Jrk",
     "kivike": "Kivike",
-    "search": "Otsing"
+    "search": "Otsing",
+    "similarity": "Sarnasus"
   },
   "user": {
     "id": "ID",
@@ -69,7 +73,16 @@
         "users": "Kasutajad"
       }
     },
+    "identify": {
+      "title": "Otsi sarnaseid esitusi",
+      "label": "Vali helifail",
+      "placeholder": "Vali helifail",
+      "submit": "Tuvasta",
+      "identifying": "Tuvastan sarnaseid salvestusi...",
+      "loadingData": "Laen andmeid..."
+    },
     "recordings": {
+     
       "controls": {
         "search": "Otsi...",
         "export": "Ekspordi",
@@ -80,6 +93,10 @@
         "tableView": "Tabel",
         "mapView": "Kaart",
         "statsView": "Statistika"
+      },
+      "details": {
+        "similarRecordings": "Sarnased salvestused",
+        "performerRecordings": "Samalt esitajalt"
       },
       "table": {
         "results": "Tulemusi",

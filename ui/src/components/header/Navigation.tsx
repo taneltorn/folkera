@@ -7,10 +7,14 @@ import {FaDatabase} from "react-icons/fa";
 import {MdScatterPlot} from "react-icons/md";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {UserRole} from "../../model/User.ts";
+import {GiMagnifyingGlass} from "react-icons/gi";
+// import {IoDocumentOutline} from "react-icons/io5";
 
 const routes = [
     {id: 'recordings', icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
     {id: 'clusters', icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters", protected: true},
+    {id: 'identify', icon: <GiMagnifyingGlass size={Size.icon.SM}/>, link: "/identify"},
+    // {id: 'uurimused', icon: <IoDocumentOutline size={Size.icon.XS}/>, link: "/uurimused"},
 ];
 
 const Navigation: React.FC = () => {

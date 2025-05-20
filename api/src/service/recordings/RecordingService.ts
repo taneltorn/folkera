@@ -4,6 +4,8 @@ import {Recording} from "../../model/Recording";
 import {Pagination} from "../../model/Pagination";
 
 interface RecordingService {
+    findById: (id: string) => Promise<any>
+    findByIds: (id: string[]) => Promise<any>
     find: (filters: Filter[], pagination: Pagination) => Promise<ResultList<Recording>>
     save: (data: Recording[]) => Promise<any>
 }

@@ -42,7 +42,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
 
     const loadData = () => {
-        dataService.fetchData(filters, pagination)
+        dataService.fetchRecordings(filters, pagination)
             .then((result) => {
                 setData(result.data);
                 setTotalItems(result.page.totalItems);
@@ -69,12 +69,13 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     }
 
     const exportData = () => {
-        dataService.fetchData(filters, {sortField: "order", sortDirection: SortDirection.ASC})
+        dataService.fetchRecordings(filters, {sortField: "order", sortDirection: SortDirection.ASC})
             .then((result) => {
                 const data = result.data;
                 const filename = generateFileName(filters);
 
                 const headerTranslations: Record<keyof Recording, string> = {
+                    id: t("recording.id"),
                     ref: t("recording.ref"),
                     content: t("recording.content"),
                     tune: t("recording.tune"),
@@ -94,6 +95,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                     kivike: t("recording.kivike"),
                     duration: t("recording.duration"),
                     quality: t("recording.quality"),
+                    distance: t("recording.distance"),
                 };
 
                 const transformedData = data.map(record => {
@@ -124,7 +126,19 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     }
 
     const addFilter = (field: string, values: string[]) => {
-        const filterList = filters.filter(f => f.field !== field);
+        const filterList: Filter[] = filters.filter(f => f.field !== field);
+        values.forEach(value => {
+            if (value) {
+                filterList.push({field: field, value: value});
+            }
+        });
+
+        setFilters(filterList);
+        setPagination({...pagination, page: 1});
+    }
+
+    const useFilter = (field: string, values: string[]) => {
+        const filterList: Filter[] = [];
         values.forEach(value => {
             if (value) {
                 filterList.push({field: field, value: value});
@@ -181,6 +195,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
         filters,
         addFilter, setFilters,
+        useFilter,
         removeFilter,
         clearFilters,
 

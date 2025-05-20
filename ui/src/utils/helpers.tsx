@@ -12,14 +12,38 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     if (!filters) {
         return {};
     }
-    return filters.reduce((acc, { field, value }) => {
+    return filters.reduce((acc, {field, value}) => {
         acc[field] = acc[field] ? `${acc[field]};${value}` : value;
         return acc;
     }, {} as Record<string, string>);
 };
 
-export  const generateFileName = (filters?: Filter[]) => {
+export const generateFileName = (filters?: Filter[]) => {
     return filters && filters.length > 0
         ? "pillilood_" + filters.map(f => f.value).join("_").replace(".", "").replace(" / ", "_") + ".csv"
         : "pillilood.csv";
+}
+
+export const distanceToSimilarity = (distance: number | undefined): number => {
+    if (!distance) {
+        return 0;
+    }
+
+    return Number((1 - distance) * 100);
+}
+
+export const similarityToColor = (distance: number | undefined): string => {
+    if (!distance || distance < 75) {
+        return "red";
+    }
+    if (distance < 79.5) {
+        return "orange.7";
+    }
+    if (distance < 89.5) {
+        return "yellow";
+    }
+    if (distance < 94.5) {
+        return "green.8";
+    }
+    return "green";
 }
