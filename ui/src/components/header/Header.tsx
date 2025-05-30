@@ -11,6 +11,8 @@ import {useModifications} from "../../hooks/useModifications.tsx";
 import {useDataContext} from "../../hooks/useDataContext.tsx";
 import {useTranslation} from "react-i18next";
 import UserMenu from "./UserMenu.tsx";
+import {useNotifications} from "../../hooks/useNotifications.tsx";
+import {NotificationType} from "../../context/NotificationContext.tsx";
 
 const Header: React.FC = () => {
 
@@ -18,10 +20,12 @@ const Header: React.FC = () => {
     const auth = useAuth();
     const {modifications, clearModifications} = useModifications();
     const {saveData, loadData} = useDataContext();
+    const {notify} = useNotifications();
 
     const handleSave = () => {
         saveData(modifications);
         clearModifications();
+        notify(t("toast.success.saveData"), NotificationType.SUCCESS);
     };
 
     const handleClear = () => {

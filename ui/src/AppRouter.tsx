@@ -13,6 +13,7 @@ import {UserRole} from "./model/User.ts";
 import MyProfileView from "./views/profile/MyProfileView.tsx";
 import RecordingsDetails from "./views/recordings/RecordingsDetails.tsx";
 import IdentifyView from "./views/identify/IdentifyView.tsx";
+import ExampleMap from "./views/recordings/map/components/ExampleMap.tsx";
 
 const router = createBrowserRouter([
     {
@@ -46,7 +47,11 @@ const router = createBrowserRouter([
             {
                 path: "/admin",
                 element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><Admin/></ProtectedRoute>,
-            }
+            },
+            {
+                path: "/map",
+                element: <ExampleMap/>,
+            },
         ]
     }
 ]);

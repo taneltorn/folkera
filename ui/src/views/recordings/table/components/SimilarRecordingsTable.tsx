@@ -4,6 +4,7 @@ import {Box, Table} from "@mantine/core";
 import {Recording} from "../../../../model/Recording.ts";
 import SimilarRecordingsTableRow from "./SimilarRecordingsTableRow.tsx";
 import Loading from "../../../../components/Loading.tsx";
+import {useModifications} from "../../../../hooks/useModifications.tsx";
 
 interface Properties {
     recordings: Recording[];
@@ -14,6 +15,7 @@ interface Properties {
 const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, loadingText}) => {
 
     const {t} = useTranslation();
+    const {modifications} = useModifications();
 
     return (
         <Box pos={"relative"} mih={50}>
@@ -22,10 +24,11 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                 text={loadingText}
             />
             {recordings.length > 0 &&
-                <Table>
+                <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
                     <Table.Thead>
                         <Table.Tr>
-                            <Table.Th pl={"lg"}>{t("recording.ref")}</Table.Th>
+                            <Table.Th/>
+                            <Table.Th>{t("recording.ref")}</Table.Th>
                             <Table.Th>{t("recording.content")}</Table.Th>
                             <Table.Th>{t("recording.tune")}</Table.Th>
                             <Table.Th>{t("recording.datatype")}</Table.Th>

@@ -23,10 +23,11 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
     return (
         <Table.Tr key={recording.id} ref={ref}>
+            <Table.Td>
+                <PlayRecordingButton recording={recording}/>
+            </Table.Td>
             <Table.Td miw={150}>
-                <Group gap={"xs"} wrap={"nowrap"}>
-                    <PlayRecordingButton recording={recording}/>
-
+                <Group wrap={"nowrap"}>
                     <Text size={"xs"}>
                         <Link to={`/recordings/${recording.id}`}>
                             {recording.ref}
@@ -90,7 +91,7 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             <Table.Td miw={150} pr={"xl"}>
                 <Group gap={"xs"} wrap={"nowrap"}>
                     <Progress w={"100%"} value={progress} color={similarityToColor(similarity)}/>
-                    {similarity.toFixed(0) + "%"}
+                    {/*{similarity.toFixed(0) + "%"}*/}
                 </Group>
             </Table.Td>
         </Table.Tr>

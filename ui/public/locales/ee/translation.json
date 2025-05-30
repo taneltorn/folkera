@@ -192,14 +192,13 @@
   },
   "modal": {
     "createUser": {
-      "title": "Lisa kasutaja",
-      "submit": "Lisa kasutaja",
-      "cancel": "Tühista"
+      "title": "Lisa kasutaja"
     },
     "modifyUser": {
-      "title": "Muuda kasutajat",
-      "submit": "Salvesta kasutaja",
-      "cancel": "Tühista"
+      "title": "Muuda kasutajat"
+    },
+    "modifyRecording": {
+      "title": "Muuda pillilugu"
     },
     "removeUser": {
       "title": "Kustuta kasutaja",

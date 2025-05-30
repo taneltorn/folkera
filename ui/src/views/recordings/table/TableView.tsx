@@ -3,7 +3,8 @@ import ControlBar from "../components/ControlBar.tsx";
 import RecordingTableControls from "./components/RecordingTableControls.tsx";
 import RecordingTable from "./components/RecordingTable.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
-import {Box, LoadingOverlay} from "@mantine/core";
+import {Box} from "@mantine/core";
+import Loading from "../../../components/Loading.tsx";
 
 const TableView: React.FC = () => {
 
@@ -11,7 +12,7 @@ const TableView: React.FC = () => {
 
     return (
         <Box pos={"relative"}>
-            <LoadingOverlay visible={isLoading}/>
+            <Loading isLoading={isLoading}/>
             <ControlBar>
                 <RecordingTableControls/>
             </ControlBar>

@@ -12,29 +12,33 @@ import FilterButtons from "./table/components/controls/FilterButtons.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import RecordingsInfo from "./RecordingsInfo.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
+import {FaPython} from "react-icons/fa";
+import {Size} from "../../utils/constants.ts";
 
-const LOAD_MORE_STEP = 20;
+const LOAD_MORE_STEP = 15;
 
 const RecordingsList: React.FC = () => {
 
     const {t} = useTranslation();
-
-    const dataService = useDataService();
-    const {notify} = useNotifications();
     const {id} = useParams();
-    const {similarRecordings, isLoading, loadingText, findSimilarRecordings} = useSimilarRecordings();
+    const {notify} = useNotifications();
+    const dataService = useDataService();
+    const {
+        similarRecordings,
+        isLoading,
+        loadingText,
+        findSimilarRecordings,
+        setSimilarRecordings
+    } = useSimilarRecordings();
 
-    const [top, setTop] = useState<number>(LOAD_MORE_STEP);
+    const [top, setTop] = useState<number>(0);
     const [recording, setRecording] = useState<Recording>();
 
-    useEffect(() => {
-        findSimilarRecordings(recording?.file, top, true);
-    }, [top, recording]);
-
-    useEffect(() => {
+    const fetchData = (id: string | undefined) => {
         if (!id) {
             return;
         }
+
         dataService.fetchRecording(id)
             .then(data => {
                 setRecording(data);
@@ -42,13 +46,29 @@ const RecordingsList: React.FC = () => {
             .catch(error => {
                 notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
             });
+    }
+
+    const handleLoadMore = (top: number) => {
+        if (recording?.file) {
+            setTop(top);
+            findSimilarRecordings(recording?.file, top, true);
+        }
+    }
+
+    useEffect(() => {
+        setSimilarRecordings([]);
+        fetchData(id);
     }, [id]);
+
 
     return (
         <Page title={t("page.title.recordings")}>
             {recording && <>
                 <Box px={"md"} mb={"md"}>
-                    <RecordingHeader recording={recording}/>
+                    <RecordingHeader
+                        recording={recording}
+                        reloadData={() => fetchData(id)}
+                    />
 
                     {recording.tune &&
                         <Group mb={"xs"}>
@@ -62,7 +82,18 @@ const RecordingsList: React.FC = () => {
 
                     <RecordingsInfo recording={recording}/>
 
-                    <Title order={3} mt={"xl"}>Sarnased lood</Title>
+                    {similarRecordings.length === 0 && !isLoading &&
+                        <Button
+                            mt={"lg"}
+                            loading={isLoading}
+                            variant={"filled"}
+                            leftSection={<FaPython size={Size.icon.MD}/>}
+                            onClick={() => handleLoadMore(LOAD_MORE_STEP)}
+                        >
+                            {t("view.recordings.details.similarRecordings")}
+                        </Button>}
+                    <Title order={3} mt={"xl"}>
+                    </Title>
                 </Box>
 
                 <SimilarRecordingsTable
@@ -71,9 +102,12 @@ const RecordingsList: React.FC = () => {
                     loadingText={loadingText}
                 />
 
-                {!isLoading &&
+                {!isLoading && similarRecordings.length > 0 &&
                     <Center mt={"md"}>
-                        <Button variant={"subtle"} onClick={() => setTop(top + LOAD_MORE_STEP)}>
+                        <Button
+                            variant={"subtle"}
+                            onClick={() => handleLoadMore(top + LOAD_MORE_STEP)}
+                        >
                             {t("page.loadMore")}
                         </Button>
                     </Center>}

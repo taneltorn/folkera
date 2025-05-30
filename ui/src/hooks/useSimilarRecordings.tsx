@@ -7,11 +7,11 @@ import { useDataService } from "../services/useDataService";
 import {useNotifications} from "./useNotifications.tsx";
 
 export const useSimilarRecordings = () => {
+    
     const {t} = useTranslation();
-
+    const {notify} = useNotifications();
     const identifyService = useIdentifyService();
     const dataService = useDataService();
-    const {notify} = useNotifications();
 
     const [similarRecordings, setSimilarRecordings] = useState<Recording[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,7 +46,7 @@ export const useSimilarRecordings = () => {
             setSimilarRecordings(data);
 
             setLoadingText("");
-            identifyService.deleteFile(filePath);
+            // identifyService.deleteFile(filePath);
         } catch (error) {
             notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
         } finally {

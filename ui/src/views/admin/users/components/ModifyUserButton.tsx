@@ -76,11 +76,10 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
 
                     <Group justify={"end"} gap={4}>
                         <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
-                            {t("modal.modifyUser.cancel")}
-
+                            {t("button.cancel")}
                         </Button>
                         <Button type={"submit"}>
-                            {t("modal.modifyUser.submit")}
+                            {t("button.save")}
                         </Button>
                     </Group>
                 </form>

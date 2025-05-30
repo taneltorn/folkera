@@ -14,19 +14,24 @@ interface Properties {
     options: MapOptions;
     groupBy: GroupBy;
     onClick?: (value: string) => void;
+    valueCap?: number;
 }
 
 const LabelPositions = new Map<string, number[]>([]);
 
 // todo: refactor
-const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onClick}) => {
+const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onClick, valueCap}) => {
 
     const mapContainerRef = useRef<any>(null);
     const geoJsonLayerRef = useRef<any>(null);
 
     // @ts-ignore
     let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
-    maxValue = Math.max(maxValue, 50)
+    // maxValue = Math.max(maxValue, 100)
+    // maxValue = maxValue < 50 ? 50 : maxValue;
+    if (valueCap) {
+        maxValue = valueCap;
+    }
     const geoJsonKey = useMemo(() => `geo-${moment.now()}}`, [options, layers, stats])
 
     const onEachFeature = (feature: any, layer: any) => {
@@ -44,6 +49,8 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
             if (options.asHeatMap) {
                 // const scale = chroma.scale(['#D1C4E9', '#1A237E']).domain([1, maxValue * (1 - options.heatIntensity)]);
                 const scale = chroma.scale("YlOrBr").domain([-(maxValue / 4), maxValue * (1 - options.heatIntensity)]);
+                // const scale = chroma.scale(chroma.brewer.YlGn).domain([-20, 20]);
+                // const scale = chroma.scale(chroma.brewer.RdYlBu.slice().reverse()).padding(-0.2).domain([0, maxValue]);
 
                 // @ts-ignore
                 color = count === 0 ? "#fff" : scale(count).hex();

@@ -13,11 +13,12 @@ class CoverHunterIdentifyService implements IdentifyService {
     }
 
     public async identify(file: string, n: number = 10, skipFirstResult: string = "false"): Promise<any> {
-        this.logger.info(`Identifying file ${file} (top: ${n}, skipFirstResult: ${skipFirstResult})`);
 
         const pythonPath = path.resolve("/home/torntan1/DevZone/CoverHunterMPS/.venv/bin/python");
         const scriptPath = path.resolve("/home/torntan1/DevZone/folkera/scripts/identify.py");
         const filePath = path.resolve(this.recordingsDir, file);
+
+        this.logger.info(`Identifying file ${filePath} (top: ${n}, skipFirstResult: ${skipFirstResult})`);
         
         const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 

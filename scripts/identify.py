@@ -4,13 +4,17 @@ import os
 import sys
 import re
 import json
+import time
+from pathlib import Path
 
 root_directory = "/home/torntan1/DevZone/CoverHunterMPS/"
-converted_query_path = os.path.join(root_directory, "query.wav")
 
 
 def convert_audio(query_path: str):
     """Convert input audio to 16kHz mono using ffmpeg."""
+    
+    current_epoch = int(time.time())
+    converted_query_path = os.path.join(root_directory, "converted", f"{current_epoch}.wav")
     
     command = [
         "ffmpeg",
@@ -23,6 +27,8 @@ def convert_audio(query_path: str):
     ]
     print(f"Converting audio: {' '.join(command)}", file=sys.stderr)
     subprocess.run(command, check=True)
+    
+    return converted_query_path
 
 
 def parse_output(output: str):
@@ -37,7 +43,7 @@ def parse_output(output: str):
     return entries
 
 
-def identify(top: str = "10"):
+def identify(file_path, top: str = "10"):
     """Run tools.identify using the virtualenv Python, capturing and parsing output."""
 
     sys.stderr.write("Some log message\n")
@@ -48,7 +54,7 @@ def identify(top: str = "10"):
         venv_python, "-m", "tools.identify",
         os.path.join(root_directory, "data/folkera"),
         os.path.join(root_directory, "training/folktest"),
-        converted_query_path,
+        file_path,
         f"-top={top}"
     ]
     print(f"Running identification: {' '.join(command)}", file=sys.stderr)
@@ -71,17 +77,17 @@ def main():
     args = parser.parse_args()
 
     try:
-        convert_audio(args.query)
-        results = identify(args.top)
+        file_path = convert_audio(args.query)
+        results = identify(file_path, args.top)
         print(json.dumps(results))
 
     except subprocess.CalledProcessError as e:
         print(f"Error during execution: {e}", file=sys.stderr)  
         sys.exit(1)
     finally:
-        if os.path.exists(converted_query_path):
-            os.remove(converted_query_path)
-            print(f"Removed temporary file: {converted_query_path}", file=sys.stderr)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            print(f"Removed temporary file: {file_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":
