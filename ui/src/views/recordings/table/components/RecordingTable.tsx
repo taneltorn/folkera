@@ -1,5 +1,5 @@
 import React from "react";
-import {Table} from "@mantine/core";
+import {Group, Table} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import RecordingTableRow from "./RecordingTableRow.tsx";
 import FilterInput from "./controls/FilterInput.tsx";
@@ -9,6 +9,8 @@ import {useModifications} from "../../../../hooks/useModifications.tsx";
 import RecordingTableHeader from "./RecordingTableHeader.tsx";
 import FilterSelect from "./controls/FilterSelect.tsx";
 import {Recording} from "../../../../model/Recording.ts";
+import {IoIosMusicalNotes} from "react-icons/io";
+import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
     data: Recording[];
@@ -25,6 +27,11 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
             <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
                 <Table.Thead>
                     <Table.Tr>
+                        <Table.Th>
+                            <Group justify={"center"}>
+                                <IoIosMusicalNotes size={Size.icon.SM}/>
+                            </Group>
+                        </Table.Th>
                         <RecordingTableHeader field={"ref"} sortField={"order"}>
                             <FilterInput
                                 field={"ref"}

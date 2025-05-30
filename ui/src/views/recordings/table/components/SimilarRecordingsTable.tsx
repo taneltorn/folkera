@@ -1,10 +1,12 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Box, Table} from "@mantine/core";
+import {Box, Group, Table} from "@mantine/core";
 import {Recording} from "../../../../model/Recording.ts";
 import SimilarRecordingsTableRow from "./SimilarRecordingsTableRow.tsx";
 import Loading from "../../../../components/Loading.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
+import {IoIosMusicalNotes} from "react-icons/io";
+import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
     recordings: Recording[];
@@ -27,7 +29,11 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                 <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
                     <Table.Thead>
                         <Table.Tr>
-                            <Table.Th/>
+                            <Table.Th>
+                                <Group justify={"center"}>
+                                    <IoIosMusicalNotes size={Size.icon.SM}/>
+                                </Group>
+                            </Table.Th>
                             <Table.Th>{t("recording.ref")}</Table.Th>
                             <Table.Th>{t("recording.content")}</Table.Th>
                             <Table.Th>{t("recording.tune")}</Table.Th>

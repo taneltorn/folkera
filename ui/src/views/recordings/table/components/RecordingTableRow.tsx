@@ -16,13 +16,14 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
 
     return (
         <Table.Tr ref={ref}>
+            <Table.Td>
+                <PlayRecordingButton recording={recording}/>
+            </Table.Td>
             <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
-                <Group gap={"xs"} wrap={"nowrap"}>
-                    <PlayRecordingButton recording={recording}/>
-
+                <Group wrap={"nowrap"}>
                     <Link to={`/recordings/${recording.id}`}>
-                        <Text size={"xs"} fw={"bolder"} >
-                            {recording.ref} 
+                        <Text size={"xs"} fw={"bolder"}>
+                            {recording.ref}
                         </Text>
                     </Link>
                 </Group>
@@ -48,7 +49,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
                     split={","}
                 />
             </RecordingTableCell>
-            
+
             <RecordingTableCell recording={recording} field={"dance"}>
                 <FilterButtons
                     recording={recording}

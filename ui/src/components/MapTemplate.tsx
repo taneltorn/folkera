@@ -27,7 +27,7 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
 
     // @ts-ignore
     let maxValue = useMemo<number>(() => Math.max(...(Object.values(stats) as number[])), [stats]);
-    // maxValue = Math.max(maxValue, 100)
+    maxValue = Math.max(maxValue, 10)
     // maxValue = maxValue < 50 ? 50 : maxValue;
     if (valueCap) {
         maxValue = valueCap;
