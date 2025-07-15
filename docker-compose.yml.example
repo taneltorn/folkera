@@ -21,6 +21,7 @@ services:
       - IDENTIFY_SCRIPT_PATH=${IDENTIFY_SCRIPT_PATH}
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
       - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
+      - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
     depends_on:
       - database
     networks:
@@ -43,6 +44,7 @@ services:
     environment:
       - VITE_API_URL=${VITE_API_URL}
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
+      - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
     depends_on:
       - api
     networks:
