@@ -5,7 +5,6 @@ import {useQueryParams} from "../middleware/useQueryParams";
 import {ApiRequest} from "../model/ApiRequest";
 import CoverHunterIdentifyService from "../service/identify/CoverHunterIdentifyService";
 import multer from "multer";
-import path from "path";
 import fs from "fs";
 
 class IdentifyController {

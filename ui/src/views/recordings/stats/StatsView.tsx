@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useStatsService} from "../../../services/useStatsService.tsx";
+import {useStatsService} from "../../../services/useStatsService.ts";
 import {Box, LoadingOverlay} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
@@ -28,7 +28,7 @@ const StatsView: React.FC<Properties> = () => {
                 <RecordingStatsControls/>
             </ControlBar>
             
-            <Box px={"md"} h={800}>
+            <Box px={"md"} h={700}>
                 <RecordingStats/>
             </Box>
         </Box>

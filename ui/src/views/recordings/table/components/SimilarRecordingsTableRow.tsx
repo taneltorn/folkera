@@ -24,7 +24,9 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
     return (
         <Table.Tr key={recording.id} ref={ref}>
             <Table.Td>
-                <PlayRecordingButton recording={recording}/>
+                <Group justify={"center"}>
+                    <PlayRecordingButton recording={recording}/>
+                </Group>
             </Table.Td>
             <Table.Td miw={150}>
                 <Group wrap={"nowrap"}>
@@ -41,14 +43,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                 <FilterButtons
                     recording={recording}
                     field={"tune"}
-                    returnHome
-                    replace
-                />
-            </RecordingTableCell>
-            <RecordingTableCell recording={recording} field={"datatype"} alwaysVisible>
-                <FilterButtons
-                    recording={recording}
-                    field={"datatype"}
                     returnHome
                     replace
                 />

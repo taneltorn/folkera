@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import UserRow from "./components/UserRow.tsx";
-import useUserService from "../../../services/useUserService.tsx";
+import useUserService from "../../../services/useUserService.ts";
 import {Table} from "@mantine/core";
 import {User} from "../../../model/User.ts";
 import AddUserButton from "./components/AddUserButton.tsx";

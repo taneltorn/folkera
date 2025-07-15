@@ -65,12 +65,12 @@ a {
   }
 
   ::placeholder {
-    color: var(--mantine-color-red-9);
+    color: var(--mantine-color-red-9) !important;
     opacity: 1;
   }
 
   ::-ms-input-placeholder {
-    color: var(--mantine-color-red-9);
+    color: var(--mantine-color-red-9) !important;
   }
 }
 
@@ -79,7 +79,7 @@ a {
   background-color:  var(--mantine-color-gray-1) !important;
 }
 .rhap_main-controls-button svg {
-  color: var(--mantine-color-red-9);
+  color: var(--mantine-color-red-9) !important;
 }
 .rhap_progress-filled,
 .rhap_progress-indicator {

@@ -3,7 +3,7 @@ import {useDataContext} from "../../../hooks/useDataContext.tsx";
 import {Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {View} from "../../../context/ActiveViewContext.tsx";
-import ActiveViewButton from "../../../components/ActiveViewButton.tsx";
+import ActiveViewButton from "../../../components/buttons/ActiveViewButton.tsx";
 import {FaTableList} from "react-icons/fa6";
 import {Size} from "../../../utils/constants.ts";
 import {FaMapMarkerAlt} from "react-icons/fa";

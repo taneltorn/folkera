@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useUserService from "../../../../services/useUserService.tsx";
+import useUserService from "../../../../services/useUserService.ts";
 import {Button, Group, Input, Radio, TextInput} from "@mantine/core";
 import {User, UserRole} from "../../../../model/User.ts";
 import {FaPlus} from "react-icons/fa";

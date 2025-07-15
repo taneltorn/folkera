@@ -35,6 +35,7 @@ const BottomAudioPlayer: React.FC = () => {
                         src={`mp3/${track?.file}`}
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
+                        style={{background: "red"}}
                     />
                 </>
                 : <>

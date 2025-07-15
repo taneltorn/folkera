@@ -14,8 +14,8 @@ class CoverHunterIdentifyService implements IdentifyService {
 
     public async identify(file: string, n: number = 10, skipFirstResult: string = "false"): Promise<any> {
 
-        const pythonPath = path.resolve("/home/torntan1/DevZone/CoverHunterMPS/.venv/bin/python");
-        const scriptPath = path.resolve("/home/torntan1/DevZone/folkera/scripts/identify.py");
+        const pythonPath = path.resolve(process.env.PYTHON_PATH);
+        const scriptPath = path.resolve(process.env.IDENTIFY_SCRIPT_PATH);
         const filePath = path.resolve(this.recordingsDir, file);
 
         this.logger.info(`Identifying file ${filePath} (top: ${n}, skipFirstResult: ${skipFirstResult})`);

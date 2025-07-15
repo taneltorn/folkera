@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Group, Input, TextInput} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
@@ -7,7 +7,7 @@ import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Recording} from "../../../../model/Recording.ts";
-import {useDataService} from "../../../../services/useDataService.tsx";
+import {useDataService} from "../../../../services/useDataService.ts";
 import {NotificationType} from "../../../../context/NotificationContext.tsx";
 import {useNotifications} from "../../../../hooks/useNotifications.tsx";
 
@@ -25,11 +25,14 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange}) => {
     const form = useForm<Recording>({
         mode: 'uncontrolled',
         initialValues: {...recording},
-
         validate: {
         },
     });
 
+    useEffect(() => {
+        form.setValues({...recording});
+    }, [recording]);
+    
     const onSubmit = async (values: Recording) => {
         if (recording.id) {
             dataService

@@ -5,12 +5,12 @@ import {Recording} from "../model/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../model/Pagination.ts";
-import {useDataService} from "../services/useDataService.tsx";
+import {useDataService} from "../services/useDataService.ts";
 import {useTranslation} from "react-i18next";
 import {NotificationType} from "../context/NotificationContext.tsx";
 import {useNotifications} from "./useNotifications.tsx";
 import Papa from "papaparse";
-import {useOptionsService} from "../services/useOptionsService.tsx";
+import {useOptionsService} from "../services/useOptionsService.ts";
 import {FilteringOptions} from "../model/FilteringOptions.ts";
 
 const DefaultPagination: Pagination = {

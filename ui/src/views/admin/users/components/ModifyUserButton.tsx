@@ -6,7 +6,7 @@ import {modals} from '@mantine/modals';
 import { RiEdit2Fill} from "react-icons/ri";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
-import useUserService from "../../../../services/useUserService.tsx";
+import useUserService from "../../../../services/useUserService.ts";
 import {isNotEmpty, useForm} from "@mantine/form";
 
 interface Properties {

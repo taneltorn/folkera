@@ -4,6 +4,8 @@ import PlayRecordingButton from "./table/components/controls/PlayRecordingButton
 import TableLink from "../../components/footer/TableLink.tsx";
 import {Group, Title} from "@mantine/core";
 import ModifyRecordingButton from "../admin/users/components/ModifyRecordingButton.tsx";
+import FilterButtons from "./table/components/controls/FilterButtons.tsx";
+import {useAuth} from "../../hooks/useAuth.tsx";
 
 interface Properties {
     recording: Recording;
@@ -12,16 +14,18 @@ interface Properties {
 
 const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
 
+    const auth = useAuth();
+
     return (
         <>
             <Group justify={"space-between"}>
                 <Group>
                     <Title order={1} style={{textAlign: "center"}}>{recording.ref}</Title>
-
                 </Group>
 
                 <Group gap={4}>
-                    <ModifyRecordingButton recording={recording} onChange={reloadData}/>
+                    {auth.currentUser?.isAdmin &&
+                        <ModifyRecordingButton recording={recording} onChange={reloadData}/>}
                     <TableLink field={"ref"} value={recording.ref}/>
                 </Group>
 
@@ -33,6 +37,13 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                     variant={"light"}
                 />
                 {recording.content || "-"}
+                {recording.tune &&
+                    <FilterButtons
+                        recording={recording}
+                        field={"tune"}
+                        returnHome
+                        replace
+                    />}
             </Group>
         </>
     );

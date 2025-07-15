@@ -5,7 +5,7 @@ import {modals} from '@mantine/modals';
 import {RiDeleteBinLine} from "react-icons/ri";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
-import useUserService from "../../../../services/useUserService.tsx";
+import useUserService from "../../../../services/useUserService.ts";
 
 interface Properties {
     user: User;

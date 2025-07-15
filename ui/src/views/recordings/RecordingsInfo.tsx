@@ -20,10 +20,10 @@ const RecordingsInfo: React.FC<Properties> = ({recording}) => {
                 <Text fw={"bold"}>{t("recording.parish")}</Text>
             </Box>
             <Box>
-                <Text>{recording.year}</Text>
-                <Text>{recording.performer}</Text>
-                <Text>{recording.instrument} </Text>
-                <Text>{recording.parish}</Text>
+                <Text>{recording.year || "-"}</Text>
+                <Text>{recording.performer || "-"}</Text>
+                <Text>{recording.instrument || "-"} </Text>
+                <Text>{recording.parish || "-"}</Text>
             </Box>
         </Group>
     );

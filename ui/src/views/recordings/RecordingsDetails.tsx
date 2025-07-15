@@ -2,20 +2,20 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box, Button, Center, Group, Title} from "@mantine/core";
+import {Box, Button} from "@mantine/core";
 import {Recording} from "../../model/Recording.ts";
-import {useDataService} from "../../services/useDataService.tsx";
+import {useDataService} from "../../services/useDataService.ts";
 import {NotificationType} from "../../context/NotificationContext.tsx";
 import {useNotifications} from "../../hooks/useNotifications.tsx";
 import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.tsx";
-import FilterButtons from "./table/components/controls/FilterButtons.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import RecordingsInfo from "./RecordingsInfo.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
-import {FaPython} from "react-icons/fa";
 import {Size} from "../../utils/constants.ts";
+import {TbZoomQuestion} from "react-icons/tb";
+import LoadMoreButton from "../../components/buttons/LoadMoreButton.tsx";
 
-const LOAD_MORE_STEP = 15;
+const LOAD_MORE_STEP = 10;
 
 const RecordingsList: React.FC = () => {
 
@@ -48,7 +48,7 @@ const RecordingsList: React.FC = () => {
             });
     }
 
-    const handleLoadMore = (top: number) => {
+    const fetchSimilarRecordings = (top: number) => {
         if (recording?.file) {
             setTop(top);
             findSimilarRecordings(recording?.file, top, true);
@@ -60,7 +60,6 @@ const RecordingsList: React.FC = () => {
         fetchData(id);
     }, [id]);
 
-
     return (
         <Page title={t("page.title.recordings")}>
             {recording && <>
@@ -70,16 +69,6 @@ const RecordingsList: React.FC = () => {
                         reloadData={() => fetchData(id)}
                     />
 
-                    {recording.tune &&
-                        <Group mb={"xs"}>
-                            <FilterButtons
-                                recording={recording}
-                                field={"tune"}
-                                returnHome
-                                replace
-                            />
-                        </Group>}
-
                     <RecordingsInfo recording={recording}/>
 
                     {similarRecordings.length === 0 && !isLoading &&
@@ -87,13 +76,11 @@ const RecordingsList: React.FC = () => {
                             mt={"lg"}
                             loading={isLoading}
                             variant={"filled"}
-                            leftSection={<FaPython size={Size.icon.MD}/>}
-                            onClick={() => handleLoadMore(LOAD_MORE_STEP)}
+                            leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
+                            onClick={() => fetchSimilarRecordings(LOAD_MORE_STEP)}
                         >
                             {t("view.recordings.details.similarRecordings")}
                         </Button>}
-                    <Title order={3} mt={"xl"}>
-                    </Title>
                 </Box>
 
                 <SimilarRecordingsTable
@@ -102,15 +89,10 @@ const RecordingsList: React.FC = () => {
                     loadingText={loadingText}
                 />
 
-                {!isLoading && similarRecordings.length > 0 &&
-                    <Center mt={"md"}>
-                        <Button
-                            variant={"subtle"}
-                            onClick={() => handleLoadMore(top + LOAD_MORE_STEP)}
-                        >
-                            {t("page.loadMore")}
-                        </Button>
-                    </Center>}
+                <LoadMoreButton
+                    visible={!isLoading && similarRecordings.length > 0}
+                    onClick={() => fetchSimilarRecordings(top + LOAD_MORE_STEP)}
+                />
             </>}
         </Page>
     );

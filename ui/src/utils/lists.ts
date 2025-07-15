@@ -41,12 +41,12 @@ export const ColorSchemes: ColorScheme[] = [
         known: chroma.scale(["#999", "#000"]),
         unidentified: chroma.scale("Reds").colors(10)[8],
     },
-    // {
-    //     name: ColorSchemeName.ALT2,
-    //     known: chroma.scale(["#999", "#000"]),
-    //     unidentified: chroma.scale("Reds").colors(10)[8],
-    //     correctlyIdentified: chroma.scale("Greens").colors(10)[6],
-    // },
+    {
+        name: ColorSchemeName.ALT2,
+        known: chroma.scale(["#999", "#000"]),
+        unidentified: chroma.scale("Reds").colors(10)[8],
+        correctlyIdentified: chroma.scale("Greens").colors(10)[6],
+    },
 ];
 
 export const ClusterMaps: ClusterMap[] = [

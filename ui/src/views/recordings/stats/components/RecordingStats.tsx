@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useStatsService} from "../../../../services/useStatsService.tsx";
+import {useStatsService} from "../../../../services/useStatsService.ts";
 import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useActiveView} from "../../../../hooks/useActiveView.tsx";

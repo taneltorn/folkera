@@ -30,7 +30,7 @@
     }
   },
   "player": {
-    "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b> "
+    "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b>"
   },
   "recording": {
     "ref": "Viide",
@@ -77,12 +77,12 @@
       "title": "Otsi sarnaseid esitusi",
       "label": "Vali helifail",
       "placeholder": "Vali helifail",
-      "submit": "Tuvasta",
+      "submit": "Otsi sarnaseid salvestusi",
       "identifying": "Tuvastan sarnaseid salvestusi...",
-      "loadingData": "Laen andmeid..."
+      "loadingData": "Laen andmeid...",
+      "uploadUnauthorized": "Faili üleslaadimiseks logi sisse."
     },
     "recordings": {
-     
       "controls": {
         "search": "Otsi...",
         "export": "Ekspordi",

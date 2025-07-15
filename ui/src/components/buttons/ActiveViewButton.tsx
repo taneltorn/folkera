@@ -1,7 +1,7 @@
 import React, {ReactNode} from "react";
 import {Button} from "@mantine/core";
-import {useActiveView} from "../hooks/useActiveView.tsx";
-import {View} from "../context/ActiveViewContext.tsx";
+import {useActiveView} from "../../hooks/useActiveView.tsx";
+import {View} from "../../context/ActiveViewContext.tsx";
 import {useTranslation} from "react-i18next";
 
 interface Properties {

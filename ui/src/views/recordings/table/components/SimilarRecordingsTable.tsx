@@ -37,7 +37,6 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                             <Table.Th>{t("recording.ref")}</Table.Th>
                             <Table.Th>{t("recording.content")}</Table.Th>
                             <Table.Th>{t("recording.tune")}</Table.Th>
-                            <Table.Th>{t("recording.datatype")}</Table.Th>
                             <Table.Th>{t("recording.year")}</Table.Th>
                             <Table.Th>{t("recording.instrument")}</Table.Th>
                             <Table.Th>{t("recording.performer")}</Table.Th>
