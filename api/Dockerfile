@@ -1,4 +1,4 @@
-FROM node:20-alpine as build
+FROM node:20 as build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN npm run build
 
 COPY ./src/resources ./dist/resources
 
-FROM node:20-alpine
+FROM node:20
 
 RUN apk add --no-cache python3 py3-pip py3-virtualenv ffmpeg
 
