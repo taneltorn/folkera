@@ -53,7 +53,7 @@ def identify(file_path, top: str = "10"):
     command = [
         venv_python, "-m", "tools.identify",
         os.path.join(root_directory, "data/folkera"),
-        os.path.join(root_directory, "training/folktest"),
+        os.path.join(root_directory, "training/folkera"),
         file_path,
         f"-top={top}"
     ]
