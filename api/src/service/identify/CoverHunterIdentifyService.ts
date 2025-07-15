@@ -21,12 +21,12 @@ class CoverHunterIdentifyService implements IdentifyService {
         const filePath = path.resolve(this.recordingsDir, file);
 
         this.logger.info(`Identifying file ${filePath} (top: ${n}, skipFirstResult: ${skipFirstResult})`);
+        this.logger.info(`Using python executable: ${pythonPath}`);
         
         const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 
         return new Promise((resolve, reject) => {
 
-            this.logger.info(skipFirstResult === "true" ? "TRUE" : "FALSE");
             const process = spawn(pythonPath, [scriptPath, filePath, "-top", top]);
 
             let stdout = "";
@@ -42,6 +42,17 @@ class CoverHunterIdentifyService implements IdentifyService {
                 const text = data.toString();
                 stderr += text;
                 this.logger.debug(`[python stderr] ${text.trim()}`);
+            });
+
+
+            process.on("error", (err) => {
+                this.logger.error(`Failed to start Python process: ${err.message}`);
+                return resolve({
+                    success: false,
+                    error: "Failed to start Python process",
+                    detail: err.message,
+                    logs: stderr + stdout,
+                });
             });
 
             process.on("close", (code) => {
