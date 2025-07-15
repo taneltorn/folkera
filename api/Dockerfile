@@ -14,8 +14,6 @@ COPY ./src/resources ./dist/resources
 
 FROM node:20
 
-RUN apk add --no-cache python3 py3-pip py3-virtualenv ffmpeg
-
 WORKDIR /app
 
 COPY --from=build /app/dist ./dist
