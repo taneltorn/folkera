@@ -27,6 +27,8 @@ class CoverHunterIdentifyService implements IdentifyService {
 
         return new Promise((resolve, reject) => {
 
+            this.logger.info(`Executing: ${pythonPath} ${scriptPath} ${filePath} -top ${top}`);
+
             const process = spawn(pythonPath, [scriptPath, filePath, "-top", top]);
 
             let stdout = "";
