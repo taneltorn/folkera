@@ -1,5 +1,7 @@
 FROM node:20 as build
 
+RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
+
 WORKDIR /app
 
 COPY package*.json ./

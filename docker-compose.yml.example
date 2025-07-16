@@ -21,6 +21,9 @@ services:
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
       - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
       - COVERHUNTER_ROOT_DIR=${COVERHUNTER_ROOT_DIR}
+    volumes:
+      - /opt/folkera/CoverHunterFolkERA:/opt/folkera/CoverHunterFolkERA:ro
+      - /opt/folkera/CoverHunterFolkERA/converted:/opt/folkera/CoverHunterFolkERA/converted
     depends_on:
       - database
     networks:
