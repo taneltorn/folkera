@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import {Box, Button, Group} from "@mantine/core";
 import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
-import {useNotifications} from "../../hooks/useNotifications.tsx";
-import {NotificationType} from "../../context/NotificationContext.tsx";
 import AudioPlayer from "react-h5-audio-player";
 import SimilarRecordingsTable from "../recordings/table/components/SimilarRecordingsTable.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
@@ -15,7 +13,6 @@ const LOAD_MORE_STEP = 10;
 const IdentifyView: React.FC = () => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
     const identifyService = useIdentifyService();
 
     const [file, setFile] = useState<File | null>(null);
@@ -53,9 +50,6 @@ const IdentifyView: React.FC = () => {
         identifyService.upload(file)
             .then(file => {
                 findSimilarRecordings(file, top, true, true)
-            })
-            .catch(e => {
-                notify(t("toast.error.test"), NotificationType.ERROR, e);
             });
     };
 

@@ -33,9 +33,7 @@ export const useIdentifyService = () => {
             })
             .catch(error => {
                 setIsLoading(false);
-
-                notify(t("toast.error.test"), NotificationType.ERROR, error);
-
+                notify(t("toast.error.identifySimilarRecordings"), NotificationType.ERROR, error);
                 throw error;
             });
     }
@@ -54,11 +52,11 @@ export const useIdentifyService = () => {
             })
             .then((response) => {
                 setIsLoading(false);
-                return response.data.filePath; // this is the value you'll pass to `identify`
+                return response.data.filePath;
             })
             .catch((error) => {
                 setIsLoading(false);
-                notify(t("toast.error.test"), NotificationType.ERROR, error);
+                notify(t("toast.error.uploadRecording"), NotificationType.ERROR, error);
                 throw error;
             });
     };
@@ -72,7 +70,7 @@ export const useIdentifyService = () => {
                 },
             });
         } catch (error) {
-            notify(t("toast.error.test"), NotificationType.ERROR, error);
+            notify(t("toast.error.deleteRecording"), NotificationType.ERROR, error);
             throw error;
         }
     };

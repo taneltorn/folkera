@@ -84,8 +84,7 @@ class CoverHunterIdentifyService implements IdentifyService {
     private buildError(error: string, detail: string, logs: string) {
         return {
             success: false,
-            error,
-            detail,
+            error: `${error} - ${detail}`,
             logs,
         };
     }

@@ -1,15 +1,12 @@
 import {useState} from "react";
 import {Recording} from "../model/Recording";
-import {NotificationType} from "../context/NotificationContext";
 import {useTranslation} from "react-i18next";
 import {useIdentifyService} from "../services/useIdentifyService";
 import {useDataService} from "../services/useDataService";
-import {useNotifications} from "./useNotifications.tsx";
 
 export const useSimilarRecordings = () => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
     const identifyService = useIdentifyService();
     const dataService = useDataService();
 
@@ -50,8 +47,6 @@ export const useSimilarRecordings = () => {
             if (removeFile) {
                 identifyService.deleteFile(filePath);
             }
-        } catch (error) {
-            notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
         } finally {
             setIsLoading(false);
         }
