@@ -14,7 +14,7 @@ class IdentifyController {
 
     identifyService = new CoverHunterIdentifyService();
 
-    uploadDir = `${process.env.VITE_RECORDINGS_DIR}/tmp`;
+    uploadDir = `${process.env.VITE_RECORDINGS_DIR}/_uploaded`;
     storage = multer.diskStorage({
         destination: (req, file, cb) => {
             if (!fs.existsSync(this.uploadDir)) {

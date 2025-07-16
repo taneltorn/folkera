@@ -12,18 +12,21 @@ class CoverHunterIdentifyService implements IdentifyService {
     }
 
     public async identify(file: string, n: number = 10, skipFirstResult: string = "false"): Promise<any> {
-        const pythonPath = process.env.PYTHON_PATH || "python3";
         const filePath = path.resolve(this.recordingsDir, file);
+        
+        const pythonPath = process.env.PYTHON_PATH || "python3";
         const rootDir = process.env.COVERHUNTER_ROOT_DIR || "";
+        const recordingsDir = process.env.VITE_RECORDINGS_DIR || "";
         const scriptPath = path.resolve(rootDir, "run.py");
         
         const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 
-        this.logger.info(`Running identify on: ${filePath} (top: ${top}, skipFirstResult: ${skipFirstResult})`);
+        this.logger.info(`Running identify on file: ${filePath} (top: ${top}, skipFirstResult: ${skipFirstResult})`);
         this.logger.info(`Using Python: ${pythonPath}`);
         this.logger.info(`Using root directory: ${rootDir}`);
+        this.logger.info(`Using recordings directory: ${recordingsDir}`);
 
-        const args = [scriptPath, filePath, "-top", top, "--root", rootDir];
+        const args = [scriptPath, filePath, "-top", top, "--root", rootDir, "--recordings", recordingsDir];
         return this.runPython(pythonPath, args, skipFirstResult === "true");
     }
 
