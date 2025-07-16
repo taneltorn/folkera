@@ -23,12 +23,11 @@ services:
       - COVERHUNTER_ROOT_DIR=${COVERHUNTER_ROOT_DIR}
     volumes:
       - /opt/folkera/mp3:/app/mp3
-      - /opt/folkera/CoverHunterFolkERA:/opt/folkera/CoverHunterFolkERA:ro
-      - /opt/folkera/CoverHunterFolkERA/converted:/opt/folkera/CoverHunterFolkERA/converted
+      - /opt/folkera/converted:/app/converted
     depends_on:
       - database
     networks:
-      folkera-network:
+      - folkera-network
 
   ui:
     build:
