@@ -15,7 +15,7 @@ class CoverHunterIdentifyService implements IdentifyService {
         const pythonPath = process.env.PYTHON_PATH || "python3";
         const filePath = path.resolve(this.recordingsDir, file);
         const rootDir = process.env.COVERHUNTER_ROOT_DIR || "";
-        const scriptPath = path.resolve(rootDir, "find_similar.py");
+        const scriptPath = path.resolve(rootDir, "run.py");
         
         const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 

@@ -32,7 +32,8 @@ const BottomAudioPlayer: React.FC = () => {
                         showJumpControls={false}
                         customVolumeControls={[]}
                         customAdditionalControls={[]}
-                        src={`${import.meta.env.VITE_RECORDINGS_DIR}/${track?.file}`}
+                        onPlay={() => console.log("Playing file:", `${import.meta.env.VITE_RECORDINGS_DIR}/${track?.file}`)}
+                        src={`mp3/${track?.file}`}
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
                         style={{background: "red"}}
