@@ -28,7 +28,7 @@ const StatsView: React.FC<Properties> = () => {
                 <RecordingStatsControls/>
             </ControlBar>
             
-            <Box px={"md"} h={700}>
+            <Box px={"md"} >
                 <RecordingStats/>
             </Box>
         </Box>

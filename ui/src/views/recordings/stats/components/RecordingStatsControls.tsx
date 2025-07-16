@@ -34,7 +34,6 @@ const RecordingStatsControls: React.FC = () => {
                 label={t(`view.recordings.stats.${chartType}`)}
                 options={[
                     ChartType.BAR,
-                    ChartType.PIE,
                 ].map(v => ({
                     label: t(`view.recordings.stats.${v}`),
                     value: v

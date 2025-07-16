@@ -1,100 +1,94 @@
-import {spawn} from "child_process";
+import { spawn } from "child_process";
 import path from "path";
 import log4js from "log4js";
 import IdentifyService from "./IdentifyService";
 
 class CoverHunterIdentifyService implements IdentifyService {
-
     private logger = log4js.getLogger("CoverHunterIdentifyService");
-    private recordingsDir = process.env.VITE_RECORDINGS_DIR;
+    private recordingsDir = process.env.VITE_RECORDINGS_DIR || "";
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL || "info";
     }
 
     public async identify(file: string, n: number = 10, skipFirstResult: string = "false"): Promise<any> {
-
-        // const pythonPath = path.resolve(process.env.PYTHON_PATH);
         const pythonPath = process.env.PYTHON_PATH || "python3";
-
-        const scriptPath = path.resolve(process.env.IDENTIFY_SCRIPT_PATH);
         const filePath = path.resolve(this.recordingsDir, file);
-
-        this.logger.info(`Identifying file ${filePath} (top: ${n}, skipFirstResult: ${skipFirstResult})`);
-        this.logger.info(`Using python executable: ${pythonPath}`);
+        const rootDir = process.env.COVERHUNTER_ROOT_DIR || "";
+        const scriptPath = path.resolve(rootDir, "find_similar.py");
         
         const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 
-        return new Promise((resolve, reject) => {
+        this.logger.info(`Running identify on: ${filePath} (top: ${top}, skipFirstResult: ${skipFirstResult})`);
+        this.logger.info(`Using Python: ${pythonPath}`);
+        this.logger.info(`Using root directory: ${rootDir}`);
 
-            this.logger.info(`Executing: ${pythonPath} ${scriptPath} ${filePath} -top ${top}`);
+        const args = [scriptPath, filePath, "-top", top, "--root", rootDir];
+        return this.runPython(pythonPath, args, skipFirstResult === "true");
+    }
 
-            const process = spawn(pythonPath, [scriptPath, filePath, "-top", top]);
+    private runPython(pythonPath: string, args: string[], skipFirst: boolean): Promise<any> {
+        return new Promise((resolve) => {
+            this.logger.info(`Executing command: ${[pythonPath, ...args].join(" ")}`);
 
+            const proc = spawn(pythonPath, args);
             let stdout = "";
             let stderr = "";
 
-            process.stdout.on("data", (data) => {
+            proc.stdout.on("data", (data) => {
                 const text = data.toString();
                 stdout += text;
-                this.logger.debug(`[python stdout] ${text.trim()}`);
+                this.logger.debug(`[stdout] ${text.trim()}`);
             });
 
-            process.stderr.on("data", (data) => {
+            proc.stderr.on("data", (data) => {
                 const text = data.toString();
                 stderr += text;
-                this.logger.debug(`[python stderr] ${text.trim()}`);
+                this.logger.debug(`[stderr] ${text.trim()}`);
             });
 
-
-            process.on("error", (err) => {
-                this.logger.error(`Failed to start Python process: ${err.message}`);
-                return resolve({
-                    success: false,
-                    error: "Failed to start Python process",
-                    detail: err.message,
-                    logs: stderr + stdout,
-                });
+            proc.on("error", (err) => {
+                this.logger.error("Failed to start Python process:", err);
+                return resolve(this.buildError("Failed to start Python process", err.message, stderr + stdout));
             });
 
-            process.on("close", (code) => {
-                const allLogs = (stderr + stdout).trim();
+            proc.on("close", (code) => {
+                const logs = (stderr + stdout).trim();
 
                 if (code !== 0) {
-                    this.logger.error(`Python exited with code ${code}`);
-                    return resolve({
-                        success: false,
-                        error: "Python script failed",
-                        detail: stderr.trim(),
-                        logs: allLogs
-                    });
+                    this.logger.error(`Identification failed! Python process exited with code ${code}:\n${stderr.trim()}`);
+                    return resolve(this.buildError("Python script failed", stderr.trim(), logs));
                 }
 
                 try {
-                    let parsed = JSON.parse(stdout);
-
-                    if (skipFirstResult === "true" && Array.isArray(parsed) && parsed.length > 1) {
-                        parsed = parsed.slice(1);
+                    let result = JSON.parse(stdout);
+                    if (skipFirst && Array.isArray(result) && result.length > 1) {
+                        result = result.slice(1);
                     }
+
+                    this.logger.info(`Identification results:\n${JSON.stringify(result, null, 2)}`);
 
                     return resolve({
                         success: true,
-                        data: parsed,
-                        logs: allLogs
+                        data: result,
+                        logs,
                     });
-                } catch (e: any) {
-                    this.logger.error("Failed to parse Python output", e);
-                    return resolve({
-                        success: false,
-                        error: "Invalid JSON output",
-                        detail: e.message,
-                        logs: allLogs
-                    });
+                } catch (err: any) {
+                    this.logger.error("Failed to parse Python output:", err);
+                    return resolve(this.buildError("Invalid JSON output", err.message, logs));
                 }
             });
         });
     }
 
+    private buildError(error: string, detail: string, logs: string) {
+        return {
+            success: false,
+            error,
+            detail,
+            logs,
+        };
+    }
 }
 
 export default CoverHunterIdentifyService;
