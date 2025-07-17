@@ -80,7 +80,9 @@
       "submit": "Otsi sarnaseid salvestusi",
       "identifying": "Tuvastan sarnaseid salvestusi...",
       "loadingData": "Laen andmeid...",
-      "uploadUnauthorized": "Faili üleslaadimiseks logi sisse."
+      "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
+      "fileUploadPlaceholder": "Vali või lohista helifail.",
+      "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB."
     },
     "recordings": {
       "controls": {

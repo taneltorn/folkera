@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import '@mantine/core/styles.css';
+import '@mantine/dropzone/styles.css';
 import './index.scss'
 import '@mantine/notifications/styles.css';
 import '@mantine/dates/styles.css';

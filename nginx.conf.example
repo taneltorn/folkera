@@ -8,6 +8,8 @@ server {
     listen 443 ssl;
     server_name 104.248.100.79;                             # change to domain name
 
+    client_max_body_size 10M; 
+    
     ssl_certificate /etc/nginx/ssl/cert.pem;
     ssl_certificate_key /etc/nginx/ssl/privkey.pem;
 

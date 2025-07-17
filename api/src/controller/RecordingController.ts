@@ -121,22 +121,49 @@ class RecordingController {
                 res.status(400).json({ error: "Missing filename query parameter" });
                 return;
             }
-            
+
             const baseDir = path.resolve(process.env.VITE_RECORDINGS_DIR || "mp3");
             const filePath = path.resolve(baseDir, filename);
 
-            this.logger.info("Serving audio file:", filePath);
-            
             if (!fs.existsSync(filePath)) {
                 res.status(404).json({ error: "File not found" });
                 return;
             }
 
-            res.setHeader("Content-Type", "audio/mpeg");
-            res.setHeader("Content-Disposition", `inline; filename="${filename}"`);
+            const stat = fs.statSync(filePath);
+            const total = stat.size;
+            const range = req.headers.range;
 
-            const fileStream = fs.createReadStream(filePath);
-            fileStream.pipe(res);
+            if (range) {
+                const parts = range.replace(/bytes=/, "").split("-");
+                const start = parseInt(parts[0], 10);
+                const end = parts[1] ? parseInt(parts[1], 10) : total - 1;
+
+                if (start >= total || end >= total) {
+                    res.status(416).header("Content-Range", `bytes */${total}`).end();
+                    return;
+                }
+
+                const chunkSize = end - start + 1;
+                const fileStream = fs.createReadStream(filePath, { start, end });
+
+                res.writeHead(206, {
+                    "Content-Range": `bytes ${start}-${end}/${total}`,
+                    "Accept-Ranges": "bytes",
+                    "Content-Length": chunkSize,
+                    "Content-Type": "audio/mpeg",
+                });
+
+                fileStream.pipe(res);
+            } else {
+                // No range header: send entire file
+                res.writeHead(200, {
+                    "Content-Length": total,
+                    "Content-Type": "audio/mpeg",
+                });
+
+                fs.createReadStream(filePath).pipe(res);
+            }
         } catch (err) {
             this.logger.error(err);
             res.status(500).json({ error: "An unexpected error occurred." });
