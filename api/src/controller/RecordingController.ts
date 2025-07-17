@@ -116,10 +116,13 @@ class RecordingController {
     async serveAudio(req: ApiRequest, res: Response): Promise<void> {
         try {
             const { filename } = req.params;
+            
 
             const baseDir = path.resolve(process.env.VITE_RECORDINGS_DIR || "mp3");
             const filePath = path.resolve(baseDir, filename);
 
+            this.logger.info("Serving audio file:", filePath);
+            
             if (!fs.existsSync(filePath)) {
                 res.status(404).json({ error: "File not found" });
                 return;
