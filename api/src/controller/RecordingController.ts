@@ -23,11 +23,11 @@ class RecordingController {
     }
 
     initializeRoutes() {
+        this.router.get("/audio/:filename", verifyToken, logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getRecordingsByIds.bind(this));
         this.router.get("/:id", logRequest, this.getRecording.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getRecordings.bind(this));
         this.router.put("/", verifyToken, logRequestWithBody, this.saveRecordings.bind(this));
-        this.router.get("/audio/:filename", verifyToken, logRequest, this.serveAudio.bind(this));
     }
 
     async getRecording(req: ApiRequest, res: Response): Promise<Recording> {
@@ -116,7 +116,6 @@ class RecordingController {
     async serveAudio(req: ApiRequest, res: Response): Promise<void> {
         try {
             const { filename } = req.params;
-            
 
             const baseDir = path.resolve(process.env.VITE_RECORDINGS_DIR || "mp3");
             const filePath = path.resolve(baseDir, filename);
