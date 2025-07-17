@@ -23,7 +23,7 @@ class RecordingController {
     }
 
     initializeRoutes() {
-        this.router.get("/audio/:filename", verifyToken, logRequest, this.serveAudio.bind(this));
+        this.router.get("/audio", verifyToken, logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getRecordingsByIds.bind(this));
         this.router.get("/:id", logRequest, this.getRecording.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getRecordings.bind(this));
@@ -115,8 +115,13 @@ class RecordingController {
 
     async serveAudio(req: ApiRequest, res: Response): Promise<void> {
         try {
-            const { filename } = req.params;
+            const filename = req.query.filename as string;
 
+            if (!filename) {
+                res.status(400).json({ error: "Missing filename query parameter" });
+                return;
+            }
+            
             const baseDir = path.resolve(process.env.VITE_RECORDINGS_DIR || "mp3");
             const filePath = path.resolve(baseDir, filename);
 

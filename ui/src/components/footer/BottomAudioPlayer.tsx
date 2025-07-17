@@ -47,7 +47,7 @@ const BottomAudioPlayer: React.FC = () => {
                         showJumpControls={false}
                         customVolumeControls={[]}
                         customAdditionalControls={[]}
-                        src={`${audioUrl}/${encodeURIComponent(track.file || "")}`}
+                        src={`${audioUrl}?filename=${encodeURIComponent(track.file || "")}`}
                         onPlay={handlePlay}
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
