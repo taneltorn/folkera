@@ -5,14 +5,29 @@ import {IoIosClose} from "react-icons/io";
 import {Size} from "../../utils/constants.ts";
 import AudioPlayer from "react-h5-audio-player";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {truncate} from "../../utils/helpers.tsx";
 import TableLink from "./TableLink.tsx";
+import {useNotifications} from "../../hooks/useNotifications.tsx";
+import {NotificationType} from "../../context/NotificationContext.tsx";
 
 const BottomAudioPlayer: React.FC = () => {
 
-    const {currentUser} = useAuth()
+    const {t} = useTranslation();
+    const {currentUser} = useAuth();
+    const {notify} = useNotifications();
     const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
+
+    const handlePlay = () => {
+        console.log("Playing file:", `${import.meta.env.VITE_RECORDINGS_DIR}/${track?.file}`);
+    }
+
+    const handlePlaybackError = () => {
+        notify(t("toast.error.playbackError", {file: track?.file || ""}), NotificationType.ERROR)
+        setIsPlaying(false);
+    }
+
+    const audioUrl = `${import.meta.env.VITE_API_URL}/recordings/audio`;
 
     return (
         <SimpleGrid cols={3} py={"md"}>
@@ -27,15 +42,16 @@ const BottomAudioPlayer: React.FC = () => {
                     <AudioPlayer
                         // @ts-ignore
                         ref={playerRef}
-                        autoPlay
+                        autoPlay={true}
                         layout={"horizontal-reverse"}
                         showJumpControls={false}
                         customVolumeControls={[]}
                         customAdditionalControls={[]}
-                        onPlay={() => console.log("Playing file:", `${import.meta.env.VITE_RECORDINGS_DIR}/${track?.file}`)}
-                        src={`mp3/${track?.file}`}
+                        src={`${audioUrl}/${encodeURIComponent(track.file || "")}`}
+                        onPlay={handlePlay}
                         onPlaying={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
+                        onError={handlePlaybackError}
                         style={{background: "red"}}
                     />
                 </>

@@ -77,6 +77,7 @@ export const useDataService = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);

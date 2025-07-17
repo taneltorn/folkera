@@ -190,7 +190,8 @@
       "exportData": "Andmete eksportimine ebaõnnestus",
       "verifyToken": "Autentimine ebaõnnestus",
       "login": "Sisselogimine ebaõnnestus",
-      "wrongCredentials": "Vale kasutajanimi/parool"
+      "wrongCredentials": "Vale kasutajanimi/parool",
+      "playbackError": "Faili {{file}} ei õnnestunud mängida"
     }
   },
   "modal": {

@@ -6,6 +6,9 @@ import {useQueryParams} from "../middleware/useQueryParams";
 import {ApiRequest} from "../model/ApiRequest";
 import {ResultList} from "../model/ResultList";
 import {Recording} from "../model/Recording";
+import path from "path";
+import fs from "fs";
+import {verifyToken} from "../middleware/verifyToken";
 
 class RecordingController {
 
@@ -23,7 +26,8 @@ class RecordingController {
         this.router.get("/by-ids", logRequest, this.getRecordingsByIds.bind(this));
         this.router.get("/:id", logRequest, this.getRecording.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getRecordings.bind(this));
-        this.router.put("/", logRequestWithBody, this.saveRecordings.bind(this));
+        this.router.put("/", verifyToken, logRequestWithBody, this.saveRecordings.bind(this));
+        this.router.get("/audio/:filename", verifyToken, logRequest, this.serveAudio.bind(this));
     }
 
     async getRecording(req: ApiRequest, res: Response): Promise<Recording> {
@@ -74,8 +78,6 @@ class RecordingController {
     
     async getRecordings(req: ApiRequest, res: Response): Promise<ResultList<Recording>> {
         try {
-            const ids = req.query.ids as string | undefined;
-            
             const result = await this.recordingService.find(req.filters, req.pagination);
 
             if (!result.success) {
@@ -108,6 +110,28 @@ class RecordingController {
         } catch (err) {
             this.logger.error(err);
             res.status(500).json({error: "An unexpected error occurred."});
+        }
+    }
+
+    async serveAudio(req: ApiRequest, res: Response): Promise<void> {
+        try {
+            const { filename } = req.params;
+            
+            const filePath = path.join(process.env.VITE_RECORDINGS_DIR || "", filename); 
+
+            if (!fs.existsSync(filePath)) {
+                res.status(404).json({ error: "File not found" });
+                return;
+            }
+
+            res.setHeader("Content-Type", "audio/mpeg");
+            res.setHeader("Content-Disposition", `inline; filename="${filename}"`);
+
+            const fileStream = fs.createReadStream(filePath);
+            fileStream.pipe(res);
+        } catch (err) {
+            this.logger.error(err);
+            res.status(500).json({ error: "An unexpected error occurred." });
         }
     }
 }
