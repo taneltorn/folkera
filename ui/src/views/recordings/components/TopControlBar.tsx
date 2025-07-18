@@ -4,18 +4,17 @@ import {Button, Group} from "@mantine/core";
 import {FaFileExport} from "react-icons/fa";
 import {Size} from "../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
-import {LuFilterX} from "react-icons/lu";
 import RecordingSearch from "./RecordingSearch.tsx";
-import RecordingFilters from "./RecordingFilters.tsx";
 import {useModifications} from "../../../hooks/useModifications.tsx";
 import {RxCheck, RxCross2} from "react-icons/rx";
 import {NotificationType} from "../../../context/NotificationContext.tsx";
 import {useNotifications} from "../../../hooks/useNotifications.tsx";
+import RecordingFilters from "./RecordingFilters.tsx";
 
 const TopControlBar: React.FC = () => {
 
     const {t} = useTranslation();
-    const {filters, clearFilters, exportData} = useDataContext();
+    const {exportData} = useDataContext();
     const {modifications, clearModifications} = useModifications();
     const {saveData, loadData} = useDataContext();
     const {notify} = useNotifications();
@@ -32,8 +31,13 @@ const TopControlBar: React.FC = () => {
     };
 
     return (<>
-            <Group justify={"space-between"}>
-                <RecordingSearch/>
+            <Group justify={"space-between"} mb={"md"}>
+                <Group>
+                    <RecordingSearch/>
+                    <Group visibleFrom={"lg"}>
+                        <RecordingFilters/>
+                    </Group>
+                </Group>
 
                 <Group gap={4}>
                     {modifications.length > 0 && <>
@@ -55,17 +59,6 @@ const TopControlBar: React.FC = () => {
                         </Button>
                     </>}
 
-                    {!!filters.length &&
-                        <Button
-                            visibleFrom={"sm"}
-                            variant={"subtle"}
-                            size={"sm"}
-                            color={"dark"}
-                            leftSection={<LuFilterX size={Size.icon.SM}/>}
-                            onClick={clearFilters}>
-                            {t("view.recordings.controls.clearFilters")}
-                        </Button>}
-
                     <Button
                         variant={"subtle"}
                         size={"sm"}
@@ -76,8 +69,8 @@ const TopControlBar: React.FC = () => {
                     </Button>
                 </Group>
             </Group>
-
-            <Group mt={"sm"} gap={4}>
+            
+            <Group hiddenFrom={"lg"}>
                 <RecordingFilters/>
             </Group>
         </>

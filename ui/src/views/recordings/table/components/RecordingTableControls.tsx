@@ -22,7 +22,7 @@ const RecordingTableControls: React.FC = () => {
                 <Menu.Target>
                     <Button
                         variant={"subtle"}
-                        size={"xs"}
+                        size={"sm"}
                         color={"dark"}
                         leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                     >

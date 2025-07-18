@@ -14,8 +14,8 @@ interface Properties {
 const BottomControlBar: React.FC<Properties> = ({children}) => {
 
     return (
-        <Group px={"md"} my={"md"} justify={"space-between"}>
-            <Group gap={4}>
+        <Group px={"md"} justify={"space-between"} mb={"md"} mt={"xs"}>
+            <Group gap={"md"}>
                 {children}
             </Group>
 

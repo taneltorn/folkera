@@ -20,7 +20,7 @@ const ActiveViewButton: React.FC<Properties> = ({view, icon}) => {
             px={"sm"}
             variant={view === activeView ? "light" : "subtle"}
             color={"dark"}
-            size={"xs"}
+            size={"sm"}
             onClick={() => setActiveView(view)}
         >
             {icon}

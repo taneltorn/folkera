@@ -11,10 +11,10 @@ const LabelValue: React.FC<Properties> = (props) => {
 
     return (
         <Group {...props.props}>
-            <Text size={"xs"} fw={"bold"}>
+            <Text size={"sm"} fw={"bold"}>
                 {props.label}
             </Text>
-            <Text size={"xs"}>
+            <Text size={"sm"}>
                 {props.value}
             </Text>
         </Group>
