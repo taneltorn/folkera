@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, Button, Center, Combobox, FileButton, Group, Stack, Text} from "@mantine/core";
+import {Box, Button, Combobox, FileButton, Group, Stack, Text} from "@mantine/core";
 import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
@@ -65,81 +65,78 @@ const IdentifyView: React.FC = () => {
     };
 
     return (
-        <Box pt={"xl"}>
-            <Center>
-                <Stack>
-                    <Dropzone
-                        maw={600}
-                        onDrop={handleDrop}
-                        onReject={(files) => console.log('rejected files', files)}
-                        maxSize={MAX_SIZE * 1024 ** 2}
-                        accept={['audio/*']}
-                        multiple={false}
-                    >
-                        <Group justify="center" gap="xl" mih={220} style={{pointerEvents: 'none'}}>
-                            <Dropzone.Accept>
-                                <IoIosCloudUpload size={52} color="var(--mantine-color-blue-6)"/>
-                            </Dropzone.Accept>
-                            <Dropzone.Reject>
-                                <IoIosClose size={52} color="var(--mantine-color-red-6)"/>
-                            </Dropzone.Reject>
-                            <Dropzone.Idle>
-                                <LuAudioLines size={52} color={"var(--mantine-color-red-9)"}/>
-                            </Dropzone.Idle>
+        <Box px={"md"} flex={{base: 1, sm: 0}}>
+            <Stack justify={"center"}>
+                <Dropzone
+                    onDrop={handleDrop}
+                    onReject={(files) => console.log('rejected files', files)}
+                    maxSize={MAX_SIZE * 1024 ** 2}
+                    accept={['audio/*']}
+                    multiple={false}
+                >
+                    <Group justify="center" gap="xl" mih={220} style={{pointerEvents: 'none'}}>
+                        <Dropzone.Accept>
+                            <IoIosCloudUpload size={52} color="var(--mantine-color-blue-6)"/>
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                            <IoIosClose size={52} color="var(--mantine-color-red-6)"/>
+                        </Dropzone.Reject>
+                        <Dropzone.Idle>
+                            <LuAudioLines size={52} color={"var(--mantine-color-red-9)"}/>
+                        </Dropzone.Idle>
 
-                            {file
-                                ? <Text size="md">{file.name}</Text>
-                                : <div>
-                                    <Text size="xl" inline>
-                                        {t("view.identify.fileUploadPlaceholder")}
-                                    </Text>
-                                    <Text size="sm" c="dimmed" inline mt={7}>
-                                        {t("view.identify.maxFileSize", {size: MAX_SIZE})}
-                                    </Text>
-                                </div>}
-                        </Group>
-                    </Dropzone>
+                        {file
+                            ? <Text size="md">{file.name}</Text>
+                            : <div>
+                                <Text size="xl" inline>
+                                    {t("view.identify.fileUploadPlaceholder")}
+                                </Text>
+                                <Text size="sm" c="dimmed" inline mt={7}>
+                                    {t("view.identify.maxFileSize", {size: MAX_SIZE})}
+                                </Text>
+                            </div>}
+                    </Group>
+                </Dropzone>
+                <Group justify={"center"} flex={1}>
+                    {file && audioUrl
+                        ? <>
+                            <Group gap={"xs"}>
+                                <Group w={{base: 340, sm: 600}} justify={"space-between"} align={"center"}
+                                       wrap={"nowrap"}>
+                                    <AudioPlayer
+                                        className={"transparent"}
+                                        layout={"horizontal-reverse"}
+                                        showJumpControls={false}
+                                        customVolumeControls={[]}
+                                        customAdditionalControls={[]}
+                                        src={audioUrl}
 
-                    <Center w={600}>
-                        {file && audioUrl
-                            ? <>
-                                <Group gap={"xs"}>
-                                    <Group w={600} justify={"space-between"} align={"center"} wrap={"nowrap"}>
-                                        <AudioPlayer
-                                            className={"transparent"}
-                                            layout={"horizontal-reverse"}
-                                            showJumpControls={false}
-                                            customVolumeControls={[]}
-                                            customAdditionalControls={[]}
-                                            src={audioUrl}
-
-                                        />
-                                        <ClearButton size={"xl"} onClear={handleFileClear}/>
-                                    </Group>
+                                    />
+                                    <ClearButton size={"xl"} onClear={handleFileClear}/>
                                 </Group>
+                            </Group>
 
-                            </>
-                            : <FileButton accept="audio/*" onChange={handleFileChange}>
-                                {(props) =>
-                                    <Button {...props} variant={"outline"}>
-                                        {t("view.identify.placeholder")}
-                                    </Button>}
-                            </FileButton>}
-                    </Center>
+                        </>
+                        : <FileButton accept="audio/*" onChange={handleFileChange}>
+                            {(props) =>
+                                <Button {...props} variant={"outline"}>
+                                    {t("view.identify.placeholder")}
+                                </Button>}
+                        </FileButton>}
+                </Group>
 
-                    {file &&
-                        <Group justify={"center"} mb={"xl"}>
-                            <Button
-                                leftSection={<FaMagnifyingGlass/>}
-                                onClick={() => handleSubmit(top)}
-                                disabled={!file || isLoading}
-                                loading={identifyService.isLoading}
-                            >
-                                {t("view.identify.submit")}
-                            </Button>
-                        </Group>}
-                </Stack>
-            </Center>
+                {file &&
+                    <Group justify={"center"} mb={"xl"}>
+                        <Button
+                            leftSection={<FaMagnifyingGlass/>}
+                            onClick={() => handleSubmit(top)}
+                            disabled={!file || isLoading}
+                            loading={identifyService.isLoading}
+                        >
+                            {t("view.identify.submit")}
+                        </Button>
+                    </Group>}
+            </Stack>
 
             <SimilarRecordingsTable
                 recordings={similarRecordings}
