@@ -1,5 +1,5 @@
 import React from "react";
-import ControlBar from "../components/ControlBar.tsx";
+import BottomControlBar from "../components/BottomControlBar.tsx";
 import RecordingTableControls from "./components/RecordingTableControls.tsx";
 import RecordingTable from "./components/RecordingTable.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
@@ -13,9 +13,9 @@ const TableView: React.FC = () => {
     return (
         <Box pos={"relative"}>
             <Loading isLoading={isLoading}/>
-            <ControlBar>
+            <BottomControlBar>
                 <RecordingTableControls/>
-            </ControlBar>
+            </BottomControlBar>
 
             <RecordingTable data={data}/>
         </Box>

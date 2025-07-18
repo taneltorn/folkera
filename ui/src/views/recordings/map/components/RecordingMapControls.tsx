@@ -1,27 +1,30 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
-import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 import {Group, Slider, Switch} from "@mantine/core";
+import LabelValue from "../../../../components/LabelValue.tsx";
+import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 
 const RecordingMapControls: React.FC = () => {
 
     const {t} = useTranslation();
-    const {groupBy, setGroupBy, mapOptions, setMapOptions} = useMapContext();
+    const {mapOptions, setMapOptions} = useMapContext();
+    const {totalItems} = useDataContext();
 
     return (
         <Group gap={"md"}>
-            <MenuSelect
-                label={t(`view.recordings.map.groupBy.${groupBy}`)}
-                options={[
-                    GroupBy.PARISH,
-                ].map(v => ({
-                    label: t(`view.recordings.map.groupBy.${v}`),
-                    value: v
-                }))}
-                onChange={v => setGroupBy(v as GroupBy)}
-            />
+            <LabelValue label={t("view.recordings.table.results")} value={totalItems}/>
+            
+            {/*<MenuSelect*/}
+            {/*    label={t(`view.recordings.map.groupBy.${groupBy}`)}*/}
+            {/*    options={[*/}
+            {/*        GroupBy.PARISH,*/}
+            {/*    ].map(v => ({*/}
+            {/*        label: t(`view.recordings.map.groupBy.${v}`),*/}
+            {/*        value: v*/}
+            {/*    }))}*/}
+            {/*    onChange={v => setGroupBy(v as GroupBy)}*/}
+            {/*/>*/}
 
             <Group gap={"md"}>
                 <Switch

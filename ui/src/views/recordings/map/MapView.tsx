@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useStatsService} from "../../../services/useStatsService.ts";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
 import {Box, LoadingOverlay} from "@mantine/core";
-import ControlBar from "../components/ControlBar.tsx";
+import BottomControlBar from "../components/BottomControlBar.tsx";
 import RecordingMap from "./components/RecordingMap.tsx";
 import RecordingMapControls from "./components/RecordingMapControls.tsx";
 import {useMapContext} from "../../../hooks/useMapContext.tsx";
@@ -20,9 +20,9 @@ const MapView: React.FC = () => {
     return (
         <Box pos={"relative"}>
             <LoadingOverlay visible={isLoading}/>
-            <ControlBar>
+            <BottomControlBar>
                 <RecordingMapControls/>
-            </ControlBar>
+            </BottomControlBar>
 
             <Box px={"md"}>
                 <RecordingMap/>

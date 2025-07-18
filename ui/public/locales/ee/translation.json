@@ -15,6 +15,7 @@
       "noData": "Andmeid ei leitud."
     },
     "navigation": {
+      "title": "Menüü",
       "recordings": "Pillilood",
       "identify": "Tuvasta",
       "clusters": "Klasterkaart",
@@ -125,11 +126,11 @@
           "performer": "Esitajate lõikes"
         },
         "groups": {
-          "year": "Erinevaid aastaid",
-          "instrument": "Erinevaid pille",
-          "parish": "Erinevaid kihelkondi",
-          "tune": "Erinevaid viise",
-          "performer": "Erinevaid esitajaid"
+          "year": "Aastaid",
+          "instrument": "Pille",
+          "parish": "Kihelkondi",
+          "tune": "Viise",
+          "performer": "Esitajaid"
         }
       },
       "viewSelection": {

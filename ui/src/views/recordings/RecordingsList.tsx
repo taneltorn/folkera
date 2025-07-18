@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDataContext} from "../../hooks/useDataContext.tsx";
 import {useActiveView} from "../../hooks/useActiveView.tsx";
-import TopBar from "./components/TopBar.tsx";
+import TopControlBar from "./components/TopControlBar.tsx";
 import {View} from "../../context/ActiveViewContext.tsx";
 import TableView from "./table/TableView.tsx";
 import MapView from "./map/MapView.tsx";
@@ -29,7 +29,7 @@ const RecordingsList: React.FC = () => {
     return (
         <Page title={t("page.title.recordings")}>
             <Box px={"md"}>
-                <TopBar/>
+                <TopControlBar/>
             </Box>
 
             {activeView === View.TABLE && <TableView/>}

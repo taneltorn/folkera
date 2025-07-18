@@ -3,7 +3,7 @@ import {useStatsService} from "../../../services/useStatsService.ts";
 import {Box, LoadingOverlay} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
-import ControlBar from "../components/ControlBar.tsx";
+import BottomControlBar from "../components/BottomControlBar.tsx";
 import RecordingStatsControls from "./components/RecordingStatsControls.tsx";
 import RecordingStats from "./components/RecordingStats.tsx";
 
@@ -24,9 +24,9 @@ const StatsView: React.FC<Properties> = () => {
         <Box pos={"relative"}>
             <LoadingOverlay visible={isLoading}/>
             
-            <ControlBar>
+            <BottomControlBar>
                 <RecordingStatsControls/>
-            </ControlBar>
+            </BottomControlBar>
             
             <Box px={"md"} >
                 <RecordingStats/>

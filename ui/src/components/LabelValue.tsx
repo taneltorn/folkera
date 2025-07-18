@@ -11,7 +11,7 @@ const LabelValue: React.FC<Properties> = (props) => {
 
     return (
         <Group {...props.props}>
-            <Text size={"sm"} fw={"bold"}>
+            <Text size={"xs"} fw={"bold"}>
                 {props.label}
             </Text>
             <Text>
