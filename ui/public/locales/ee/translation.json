@@ -92,6 +92,7 @@
         "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
+        "mapOptions": "Kaardisätted",
         "clearFilters": "Eemalda filtrid",
         "tableView": "Tabel",
         "mapView": "Kaart",
