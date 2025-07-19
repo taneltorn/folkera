@@ -7,25 +7,35 @@ interface Properties {
     recording: Recording;
 }
 
+const WIDTH = 120;
+
 const RecordingsInfo: React.FC<Properties> = ({recording}) => {
 
     const {t} = useTranslation();
 
     return (
-        <Group>
-            <Box>
-                <Text fw={"bold"}>{t("recording.year")}</Text>
-                <Text fw={"bold"}>{t("recording.performer")}</Text>
-                <Text fw={"bold"}>{t("recording.instrument")}</Text>
-                <Text fw={"bold"}>{t("recording.parish")}</Text>
-            </Box>
-            <Box>
+        <>
+        <Box>
+            <Group wrap={"nowrap"} align={"baseline"} gap={0}>
+                <Text miw={WIDTH} fw={"bold"}>{t("recording.year")}</Text>
                 <Text>{recording.year || "-"}</Text>
+            </Group>
+            <Group wrap={"nowrap"} align={"baseline"} gap={0}>
+                <Text miw={WIDTH} fw={"bold"}>{t("recording.performer")}</Text>
                 <Text>{recording.performer || "-"}</Text>
+
+            </Group>
+            <Group wrap={"nowrap"} align={"baseline"} gap={0}>
+                <Text miw={WIDTH} fw={"bold"}>{t("recording.instrument")}</Text>
                 <Text>{recording.instrument || "-"} </Text>
+
+            </Group>
+            <Group wrap={"nowrap"} align={"baseline"} gap={0}>
+                <Text miw={WIDTH} fw={"bold"}>{t("recording.parish")}</Text>
                 <Text>{recording.parish || "-"}</Text>
-            </Box>
-        </Group>
+            </Group>
+        </Box>
+    </>
     );
 }
 

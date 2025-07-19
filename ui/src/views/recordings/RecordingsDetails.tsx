@@ -11,11 +11,11 @@ import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.ts
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import RecordingsInfo from "./RecordingsInfo.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
-import {Size} from "../../utils/constants.ts";
-import {TbZoomQuestion} from "react-icons/tb";
 import LoadMoreButton from "../../components/buttons/LoadMoreButton.tsx";
+import {TbZoomQuestion} from "react-icons/tb";
+import {Size} from "../../utils/constants.ts";
 
-const LOAD_MORE_STEP = 10;
+const LOAD_MORE_STEP = 25;
 
 const RecordingsList: React.FC = () => {
 

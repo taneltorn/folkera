@@ -2,8 +2,6 @@ import React, {useEffect} from "react";
 import {Group, Input, TextInput} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
-import {RiEdit2Fill} from "react-icons/ri";
-import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Recording} from "../../../../model/Recording.ts";
@@ -13,10 +11,13 @@ import {useNotifications} from "../../../../hooks/useNotifications.tsx";
 
 interface Properties {
     recording: Recording;
-    onChange: () => void;
+    variant?: string;
+    leftSection?: React.ReactNode;
+    onChange?: () => void;
+    children?: React.ReactNode;
 }
 
-const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange}) => {
+const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
 
     const {t} = useTranslation();
     const {notify} = useNotifications();
@@ -25,20 +26,19 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange}) => {
     const form = useForm<Recording>({
         mode: 'uncontrolled',
         initialValues: {...recording},
-        validate: {
-        },
+        validate: {},
     });
 
     useEffect(() => {
         form.setValues({...recording});
     }, [recording]);
-    
+
     const onSubmit = async (values: Recording) => {
         if (recording.id) {
             dataService
                 .saveData([values])
                 .then(() => {
-                    onChange();
+                    onChange && onChange();
                     notify(t("toast.success.saveData"), NotificationType.SUCCESS);
                 })
                 .then(modals.closeAll);
@@ -51,7 +51,6 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange}) => {
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-
                     <Input.Wrapper label={t("recording.year")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
@@ -126,8 +125,14 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange}) => {
         });
 
     return (
-        <Button px={"xs"} onClick={openModifyRecordingModal} variant="subtle">
-            <RiEdit2Fill size={Size.icon.SM}/>
+        <Button
+            px={"xs"}
+            size={"xs"}
+            variant={props.variant}
+            leftSection={props.leftSection}
+            onClick={openModifyRecordingModal}
+        >
+            {children}
         </Button>
     );
 }

@@ -6,6 +6,10 @@ import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {similarityToColor, distanceToSimilarity} from "../../../../utils/helpers.tsx";
 import RecordingTableCell from "./RecordingTableCell.tsx";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
+import ModifyRecordingButton from "../../../admin/users/components/ModifyRecordingButton.tsx";
+import {RiEdit2Fill} from "react-icons/ri";
+import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
     recording: Recording;
@@ -14,7 +18,8 @@ interface Properties {
 const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
     const ref = useRef<any>();
-
+    const {currentUser} = useAuth();
+    
     const min = 70;
     const max = 95;
 
@@ -88,6 +93,15 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     {/*{similarity.toFixed(0) + "%"}*/}
                 </Group>
             </Table.Td>
+            { currentUser?.isAdmin && <Table.Td>
+                <ModifyRecordingButton
+                    variant={"subtle"}
+                    recording={recording}
+                >
+                    <RiEdit2Fill size={Size.icon.SM}/>
+                </ModifyRecordingButton>
+                
+            </Table.Td>}
         </Table.Tr>
     );
 }

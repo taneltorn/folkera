@@ -7,6 +7,7 @@ import Loading from "../../../../components/Loading.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {IoIosMusicalNotes} from "react-icons/io";
 import {Size} from "../../../../utils/constants.ts";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 interface Properties {
     recordings: Recording[];
@@ -17,6 +18,7 @@ interface Properties {
 const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, loadingText}) => {
 
     const {t} = useTranslation();
+    const {currentUser} = useAuth();
     const {modifications} = useModifications();
 
     return (
@@ -43,6 +45,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                                 <Table.Th>{t("recording.performer")}</Table.Th>
                                 <Table.Th>{t("recording.parish")}</Table.Th>
                                 <Table.Th>{t("recording.similarity")}</Table.Th>
+                                {currentUser?.isAdmin && <Table.Th />}
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>

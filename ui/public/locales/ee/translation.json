@@ -221,6 +221,7 @@
   },
   "button": {
     "save": "Salvesta",
+    "modify": "Muuda",
     "cancel": "Tühista",
     "reset": "Lähtesta",
     "addNew": "Lisa uus",
