@@ -23,6 +23,7 @@ services:
       - COVERHUNTER_ROOT_DIR=${COVERHUNTER_ROOT_DIR}
     volumes:
       - /opt/folkera/mp3:/app/mp3
+      - /opt/folkera/csv-data:/app/csv-data
     depends_on:
       - database
     networks:

@@ -12,7 +12,7 @@ import {Recording} from "../../model/Recording";
 class CsvRecordingService implements RecordingService {
 
     private logger = log4js.getLogger("RecordingService");
-    private csvFile = path.resolve(__dirname, `../../resources/Heliarhiiv - Pillilood.csv`);
+    private csvFile = path.resolve(process.env.CSV_DATA_DIR, `recordings.csv`);
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
