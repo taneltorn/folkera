@@ -4,4 +4,4 @@ docker-compose.yml
 ui/public/mp3
 api/resources
 mp3
-csv-data/recordings.csv
+csvdata/recordings.csv

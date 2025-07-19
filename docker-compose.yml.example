@@ -21,6 +21,7 @@ services:
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
       - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
       - COVERHUNTER_ROOT_DIR=${COVERHUNTER_ROOT_DIR}
+      - CSV_DATA_DIR=${CSV_DATA_DIR}
     volumes:
       - /opt/folkera/mp3:/app/mp3
       - /opt/folkera/csv-data:/app/csv-data
