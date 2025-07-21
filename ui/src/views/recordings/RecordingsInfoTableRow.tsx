@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Box, Group, Text, useMantineTheme} from "@mantine/core";
+import {Table} from "@mantine/core";
 import {Recording} from "../../model/Recording.ts";
 import TableLink from "../../components/footer/TableLink.tsx";
 
@@ -13,15 +13,14 @@ interface Properties {
 const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separator}) => {
 
     const {t} = useTranslation();
-    const theme = useMantineTheme();
     const value = recording[field]?.toString();
 
     return (
-        <Group wrap={"nowrap"} style={{borderBottom: `2px solid ${theme.colors.gray[2]}`}}>
-            <Box fw={"bold"} miw={175} maw={175}>
+        <Table.Tr>
+            <Table.Td fw={"bold"} pr={50} style={{width: "1px", whiteSpace: "nowrap"}}>
                 {t(`recording.${field}`)}
-            </Box>
-            <Box>
+            </Table.Td>
+            <Table.Td>
                 {value && <>
                     {separator
                         ? value?.toString().split(separator)
@@ -29,7 +28,7 @@ const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separat
                                 <TableLink key={index} value={v} field={field}>
                                     {v.trim()}
                                 </TableLink>
-                                {index < value.split(separator).length - 1 && <Text mr={"xs"}>,</Text>}
+                                {index < value.split(separator).length - 1 && <span>, </span>}
                             </>)
                         : <TableLink
                             field={field}
@@ -38,8 +37,9 @@ const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separat
                             {recording[field]}
                         </TableLink>}
                 </>}
-            </Box>
-        </Group>
+            </Table.Td>
+
+        </Table.Tr>
     );
 }
 
