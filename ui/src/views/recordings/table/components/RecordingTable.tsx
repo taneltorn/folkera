@@ -24,7 +24,7 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
 
     return (
         <>
-            <ScrollArea>
+            <ScrollArea pb={"xs"}>
                 <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
                     <Table.Thead>
                         <Table.Tr>

@@ -8,8 +8,8 @@ import {similarityToColor, distanceToSimilarity} from "../../../../utils/helpers
 import RecordingTableCell from "./RecordingTableCell.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyRecordingButton from "../../../admin/users/components/ModifyRecordingButton.tsx";
-import {RiEdit2Fill} from "react-icons/ri";
 import {Size} from "../../../../utils/constants.ts";
+import { TbEdit } from "react-icons/tb";
 
 interface Properties {
     recording: Recording;
@@ -96,9 +96,10 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             { currentUser?.isAdmin && <Table.Td>
                 <ModifyRecordingButton
                     variant={"subtle"}
+                    size={"compact-md"}
                     recording={recording}
                 >
-                    <RiEdit2Fill size={Size.icon.SM}/>
+                    <TbEdit size={Size.icon.SM}/>
                 </ModifyRecordingButton>
                 
             </Table.Td>}

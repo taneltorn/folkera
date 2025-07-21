@@ -12,6 +12,7 @@ import {useNotifications} from "../../../../hooks/useNotifications.tsx";
 interface Properties {
     recording: Recording;
     variant?: string;
+    size?: string;
     leftSection?: React.ReactNode;
     onChange?: () => void;
     children?: React.ReactNode;
@@ -81,7 +82,6 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                         />
                     </Input.Wrapper>
 
-
                     <Input.Wrapper label={t("recording.parish")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
@@ -89,6 +89,15 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                             key={form.key('parish')}
                             size={"md"}
                             {...form.getInputProps('parish')}
+                        />
+                    </Input.Wrapper>
+
+                    <Input.Wrapper label={t("recording.origin")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.origin")}
+                            key={form.key('origin')}
+                            size={"md"}
+                            {...form.getInputProps('origin')}
                         />
                     </Input.Wrapper>
 
@@ -102,6 +111,15 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                         />
                     </Input.Wrapper>
 
+                    <Input.Wrapper label={t("recording.dance")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.dance")}
+                            key={form.key('dance')}
+                            size={"md"}
+                            {...form.getInputProps('dance')}
+                        />
+                    </Input.Wrapper>
+
                     <Input.Wrapper label={t("recording.datatype")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
@@ -111,6 +129,34 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                             {...form.getInputProps('datatype')}
                         />
                     </Input.Wrapper>
+
+                    <Input.Wrapper label={t("recording.collector")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.collector")}
+                            key={form.key('collector')}
+                            size={"md"}
+                            {...form.getInputProps('collector')}
+                        />
+                    </Input.Wrapper>
+
+                    <Input.Wrapper label={t("recording.notes")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.notes")}
+                            key={form.key('notes')}
+                            size={"md"}
+                            {...form.getInputProps('notes')}
+                        />
+                    </Input.Wrapper>
+
+                    <Input.Wrapper label={t("recording.comments")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.comments")}
+                            key={form.key('comments')}
+                            size={"md"}
+                            {...form.getInputProps('comments')}
+                        />
+                    </Input.Wrapper>
+
 
                     <Group justify={"end"} gap={4}>
                         <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
@@ -126,8 +172,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
 
     return (
         <Button
-            px={"xs"}
-            size={"xs"}
+            size={props.size || "md"}
             variant={props.variant}
             leftSection={props.leftSection}
             onClick={openModifyRecordingModal}

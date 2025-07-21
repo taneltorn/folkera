@@ -27,7 +27,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                 isLoading={!!isLoading}
                 text={loadingText}
             />
-            <ScrollArea>
+            <ScrollArea pb={"xs"}>
                 {recordings.length > 0 &&
                     <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
                         <Table.Thead>

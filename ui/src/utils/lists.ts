@@ -18,9 +18,9 @@ export const RecordingTableFields = [
     "archive",
     "file",
     "duration",
-    "quality",
+    // "quality",
     "datatype",
-    "kivike",
+    // "kivike",
     "comments",
 ];
 

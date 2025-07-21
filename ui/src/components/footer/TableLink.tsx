@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {Button} from "@mantine/core";
 import {View} from "../../context/ActiveViewContext.tsx";
 import {useDataContext} from "../../hooks/useDataContext.tsx";
 import {useActiveView} from "../../hooks/useActiveView.tsx";
 import {useNavigate} from "react-router-dom";
-import {TbTableSpark} from "react-icons/tb";
-import { useTranslation } from 'react-i18next';
-import {IconSize} from "../../utils/mappers.ts";
+import {useTranslation} from 'react-i18next';
 
 interface Properties {
     field: string;
     value: string;
     size?: string;
+    children?: ReactNode;
 }
 
 const TableLink: React.FC<Properties> = (props) => {
 
     const {t} = useTranslation();
-    
     const {useFilter} = useDataContext();
     const {setActiveView} = useActiveView();
     const navigate = useNavigate();
@@ -33,13 +31,12 @@ const TableLink: React.FC<Properties> = (props) => {
     return (
         <Button
             title={t("page.navigation.showTable")}
-            px={"xs"}
+            px={0}
             size={props.size || "sm"}
-            variant={"subtle"}
+            variant={"transparent"}
             onClick={openTable}
-            style={{ flexShrink: 0 }}
         >
-            <TbTableSpark size={IconSize.get(props?.size || "sm")}/>
+            {props.children}
         </Button>
     );
 }

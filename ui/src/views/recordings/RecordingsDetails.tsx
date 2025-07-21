@@ -9,7 +9,7 @@ import {NotificationType} from "../../context/NotificationContext.tsx";
 import {useNotifications} from "../../hooks/useNotifications.tsx";
 import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
-import RecordingsInfo from "./RecordingsInfo.tsx";
+import RecordingsInfoTable from "./RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
 import LoadMoreButton from "../../components/buttons/LoadMoreButton.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
@@ -69,7 +69,7 @@ const RecordingsList: React.FC = () => {
                         reloadData={() => fetchData(id)}
                     />
 
-                    <RecordingsInfo recording={recording}/>
+                    <RecordingsInfoTable recording={recording}/>
 
                     {similarRecordings.length === 0 && !isLoading &&
                         <Button
