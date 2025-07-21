@@ -8,7 +8,6 @@
     },
     "loading": "Laen andmeid...",
     "loadMore": "Lae veel",
-    "help": "Näita juhendit",
     "example": "Näide",
     "table": {
       "totalItems": "Kokku: {{count}}",
@@ -28,6 +27,12 @@
       "myProfile": "Profiil",
       "changePassword": "Vaheta parool",
       "logout": "Logi välja"
+    },
+    "help": {
+      "title": "FolkERA",
+      "description": "Veebirakendus sisaldab 20. sajandi rahvapillimuusika helisalvestusi Eesti Rahvaluule Arhiivi kogudest ning moodustab uurimiskorpuse, mis on mõeldud eesti rahvapillimuusika analüüsiks ja uurimiseks.",
+      "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
+      "version": "Versioon"
     }
   },
   "player": {

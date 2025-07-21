@@ -17,6 +17,7 @@ import {UserRole} from "../../model/User.ts";
 import {Size} from "../../utils/constants.ts";
 import Login from "./Login.tsx";
 import UserMenu from "./UserMenu.tsx";
+import Help from "./Help.tsx";
 
 const routes = [
     {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
@@ -50,9 +51,12 @@ const Navigation: React.FC = () => {
             {t(`page.navigation.${item.id}`)}
         </Button>));
 
-    const userMenu = !auth.currentUser?.email
-        ? <Login/>
-        : <UserMenu/>;
+    const userMenu = <>
+        <Help/>
+        {!auth.currentUser?.email
+            ? <Login/>
+            : <UserMenu/>}
+    </>;
 
     return (
         <>

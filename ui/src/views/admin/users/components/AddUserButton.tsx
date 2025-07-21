@@ -93,7 +93,7 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
                             {t("button.cancel")}
                         </Button>
                         <Button type={"submit"}>
-                            {t("button.submit")}
+                            {t("button.save")}
                         </Button>
                     </Group>
                 </form>
