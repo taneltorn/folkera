@@ -7,8 +7,6 @@ import {useDisclosure} from "@mantine/hooks";
 import packageJson from '../../../package.json';
 import {FaBug, FaInfo} from "react-icons/fa";
 
-const EMAIL = "tanel.torn@gmail.com";
-
 const Help: React.FC = () => {
 
     const [t] = useTranslation();
@@ -31,7 +29,7 @@ const Help: React.FC = () => {
                     </List.Item>
                     <List.Item icon={<FaBug size={Size.icon.XL}/>}>
                         <Text ml={"md"}>
-                            <Trans i18nKey={"page.help.contact"} values={{email: EMAIL}}/>
+                            <Trans i18nKey={"page.help.contact"} values={{email: import.meta.env.VITE_API_URL}}/>
                         </Text>
                     </List.Item>
                 </List>
