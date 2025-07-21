@@ -29,7 +29,7 @@ const Help: React.FC = () => {
                     </List.Item>
                     <List.Item icon={<FaBug size={Size.icon.XL}/>}>
                         <Text ml={"md"}>
-                            <Trans i18nKey={"page.help.contact"} values={{email: import.meta.env.VITE_API_URL}}/>
+                            <Trans i18nKey={"page.help.contact"} values={{email: import.meta.env.VITE_CONTACT_EMAIL}}/>
                         </Text>
                     </List.Item>
                 </List>
