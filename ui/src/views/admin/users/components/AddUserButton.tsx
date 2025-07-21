@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
-import {Button, Group, Input, Radio, TextInput} from "@mantine/core";
+import {Button, Group, Input, Radio, TextInput, Title} from "@mantine/core";
 import {User, UserRole} from "../../../../model/User.ts";
 import {FaPlus} from "react-icons/fa";
 import {modals} from "@mantine/modals";
@@ -43,7 +43,7 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
 
     const openCreateUserModal = () =>
         modals.open({
-            title: t("modal.createUser.title"),
+            title: <Title order={4}>{t("modal.createUser.title")}</Title>,
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>

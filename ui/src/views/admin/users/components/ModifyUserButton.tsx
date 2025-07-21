@@ -1,5 +1,5 @@
 import React from "react";
-import {Group, Input, Radio, TextInput} from "@mantine/core";
+import {Group, Input, Radio, TextInput, Title} from "@mantine/core";
 import {User, UserRole} from "../../../../model/User.ts";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
@@ -39,7 +39,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
 
     const openModifyUserModal = () =>
         modals.open({
-            title: t("modal.modifyUser.title"),
+            title: <Title order={4}>{t("modal.modifyUser.title")}</Title>,
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>

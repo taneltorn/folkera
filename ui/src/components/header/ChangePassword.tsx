@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Group, TextInput} from "@mantine/core";
+import {Button, Group, TextInput, Title} from "@mantine/core";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
@@ -38,7 +38,7 @@ const ChangePassword: React.FC = () => {
 
     const openChangePasswordModal = () =>
         modals.open({
-            title: t("modal.changePassword.title"),
+            title: <Title order={4}>{t("modal.changePassword.title")}</Title>,
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Group, Input, TextInput} from "@mantine/core";
+import {Group, Input, TextInput, Title} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
@@ -48,8 +48,8 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
 
     const openModifyRecordingModal = () =>
         modals.open({
-            title: t("modal.modifyRecording.title"),
-            centered: true,
+            title: <Title order={4}>{t("modal.modifyRecording.title")}</Title>,
+            size: "lg",
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
                     <Input.Wrapper label={t("recording.year")} mb={"md"} labelProps={{ms: "xs"}}>

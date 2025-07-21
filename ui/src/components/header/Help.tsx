@@ -1,6 +1,6 @@
 import React from "react";
 import {Trans, useTranslation} from "react-i18next";
-import {Badge, Button, Group, List, Modal, Text} from "@mantine/core";
+import {Badge, Button, Group, List, Modal, Text, Title} from "@mantine/core";
 import {Size} from "../../utils/constants.ts";
 import {RiQuestionFill} from "react-icons/ri";
 import {useDisclosure} from "@mantine/hooks";
@@ -16,7 +16,7 @@ const Help: React.FC = () => {
         <>
             <Modal
                 size={"lg"}
-                title={t("page.help.title")}
+                title={<Title order={4}>{t("page.help.title")}</Title>}
                 opened={opened}
                 onClose={close}
             >
