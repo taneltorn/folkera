@@ -12,17 +12,19 @@ logger.info("Creating database pool");
 logger.info(`host: ${process.env.POSTGRES_HOST}`);
 logger.info(`port: ${process.env.POSTGRES_PORT}`);
 logger.info(`database: ${process.env.POSTGRES_DB}`);
-logger.info(`user: ${process.env.DB_USER}`);
+logger.info(`user: ${process.env.POSTGRES_USER}`);
 
 const pool = new Pool({
     host: process.env.POSTGRES_HOST,
     port: parseInt(process.env.POSTGRES_PORT, 10),
     database: process.env.POSTGRES_DB,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
 });
 
 const testConnection = async (maxRetries = 10, delay = 2000) => {
+    logger.error(`Attempting to connect to database at ${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB} as user ${process.env.POSTGRES_USER}`);
+    
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
             const client = await pool.connect();
