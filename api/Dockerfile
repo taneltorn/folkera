@@ -6,7 +6,6 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-COPY ./src/resources ./dist/resources
 
 # --- Stage 2: Build Python env and clone CoverHunter ---
 FROM python:3.12-slim AS python-deps
