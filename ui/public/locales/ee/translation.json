@@ -36,6 +36,12 @@
     }
   },
   "player": {
+    "tempo": "Muuda tempot",
+    "loop": {
+      "0": "Märgi algus",
+      "1": "Märgi lõpp",
+      "2": "Tühista"
+    },
     "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b>"
   },
   "recording": {

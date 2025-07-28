@@ -85,3 +85,10 @@ a {
 .rhap_progress-indicator {
   background-color:  var(--mantine-color-red-9) !important;
 }
+
+.looping {
+  .rhap_progress-filled,
+  .rhap_progress-indicator {
+    background-color:  var(--mantine-color-yellow-6) !important;
+  }
+}

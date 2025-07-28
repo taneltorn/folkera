@@ -16,7 +16,6 @@ const RecordingTablePagination: React.FC = () => {
                         key={it}
                         size={"xs"}
                         color={theme.primaryColor}
-                        visibleFrom={"md"}
                         variant={it === pagination.size ? "filled" : "default"}
                         onClick={() => setPagination({...pagination, page: 1, size: it})}
                     >
