@@ -49,7 +49,7 @@ const RecordingMapControls: React.FC = () => {
                             onClick={() => setMapOptions({...mapOptions, showLabels: !mapOptions.showLabels})}
                         />
                     </Menu.Item>
-                    <Menu.Item   >
+                    <Menu.Item>
                         <Switch
                             label={t(`view.recordings.map.showCounts`)}
                             checked={mapOptions.showCounts}

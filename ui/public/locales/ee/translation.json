@@ -104,7 +104,7 @@
         "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
-        "mapOptions": "Kaardisätted",
+        "mapOptions": "Kuvasätted",
         "clearFilters": "Eemalda filtrid",
         "tableView": "Tabel",
         "mapView": "Kaart",
@@ -117,7 +117,9 @@
       "table": {
         "results": "Tulemusi",
         "play": "Esita",
-        "fileNotFound": "Helifail puudub"
+        "fileNotFound": "Helifail puudub",
+        "sort": "Sorteeri",
+        "drag": "Nihuta"
       },
       "map": {
         "showLabels": "Kuva nimetused",

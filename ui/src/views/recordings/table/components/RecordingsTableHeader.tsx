@@ -14,7 +14,7 @@ interface Properties {
     children: React.ReactNode;
 }
 
-const RecordingTableHeader: React.FC<Properties> = ({field, sortField, colSpan, children}) => {
+const RecordingsTableHeader: React.FC<Properties> = ({field, sortField, colSpan, children}) => {
 
     const {hiddenFields} = useDataContext();
     const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: field});
@@ -33,7 +33,7 @@ const RecordingTableHeader: React.FC<Properties> = ({field, sortField, colSpan, 
             {...attributes}
         >
             <Group wrap="nowrap" gap={4} justify={"space-between"}>
-                <Group wrap={"nowrap"} w={"100%"}>
+                <Group wrap={"nowrap"} w={"100%"} gap={4}>
                     <SortButton field={sortField || field}/>
                     {children}
                 </Group>
@@ -45,4 +45,4 @@ const RecordingTableHeader: React.FC<Properties> = ({field, sortField, colSpan, 
     );
 };
 
-export default RecordingTableHeader;
+export default RecordingsTableHeader;

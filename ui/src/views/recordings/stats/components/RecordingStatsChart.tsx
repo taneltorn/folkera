@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Bar, Pie} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,9 +11,7 @@ import {
     Legend
 } from 'chart.js';
 import {useMantineTheme} from "@mantine/core";
-import chroma from "chroma-js";
-import {useStatsContext} from "../hooks/useStatsContext.tsx";
-import {ChartType} from "../model/ChartType.ts";
+import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
@@ -21,27 +19,21 @@ interface ChartProps {
     onElementClick?: (label: string, value?: any) => void;
 }
 
-const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
-
-    const {stats, chartType} = useStatsContext();
+const RecordingStatsChart: React.FC<ChartProps> = ({onElementClick}) => {
 
     const chartRef = useRef(null);
     const theme = useMantineTheme();
+    const {stats} = useStatsContext();
 
-    const filtered = chartType === ChartType.BAR ? stats : Object.fromEntries(
-        // @ts-ignore
-        Object.entries(stats).filter(([_, value]) => value > 0)
-    );
-
-    const labels = Object.keys(filtered);
-    const values = Object.values(filtered);
+    const labels = Object.keys(stats);
+    const values = Object.values(stats);
 
     const chartData = {
         labels: labels,
         datasets: [
             {
                 data: values,
-                backgroundColor: chartType === ChartType.BAR ? theme.colors.red[9] : chroma.scale("YlGnBu").colors(values.length),
+                backgroundColor: theme.colors.red[9],
                 borderWidth: 1,
             },
         ],
@@ -54,9 +46,7 @@ const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
         },
         plugins: {
             legend: {
-                position: "bottom",
-                // display: false
-                display: chartType === ChartType.PIE
+                display: false
             }
         },
         onClick: (_: any, elements: any) => {
@@ -71,12 +61,12 @@ const ChartComponent: React.FC<ChartProps> = ({onElementClick}) => {
     };
 
     return (
-        chartType === ChartType.BAR
-            // @ts-ignore
-            ? <Bar ref={chartRef}  data={chartData} options={options}/>
-            // @ts-ignore
-            : <Pie ref={chartRef} height={100} width={100} data={chartData} options={options}/>
+        <Bar
+            ref={chartRef}
+            data={chartData}
+            options={options}
+        />
     )
 };
 
-export default ChartComponent;
+export default RecordingStatsChart;

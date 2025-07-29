@@ -74,6 +74,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                 const data = result.data;
                 const filename = generateFileName(filters);
 
+                // @ts-ignore
                 const headerTranslations: Record<keyof Recording, string> = {
                     id: t("recording.id"),
                     ref: t("recording.ref"),
@@ -92,9 +93,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                     archive: t("recording.archive"),
                     file: t("recording.file"),
                     order: t("recording.order"),
-                    kivike: t("recording.kivike"),
                     duration: t("recording.duration"),
-                    quality: t("recording.quality"),
                     distance: t("recording.distance"),
                 };
 

@@ -9,8 +9,8 @@ import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 const RecordingStatsControls: React.FC = () => {
 
     const {t} = useTranslation();
-    const {groupsCount, groupBy, setGroupBy} = useStatsContext();
     const {totalItems} = useDataContext();
+    const {groupsCount, groupBy, setGroupBy} = useStatsContext();
 
     return (
         <>
@@ -30,17 +30,6 @@ const RecordingStatsControls: React.FC = () => {
                 }))}
                 onChange={(v) => setGroupBy(v as GroupBy)}
             />
-
-            {/*<MenuSelect*/}
-            {/*    label={t(`view.recordings.stats.${chartType}`)}*/}
-            {/*    options={[*/}
-            {/*        ChartType.BAR,*/}
-            {/*    ].map(v => ({*/}
-            {/*        label: t(`view.recordings.stats.${v}`),*/}
-            {/*        value: v*/}
-            {/*    }))}*/}
-            {/*    onChange={(v) => setChartType(v as ChartType)}*/}
-            {/*/>*/}
         </>
     );
 }

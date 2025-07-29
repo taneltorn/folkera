@@ -10,7 +10,6 @@ export interface Recording {
     parish?: string;
     origin?: string;
     collector?: string;
-    quality?: string;
     dance?: string;
     notes?: string;
     comments?: string;
@@ -18,6 +17,5 @@ export interface Recording {
     file?: string;
     duration?: number;
     order?: number;
-    kivike?: string;
 }
 

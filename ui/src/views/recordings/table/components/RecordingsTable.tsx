@@ -1,8 +1,8 @@
 import React from "react";
 import {Group, ScrollArea, Table} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import RecordingTableRow from "./RecordingTableRow.tsx";
-import RecordingTablePagination from "./RecordingTablePagination.tsx";
+import RecordingsTableRow from "./RecordingsTableRow.tsx";
+import RecordingsTablePagination from "./RecordingsTablePagination.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import {IoIosMusicalNotes} from "react-icons/io";
@@ -16,7 +16,7 @@ interface Properties {
     data: Recording[];
 }
 
-const RecordingTable: React.FC<Properties> = ({data}) => {
+const RecordingsTable: React.FC<Properties> = ({data}) => {
 
     const {isLoading} = useDataContext();
     const {modifications} = useModifications();
@@ -67,7 +67,7 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
                     </Table.Thead>
                     <Table.Tbody>
                         {data.map((row, index) =>
-                            <RecordingTableRow
+                            <RecordingsTableRow
                                 key={`row-${index}`}
                                 recording={row}
                                 sortedFields={sortedFields}
@@ -76,9 +76,9 @@ const RecordingTable: React.FC<Properties> = ({data}) => {
                 </Table>
             </ScrollArea>
 
-            <RecordingTablePagination/>
+            <RecordingsTablePagination/>
         </>
     );
 }
 
-export default RecordingTable;
+export default RecordingsTable;

@@ -40,8 +40,6 @@ class OptionsController {
                 comments: withBlankOptions([]),
                 file: withBlankOptions([]),
                 duration: withBlankOptions([]),
-                quality: withBlankOptions(extractAndSort(data, "quality", ",")),
-                kivike: withBlankOptions(extractAndSort(data, "kivike", ",")),
                 parish: withBlankOptions([{group: "\n", items: Parishes}]),
                 origin: withBlankOptions([{group: "\n", items: Parishes}]),
                 archive: extractAndSort(data, "archive"),

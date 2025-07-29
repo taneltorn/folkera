@@ -3,7 +3,7 @@ import {Button, Group, Pagination, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {ItemsPerPageOptions} from "../../../../utils/lists.ts";
 
-const RecordingTablePagination: React.FC = () => {
+const RecordingsTablePagination: React.FC = () => {
 
     const theme = useMantineTheme();
     const {pagination, setPagination, totalPages} = useDataContext();
@@ -31,4 +31,4 @@ const RecordingTablePagination: React.FC = () => {
     );
 }
 
-export default RecordingTablePagination;
+export default RecordingsTablePagination;

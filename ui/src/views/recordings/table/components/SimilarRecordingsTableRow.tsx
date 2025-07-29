@@ -5,7 +5,7 @@ import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {similarityToColor, distanceToSimilarity} from "../../../../utils/helpers.tsx";
-import RecordingTableCell from "./RecordingTableCell.tsx";
+import RecordingsTableCell from "./RecordingsTableCell.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyRecordingButton from "../../../admin/users/components/ModifyRecordingButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
@@ -44,14 +44,14 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             </Table.Td>
             <Table.Td>{recording.content}</Table.Td>
 
-            <RecordingTableCell recording={recording} field={"tune"} alwaysVisible>
+            <RecordingsTableCell recording={recording} field={"tune"} alwaysVisible>
                 <FilterButtons
                     recording={recording}
                     field={"tune"}
                     returnHome
                     replace
                 />
-            </RecordingTableCell>
+            </RecordingsTableCell>
             <Table.Td>
                 <FilterButtons
                     recording={recording}

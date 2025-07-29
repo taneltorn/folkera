@@ -15,7 +15,7 @@ interface Properties {
     alwaysVisible?: boolean;
 }
 
-const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiable, alwaysVisible, children}) => {
+const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiable, alwaysVisible, children}) => {
 
     const ref = useClickOutside(() => handleChange());
 
@@ -98,4 +98,4 @@ const RecordingTableCell: React.FC<Properties> = ({recording, field, unmodifiabl
     );
 }
 
-export default RecordingTableCell;
+export default RecordingsTableCell;

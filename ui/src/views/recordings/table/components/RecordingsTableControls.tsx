@@ -1,7 +1,6 @@
 import React from "react";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Button, Menu} from "@mantine/core";
-import {FaEyeSlash, FaRegEye} from "react-icons/fa";
+import {Button, Menu, Switch} from "@mantine/core";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {RecordingTableFields} from "../../../../utils/lists.ts";
@@ -9,7 +8,7 @@ import {RiArrowDropDownLine} from "react-icons/ri";
 import {Recording} from "../../../../model/Recording.ts";
 import LabelValue from "../../../../components/LabelValue.tsx";
 
-const RecordingTableControls: React.FC = () => {
+const RecordingsTableControls: React.FC = () => {
 
     const {t} = useTranslation();
     const {hiddenFields, toggleField, totalItems} = useDataContext();
@@ -17,7 +16,7 @@ const RecordingTableControls: React.FC = () => {
     return (
         <>
             <LabelValue label={t("view.recordings.table.results")} value={totalItems}/>
-          
+
             <Menu shadow="md" closeOnClickOutside={true} closeOnItemClick={false}>
                 <Menu.Target>
                     <Button
@@ -32,14 +31,12 @@ const RecordingTableControls: React.FC = () => {
                 <Menu.Dropdown>
                     {RecordingTableFields
                         .map((it, index) =>
-                            <Menu.Item
-                                key={index}
-                                c={hiddenFields.includes(it as keyof Recording) ? "dark.1" : "dark.9"}
-                                leftSection={hiddenFields.includes(it as keyof Recording)
-                                    ? <FaEyeSlash size={Size.icon.SM}/>
-                                    : <FaRegEye size={Size.icon.SM}/>}
-                                onClick={() => toggleField(it as keyof Recording)}>
-                                {t(`recording.${it}`)}
+                            <Menu.Item key={index}>
+                                <Switch
+                                    label={t(`recording.${it}`)}
+                                    checked={!hiddenFields.includes(it as keyof Recording)}
+                                    onClick={() => toggleField(it as keyof Recording)}
+                                />
                             </Menu.Item>)}
                 </Menu.Dropdown>
             </Menu>
@@ -47,4 +44,4 @@ const RecordingTableControls: React.FC = () => {
     );
 }
 
-export default RecordingTableControls;
+export default RecordingsTableControls;

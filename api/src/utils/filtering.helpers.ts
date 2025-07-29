@@ -3,6 +3,7 @@ import {Filter} from "../model/Filter";
 import {GroupedOption} from "../model/GroupedOption";
 import {SortDirection} from "../model/Pagination";
 import {Recording} from "../model/Recording";
+import {Operation} from "../model/Operation";
 
 export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
     const values = extractByField(recordings, field, split);
@@ -28,11 +29,11 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
-const extract = (field: string, filters: Filter[], splitBy : string = ";"): string[] => {
+const extract = (field: string, filters: Filter[], splitBy: string = ";"): string[] => {
     const values = filters
         .filter(f => f.field === field)
         .map(f => f.value.toLowerCase().trim()) || [];
-    
+
     if (!splitBy) {
         return values;
     }
@@ -54,15 +55,15 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
         isBetween(r.year, extract("year", filters)) &&
-        isIn(r.tune, filters.filter(f => f.field === "tune")) &&
-        isIn(r.archive, filters.filter(f => f.field === "archive")) &&
+        isIn(r.tune, filters.filter(f => f.field === "tune"), Operation.OR) &&
+        isIn(r.archive, filters.filter(f => f.field === "archive"), Operation.OR) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
-        isIn(r.dance, filters.filter(f => f.field === "dance")) &&
-        isIn(r.datatype, filters.filter(f => f.field === "datatype")) &&
+        isIn(r.dance, filters.filter(f => f.field === "dance"), Operation.OR) &&
+        isIn(r.datatype, filters.filter(f => f.field === "datatype"), Operation.OR) &&
         isIn(r.performer, filters.filter(f => f.field === "performer")) &&
         isIn(r.collector, filters.filter(f => f.field === "collector")) &&
-        isIn(r.parish, filters.filter(f => f.field === "parish")) &&
-        isIn(r.origin, filters.filter(f => f.field === "origin")) &&
+        isIn(r.parish, filters.filter(f => f.field === "parish"), Operation.OR) &&
+        isIn(r.origin, filters.filter(f => f.field === "origin"), Operation.OR) &&
         isIn(r.comments, filters.filter(f => f.field === "comments")) &&
         isIn(r.file, filters.filter(f => f.field === "file")) &&
         isIn(`${r.duration}`, filters.filter(f => f.field === "duration")) &&
@@ -127,28 +128,23 @@ export const isLike = (value: string | undefined, filterValue: string | undefine
     return value?.toLowerCase().includes(filterValue.toLowerCase());
 }
 
-export const isIn = (value: string | undefined, filters: Filter[]) => {
-    if (!filters.length) {
-        return true;
-    }
-    if (filters.find(f => f.type === "blank")) {
-        return !value;
-    }
-    if (filters.find(f => f.type === "not_blank")) {
-        return !!value;
-    }
+export const isIn = (value: string | undefined, filters: Filter[], operation?: Operation): boolean => {
+    if (filters.length === 0) return true;
 
-    if (!value) {
-        return false;
-    }
-    
-    return filters.every(filter => {
-        if (filter.type === "exact") {
-            return value.toLowerCase() === filter.value.toLowerCase();
-        }
-        return value.toLowerCase().includes(filter.value.toLowerCase())
-    });
-}
+    if (filters.some(f => f.type === "blank")) return !value;
+    if (filters.some(f => f.type === "not_blank")) return !!value;
+    if (!value) return false;
+
+    const match = (f: Filter) =>
+        f.type === "exact"
+            ? value.toLowerCase() === f.value.toLowerCase()
+            : value.toLowerCase().includes(f.value.toLowerCase());
+
+    return operation === Operation.OR
+        ? filters.some(match)
+        : filters.every(match);
+};
+
 
 export const sortByField = (
     data: Recording[],

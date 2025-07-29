@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {Group, Table, Text} from "@mantine/core";
-import RecordingTableCell from "./RecordingTableCell.tsx";
+import RecordingsTableCell from "./RecordingsTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
@@ -12,7 +12,7 @@ interface Properties {
     sortedFields: RecordingTableField[];
 }
 
-const RecordingTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
+const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
 
     const ref = useRef<any>();
 
@@ -23,7 +23,7 @@ const RecordingTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
             </Table.Td>
 
             {sortedFields.map((tf) => (
-                <RecordingTableCell key={tf.field} recording={recording} field={tf.field}>
+                <RecordingsTableCell key={tf.field} recording={recording} field={tf.field}>
                     {(() => {
                         switch (tf.field) {
                             case "ref":
@@ -53,10 +53,10 @@ const RecordingTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
                                 );
                         }
                     })()}
-                </RecordingTableCell>
+                </RecordingsTableCell>
             ))}
         </Table.Tr>
     );
 }
 
-export default RecordingTableRow;
+export default RecordingsTableRow;

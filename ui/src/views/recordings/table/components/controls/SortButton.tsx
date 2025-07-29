@@ -5,6 +5,7 @@ import {RiSortAsc, RiSortDesc} from "react-icons/ri";
 import {Size} from "../../../../../utils/constants.ts";
 import {Recording} from "../../../../../model/Recording.ts";
 import {SortDirection} from "../../../../../model/Pagination.ts";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
     field: keyof Recording;
@@ -12,12 +13,14 @@ interface Properties {
 
 const SortButton: React.FC<Properties> = ({field}) => {
 
+    const {t} = useTranslation();
     const theme = useMantineTheme();
     const {pagination, setPagination} = useDataContext();
 
     return (
         <Group>
             <Button
+                title={t("view.recordings.table.sort")}
                 px={0}
                 size={"compact-xs"}
                 color={field === pagination?.sortField ? theme.primaryColor : theme.colors.dark[1]}
