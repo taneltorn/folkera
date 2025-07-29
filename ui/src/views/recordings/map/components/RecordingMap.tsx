@@ -3,8 +3,6 @@ import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import MapTemplate from "../../../../components/MapTemplate.tsx";
 import {useActiveView} from "../../../../hooks/useActiveView.tsx";
 import {View} from "../../../../context/ActiveViewContext.tsx";
-import {CountyToParishMap} from "../../../../utils/location.mappings.ts";
-import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
 
 const RecordingMap: React.FC = () => {
@@ -15,7 +13,7 @@ const RecordingMap: React.FC = () => {
     const [layers, setLayers] = useState<any>(null);
 
     const handleClick = (location: string) => {
-        addFilter("parish", groupBy === GroupBy.COUNTY ? CountyToParishMap.get(location) || [] : [location]);
+        addFilter("parish", location);
         setActiveView(View.TABLE);
     }
 

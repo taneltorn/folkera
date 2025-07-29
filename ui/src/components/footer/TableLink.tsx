@@ -23,7 +23,7 @@ const TableLink: React.FC<Properties> = (props) => {
     const openTable = () => {
         if (props.value) {
             navigate("/", {replace: false});
-            useFilter(props.field, [props.value]);
+            useFilter(props.field, props.value);
             setActiveView(View.TABLE);
         }
     }
