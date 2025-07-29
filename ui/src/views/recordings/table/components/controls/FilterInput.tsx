@@ -13,7 +13,7 @@ interface Properties {
 const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
 
     const theme = useMantineTheme();
-    const {filters, addFilter, removeFilter} = useDataContext();
+    const {filters, useFilter, removeFilter} = useDataContext();
 
     const [value, setValue] = useState<string>("");
 
@@ -28,7 +28,7 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
     };
 
     const searchRequest = useDebounce(() => {
-        addFilter(field, [value]);
+        useFilter(field, value);
     });
 
     useEffect(() => {
@@ -39,6 +39,8 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
     return (
         <Input
             miw={150}
+            w={"100%"}
+            maw={200}
             size={"xs"}
             className={filters.find(f => f.field === field) ? "active-input" : ""}
             value={value}

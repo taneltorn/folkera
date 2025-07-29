@@ -2,15 +2,15 @@ import React from "react";
 import {Group, ScrollArea, Table} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import RecordingTableRow from "./RecordingTableRow.tsx";
-import FilterInput from "./controls/FilterInput.tsx";
-import {useTranslation} from "react-i18next";
 import RecordingTablePagination from "./RecordingTablePagination.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
-import RecordingTableHeader from "./RecordingTableHeader.tsx";
-import FilterSelect from "./controls/FilterSelect.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import {IoIosMusicalNotes} from "react-icons/io";
 import {Size} from "../../../../utils/constants.ts";
+import {useTableOrder} from "../../../../hooks/useTableOrder.ts";
+import DraggableHeaderWrapper from "./DraggableHeaderWrapper.tsx";
+import {closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
+import {arrayMove, horizontalListSortingStrategy, SortableContext} from "@dnd-kit/sortable";
 
 interface Properties {
     data: Recording[];
@@ -18,149 +18,60 @@ interface Properties {
 
 const RecordingTable: React.FC<Properties> = ({data}) => {
 
-    const {t} = useTranslation();
-    const {filteringOptions, isLoading} = useDataContext();
+    const {isLoading} = useDataContext();
     const {modifications} = useModifications();
+    const {sortedFields, order, setOrder} = useTableOrder();
 
     return (
         <>
             <ScrollArea pb={"xs"}>
-                <Table highlightOnHover stickyHeader={true} opacity={(modifications.length || isLoading) ? 0.8 : 1}>
+                <Table highlightOnHover stickyHeader={true}
+                       opacity={(modifications.length || isLoading) ? 0.8 : 1}>
+
                     <Table.Thead>
+
                         <Table.Tr>
                             <Table.Th>
                                 <Group justify={"center"}>
                                     <IoIosMusicalNotes size={Size.icon.SM}/>
                                 </Group>
                             </Table.Th>
-                            <RecordingTableHeader field={"ref"} sortField={"order"}>
-                                <FilterInput
-                                    field={"ref"}
-                                    placeholder={t("recording.ref")}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"content"}>
-                                <FilterInput
-                                    field={"content"}
-                                    placeholder={t("recording.content")}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"tune"}>
-                                <FilterSelect
-                                    field={"tune"}
-                                    placeholder={t("recording.tune")}
-                                    options={filteringOptions.tune}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"datatype"}>
-                                <FilterSelect
-                                    field={"datatype"}
-                                    placeholder={t("recording.datatype")}
-                                    options={filteringOptions.datatype}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"dance"}>
-                                <FilterSelect
-                                    field={"dance"}
-                                    placeholder={t("recording.dance")}
-                                    options={filteringOptions.dance}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"year"}>
-                                <FilterSelect
-                                    field={"year"}
-                                    placeholder={t("recording.year")}
-                                    options={filteringOptions.year}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"instrument"}>
-                                <FilterSelect
-                                    field={"instrument"}
-                                    placeholder={t("recording.instrument")}
-                                    options={filteringOptions.instrument}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"performer"}>
-                                <FilterSelect
-                                    field={"performer"}
-                                    placeholder={t("recording.performer")}
-                                    options={filteringOptions.performer}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"parish"}>
-                                <FilterSelect
-                                    field={"parish"}
-                                    placeholder={t("recording.parish")}
-                                    options={filteringOptions.parish}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"origin"}>
-                                <FilterSelect
-                                    field={"origin"}
-                                    placeholder={t("recording.origin")}
-                                    options={filteringOptions.origin}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"collector"}>
-                                <FilterSelect
-                                    field={"collector"}
-                                    placeholder={t("recording.collector")}
-                                    options={filteringOptions.collector}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"archive"}>
-                                <FilterSelect
-                                    field={"archive"}
-                                    placeholder={t("recording.archive")}
-                                    options={filteringOptions.archive}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"notes"}>
-                                <FilterInput
-                                    field={"notes"}
-                                    placeholder={t("recording.notes")}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"file"}>
-                                <FilterSelect
-                                    field={"file"}
-                                    placeholder={t("recording.file")}
-                                    options={filteringOptions.file}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"duration"}>
-                                <FilterSelect
-                                    field={"duration"}
-                                    placeholder={t("recording.duration")}
-                                    options={filteringOptions.duration}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"quality"}>
-                                <FilterSelect
-                                    field={"quality"}
-                                    placeholder={t("recording.quality")}
-                                    options={filteringOptions.quality}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"kivike"}>
-                                <FilterSelect
-                                    field={"kivike"}
-                                    placeholder={t("recording.kivike")}
-                                    options={filteringOptions.kivike}
-                                />
-                            </RecordingTableHeader>
-                            <RecordingTableHeader field={"comments"}>
-                                <FilterSelect
-                                    field={"comments"}
-                                    placeholder={t("recording.comments")}
-                                    options={filteringOptions.comments}
-                                />
-                            </RecordingTableHeader>
+
+                            <DndContext
+                                sensors={useSensors(useSensor(PointerSensor))}
+                                collisionDetection={closestCenter}
+                                onDragEnd={(event: DragEndEvent) => {
+                                    const {active, over} = event;
+                                    if (over && active.id !== over.id) {
+                                        const oldIndex = order.indexOf(active.id as keyof Recording);
+                                        const newIndex = order.indexOf(over.id as keyof Recording);
+                                        setOrder(arrayMove(order, oldIndex, newIndex));
+                                    }
+                                }}
+                            >
+                                <SortableContext
+                                    items={sortedFields.map(f => f.field)}
+                                    strategy={horizontalListSortingStrategy}
+                                >
+                                    {sortedFields.map((tf, i) => (
+                                        <DraggableHeaderWrapper
+                                            key={`header-${tf.field}-${i}`}
+                                            field={tf.field}
+                                            type={tf.type}
+                                            sortField={tf.sortField}
+                                        />
+                                    ))}
+                                </SortableContext>
+                            </DndContext>
                         </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>
                         {data.map((row, index) =>
-                            <RecordingTableRow key={`row-${index}`} recording={row}/>)}
+                            <RecordingTableRow
+                                key={`row-${index}`}
+                                recording={row}
+                                sortedFields={sortedFields}
+                            />)}
                     </Table.Tbody>
                 </Table>
             </ScrollArea>

@@ -125,25 +125,24 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             });
     }
 
-    const addFilter = (field: string, values: string[]) => {
-        const filterList: Filter[] = filters.filter(f => f.field !== field);
-        values.forEach(value => {
-            if (value) {
-                filterList.push({field: field, value: value});
-            }
-        });
+    const addFilter = (field: string, value: string) => {
+        if (filters.find(f => f.field === field && f.value === value)) {
+            console.log("returning early, filter already exists", field, value);
+            return;
+        }
+        if (value) {
+            filters.push({field: field, value: value});
+        }
 
-        setFilters(filterList);
+        setFilters(filters);
         setPagination({...pagination, page: 1});
     }
 
-    const useFilter = (field: string, values: string[]) => {
-        const filterList: Filter[] = [];
-        values.forEach(value => {
-            if (value) {
-                filterList.push({field: field, value: value});
-            }
-        });
+    const useFilter = (field: string, value: string, type?: string) => {
+        const filterList: Filter[] = filters.filter(f => !(f.field === field));
+        if (value) {
+            filterList.push({field: field, value: value, type: type});
+        }
 
         setFilters(filterList);
         setPagination({...pagination, page: 1});

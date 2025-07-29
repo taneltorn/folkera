@@ -6,6 +6,7 @@ import { FilteringOptions } from '../model/FilteringOptions.ts';
 export interface Filter {
     field: string;
     value: string;
+    type?: string;
 }
 
 export interface Properties {
@@ -24,8 +25,8 @@ export interface Properties {
 
     filters: Filter[];
     setFilters: (values: Filter[]) => void;
-    addFilter: (type: string, values: string[]) => void;
-    useFilter: (type: string, values: string[]) => void;
+    addFilter: (field: string, value: string) => void;
+    useFilter: (field: string, value: string, type?: string) => void;
     removeFilter: (type: string, value?: string) => void;
     clearFilters: () => void;
 

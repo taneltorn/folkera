@@ -18,7 +18,7 @@ interface Properties {
 const FilterButtons: React.FC<Properties> = ({recording, field, split, size, replace, returnHome}) => {
 
     const navigate = useNavigate();
-    const {addFilter, useFilter} = useDataContext();
+    const {addFilter, useFilter, filters} = useDataContext();
 
     const values = split
         ? recording[field]
@@ -28,11 +28,12 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
             ?.map(it => it.trim())
         : [recording[field]];
 
-    const handleClick = (value: string) => {
-        if (replace) {
-            useFilter(field, [value]);
+    const handleClick = (value: string, event: React.MouseEvent) => {
+        const isCtrlPressed = event.ctrlKey;
+        if (replace || isCtrlPressed || filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
+            useFilter(field, value, isCtrlPressed ? "exact" : "contains");
         } else {
-            addFilter(field, [value]);
+            addFilter(field, value);
         }
         if (returnHome) {
             navigate("/");
@@ -48,7 +49,7 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
                         // color={`${chroma.scale(ColorScales.get(field) || "YlOrBr").colors(10)[9 - i % 5]}`}
                         color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
                         size={size || "compact-xs"}
-                        onClick={() => handleClick(v)}>
+                        onClick={(event) => handleClick(v, event)}>
                     <Text size={size || "xs"} className={"pill-button"}>
                         {v}
                     </Text>

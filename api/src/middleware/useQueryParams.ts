@@ -18,7 +18,6 @@ const filterableKeys = [
     "notes",
     "comments",
     "duration",
-    "quality",
     "file",
     "archive",
 ];
@@ -27,7 +26,11 @@ export const useQueryParams = (req: ApiRequest, res: Response, next: NextFunctio
     const filters: Filter[] = [];
     filterableKeys.forEach(key => {
         if (req.query[key]) {
-            filters.push({field: key, value: req.query[key] as string});
+            const values = (req.query[key] as string).split(";");
+            values.forEach(v => {
+                const valueAndType = v.split(":");
+                filters.push({field: key, value: valueAndType[0], type: valueAndType[1] || "contains"});
+            });
         }
     });
 

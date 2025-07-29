@@ -3,7 +3,7 @@ import {Box, Button, Group, Menu, Slider, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {IoIosClose, IoIosSpeedometer} from "react-icons/io";
 import {Size} from "../../utils/constants.ts";
-import AudioPlayer from "react-h5-audio-player";
+import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Trans, useTranslation} from "react-i18next";
 import {truncate} from "../../utils/helpers.tsx";
@@ -11,6 +11,8 @@ import {useNotifications} from "../../hooks/useNotifications.tsx";
 import {NotificationType} from "../../context/NotificationContext.tsx";
 import {MdClear, MdLoop} from "react-icons/md";
 import {TbArrowBarToRight} from 'react-icons/tb';
+import useCurrentBreakpoint from "../../hooks/useCurrentBreakPoint.tsx";
+import {Link} from "react-router-dom";
 
 const BottomAudioPlayer: React.FC = () => {
 
@@ -18,6 +20,7 @@ const BottomAudioPlayer: React.FC = () => {
     const {currentUser} = useAuth();
     const {notify} = useNotifications();
     const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
+    const breakpoint = useCurrentBreakpoint();
 
     const [tempo, setTempo] = useState<number>(1);
     const [loopStage, setLoopStage] = useState<0 | 1 | 2>(0);
@@ -87,21 +90,31 @@ const BottomAudioPlayer: React.FC = () => {
     return (<Box py={"xs"}>
             {track &&
                 <Group px={"xs"} justify={"space-between"}>
-                    <Group visibleFrom={"md"} flex={{base: 0, sm: 1}} wrap={"nowrap"}>
+                    <Group visibleFrom={"sm"} flex={{base: 0, sm: 1}} wrap={"nowrap"}>
+                        <Link to={`/recordings/${track.id}`}>
                         <Text size={"sm"}>
                             {`${track.ref} - ${truncate(track.content, 30)} < ${track.parish} < ${truncate(track.performer, 30)} (${track.year})`}
                         </Text>
+                        </Link>
+                            
                     </Group>
 
                     <>
                         {currentUser?.isUser && track
-                            ? <Group flex={1} wrap={"nowrap"} className={loopStage > 1 ? "looping" : ""}>
+                            ? <Group flex={1} wrap={"nowrap"}
+                                     className={`${loopStage > 1 ? "looping" : ""} ${"small-screens"}`}>
                                 <AudioPlayer
                                     // @ts-ignore
                                     ref={playerRef}
                                     autoPlay={true}
                                     layout={"horizontal-reverse"}
                                     showJumpControls={false}
+                                    showFilledProgress={loopStage <= 1}
+                                    customProgressBarSection={
+                                       ["xs", "sm"].includes( breakpoint)
+                                            ? [RHAP_UI.PROGRESS_BAR]
+                                            : [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]
+                                    }
                                     customVolumeControls={[]}
                                     customAdditionalControls={[]}
                                     src={`${audioUrl}?filename=${encodeURIComponent(track.file || "")}`}
@@ -116,7 +129,7 @@ const BottomAudioPlayer: React.FC = () => {
                                             <Button
                                                 title={t("player.tempo")}
                                                 size={"compact-md"}
-                                                color={tempo === 1 ? "dark.2" : "red"}
+                                                color={tempo === 1 ? "dark.1" : "red"}
                                                 variant={"transparent"}
                                             >
                                                 <IoIosSpeedometer size={Size.icon.XL}/>
@@ -141,7 +154,7 @@ const BottomAudioPlayer: React.FC = () => {
                                         </Menu.Dropdown>
                                     </Menu>
                                     <Button
-                                        color={loopStage === 0 ? "dark.2" : "red"}
+                                        color={loopStage === 0 ? "dark.1" : "red"}
                                         title={t(`player.loop.${loopStage}`)}
                                         size={"compact-md"}
                                         variant={"transparent"}

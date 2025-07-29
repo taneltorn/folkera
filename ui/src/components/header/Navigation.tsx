@@ -10,10 +10,8 @@ import {
     Stack,
 } from "@mantine/core";
 import {FaDatabase} from "react-icons/fa";
-import {MdScatterPlot} from "react-icons/md";
 import {GiMagnifyingGlass} from "react-icons/gi";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {UserRole} from "../../model/User.ts";
 import {Size} from "../../utils/constants.ts";
 import Login from "./Login.tsx";
 import UserMenu from "./UserMenu.tsx";
@@ -22,7 +20,6 @@ import Help from "./Help.tsx";
 const routes = [
     {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
     {id: "identify", icon: <GiMagnifyingGlass size={Size.icon.SM}/>, link: "/identify"},
-    {id: "clusters", icon: <MdScatterPlot size={Size.icon.SM}/>, link: "/clusters", protected: true},
 ];
 
 const Navigation: React.FC = () => {
@@ -33,11 +30,7 @@ const Navigation: React.FC = () => {
 
     const [drawerOpened, setDrawerOpened] = useState(false);
 
-    const filteredRoutes = routes.filter(
-        (route) => !route.protected || auth.currentUser?.role === UserRole.ADMIN
-    );
-
-    const navMenu = filteredRoutes.map((item, index) => (
+    const navMenu = routes.map((item, index) => (
         <Button
             key={index}
             size="xs"

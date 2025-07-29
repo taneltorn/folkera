@@ -1,5 +1,5 @@
 import chroma from "chroma-js";
-import {ClusterMap} from "../model/ClusterMap";
+import {ClusterPlot} from "../model/ClusterPlot.ts";
 import {ColorScheme, ColorSchemeName} from "../model/ColorScheme.ts";
 import { Recording } from "../model/Recording.ts";
 
@@ -49,10 +49,10 @@ export const ColorSchemes: ColorScheme[] = [
     },
 ];
 
-export const ClusterMaps: ClusterMap[] = [
+export const ClusterPlots: ClusterPlot[] = [
     {
-        name: "v2.0_pretrained_folk160",
-        file: "cluster-data/v2.0_pretrained_folk160.json",
+        name: "v1.3_pretrained_folk160",
+        file: "cluster-data/v1.3_pretrained_folk160.json",
         defaultColorScheme: ColorSchemes[1],
         newWorks: ["TX", "TY", "TX2", "TY2"]
 
@@ -83,56 +83,49 @@ export const ClusterMaps: ClusterMap[] = [
         file: "cluster-data/pretrained.json",
         defaultColorScheme: ColorSchemes[1],
     },
-    {name: "", file: ""},
-    {
-        name: "eval_covers80_folk150test",
-        file: "cluster-data/eval_covers80_folk150_testset.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.120,
-        rank1: 20.331
-    },
-    {
-        name: "eval_reels100",
-        file: "cluster-data/eval_reels100.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.105,
-        rank1: 22.300
-    },
-    {
-        name: "eval_folk150_trainset",
-        file: "cluster-data/eval_folk150_trainset.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.232,
-        rank1: 8.923
-    },
-    {
-        name: "eval_folk160_trainset",
-        file: "cluster-data/eval_folk160_trainset.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.262,
-        rank1: 9.919
-    },
-    {
-        name: "eval_pretrained_folk150_trainset",
-        file: "cluster-data/eval_pretrained_folk150_trainset.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.704,
-        rank1: 3.610
-    },
-    {
-        name: "eval_pretrained_folk160_trainset",
-        file: "cluster-data/eval_pretrained_folk160_trainset.json",
-        defaultColorScheme: ColorSchemes[0],
-        mAP: 0.720,
-        rank1: 3.906
-    },
-    {name: "", file: ""},
-
-    {
-        name: "eval_pretrained_folk160_trainset_full",
-        file: "cluster-data/eval_pretrained_folk160_trainset_full.json",
-        defaultColorScheme: ColorSchemes[1],
-    },
+    // {name: "", file: ""},
+    // {
+    //     name: "eval_covers80_folk150test",
+    //     file: "cluster-data/eval_covers80_folk150_testset.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.120,
+    //     rank1: 20.331
+    // },
+    // {
+    //     name: "eval_reels100",
+    //     file: "cluster-data/eval_reels100.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.105,
+    //     rank1: 22.300
+    // },
+    // {
+    //     name: "eval_folk150_trainset",
+    //     file: "cluster-data/eval_folk150_trainset.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.232,
+    //     rank1: 8.923
+    // },
+    // {
+    //     name: "eval_folk160_trainset",
+    //     file: "cluster-data/eval_folk160_trainset.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.262,
+    //     rank1: 9.919
+    // },
+    // {
+    //     name: "eval_pretrained_folk150_trainset",
+    //     file: "cluster-data/eval_pretrained_folk150_trainset.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.704,
+    //     rank1: 3.610
+    // },
+    // {
+    //     name: "eval_pretrained_folk160_trainset",
+    //     file: "cluster-data/eval_pretrained_folk160_trainset.json",
+    //     defaultColorScheme: ColorSchemes[0],
+    //     mAP: 0.720,
+    //     rank1: 3.906
+    // }
 ];
 
 export const MarkerSymbols = [

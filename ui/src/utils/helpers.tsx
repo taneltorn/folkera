@@ -12,8 +12,11 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     if (!filters) {
         return {};
     }
-    return filters.reduce((acc, {field, value}) => {
-        acc[field] = acc[field] ? `${acc[field]};${value}` : value;
+    return filters.reduce((acc, { field, value, type }) => {
+        const formattedValue = type ? `${value}:${type}` : value;
+        acc[field] = acc[field]
+            ? `${acc[field]};${formattedValue}`
+            : formattedValue;
         return acc;
     }, {} as Record<string, string>);
 };

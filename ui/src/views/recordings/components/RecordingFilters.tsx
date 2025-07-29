@@ -17,20 +17,23 @@ const RecordingFilters: React.FC = () => {
     return (<>
             {!!filters.length &&
                 <Group gap={4}>
-                    {filters.slice(0, showAllFilters ? 100 : MAX_NUMBER_OF_FILTERS_TO_DISPLAY).map((filter, index) =>
-                        <Pill key={index}
-                              size={"md"}
-                              bg={`${Color.get(filter.field) || "gray"}.8`}
-                              c={"white"}
-                              withRemoveButton
-                              removeButtonProps={{title: t("button.removeFilter")}}
-                              onRemove={() => removeFilter(filter.field, filter.value)}>
-                            {t(`recording.${filter.field}`)}: {filter.value}
-                        </Pill>)}
+                    {filters
+                        .slice(0, showAllFilters ? 100 : MAX_NUMBER_OF_FILTERS_TO_DISPLAY)
+                        .map((filter, index) =>
+                            <Pill key={index}
+                                  size={"md"}
+                                  bg={`${Color.get(filter.field) || "gray"}.8`}
+                                  c={"white"}
+                                  withRemoveButton
+                                  removeButtonProps={{title: t("button.removeFilter")}}
+                                  onRemove={() => removeFilter(filter.field, filter.value)}>
+                         
+                                    {t(`recording.${filter.field}`)}{filter.type === "exact" ? t(`view.recordings.exactMatch`) : ""}: {filter.value}
+                            </Pill>)}
 
                     {!showAllFilters && filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY &&
                         <Pill onClick={() => setShowAllFilters(true)}>...</Pill>}
-                    
+
                     <Button
                         variant={"subtle"}
                         title={t("view.recordings.controls.clearFilters")}

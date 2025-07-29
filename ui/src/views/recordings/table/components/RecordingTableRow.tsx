@@ -5,12 +5,14 @@ import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
+import {RecordingTableField} from "../../../../hooks/useTableOrder.ts";
 
 interface Properties {
     recording: Recording;
+    sortedFields: RecordingTableField[];
 }
 
-const RecordingTableRow: React.FC<Properties> = ({recording}) => {
+const RecordingTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
 
     const ref = useRef<any>();
 
@@ -19,119 +21,40 @@ const RecordingTableRow: React.FC<Properties> = ({recording}) => {
             <Table.Td>
                 <PlayRecordingButton recording={recording}/>
             </Table.Td>
-            <RecordingTableCell recording={recording} field={"ref"} unmodifiable>
-                <Group wrap={"nowrap"}>
-                    <Link to={`/recordings/${recording.id}`}>
-                        <Text size={"xs"} fw={"bolder"}>
-                            {recording.ref}
-                        </Text>
-                    </Link>
-                </Group>
-            </RecordingTableCell>
 
-            <RecordingTableCell recording={recording} field={"content"} unmodifiable>
-                <Text size={"xs"}>
-                    {recording.content}
-                </Text>
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"tune"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"tune"}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"datatype"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"datatype"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"dance"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"dance"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"year"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"year"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"instrument"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"instrument"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"performer"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"performer"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"parish"}>
-                <FilterButtons recording={recording} field={"parish"} split={","}/>
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"origin"}>
-                <FilterButtons recording={recording} field={"origin"} split={","}/>
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"collector"}>
-                <FilterButtons recording={recording} field={"collector"} split={","}/>
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"archive"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"archive"}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"notes"} unmodifiable>
-                {recording.notes}
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"file"}>
-                {recording.file}
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"duration"} unmodifiable>
-                {recording.duration}
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"quality"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"quality"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"kivike"}>
-                <FilterButtons
-                    recording={recording}
-                    field={"kivike"}
-                    split={","}
-                />
-            </RecordingTableCell>
-
-            <RecordingTableCell recording={recording} field={"comments"}>
-                {recording.comments}
-            </RecordingTableCell>
+            {sortedFields.map((tf) => (
+                <RecordingTableCell key={tf.field} recording={recording} field={tf.field}>
+                    {(() => {
+                        switch (tf.field) {
+                            case "ref":
+                                return (
+                                    <Group wrap={"nowrap"}>
+                                        <Link to={`/recordings/${recording.id}`}>
+                                            <Text size="xs" fw="bolder">
+                                                {recording.ref}
+                                            </Text>
+                                        </Link>
+                                    </Group>
+                                );
+                            case "content":
+                                return <Text size="xs">{recording.content}</Text>;
+                            case "notes":
+                            case "duration":
+                            case "comments":
+                                return recording[tf.field];
+                            default:
+                                return (
+                                    <FilterButtons
+                                        recording={recording}
+                                        field={tf.field}
+                                        split={tf.split || undefined}
+                                        replace={false}
+                                    />
+                                );
+                        }
+                    })()}
+                </RecordingTableCell>
+            ))}
         </Table.Tr>
     );
 }

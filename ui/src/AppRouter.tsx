@@ -6,7 +6,7 @@ import {
 import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx"; 
 import RecordingsList from "./views/recordings/RecordingsList.tsx";
-import ClusterPlotView from "./views/clustermap/ClusterPlotView.tsx";
+import ClusterMap from "./views/recordings/cluster/components/ClusterMap.tsx";
 import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {UserRole} from "./model/User.ts";
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/clusters",
-                element: <ClusterPlotView/>,
+                element: <ClusterMap/>,
             },
             {
                 path: "/profile",

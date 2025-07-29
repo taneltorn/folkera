@@ -12,6 +12,7 @@ import {MapContextProvider} from "../../hooks/useMapContext.tsx";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {Box} from "@mantine/core";
+import ClusterMapView from "./cluster/ClusterMapView.tsx";
 
 const RecordingsList: React.FC = () => {
 
@@ -43,6 +44,9 @@ const RecordingsList: React.FC = () => {
                 <StatsContextProvider>
                     <StatsView/>
                 </StatsContextProvider>}
+
+            {activeView === View.CLUSTER &&
+                    <ClusterMapView/>}
         </Page>
     );
 }

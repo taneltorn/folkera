@@ -11,7 +11,7 @@ const RecordingSearch: React.FC = () => {
 
     const {t} = useTranslation();
     const {ref} = useFocusWithin();
-    const {addFilter, filters} = useDataContext();
+    const {useFilter, filters} = useDataContext();
 
     const [value, setValue] = useState<string>("");
 
@@ -21,7 +21,7 @@ const RecordingSearch: React.FC = () => {
     };
 
     const triggerSearch = useDebounce(() => {
-        addFilter("search", [value]);
+        useFilter("search", value);
     });
 
     useEffect(() => {

@@ -54,20 +54,19 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isLike(r.content, content) &&
         isLike(r.notes, notes) &&
         isBetween(r.year, extract("year", filters)) &&
-        isIn(r.tune, extract("tune", filters)) &&
-        isIn(r.archive, extract("archive", filters)) &&
-        isIn(r.instrument, extract("instrument", filters)) &&
-        isIn(r.dance, extract("dance", filters)) &&
-        isIn(r.datatype, extract("datatype", filters)) &&
-        isIn(r.performer, extract("performer", filters)) &&
-        isIn(r.collector, extract("collector", filters)) &&
-        isIn(r.parish, extract("parish", filters)) &&
-        isIn(r.origin, extract("origin", filters)) &&
-        isIn(r.comments, extract("comments", filters)) &&
-        isIn(r.file, extract("file", filters)) &&
-        isIn(`${r.duration}`, extract("duration", filters)) &&
-        isIn(r.quality, extract("quality", filters)) &&
-        isIn(r.kivike, extract("kivike", filters)) &&
+        isIn(r.tune, filters.filter(f => f.field === "tune")) &&
+        isIn(r.archive, filters.filter(f => f.field === "archive")) &&
+        isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
+        isIn(r.dance, filters.filter(f => f.field === "dance")) &&
+        isIn(r.datatype, filters.filter(f => f.field === "datatype")) &&
+        isIn(r.performer, filters.filter(f => f.field === "performer")) &&
+        isIn(r.collector, filters.filter(f => f.field === "collector")) &&
+        isIn(r.parish, filters.filter(f => f.field === "parish")) &&
+        isIn(r.origin, filters.filter(f => f.field === "origin")) &&
+        isIn(r.comments, filters.filter(f => f.field === "comments")) &&
+        isIn(r.file, filters.filter(f => f.field === "file")) &&
+        isIn(`${r.duration}`, filters.filter(f => f.field === "duration")) &&
+
         (contains(r.ref, search)
             || contains(r.content, search)
             || contains(r.tune, search)
@@ -128,47 +127,26 @@ export const isLike = (value: string | undefined, filterValue: string | undefine
     return value?.toLowerCase().includes(filterValue.toLowerCase());
 }
 
-export const isIn = (value: string | undefined, filters: string[], split?: string) => {
+export const isIn = (value: string | undefined, filters: Filter[]) => {
     if (!filters.length) {
         return true;
     }
-    if (filters[0] === "_blank") {
+    if (filters.find(f => f.type === "blank")) {
         return !value;
     }
-    if (filters[0] === "_not_blank") {
+    if (filters.find(f => f.type === "not_blank")) {
         return !!value;
     }
 
     if (!value) {
         return false;
     }
-
-    return filters.some(filter => {
-        if (split) {
-            const fieldValues = value.toLowerCase().split(split).map(v => v.trim());
-            return filters.some(f => fieldValues.includes(f));
+    
+    return filters.every(filter => {
+        if (filter.type === "exact") {
+            return value.toLowerCase() === filter.value.toLowerCase();
         }
-        return value.toLowerCase().includes(filter.toLowerCase())
-    });
-}
-
-export const isOneOf = (value: string | undefined, filters: string[]) => {
-    if (!filters.length) {
-        return true;
-    }
-    if(filters[0] === "_blank") {
-        return !value;
-    }
-    if(filters[0] === "_not_blank") {
-        return !!value;
-    }
-
-    if (!value) {
-        return false;
-    }
-
-    return filters.some(filter => {
-        return value.toLowerCase() === filter.toLowerCase();
+        return value.toLowerCase().includes(filter.value.toLowerCase())
     });
 }
 

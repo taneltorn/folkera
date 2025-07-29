@@ -7,33 +7,62 @@ import {LuFilterX} from "react-icons/lu";
 interface Properties {
     field: keyof Recording;
     placeholder?: string;
-    options?: any[];
 }
 
-const FilterSelect: React.FC<Properties> = ({field, placeholder, options}) => {
+const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
 
     const theme = useMantineTheme();
-    const {filters, addFilter, removeFilter} = useDataContext();
+    const {filters, addFilter, useFilter, removeFilter} = useDataContext();
+    const {filteringOptions} = useDataContext();
 
     const value = filters
         .filter(f => f.field === field)
         .map(f => f.value as string);
 
+    const handleChange = (values: string[]) => {
+        filters.forEach(f => {
+            if (!values.find(v => v === f.value) && f.field === field) {
+                removeFilter(f.field, f.value);
+            }
+        })
+
+        values.forEach(v => {
+            if (!filters.find(f => f.field === field && f.value === v)) {
+                if (v === "_blank") {
+                    useFilter(field, v, "blank");
+                    return;
+                }
+                if (v === "_not_blank") {
+                    useFilter(field, v, "not_blank");
+                    return;
+                }
+                
+                if (filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
+                    useFilter(field, v);
+                } else {
+                    addFilter(field, v);
+                }
+            }
+        })
+    }
+
     return (
         <MultiSelect
             size={"xs"}
+            miw={100}
+            w={"100%"}
             maw={150}
             className={filters.find(f => f.field === field) ? "active-input" : ""}
             placeholder={value?.length ? value.join(", ") : placeholder}
             searchable
             clearable
             value={value}
-            onChange={values => addFilter(field, values)}
+            onChange={handleChange}
             onClear={() => removeFilter(field)}
-            data={options}
+            data={filteringOptions[field] || []}
             clearButtonProps={{
                 // @ts-ignore
-                icon: <LuFilterX color={theme.colors.red[9]} />
+                icon: <LuFilterX color={theme.colors.red[9]}/>
             }}
         />
     );

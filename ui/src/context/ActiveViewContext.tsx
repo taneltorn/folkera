@@ -4,6 +4,7 @@ export enum View {
     TABLE = "table",
     MAP = "map",
     STATS = "stats",
+    CLUSTER = "cluster",
 }
 
 export interface Properties {

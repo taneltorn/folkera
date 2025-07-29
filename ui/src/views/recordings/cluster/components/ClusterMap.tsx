@@ -1,39 +1,46 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Group, LoadingOverlay} from "@mantine/core";
-import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
-import {useDataService} from "../../services/useDataService.ts";
-import {Recording} from "../../model/Recording.ts";
+import {Button, Group, LoadingOverlay} from "@mantine/core";
+import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
+import {useDataService} from "../../../../services/useDataService.ts";
+import {Recording} from "../../../../model/Recording.ts";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
-import {useNotifications} from "../../hooks/useNotifications.tsx";
-import {NotificationType} from "../../context/NotificationContext.tsx";
-import {ClusterMap} from "../../model/ClusterMap.ts";
-import {ColorScheme} from "../../model/ColorScheme.ts";
+import {useNotifications} from "../../../../hooks/useNotifications.tsx";
+import {NotificationType} from "../../../../context/NotificationContext.tsx";
+import {ColorScheme} from "../../../../model/ColorScheme.ts";
 import {
-    ClusterMaps,
+    ClusterPlots,
     ColorSchemes,
     MarkerSymbols,
-} from "../../utils/lists.ts";
-import {ClusterData} from "../../model/ClusterData.ts";
-import MenuSelect from "../../components/MenuSelect.tsx";
-import LabelValue from "../../components/LabelValue.tsx";
-import Page from "../../Page.tsx";
+} from "../../../../utils/lists.ts";
+import {ClusterData} from "../../../../model/ClusterData.ts";
+import MenuSelect from "../../../../components/MenuSelect.tsx";
+import LabelValue from "../../../../components/LabelValue.tsx";
+import {ClusterPlot} from "../../../../model/ClusterPlot.ts";
+import BottomControlBar from "../../components/BottomControlBar.tsx";
+import {FaRegEye} from "react-icons/fa";
+import {Size} from "../../../../utils/constants.ts";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 // @ts-ignore
 interface ExtendedPlotlyData extends Plotly.Data {
     file: string;
 }
 
-const ClusterPlotView: React.FC = () => {
+// TODO: needs refactoring
+const ClusterMap: React.FC = () => {
 
     const {t} = useTranslation();
     const {track, isPlaying, play, pause} = useAudioPlayer();
     const {fetchRecordings, cancelSource} = useDataService();
+
+    const currentBreakpoint = useCurrentBreakpoint();
+
     const {notify} = useNotifications();
 
     const [colorScheme, setColorScheme] = useState<ColorScheme>(ColorSchemes[1]);
-    const [clusterMap, setClusterMap] = useState<ClusterMap>(ClusterMaps[0]);
+    const [clusterPlot, setClusterPlot] = useState<ClusterPlot>(ClusterPlots[0]);
 
     const [data, setData] = useState<ExtendedPlotlyData[]>([]);
     const [recordings, setRecordings] = useState<Recording[]>([]);
@@ -59,7 +66,7 @@ const ClusterPlotView: React.FC = () => {
         const numberOfColors = Math.ceil((new Set(data.work_list.filter(w => !!w))).size);
         const identifiedColors = colorScheme.known.colors(numberOfColors);
 
-        const correctly_identified_file_list = recordings.filter(r => !clusterMap.newWorks || clusterMap.newWorks?.includes(r.datatype as string))
+        const correctly_identified_file_list = recordings.filter(r => !clusterPlot.newWorks || clusterPlot.newWorks?.includes(r.datatype as string))
             .map(r => r.file);
 
         const workMarkers = new Map([]);
@@ -75,8 +82,8 @@ const ClusterPlotView: React.FC = () => {
 
             if (correctlyIdentified && colorScheme.correctlyIdentified) {
                 const workName = work + " ";
-             
-                    if (!groupedData[workName]) {
+
+                if (!groupedData[workName]) {
                     groupedData[workName] = {
                         x: [],
                         y: [],
@@ -101,28 +108,28 @@ const ClusterPlotView: React.FC = () => {
                 groupedData[workName].text.push(data.label_list[i]);
                 groupedData[workName].file.push(data.file_list[i]);
                 // } else if ( data.label_list[i].includes("RKM, Mgn. II 1483 d")) {
-                    //     groupedData["x"] = {
-                    //         x: [],
-                    //         y: [],
-                    //         mode: "markers",
-                    //         type: "scatter",
-                    //         name: "x",
-                    //         visible: true,
-                    //         opacity: 1,
-                    //         marker: {
-                    //             size: 40,
-                    //             color: "yellow",
-                    //             symbol: markerSymbol
-                    //             // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
-                    //         },
-                    //         text: [],
-                    //         file: [],
-                    //     };
-                    //
-                    // groupedData["x"].x.push(data.x[i]);
-                    // groupedData["x"].y.push(data.y[i]);
-                    // groupedData["x"].text.push(data.label_list[i]);
-                    // groupedData["x"].file.push(data.file_list[i]);
+                //     groupedData["x"] = {
+                //         x: [],
+                //         y: [],
+                //         mode: "markers",
+                //         type: "scatter",
+                //         name: "x",
+                //         visible: true,
+                //         opacity: 1,
+                //         marker: {
+                //             size: 40,
+                //             color: "yellow",
+                //             symbol: markerSymbol
+                //             // symbol: work ? MarkerSymbols[i % MarkerSymbols.length] : "circle",
+                //         },
+                //         text: [],
+                //         file: [],
+                //     };
+                //
+                // groupedData["x"].x.push(data.x[i]);
+                // groupedData["x"].y.push(data.y[i]);
+                // groupedData["x"].text.push(data.label_list[i]);
+                // groupedData["x"].file.push(data.file_list[i]);
             } else {
                 if (!groupedData[work]) {
                     groupedData[work] = {
@@ -173,19 +180,12 @@ const ClusterPlotView: React.FC = () => {
     };
 
     const handleClusterMapChange = (value: string | null) => {
-        const map = ClusterMaps.find(c => c.name === value);
+        const map = ClusterPlots.find(c => c.name === value);
         if (map) {
-            setClusterMap(map);
+            setClusterPlot(map);
             if (map.defaultColorScheme) {
                 setColorScheme(map.defaultColorScheme);
             }
-        }
-    }
-
-    const handleColorSchemeChange = (value: string | null) => {
-        const scheme = ColorSchemes.find(c => c.name === value);
-        if (scheme) {
-            setColorScheme(scheme);
         }
     }
 
@@ -214,11 +214,11 @@ const ClusterPlotView: React.FC = () => {
         }
         setIsLoading(true);
 
-        const result = ClusterMaps.find(map => map.name === clusterMap.name);
+        const result = ClusterPlots.find(map => map.name === clusterPlot.name);
         if (result) {
             fetchClusterData(result.file);
         }
-    }, [colorScheme, clusterMap, recordings]);
+    }, [colorScheme, clusterPlot, recordings]);
 
     useEffect(() => {
         if (!data.length) {
@@ -232,74 +232,64 @@ const ClusterPlotView: React.FC = () => {
     }, [activeWork]);
 
     return (
-        <Page title={t("page.title.clusterMap")}>
-            <Box mx={"md"}>
-                <Group justify={"space-between"}>
-                    <Group gap={4}>
-                        <MenuSelect
-                            title={t(`view.clusterMap.modelVersion.title`)}
-                            label={t(`view.clusterMap.modelVersion.name.${clusterMap.name}`, clusterMap.name)}
-                            options={ClusterMaps.map(map => ({
-                                value: map.name,
-                                label: t(`view.clusterMap.modelVersion.name.${map.name}`, map.name)
-                            }))}
-                            onChange={(value) => handleClusterMapChange(value)}
-                        />
+        <>
+            <BottomControlBar>
+                <Group gap={4}>
+                    <MenuSelect
+                        title={t(`view.clusterMap.modelVersion.title`)}
+                        label={t(`view.clusterMap.modelVersion.name.${clusterPlot.name}`, clusterPlot.name)}
+                        options={ClusterPlots.map(map => ({
+                            value: map.name,
+                            label: t(`view.clusterMap.modelVersion.name.${map.name}`, map.name)
+                        }))}
+                        onChange={(value) => handleClusterMapChange(value)}
+                    />
 
-                        <MenuSelect
-                            title={t(`view.clusterMap.colorScheme.title`)}
-                            label={t(`view.clusterMap.colorScheme.label`, {name: t(`view.clusterMap.colorScheme.${colorScheme.name}`)})}
-                            options={ColorSchemes.map(scheme => ({
-                                value: scheme.name,
-                                label: t(`view.clusterMap.colorScheme.${scheme.name}`)
-                            }))}
-                            onChange={(value) => handleColorSchemeChange(value)}
-                        />
-
-
-                    </Group>
-                    <Group gap={"md"} ml={"xl"}>
-                        {clusterMap?.mAP && <LabelValue
-                            label={t("view.clusterMap.map")}
-                            value={clusterMap?.mAP || "N/A"}
-                        />}
-                        {clusterMap?.rank1 && <LabelValue
-                            label={t("view.clusterMap.rank1")}
-                            value={clusterMap?.rank1 || "N/A"}
-                        />}
-
-                        {activeWork &&
-                            <Button variant={"subtle"} size={"sm"} onClick={handleReset}>
-                                {t("button.showAll")}
-                            </Button>}
-                    </Group>
+                    {activeWork &&
+                        <Button variant={"subtle"} size={"sm"}
+                                leftSection={<FaRegEye size={Size.icon.MD}/>}
+                                onClick={handleReset}>
+                            {t("button.showAll")}
+                        </Button>}
                 </Group>
-                <Plot
-                    data={(data || []) as Plotly.Data[]}
-                    onClick={handleClick}
-                    onLegendClick={(event) => handleLegendClick(event)}
-                    onLegendDoubleClick={() => false}
-                    layout={{
-                        title: "Interactive t-SNE Cluster Plot",
-                        showlegend: true,
-                        dragmode: "zoom",
-                        autosize: true,
-                        xaxis: {
-                            visible: false,
-                            uirevision: 'time',
-                        },
-                        yaxis: {
-                            visible: false,
-                            uirevision: 'time',
+                <Group gap={"md"} ml={"xl"}>
+                    {clusterPlot?.mAP && <LabelValue
+                        label={t("view.clusterMap.map")}
+                        value={clusterPlot?.mAP || "N/A"}
+                    />}
+                    {clusterPlot?.rank1 && <LabelValue
+                        label={t("view.clusterMap.rank1")}
+                        value={clusterPlot?.rank1 || "N/A"}
+                    />}
 
-                        }
-                    }}
-                    style={{width: "100%", height: "1000px"}}
-                />
-                <LoadingOverlay visible={isLoading}/>
-            </Box>
-        </Page>
+                </Group>
+            </BottomControlBar>
+
+            <Plot
+                data={(data || []) as Plotly.Data[]}
+                onClick={handleClick}
+                onLegendClick={(event) => handleLegendClick(event)}
+                onLegendDoubleClick={() => false}
+                layout={{
+                    title: "Interactive t-SNE Cluster Plot",
+                    showlegend: !["xs", "sm"].includes(currentBreakpoint),
+                    dragmode: "zoom",
+                    autosize: true,
+                    xaxis: {
+                        visible: false,
+                        uirevision: 'time',
+                    },
+                    yaxis: {
+                        visible: false,
+                        uirevision: 'time',
+
+                    }
+                }}
+                style={{width: "100%", height: "1000px"}}
+            />
+            <LoadingOverlay visible={isLoading}/>
+        </>
     );
 };
 
-export default ClusterPlotView;
+export default ClusterMap;
