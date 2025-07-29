@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {MultiSelect, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import {Recording} from "../../../../../model/Recording.ts";
@@ -11,6 +11,7 @@ interface Properties {
 
 const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
 
+    const ctrlPressed = useRef(false);
     const theme = useMantineTheme();
     const {filters, addFilter, useFilter, removeFilter} = useDataContext();
     const {filteringOptions} = useDataContext();
@@ -40,7 +41,11 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
                 if (filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
                     useFilter(field, v);
                 } else {
-                    addFilter(field, v);
+                    if (ctrlPressed.current) {
+                        useFilter(field, v, "exact");
+                    } else {
+                        addFilter(field, v);
+                    }
                 }
             }
         })
@@ -60,6 +65,8 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
             onChange={handleChange}
             onClear={() => removeFilter(field)}
             data={filteringOptions[field] || []}
+            onKeyDown={(e) => ctrlPressed.current = e.ctrlKey || e.metaKey}
+            onKeyUp={() => ctrlPressed.current = false}
             clearButtonProps={{
                 // @ts-ignore
                 icon: <LuFilterX color={theme.colors.red[9]}/>

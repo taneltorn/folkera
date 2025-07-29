@@ -33,7 +33,11 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
         if (replace || isCtrlPressed || filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
             useFilter(field, value, isCtrlPressed ? "exact" : "contains");
         } else {
-            addFilter(field, value);
+            if (filters.find(f => f.field === field && f.type === "exact")) {
+                useFilter(field, value, "contains");
+            } else {
+                addFilter(field, value);
+            }
         }
         if (returnHome) {
             navigate("/");
