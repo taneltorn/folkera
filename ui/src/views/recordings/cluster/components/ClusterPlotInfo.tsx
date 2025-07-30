@@ -12,11 +12,11 @@ const ClusterPlotInfo: React.FC = () => {
 
     const trainingWorks = clusterDataMode === ClusterDataMode.TEST_ONLY && clusterPlot.works && !isNaN(clusterPlot.works)
         ? (clusterPlot.works - clusterPlot.testWorks)
-        : clusterPlot.works || "?";
+        : clusterPlot.works || "N/A";
 
     const trainingPerfs = clusterDataMode === ClusterDataMode.TEST_ONLY && clusterPlot.perfs && !isNaN(clusterPlot.perfs)
         ? (clusterPlot.perfs - clusterPlot.testPerfs)
-        : clusterPlot.perfs || "?";
+        : clusterPlot.perfs || "N/A";
 
     return (
         <Stack gap={"md"} mb={"md"} visibleFrom={"lg"}>
