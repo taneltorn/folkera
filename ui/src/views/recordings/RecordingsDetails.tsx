@@ -71,16 +71,15 @@ const RecordingsList: React.FC = () => {
 
                     <RecordingsInfoTable recording={recording}/>
 
-                    {similarRecordings.length === 0 && !isLoading &&
                         <Button
                             mt={"lg"}
-                            loading={isLoading}
+                            disabled={isLoading}
                             variant={"filled"}
                             leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
                             onClick={() => fetchSimilarRecordings(LOAD_MORE_STEP)}
                         >
                             {t("view.recordings.details.similarRecordings")}
-                        </Button>}
+                        </Button>
                 </Box>
 
                 <SimilarRecordingsTable

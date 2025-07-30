@@ -18,7 +18,7 @@ import UserMenu from "./UserMenu.tsx";
 import Help from "./Help.tsx";
 
 const routes = [
-    {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings"},
+    {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings?view=table"},
     {id: "identify", icon: <GiMagnifyingGlass size={Size.icon.SM}/>, link: "/identify"},
 ];
 
@@ -35,7 +35,7 @@ const Navigation: React.FC = () => {
             key={index}
             size="xs"
             leftSection={item.icon}
-            variant={location.pathname.startsWith(item.link) ? "filled" : "subtle"}
+            variant={location.pathname.startsWith(item.link.split("?")[0]) ? "filled" : "subtle"}
             onClick={() => {
                 navigate(item.link);
                 setDrawerOpened(false);
@@ -64,7 +64,6 @@ const Navigation: React.FC = () => {
                 </Group>
             </Box>
 
-            {/* Mobile view */}
             <Group hiddenFrom={"sm"} flex={1} justify={"end"}>
                 <Burger
                     opened={drawerOpened}

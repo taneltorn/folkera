@@ -4,7 +4,7 @@ import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
-import {similarityToColor, distanceToSimilarity} from "../../../../utils/helpers.tsx";
+import {similarityToColor, distanceToSimilarity, similarityToOpacity} from "../../../../utils/helpers.tsx";
 import RecordingsTableCell from "./RecordingsTableCell.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyRecordingButton from "../../../admin/users/components/ModifyRecordingButton.tsx";
@@ -25,9 +25,9 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
     const similarity: number = distanceToSimilarity(recording.distance);
     const progress = Math.min(Math.max((similarity - min) / (max - min), 0), 1) * 100;
-
+    
     return (
-        <Table.Tr key={recording.id} ref={ref}>
+        <Table.Tr key={recording.id} ref={ref} opacity={similarityToOpacity(similarity)}>
             <Table.Td>
                 <Group justify={"center"}>
                     <PlayRecordingButton recording={recording}/>
@@ -89,7 +89,7 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             </Table.Td>
             <Table.Td miw={150} pr={"xl"}>
                 <Group gap={"xs"} wrap={"nowrap"}>
-                    <Progress w={"100%"} value={progress} color={similarityToColor(similarity)}/>
+                    <Progress w={"100%"} title={`${similarity}`} value={progress} color={similarityToColor(similarity)}/>
                     {/*{similarity.toFixed(0) + "%"}*/}
                 </Group>
             </Table.Td>

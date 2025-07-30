@@ -87,6 +87,7 @@
     },
     "identify": {
       "title": "Otsi sarnaseid esitusi",
+      "alertTitle": "Tegemist on prototüübiga. Tulemused võivad varieeruda.",
       "label": "Vali helifail",
       "placeholder": "Vali helifail",
       "submit": "Otsi sarnaseid salvestusi",
@@ -158,6 +159,14 @@
     "clusterMap": {
       "map": "mAP",
       "rank1": "Rank1",
+      "precision": "Täpsus",
+      "trainingData": "Treeningandmeid",
+      "testData": "Testandmeid",
+      "dataMode": {
+        "title": "Kuva",
+        "all": "Kõik andmed",
+        "testOnly": "Ainult testandmed"
+      },
       "modelVersion": {
         "title": "Mudel",
         "label": "Treenitud: {{name}}",

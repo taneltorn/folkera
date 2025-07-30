@@ -12,7 +12,7 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     if (!filters) {
         return {};
     }
-    return filters.reduce((acc, { field, value, type }) => {
+    return filters.reduce((acc, {field, value, type}) => {
         const formattedValue = type ? `${value}:${type}` : value;
         acc[field] = acc[field]
             ? `${acc[field]};${formattedValue}`
@@ -33,6 +33,15 @@ export const distanceToSimilarity = (distance: number | undefined): number => {
     }
 
     return Number((1 - distance) * 100);
+}
+
+export const similarityToOpacity = (similarity: number): number => {
+    if (similarity > 90) return 1;
+    if (similarity > 85) return 0.8;
+    if (similarity > 80) return 0.7;
+    if (similarity > 75) return 0.6;
+    if (similarity > 70) return 0.5;
+    return 0.3;
 }
 
 export const similarityToColor = (distance: number | undefined): string => {

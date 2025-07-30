@@ -1,7 +1,7 @@
 import chroma from "chroma-js";
 import {ClusterPlot} from "../model/ClusterPlot.ts";
-import {ColorScheme, ColorSchemeName} from "../model/ColorScheme.ts";
-import { Recording } from "../model/Recording.ts";
+import {ColorScheme, ColorSchemeType} from "../model/ColorScheme.ts";
+import {Recording} from "../model/Recording.ts";
 
 export const RecordingTableFields = [
     "ref",
@@ -23,107 +23,84 @@ export const RecordingTableFields = [
 ];
 
 export const DefaultHiddenFields: Array<keyof Recording> = [
-  "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
+    "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
 ];
 
 export const ItemsPerPageOptions = [10, 20, 50];
 
+// Color schemes from chroma-js:
+// 'OrRd', 'PuBu', 'BuPu', 'Oranges', 'BuGn', 'YlOrBr', 'YlGn', 'Reds', 'RdPu', 
+// 'Greens', 'YlGnBu', 'Purples', 'GnBu', 'Greys', 'YlOrRd', 'PuRd', 'Blues', 'PuBuGn',
+// 'Viridis', 'Spectral', 'RdYlGn', 'RdBu', 'PiYG', 'PRGn', 'RdYlBu', 'BrBG', 'RdGy', 'PuOr',
+// 'Set2', 'Accent', 'Set1', 'Set3', 'Dark2', 'Paired', 'Pastel2', 'Pastel1'
+
 export const ColorSchemes: ColorScheme[] = [
     {
-        name: ColorSchemeName.DEFAULT,
-        known: chroma.scale("Set1"),
+        type: ColorSchemeType.COLORS,
+        scale: chroma.scale("Set1"),
+        unidentified: chroma('gray').alpha(0.8).hex(),
+    },
+    {
+        type: ColorSchemeType.MONOCHROMATIC,
+        scale: chroma.scale(["#999", "#000"]),
         unidentified: chroma.scale("Reds").colors(10)[8],
     },
     {
-        name: ColorSchemeName.ALT,
-        known: chroma.scale(["#999", "#000"]),
-        unidentified: chroma.scale("Reds").colors(10)[8],
-    },
-    {
-        name: ColorSchemeName.ALT2,
-        known: chroma.scale(["#999", "#000"]),
-        unidentified: chroma.scale("Reds").colors(10)[8],
-        correctlyIdentified: chroma.scale("Greens").colors(10)[6],
+        type: ColorSchemeType.VIRIDIS, 
+        scale: chroma.scale("Viridis"),
+        unidentified: chroma('gray').alpha(0.8).hex(),
     },
 ];
 
 export const ClusterPlots: ClusterPlot[] = [
     {
-        name: "v1.3_pretrained_folk160",
-        file: "cluster-data/v1.3_pretrained_folk160.json",
-        defaultColorScheme: ColorSchemes[1],
-        newWorks: ["TX", "TY", "TX2", "TY2"]
-
+        name: "SHS100K + FolkERA",
+        version: "v1.1",
+        file: "cluster-data/shs100k_folkera_v1.1.json",
+        testFile: "cluster-data/shs100k_folkera_v1.1_eval.json",
+        mAP: 0.720,
+        rank1: 3.906,
+        works: 160,
+        perfs: 3030,
+        testWorks: 30,
+        testPerfs: 480,
     },
     {
-        name: "v1.2_pretrained_folk150",
-        file: "cluster-data/v1.2_pretrained_folk150.json",
-        defaultColorScheme: ColorSchemes[1],
-        newWorks: ["TX", "TY"]
+        name: "SHS100K + FolkERA",
+        version: "v1.0",
+        file: "cluster-data/shs100k_folkera_v1.0.json",
+        testFile: "cluster-data/shs100k_folkera_v1.0_eval.json",
+        mAP: 0.704,
+        rank1: 3.610,
+        works: 150,
+        perfs: 2400,
+        testWorks: 30,
+        testPerfs: 480,
     },
     {
-        name: "v1.1_pretrained_folk150",
-        file: "cluster-data/v1.1_pretrained_folk150.json",
-        defaultColorScheme: ColorSchemes[1],
+        name: "FolkERA",
+        version: "v1.0",
+        file: "cluster-data/folkera_v1.0.json",
+        testFile: "cluster-data/folkera_v1.0_eval.json",
+        mAP: 0.232,
+        rank1: 8.923,
+        works: 150,
+        perfs: 2400,
+        testWorks: 30,
+        testPerfs: 480,
     },
     {
-        name: "v1.0_pretrained_folk150",
-        file: "cluster-data/v1.0_pretrained_folk150.json",
-        defaultColorScheme: ColorSchemes[1],
+        name: "SHS100K",
+        version: "v1.0",
+        file: "cluster-data/shs100k_v1.0.json",
+        testFile: "cluster-data/shs100k_v1.0_eval.json",
+        mAP: 0.508,
+        rank1: 5.881,
+        works: "?",
+        perfs: "?",
+        testWorks: 30,
+        testPerfs: 480,
     },
-    {
-        name: "folk150",
-        file: "cluster-data/folk150.json",
-        defaultColorScheme: ColorSchemes[1],
-    },
-    {
-        name: "pretrained",
-        file: "cluster-data/pretrained.json",
-        defaultColorScheme: ColorSchemes[1],
-    },
-    // {name: "", file: ""},
-    // {
-    //     name: "eval_covers80_folk150test",
-    //     file: "cluster-data/eval_covers80_folk150_testset.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.120,
-    //     rank1: 20.331
-    // },
-    // {
-    //     name: "eval_reels100",
-    //     file: "cluster-data/eval_reels100.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.105,
-    //     rank1: 22.300
-    // },
-    // {
-    //     name: "eval_folk150_trainset",
-    //     file: "cluster-data/eval_folk150_trainset.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.232,
-    //     rank1: 8.923
-    // },
-    // {
-    //     name: "eval_folk160_trainset",
-    //     file: "cluster-data/eval_folk160_trainset.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.262,
-    //     rank1: 9.919
-    // },
-    // {
-    //     name: "eval_pretrained_folk150_trainset",
-    //     file: "cluster-data/eval_pretrained_folk150_trainset.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.704,
-    //     rank1: 3.610
-    // },
-    // {
-    //     name: "eval_pretrained_folk160_trainset",
-    //     file: "cluster-data/eval_pretrained_folk160_trainset.json",
-    //     defaultColorScheme: ColorSchemes[0],
-    //     mAP: 0.720,
-    //     rank1: 3.906
-    // }
 ];
 
 export const MarkerSymbols = [
