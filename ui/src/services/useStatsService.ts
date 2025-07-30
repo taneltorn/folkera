@@ -36,7 +36,7 @@ export const useStatsService = () => {
             .catch(error => {
                 setIsLoading(false);
                 
-                notify(t("toast.error.fetchStats"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
                 throw error;
             });
     }

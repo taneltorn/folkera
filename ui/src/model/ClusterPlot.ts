@@ -5,9 +5,9 @@ export interface ClusterPlot {
     testFile: string;
     mAP: number;
     rank1: number;
-    works: number | string;
-    perfs: number | string;
-    testWorks: number | string;
-    testPerfs: number | string;
+    works: number | undefined;
+    perfs: number | undefined;
+    testWorks: number;
+    testPerfs: number;
     newWorks?: string[];
 }

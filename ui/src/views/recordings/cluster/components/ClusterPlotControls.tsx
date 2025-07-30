@@ -3,7 +3,6 @@ import {Button} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {ClusterPlots, ColorSchemes} from "../../../../utils/lists.ts";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
-import LabelValue from "../../../../components/LabelValue.tsx";
 import BottomControlBar from "../../components/BottomControlBar.tsx";
 import {FaRegEye} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
@@ -23,7 +22,6 @@ const ClusterPlotControls: React.FC = () => {
         activeWork,
         setActiveWork
     } = useClusterContext();
-
 
     const handleDataFileChange = (value: string) => {
         const plot = ClusterPlots.find(p => p.file === value);
@@ -45,16 +43,6 @@ const ClusterPlotControls: React.FC = () => {
 
     return (
         <BottomControlBar>
-
-            <LabelValue label={t("view.clusterMap.trainingData")}
-                        value={`${clusterPlot.perfs} (${clusterPlot.works})`}/>
-
-            <LabelValue label={t("view.clusterMap.testData")}
-                        value={`${clusterPlot.testPerfs} (${clusterPlot.testWorks})`}/>
-
-            <LabelValue label={t("view.clusterMap.precision")}
-                        value={`${clusterPlot.mAP.toFixed(3)}`}/>
-
             <MenuSelect
                 title={t(`view.clusterMap.modelVersion.title`)}
                 label={`${clusterPlot.name} (${clusterPlot.version})`}
@@ -77,7 +65,7 @@ const ClusterPlotControls: React.FC = () => {
 
             {activeWork &&
                 <Button variant={"subtle"} size={"sm"}
-                        leftSection={<FaRegEye size={Size.icon.MD}/>}
+                        leftSection={<FaRegEye size={Size.icon.SM}/>}
                         onClick={handleReset}>
                     {t("button.showAll")}
                 </Button>}

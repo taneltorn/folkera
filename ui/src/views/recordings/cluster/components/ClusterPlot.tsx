@@ -11,7 +11,6 @@ import {NotificationType} from "../../../../context/NotificationContext.tsx";
 import {ClusterPlots, MarkerSymbols} from "../../../../utils/lists.ts";
 import {ClusterData} from "../../../../model/ClusterData.ts";
 import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
-import ClusterPlotControls from "./ClusterPlotControls.tsx";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
 import {ClusterDataMode} from "../../../../model/ClusterDataMode.ts";
 
@@ -157,8 +156,6 @@ const ClusterPlot: React.FC = () => {
 
     return (
         <>
-            <ClusterPlotControls/>
-
             <Plot
                 data={(plotData || []) as Plotly.Data[]}
                 onClick={handleClick}

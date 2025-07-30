@@ -10,7 +10,7 @@
     "loadMore": "Lae veel",
     "example": "Näide",
     "table": {
-      "totalItems": "Kokku: {{count}}",
+      "items": "Kokku: {{count}}",
       "noData": "Andmeid ei leitud."
     },
     "navigation": {
@@ -160,6 +160,8 @@
       "map": "mAP",
       "rank1": "Rank1",
       "precision": "Täpsus",
+      "dataset": "Treeningandmestik",
+      "version": "Versioon",
       "trainingData": "Treeningandmeid",
       "testData": "Testandmeid",
       "dataMode": {

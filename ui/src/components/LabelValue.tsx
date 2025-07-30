@@ -10,7 +10,7 @@ interface Properties {
 const LabelValue: React.FC<Properties> = (props) => {
 
     return (
-            <Group {...props.props} gap={"xs"}>
+        <Group {...props.props} gap={"xs"}>
             <Text size={"sm"} fw={"bold"}>
                 {props.label}
             </Text>
