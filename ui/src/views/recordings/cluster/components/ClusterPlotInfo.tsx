@@ -14,7 +14,7 @@ const ClusterPlotInfo: React.FC = () => {
         ? (clusterPlot.works - clusterPlot.testWorks)
         : clusterPlot.works;
 
-    const trainingPerfs = clusterDataMode === ClusterDataMode.TEST_ONLY&& clusterPlot.perfs && !isNaN(clusterPlot.perfs)
+    const trainingPerfs = clusterDataMode === ClusterDataMode.TEST_ONLY && clusterPlot.perfs && !isNaN(clusterPlot.perfs)
         ? (clusterPlot.perfs - clusterPlot.testPerfs)
         : clusterPlot.perfs;
 
