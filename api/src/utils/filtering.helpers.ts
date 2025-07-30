@@ -167,7 +167,7 @@ export const sortByField = (
         }
 
         if (typeof fieldA === "string" && typeof fieldB === "string") {
-            return direction === SortDirection.ASC ? fieldA.localeCompare(fieldB) : fieldB.localeCompare(fieldA);
+            return direction === SortDirection.ASC ? fieldA.localeCompare(fieldB, "et") : fieldB.localeCompare(fieldA, "et");
         }
 
         return 0;
