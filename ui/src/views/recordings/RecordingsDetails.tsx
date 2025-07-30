@@ -70,7 +70,6 @@ const RecordingsList: React.FC = () => {
                     />
 
                     <RecordingsInfoTable recording={recording}/>
-
                         <Button
                             mt={"lg"}
                             disabled={isLoading}

@@ -25,6 +25,7 @@ const RecordingsInfoTable: React.FC<Properties> = ({recording}) => {
                             "origin",
                             "collector",
                             "archive",
+                            "datatype",
                             "notes",
                             "comments"]
                             .map((field) => (<>

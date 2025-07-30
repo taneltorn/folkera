@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Group, Input, TextInput, Title} from "@mantine/core";
+import {Group, Input, Select, TextInput, Title} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
@@ -62,6 +62,33 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                         />
                     </Input.Wrapper>
 
+                    <Input.Wrapper label={t("recording.tune")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            withAsterisk
+                            placeholder={t("recording.tune")}
+                            key={form.key('tune')}
+                            size={"md"}
+                            {...form.getInputProps('tune')}
+                        />
+                    </Input.Wrapper>
+
+                    <Input.Wrapper label={t("recording.datatype")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <Select
+                            withAsterisk
+                            placeholder={t("recording.datatype")}
+                            key={form.key('datatype')}
+                            size={"md"}
+                            data={[
+                                {value: "", label: ""},
+                                {value: "TR", label: "TR"},
+                                {value: "TE", label: "TE"},
+                                {value: "TX", label: "TX"},
+                                {value: "TY", label: "TY"},
+                            ]}
+                            {...form.getInputProps('datatype')}
+                        />
+                    </Input.Wrapper>
+                    
                     <Input.Wrapper label={t("recording.performer")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
@@ -101,16 +128,6 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                         />
                     </Input.Wrapper>
 
-                    <Input.Wrapper label={t("recording.tune")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.tune")}
-                            key={form.key('tune')}
-                            size={"md"}
-                            {...form.getInputProps('tune')}
-                        />
-                    </Input.Wrapper>
-
                     <Input.Wrapper label={t("recording.dance")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             placeholder={t("recording.dance")}
@@ -119,17 +136,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                             {...form.getInputProps('dance')}
                         />
                     </Input.Wrapper>
-
-                    <Input.Wrapper label={t("recording.datatype")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.datatype")}
-                            key={form.key('datatype')}
-                            size={"md"}
-                            {...form.getInputProps('datatype')}
-                        />
-                    </Input.Wrapper>
-
+                    
                     <Input.Wrapper label={t("recording.collector")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             placeholder={t("recording.collector")}

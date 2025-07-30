@@ -50,6 +50,8 @@
     "tune": "Viis",
     "quality": "Kvaliteet",
     "datatype": "Andmetüüp",
+    "TR": "Treeningandmed",
+    "TE": "Testandmed",
     "dance": "Tantsutüüp",
     "year": "Aasta",
     "instrument": "Pill",
