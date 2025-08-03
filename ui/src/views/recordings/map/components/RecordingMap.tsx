@@ -4,6 +4,7 @@ import MapTemplate from "../../../../components/MapTemplate.tsx";
 import {useActiveView} from "../../../../hooks/useActiveView.tsx";
 import {View} from "../../../../context/ActiveViewContext.tsx";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
+import {GroupBy} from "../../../../model/GroupBy.ts";
 
 const RecordingMap: React.FC = () => {
 
@@ -13,7 +14,8 @@ const RecordingMap: React.FC = () => {
     const [layers, setLayers] = useState<any>(null);
 
     const handleClick = (location: string) => {
-        addFilter("parish", location);
+        const filter = groupBy === GroupBy.COUNTY ? GroupBy.COUNTY: GroupBy.PARISH;
+        addFilter(filter, location);
         setActiveView(View.TABLE);
     }
 

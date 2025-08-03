@@ -17,7 +17,7 @@ export const useSimilarRecordings = () => {
     const findSimilarRecordings = async (
         filePath: string | undefined,
         top: number = 20,
-        skipFirst: boolean = false,
+        selfRef: string,
         removeFile: boolean = false
     ) => {
         if (!filePath) {
@@ -28,10 +28,10 @@ export const useSimilarRecordings = () => {
         setLoadingText(t("view.identify.identifying"));
 
         try {
-            const r = await identifyService.identify(filePath, top, skipFirst);
-            const distances = Object.fromEntries(r.data);
-            const ids = r.data.map((x: any) => x[0]);
-
+            const r = await identifyService.identify(filePath, top, selfRef);
+            const distances = r.data;
+            const ids = Object.keys(distances);
+            
             setLoadingText(t("view.identify.loadingData"));
 
             const data = await dataService.fetchRecordingsByIds(ids);

@@ -12,6 +12,7 @@ const filterableKeys = [
     "performer",
     "instrument",
     "parish",
+    "county",
     "origin",
     "collector",
     "content",

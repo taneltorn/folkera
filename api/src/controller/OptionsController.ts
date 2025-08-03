@@ -3,7 +3,7 @@ import log4js from "log4js";
 import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {logRequest} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
-import {Parishes, Years} from "../utils/common.lists";
+import {Counties, Parishes, Years} from "../utils/common.lists";
 import {extractAndSort, withBlankOptions} from "../utils/filtering.helpers";
 import {FilteringOptions} from "../model/FilteringOptions";
 
@@ -41,6 +41,7 @@ class OptionsController {
                 file: withBlankOptions([]),
                 duration: withBlankOptions([]),
                 parish: withBlankOptions([{group: "\n", items: Parishes}]),
+                county: withBlankOptions([{group: "\n", items: Counties}]),
                 origin: withBlankOptions([{group: "\n", items: Parishes}]),
                 archive: extractAndSort(data, "archive"),
                 year: Years,

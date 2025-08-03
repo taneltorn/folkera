@@ -8,6 +8,7 @@ export interface Recording {
     datatype?: string;
     performer?: string;
     parish?: string;
+    county?: string;
     origin?: string;
     collector?: string;
     dance?: string;

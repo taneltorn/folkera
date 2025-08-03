@@ -63,6 +63,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(r.performer, filters.filter(f => f.field === "performer")) &&
         isIn(r.collector, filters.filter(f => f.field === "collector")) &&
         isIn(r.parish, filters.filter(f => f.field === "parish"), Operation.OR) &&
+        isIn(r.county, filters.filter(f => f.field === "county"), Operation.OR) &&
         isIn(r.origin, filters.filter(f => f.field === "origin"), Operation.OR) &&
         isIn(r.comments, filters.filter(f => f.field === "comments")) &&
         isIn(r.file, filters.filter(f => f.field === "file")) &&
@@ -78,6 +79,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
             || contains(r.performer, search)
             || contains(r.collector, search)
             || contains(r.parish, search)
+            || contains(r.county, search)
             || contains(r.origin, search)
             || contains(r.notes, search)
             || contains(r.file, search)

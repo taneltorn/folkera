@@ -1,4 +1,4 @@
-import { spawn } from "child_process";
+import {spawn} from "child_process";
 import path from "path";
 import log4js from "log4js";
 import IdentifyService from "./IdentifyService";
@@ -11,26 +11,26 @@ class CoverHunterIdentifyService implements IdentifyService {
         this.logger.level = process.env.LOG_LEVEL || "info";
     }
 
-    public async identify(file: string, n: number = 10, skipFirstResult: string = "false"): Promise<any> {
+    public async identify(file: string, n: number = 10, selfRef: string = ""): Promise<any> {
         const filePath = path.resolve(this.recordingsDir, file);
-        
+
         const pythonPath = process.env.PYTHON_PATH || "python3";
         const rootDir = process.env.COVERHUNTER_ROOT_DIR || "";
         const recordingsDir = process.env.VITE_RECORDINGS_DIR || "";
         const scriptPath = path.resolve(rootDir, "run.py");
-        
-        const top = (skipFirstResult === "true" ? (+n + 1) : n).toString();
 
-        this.logger.info(`Running identify on file: ${filePath} (top: ${top}, skipFirstResult: ${skipFirstResult})`);
+        const top = (selfRef ? (+n + 1) : n).toString();
+        
+        this.logger.info(`Running identify on file: ${filePath} (top: ${top}, selfRef: ${selfRef})`);
         this.logger.info(`Using Python: ${pythonPath}`);
         this.logger.info(`Using root directory: ${rootDir}`);
         this.logger.info(`Using recordings directory: ${recordingsDir}`);
 
-        const args = [scriptPath, filePath, "-top", top, "--root", rootDir, "--recordings", recordingsDir];
-        return this.runPython(pythonPath, args, skipFirstResult === "true");
+        const args: string[] = [scriptPath, filePath, "-top", top, "--root", rootDir, "--recordings", recordingsDir];
+        return this.runPython(pythonPath, selfRef, args);
     }
 
-    private runPython(pythonPath: string, args: string[], skipFirst: boolean): Promise<any> {
+    private runPython(pythonPath: string, selfRef: string, args: string[]): Promise<any> {
         return new Promise((resolve) => {
             this.logger.info(`Executing command: ${[pythonPath, ...args].join(" ")}`);
 
@@ -64,10 +64,9 @@ class CoverHunterIdentifyService implements IdentifyService {
                 }
 
                 try {
-                    let result = JSON.parse(stdout);
-                    if (skipFirst && Array.isArray(result) && result.length > 1) {
-                        result = result.slice(1);
-                    }
+                    let parsed: [string, number][] = JSON.parse(stdout);
+                    const filtered = parsed.filter(([id]) => id !== selfRef);
+                    const result: Record<string, number> = Object.fromEntries(filtered);
 
                     this.logger.info(`Identification results:\n${JSON.stringify(result, null, 2)}`);
 

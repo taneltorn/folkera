@@ -92,11 +92,10 @@ const BottomAudioPlayer: React.FC = () => {
                 <Group px={"xs"} justify={"space-between"}>
                     <Group visibleFrom={"sm"} flex={{base: 0, sm: 1}} wrap={"nowrap"}>
                         <Link to={`/recordings/${track.id}`}>
-                        <Text size={"sm"}>
-                            {`${track.ref} - ${truncate(track.content, 30)} < ${track.parish} < ${truncate(track.performer, 30)} (${track.year})`}
-                        </Text>
+                            <Text size={"sm"}>
+                                {`${track.ref} - ${truncate(track.content, 30)} < ${track.parish} < ${truncate(track.performer, 30)} (${track.year})`}
+                            </Text>
                         </Link>
-                            
                     </Group>
 
                     <>
@@ -111,7 +110,7 @@ const BottomAudioPlayer: React.FC = () => {
                                     showJumpControls={false}
                                     showFilledProgress={loopStage <= 1}
                                     customProgressBarSection={
-                                       ["xs", "sm"].includes( breakpoint)
+                                        ["xs", "sm"].includes(breakpoint)
                                             ? [RHAP_UI.PROGRESS_BAR]
                                             : [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]
                                     }

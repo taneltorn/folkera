@@ -46,10 +46,10 @@ class IdentifyController {
 
     async identify(req: ApiRequest, res: Response): Promise<any> {
         try {
-            const {file, top, skipFirstResult} = req.query;
+            const {file, top, selfRef} = req.query;
 
             // @ts-ignore
-            const result = await this.identifyService.identify(file, top, skipFirstResult);
+            const result = await this.identifyService.identify(file, top, selfRef);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});

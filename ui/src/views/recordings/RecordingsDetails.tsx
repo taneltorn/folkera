@@ -51,7 +51,7 @@ const RecordingsList: React.FC = () => {
     const fetchSimilarRecordings = (top: number) => {
         if (recording?.file) {
             setTop(top);
-            findSimilarRecordings(recording?.file, top, true);
+            findSimilarRecordings(recording?.file, top, recording.id);
         }
     }
 

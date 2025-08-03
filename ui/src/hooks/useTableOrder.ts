@@ -20,6 +20,7 @@ export const fields: RecordingTableField[] = [
     {field: "instrument", type: "select", split: ","},
     {field: "performer", type: "select", split: ","},
     {field: "parish", type: "select", split: ","},
+    {field: "county", type: "select", split: ","},
     {field: "origin", type: "select", split: ","},
     {field: "collector", type: "select", split: ","},
     {field: "archive", type: "select"},
@@ -31,7 +32,7 @@ export const fields: RecordingTableField[] = [
 
 const defaultOrder: Array<keyof Recording> = [
     "ref", "content", "tune", "year", "dance",
-    "instrument", "performer", "parish", "origin", "collector",
+    "instrument", "performer", "parish", "county", "origin", "collector",
     "archive", "notes", "file", "datatype", "duration", "comments"
 ];
 

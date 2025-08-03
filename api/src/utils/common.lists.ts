@@ -124,6 +124,18 @@ export const Parishes = [
     "Võru linn",
 ];
 
+export const Counties = [
+    "Harju",
+    "Lääne",
+    "Järva",
+    "Pärnu",
+    "Saare",
+    "Tartu",
+    "Viljandi",
+    "Viru",
+    "Võru"
+]
+
 export const Years = [
     {group: '1910 - 1919', items: ['1912', '1913', '1914', '1915', '1916', '1917', '1918', '1919']},
     {group: '1920 - 1929', items: ['1920', '1921', '1922', '1923', '1924', '1925', '1926', '1927', '1928', '1929']},

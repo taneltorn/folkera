@@ -23,6 +23,7 @@ const RecordingMapControls: React.FC = () => {
                 label={t(`view.recordings.map.groupBy.${groupBy}`)}
                 options={[
                     GroupBy.PARISH,
+                    GroupBy.COUNTY,
                 ].map(v => ({
                     label: t(`view.recordings.map.groupBy.${v}`),
                     value: v

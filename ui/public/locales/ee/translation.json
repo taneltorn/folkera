@@ -57,6 +57,7 @@
     "instrument": "Pill",
     "performer": "Esitaja",
     "parish": "Kihelkond",
+    "county": "Maakond",
     "origin": "Päritolukoht (kihelkond)",
     "collector": "Koguja",
     "notes": "Märkmed",

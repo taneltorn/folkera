@@ -12,6 +12,7 @@ export const RecordingTableFields = [
     "instrument",
     "performer",
     "parish",
+    "county",
     "origin",
     "collector",
     "notes",

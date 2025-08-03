@@ -32,7 +32,7 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                 <Group gap={4}>
                     {auth.currentUser?.isAdmin &&
                         <ModifyRecordingButton
-                            size={"md"}
+                            size={"sm"}
                             recording={recording}
                             variant={"outline"}
                             onChange={reloadData}>
