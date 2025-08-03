@@ -14,7 +14,7 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
 
-const LOAD_MORE_STEP = 10;
+const LOAD_MORE_STEP = 25;
 const MAX_SIZE = 10;
 
 const IdentifyView: React.FC = () => {
@@ -62,7 +62,7 @@ const IdentifyView: React.FC = () => {
         setTop(top);
         identifyService.upload(file)
             .then(file => {
-                findSimilarRecordings(file, top, true, true)
+                findSimilarRecordings(file, top, "", true)
             });
     };
 
