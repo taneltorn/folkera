@@ -1,24 +1,19 @@
 import React from "react";
-import {Button} from "@mantine/core";
+import {Button, Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import {ClusterPlots, ColorSchemes} from "../../../../utils/lists.ts";
+import {ClusterPlots} from "../../../../utils/lists.ts";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
-import BottomControlBar from "../../components/BottomControlBar.tsx";
 import {FaRegEye} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
-import {ClusterDataMode} from "../../../../model/ClusterDataMode.ts";
 
 const ClusterPlotControls: React.FC = () => {
 
     const {t} = useTranslation();
 
     const {
-        setColorScheme,
         clusterPlot,
         setClusterPlot,
-        clusterDataMode,
-        setClusterDataMode,
         activeWork,
         setActiveWork
     } = useClusterContext();
@@ -30,19 +25,12 @@ const ClusterPlotControls: React.FC = () => {
         }
     }
 
-    const handleClusterDataModeChange = (value: ClusterDataMode) => {
-        setClusterDataMode(value);
-        setColorScheme(value === ClusterDataMode.TEST_ONLY
-            ? ColorSchemes[0]
-            : ColorSchemes[2]);
-    }
-
     const handleReset = () => {
         setActiveWork(null);
     }
 
     return (
-        <BottomControlBar>
+        <Group gap={"md"}>
             <MenuSelect
                 title={t(`view.clusterMap.modelVersion.title`)}
                 label={`${clusterPlot.name} (${clusterPlot.version})`}
@@ -53,24 +41,13 @@ const ClusterPlotControls: React.FC = () => {
                 onChange={(value) => handleDataFileChange(value)}
             />
 
-            <MenuSelect
-                title={t(`view.clusterMap.dataMode.title`)}
-                label={t(`view.clusterMap.dataMode.${clusterDataMode}`)}
-                options={[ClusterDataMode.ALL, ClusterDataMode.TEST_ONLY].map(mode => ({
-                    value: mode,
-                    label: t(`view.clusterMap.dataMode.${mode}`)
-                }))}
-                onChange={v => handleClusterDataModeChange(v as ClusterDataMode)}
-            />
-
             {activeWork &&
                 <Button variant={"subtle"} size={"sm"}
                         leftSection={<FaRegEye size={Size.icon.SM}/>}
                         onClick={handleReset}>
                     {t("button.showAll")}
                 </Button>}
-
-        </BottomControlBar>
+        </Group>
     );
 };
 

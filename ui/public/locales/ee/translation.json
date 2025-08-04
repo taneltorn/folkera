@@ -45,6 +45,7 @@
     "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b>"
   },
   "recording": {
+    "id": "ID",
     "ref": "Viide",
     "content": "Sisu",
     "tune": "Viis",
@@ -167,6 +168,10 @@
       "version": "Versioon",
       "trainingData": "Treeningandmeid",
       "testData": "Testandmeid",
+      "tooltip": {
+        "data": "Esitusi (viise)",
+        "map": "mAP - mean average precision"
+      },
       "dataMode": {
         "title": "Kuva",
         "all": "Kõik andmed",

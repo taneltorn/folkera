@@ -1,13 +1,15 @@
+import {ColorSchemeType} from "./ColorScheme.ts";
+
 export interface ClusterPlot {
     name: string;
     version: string;
     file: string;
-    testFile: string;
-    mAP: number;
-    rank1: number;
+    mAP?: number;
+    rank1?: number;
     works: number | undefined;
     perfs: number | undefined;
-    testWorks: number;
-    testPerfs: number;
+    testWorks?: number;
+    testPerfs?: number;
+    colorSchemeType?: ColorSchemeType;
     newWorks?: string[];
 }

@@ -7,7 +7,7 @@ export interface ColorScheme {
 }
 
 export enum ColorSchemeType {
-    COLORS ,
+    SET1 ,
     MONOCHROMATIC,
     VIRIDIS,
 }

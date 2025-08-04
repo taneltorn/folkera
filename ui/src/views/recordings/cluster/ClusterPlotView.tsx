@@ -3,23 +3,20 @@ import ClusterPlot from "./components/ClusterPlot.tsx";
 import {ClusterContextProvider} from "../../../hooks/useClusterContext.tsx";
 import ClusterPlotControls from "./components/ClusterPlotControls.tsx";
 import ClusterPlotInfo from "./components/ClusterPlotInfo.tsx";
-import {Group, Stack} from "@mantine/core";
+import {Group} from "@mantine/core";
+import BottomControlBar from "../components/BottomControlBar.tsx";
 
 const ClusterPlotView: React.FC = () => {
 
     return (
         <ClusterContextProvider>
-            <ClusterPlotControls/>
+            <BottomControlBar>
+                <ClusterPlotControls/>
+                <ClusterPlotInfo/>
+            </BottomControlBar>
 
             <Group justify={"space-between"} wrap={"nowrap"} align={"start"}>
-                <Group wrap={"nowrap"}>
-                    <Stack px={"md"}>
-                        <ClusterPlotInfo/>
-                    </Stack>
-                </Group>
-                <Group display={"flex"} w={"100%"}>
-                    <ClusterPlot/>
-                </Group>
+                <ClusterPlot/>
             </Group>
         </ClusterContextProvider>
     );

@@ -8,11 +8,10 @@ import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
 import {useNotifications} from "../../../../hooks/useNotifications.tsx";
 import {NotificationType} from "../../../../context/NotificationContext.tsx";
-import {ClusterPlots, MarkerSymbols} from "../../../../utils/lists.ts";
+import {ClusterPlots, ColorSchemes, MarkerSymbols} from "../../../../utils/lists.ts";
 import {ClusterData} from "../../../../model/ClusterData.ts";
 import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
-import {ClusterDataMode} from "../../../../model/ClusterDataMode.ts";
 
 // @ts-ignore
 interface ExtendedPlotlyData extends Plotly.Data {
@@ -29,8 +28,8 @@ const ClusterPlot: React.FC = () => {
 
     const {
         clusterPlot,
-        clusterDataMode,
         colorScheme,
+        setColorScheme,
         activeWork,
         setActiveWork
     } = useClusterContext();
@@ -136,12 +135,13 @@ const ClusterPlot: React.FC = () => {
 
         const result = ClusterPlots.find(map => map.file === clusterPlot.file);
         if (result) {
-            const file = clusterDataMode === ClusterDataMode.TEST_ONLY
-                ? result.testFile
-                : result.file;
-            fetchClusterData(file);
+            fetchClusterData(result.file);
+            const colorScheme = ColorSchemes.find(cs => cs.type === result.colorSchemeType);
+            if (colorScheme) {
+                setColorScheme(colorScheme);
+            }
         }
-    }, [colorScheme, clusterPlot, clusterDataMode, recordings]);
+    }, [colorScheme, clusterPlot, recordings]);
 
     useEffect(() => {
         if (!plotData.length) {

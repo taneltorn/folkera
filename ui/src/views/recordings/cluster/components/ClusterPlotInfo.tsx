@@ -1,50 +1,36 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
-import {Stack} from "@mantine/core";
-import ClusterPlotInfoLabel from "./ClusterPlotInfoLabel.tsx";
-import {ClusterDataMode} from "../../../../model/ClusterDataMode.ts";
+import LabelValue from "../../../../components/LabelValue.tsx";
+import {Group} from "@mantine/core";
 
 const ClusterPlotInfo: React.FC = () => {
 
     const {t} = useTranslation();
-    const {clusterPlot, clusterDataMode} = useClusterContext();
-
-    const trainingWorks = clusterDataMode === ClusterDataMode.TEST_ONLY && clusterPlot.works && !isNaN(clusterPlot.works)
-        ? (clusterPlot.works - clusterPlot.testWorks)
-        : clusterPlot.works || "N/A";
-
-    const trainingPerfs = clusterDataMode === ClusterDataMode.TEST_ONLY && clusterPlot.perfs && !isNaN(clusterPlot.perfs)
-        ? (clusterPlot.perfs - clusterPlot.testPerfs)
-        : clusterPlot.perfs || "N/A";
+    const {clusterPlot} = useClusterContext();
 
     return (
-        <Stack gap={"md"} mb={"md"} visibleFrom={"lg"}>
-            <ClusterPlotInfoLabel
-                label={t("view.clusterMap.dataset")}
-                value={clusterPlot.name}
-            />
-            <ClusterPlotInfoLabel
-                label={t("view.clusterMap.version")}
-                value={clusterPlot.version}
-            />
-            <ClusterPlotInfoLabel
+        <Group gap={"xl"}> 
+            <LabelValue
+                title={t("view.clusterMap.tooltip.data")}
                 label={t("view.clusterMap.trainingData")}
-                value={`${trainingPerfs} (${trainingWorks})`}
+                value={`${clusterPlot.perfs} (${clusterPlot.works})`}
             />
 
-            {clusterDataMode === ClusterDataMode.TEST_ONLY && <>
-                <ClusterPlotInfoLabel
+            {clusterPlot.testPerfs && clusterPlot.testWorks &&
+                <LabelValue
+                    title={t("view.clusterMap.tooltip.data")}
                     label={t("view.clusterMap.testData")}
                     value={`${clusterPlot.testPerfs} (${clusterPlot.testWorks})`}
-                />
-                <ClusterPlotInfoLabel
+                />}
+                
+            {clusterPlot.mAP &&
+                <LabelValue
+                    title={t("view.clusterMap.tooltip.map")}
                     label={t("view.clusterMap.precision")}
                     value={`${clusterPlot.mAP.toFixed(3)}`}
-
-                />
-            </>}
-        </Stack>
+                />}
+        </Group>
     );
 };
 

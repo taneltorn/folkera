@@ -90,17 +90,16 @@ const BottomAudioPlayer: React.FC = () => {
     return (<Box py={"xs"}>
             {track &&
                 <Group px={"xs"} justify={"space-between"}>
-                    <Group visibleFrom={"sm"} flex={{base: 0, sm: 1}} wrap={"nowrap"}>
+                    <Group visibleFrom={"md"} flex={{base: 0, sm: 1}} wrap={"nowrap"}>
                         <Link to={`/recordings/${track.id}`}>
                             <Text size={"sm"}>
                                 {`${track.ref} - ${truncate(track.content, 30)} < ${track.parish} < ${truncate(track.performer, 30)} (${track.year})`}
                             </Text>
                         </Link>
                     </Group>
-
                     <>
                         {currentUser?.isUser && track
-                            ? <Group flex={1} wrap={"nowrap"}
+                            ? <Group flex={1} wrap={"nowrap"} 
                                      className={`${loopStage > 1 ? "looping" : ""} ${"small-screens"}`}>
                                 <AudioPlayer
                                     // @ts-ignore
@@ -110,7 +109,7 @@ const BottomAudioPlayer: React.FC = () => {
                                     showJumpControls={false}
                                     showFilledProgress={loopStage <= 1}
                                     customProgressBarSection={
-                                        ["xs", "sm"].includes(breakpoint)
+                                        ["xs", "sm", "md", "lg"].includes(breakpoint)
                                             ? [RHAP_UI.PROGRESS_BAR]
                                             : [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]
                                     }
@@ -122,7 +121,7 @@ const BottomAudioPlayer: React.FC = () => {
                                     onPause={() => setIsPlaying(false)}
                                     onError={handlePlaybackError}
                                 />
-                                <Group gap={0} wrap={"nowrap"}>
+                                <Group gap={0} wrap={"nowrap"} visibleFrom={"xs"}>
                                     <Menu>
                                         <Menu.Target>
                                             <Button
@@ -174,7 +173,6 @@ const BottomAudioPlayer: React.FC = () => {
                                         components={{b: <Text fw={"bold"}/>}}
                                     />
                                 </Group>
-                                <Group/>
                             </>}
                     </>
                     <Group flex={{base: 0, md: 1}} justify={"flex-end"} wrap={"nowrap"}>
