@@ -125,15 +125,16 @@ export const Parishes = [
 ];
 
 export const Counties = [
-    "Harju",
-    "Lääne",
-    "Järva",
-    "Pärnu",
-    "Saare",
-    "Tartu",
-    "Viljandi",
-    "Viru",
-    "Võru"
+    "Harjumaa",
+    "Läänemaa",
+    "Järvamaa",
+    "Pärnumaa",
+    "Saaremaa",
+    "Tartumaa",
+    "Viljandimaa",
+    "Virumaa",
+    "Võrumaa",
+    "Setumaa"
 ]
 
 export const Years = [
