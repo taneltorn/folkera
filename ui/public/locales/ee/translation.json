@@ -168,10 +168,6 @@
       "version": "Versioon",
       "trainingData": "Treeningandmeid",
       "testData": "Testandmeid",
-      "tooltip": {
-        "data": "Esitusi (viise)",
-        "map": "mAP - mean average precision"
-      },
       "dataMode": {
         "title": "Kuva",
         "all": "Kõik andmed",
@@ -261,6 +257,10 @@
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
     "removeFilter": "Eemalda filter"
+  },
+  "tooltip": {
+    "data": "Esitusi (viise)",
+    "map": "mAP - mean average precision"
   },
   "validation": {
     "required": "Väli on kohustuslik",

@@ -14,7 +14,11 @@ const RecordingStatsControls: React.FC = () => {
 
     return (
         <>
-            <LabelValue label={t("view.recordings.table.results")} value={`${totalItems} (${groupsCount})`}/>
+            <LabelValue
+                title={t("tooltip.data")}
+                label={t("view.recordings.table.results")}
+                value={`${totalItems} (${groupsCount})`}
+            />
 
             <MenuSelect
                 label={t(`view.recordings.stats.groupBy.${groupBy}`)}
