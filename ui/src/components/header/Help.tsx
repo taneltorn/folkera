@@ -42,7 +42,7 @@ const Help: React.FC = () => {
                 </Group>
             </Modal>
 
-            <Button px={4} variant="subtle" onClick={open}>
+            <Button px={4} color={"blue"} variant="subtle" onClick={open}>
                 <RiQuestionFill size={Size.icon.LG}/>
             </Button>
         </>

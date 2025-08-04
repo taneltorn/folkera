@@ -33,7 +33,7 @@ class PostgresUserService implements UserService {
         try {
             this.logger.info(`Fetching user with email = ${email}`);
 
-            const query = "SELECT * FROM folkera.users WHERE email = $1 AND deleted_at IS NULL";
+            const query = "SELECT * FROM folkera.users WHERE LOWER(email) = LOWER($1) AND deleted_at IS NULL";
             const result = await pool.query(query, [email]);
 
             this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`);
