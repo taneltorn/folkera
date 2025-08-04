@@ -14,7 +14,7 @@ const ClusterPlotInfo: React.FC = () => {
             <LabelValue
                 title={t("view.clusterMap.tooltip.data")}
                 label={t("view.clusterMap.trainingData")}
-                value={`${clusterPlot.perfs} (${clusterPlot.works})`}
+                value={`${clusterPlot.perfs || "N/A"} (${clusterPlot.works || "N/A"})`}
             />
 
             {clusterPlot.testPerfs && clusterPlot.testWorks &&
