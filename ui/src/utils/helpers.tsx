@@ -37,10 +37,10 @@ export const distanceToSimilarity = (distance: number | undefined): number => {
 
 export const similarityToOpacity = (similarity: number): number => {
     if (similarity > 90) return 1;
-    if (similarity > 85) return 0.8;
-    if (similarity > 80) return 0.7;
-    if (similarity > 75) return 0.6;
-    if (similarity > 70) return 0.5;
+    if (similarity > 85) return 0.75;
+    if (similarity > 80) return 0.6;
+    if (similarity > 75) return 0.5;
+    if (similarity > 70) return 0.4;
     return 0.3;
 }
 
