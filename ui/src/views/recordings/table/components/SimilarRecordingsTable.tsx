@@ -52,7 +52,12 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                         </Table.Thead>
                         <Table.Tbody>
                             {recordings
-                                .slice((pagination.page - 1) * pagination.size, pagination.page * pagination.size)
+                                .slice(pagination.page && pagination.size
+                                        ? (pagination.page - 1) * pagination.size
+                                        : 0,
+                                    pagination.page && pagination.size ?
+                                        pagination.page * pagination.size
+                                        : 100)
                                 .map((recording) => (
                                     <SimilarRecordingsTableRow key={recording.id} recording={recording}/>
                                 ))}
@@ -62,7 +67,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
             <Group mt={"md"} mb={85} px={"md"} justify={"end"}>
                 <MantinePagination
                     value={pagination.page}
-                    total={Math.ceil(recordings.length / pagination.size)}
+                    total={pagination.size ? Math.ceil(recordings.length / pagination.size) : recordings.length}
                     onChange={(value) => setPagination({...pagination, page: value})}
                 />
             </Group>
