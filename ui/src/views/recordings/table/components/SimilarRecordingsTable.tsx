@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, Group, ScrollArea, Table} from "@mantine/core";
+import {Box, Group, ScrollArea, Table, Pagination as MantinePagination} from "@mantine/core";
 import {Recording} from "../../../../model/Recording.ts";
 import SimilarRecordingsTableRow from "./SimilarRecordingsTableRow.tsx";
 import Loading from "../../../../components/Loading.tsx";
@@ -8,6 +8,7 @@ import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {IoIosMusicalNotes} from "react-icons/io";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
+import {Pagination} from "../../../../model/Pagination.ts";
 
 interface Properties {
     recordings: Recording[];
@@ -20,6 +21,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {modifications} = useModifications();
+    const [pagination, setPagination] = useState<Pagination>({size: 20, page: 1});
 
     return (
         <Box pos={"relative"} mih={50}>
@@ -45,16 +47,25 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings, isLoading, lo
                                 <Table.Th>{t("recording.performer")}</Table.Th>
                                 <Table.Th>{t("recording.parish")}</Table.Th>
                                 <Table.Th>{t("recording.similarity")}</Table.Th>
-                                {currentUser?.isAdmin && <Table.Th />}
+                                {currentUser?.isAdmin && <Table.Th/>}
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {recordings.map((recording) => (
-                                <SimilarRecordingsTableRow key={recording.id} recording={recording}/>
-                            ))}
+                            {recordings
+                                .slice((pagination.page - 1) * pagination.size, pagination.page * pagination.size)
+                                .map((recording) => (
+                                    <SimilarRecordingsTableRow key={recording.id} recording={recording}/>
+                                ))}
                         </Table.Tbody>
                     </Table>}
             </ScrollArea>
+            <Group mt={"md"} mb={85} px={"md"} justify={"end"}>
+                <MantinePagination
+                    value={pagination.page}
+                    total={Math.ceil(recordings.length / pagination.size)}
+                    onChange={(value) => setPagination({...pagination, page: value})}
+                />
+            </Group>
         </Box>);
 }
 

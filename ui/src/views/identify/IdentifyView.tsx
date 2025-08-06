@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
 import SimilarRecordingsTable from "../recordings/table/components/SimilarRecordingsTable.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
-import LoadMoreButton from "../../components/buttons/LoadMoreButton.tsx";
 import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
@@ -14,7 +13,7 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
 
-const LOAD_MORE_STEP = 25;
+const SIMILAR_RECORDINGS_TO_FETCH = 100;
 const MAX_SIZE = 10;
 
 const IdentifyView: React.FC = () => {
@@ -24,7 +23,6 @@ const IdentifyView: React.FC = () => {
 
     const [file, setFile] = useState<File | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
-    const [top, setTop] = useState<number>(LOAD_MORE_STEP);
 
     const {
         similarRecordings,
@@ -56,25 +54,24 @@ const IdentifyView: React.FC = () => {
         setSimilarRecordings([]);
     };
 
-    const handleSubmit = async (top: number) => {
+    const handleSubmit = async () => {
         if (!file) return;
 
-        setTop(top);
         identifyService.upload(file)
             .then(file => {
-                findSimilarRecordings(file, top, "", true)
+                findSimilarRecordings(file, SIMILAR_RECORDINGS_TO_FETCH, "", true)
             });
     };
 
     return (
         <Box px={"md"} flex={{base: 1, sm: 0}}>
-            <Alert 
+            <Alert
                 mb={"md"}
                 variant="light"
-                color="blue" 
-                title={t("view.identify.alertTitle")} 
-                   icon={<FaInfo size={Size.icon.MD}/>}>
-                
+                color="blue"
+                title={t("view.identify.alertTitle")}
+                icon={<FaInfo size={Size.icon.MD}/>}>
+
             </Alert>
             <Stack justify={"center"}>
                 <Dropzone
@@ -139,7 +136,7 @@ const IdentifyView: React.FC = () => {
                     <Group justify={"center"} mb={"xl"}>
                         <Button
                             leftSection={<FaMagnifyingGlass/>}
-                            onClick={() => handleSubmit(top)}
+                            onClick={handleSubmit}
                             disabled={!file || isLoading}
                             loading={identifyService.isLoading}
                         >
@@ -152,11 +149,6 @@ const IdentifyView: React.FC = () => {
                 recordings={similarRecordings}
                 isLoading={isLoading}
                 loadingText={loadingText}
-            />
-
-            <LoadMoreButton
-                visible={!isLoading && similarRecordings.length > 0}
-                onClick={() => handleSubmit(top + LOAD_MORE_STEP)}
             />
         </Box>
     );

@@ -11,11 +11,10 @@ import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.ts
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import RecordingsInfoTable from "./RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
-import LoadMoreButton from "../../components/buttons/LoadMoreButton.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 import {Size} from "../../utils/constants.ts";
 
-const LOAD_MORE_STEP = 25;
+const SIMILAR_RECORDINGS_TO_FETCH = 100;
 
 const RecordingsList: React.FC = () => {
 
@@ -31,7 +30,6 @@ const RecordingsList: React.FC = () => {
         setSimilarRecordings
     } = useSimilarRecordings();
 
-    const [top, setTop] = useState<number>(0);
     const [recording, setRecording] = useState<Recording>();
 
     const fetchData = (id: string | undefined) => {
@@ -48,10 +46,9 @@ const RecordingsList: React.FC = () => {
             });
     }
 
-    const fetchSimilarRecordings = (top: number) => {
+    const fetchSimilarRecordings = () => {
         if (recording?.file) {
-            setTop(top);
-            findSimilarRecordings(recording?.file, top, recording.id);
+            findSimilarRecordings(recording?.file, SIMILAR_RECORDINGS_TO_FETCH, recording.id);
         }
     }
 
@@ -70,26 +67,21 @@ const RecordingsList: React.FC = () => {
                     />
 
                     <RecordingsInfoTable recording={recording}/>
-                        <Button
-                            mt={"lg"}
-                            disabled={isLoading}
-                            variant={"filled"}
-                            leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
-                            onClick={() => fetchSimilarRecordings(LOAD_MORE_STEP)}
-                        >
-                            {t("view.recordings.details.similarRecordings")}
-                        </Button>
+                    <Button
+                        mt={"lg"}
+                        disabled={isLoading}
+                        variant={"filled"}
+                        leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
+                        onClick={fetchSimilarRecordings}
+                    >
+                        {t("view.recordings.details.similarRecordings")}
+                    </Button>
                 </Box>
 
                 <SimilarRecordingsTable
                     recordings={similarRecordings}
                     isLoading={isLoading}
                     loadingText={loadingText}
-                />
-
-                <LoadMoreButton
-                    visible={!isLoading && similarRecordings.length > 0}
-                    onClick={() => fetchSimilarRecordings(top + LOAD_MORE_STEP)}
                 />
             </>}
         </Page>

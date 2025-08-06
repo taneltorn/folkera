@@ -25,11 +25,12 @@ const RecordingsTable: React.FC<Properties> = ({data}) => {
     return (
         <>
             <ScrollArea pb={"xs"}>
-                <Table highlightOnHover stickyHeader={true}
-                       opacity={(modifications.length || isLoading) ? 0.8 : 1}>
-
+                <Table
+                    highlightOnHover
+                    stickyHeader={true}
+                    opacity={(modifications.length || isLoading) ? 0.8 : 1}
+                >
                     <Table.Thead>
-
                         <Table.Tr>
                             <Table.Th>
                                 <Group justify={"center"}>

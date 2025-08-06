@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Group, Input, Select, TextInput, Title} from "@mantine/core";
+import {Group, Input, ScrollArea, Select, TextInput, Title} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
@@ -52,6 +52,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
             size: "lg",
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
+                    <ScrollArea h={500}>
                     <Input.Wrapper label={t("recording.year")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
                             withAsterisk
@@ -82,8 +83,6 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                                 {value: "", label: ""},
                                 {value: "TR", label: "TR"},
                                 {value: "TE", label: "TE"},
-                                {value: "TX", label: "TX"},
-                                {value: "TY", label: "TY"},
                             ]}
                             {...form.getInputProps('datatype')}
                         />
@@ -163,8 +162,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
                             {...form.getInputProps('comments')}
                         />
                     </Input.Wrapper>
-
-
+                    </ScrollArea>
                     <Group justify={"end"} gap={4}>
                         <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
                             {t("button.cancel")}

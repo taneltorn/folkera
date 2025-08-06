@@ -7,7 +7,6 @@
       "profile": "Minu profiil"
     },
     "loading": "Laen andmeid...",
-    "loadMore": "Lae veel",
     "example": "Näide",
     "table": {
       "items": "Kokku: {{count}}",
@@ -50,7 +49,7 @@
     "content": "Sisu",
     "tune": "Viis",
     "quality": "Kvaliteet",
-    "datatype": "Andmetüüp",
+    "datatype": "Andmestik",
     "TR": "Treeningandmed",
     "TE": "Testandmed",
     "dance": "Tantsutüüp",
