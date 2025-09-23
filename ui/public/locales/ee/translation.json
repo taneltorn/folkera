@@ -15,7 +15,7 @@
     "navigation": {
       "title": "Menüü",
       "recordings": "Pillilood",
-      "identify": "Tuvasta",
+      "identify": "Otsi sama viisitüübi salvestusi",
       "clusters": "Klasterkaart",
       "changePassword": "Muuda parooli",
       "stats": "Statistika",
@@ -115,7 +115,7 @@
         "statsView": "Statistika"
       },
       "details": {
-        "similarRecordings": "Sarnased salvestused",
+        "similarRecordings": "Otsi sama viisitüübi salvestusi",
         "performerRecordings": "Samalt esitajalt"
       },
       "table": {
