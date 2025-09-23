@@ -15,7 +15,7 @@
     "navigation": {
       "title": "Menüü",
       "recordings": "Pillilood",
-      "identify": "Otsi sama viisitüübi salvestusi",
+      "identify": "Tuvasta",
       "clusters": "Klasterkaart",
       "changePassword": "Muuda parooli",
       "stats": "Statistika",
@@ -23,6 +23,7 @@
     },
     "userMenu": {
       "admin": "Adminpaneel",
+      "clusters": "Klasterkaart",
       "myProfile": "Profiil",
       "changePassword": "Vaheta parool",
       "logout": "Logi välja"
@@ -155,8 +156,7 @@
       "viewSelection": {
         "table": "Kuva tabelivaade",
         "map": "Kuva kaart",
-        "stats": "Kuva statistika",
-        "cluster": "Kuva klasterkaart"
+        "stats": "Kuva statistika"
       }
     },
     "clusterMap": {

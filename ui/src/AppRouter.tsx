@@ -4,9 +4,8 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
-import Home from "./views/Home.tsx"; 
+import Home from "./views/Home.tsx";
 import RecordingsList from "./views/recordings/RecordingsList.tsx";
-import ClusterPlot from "./views/recordings/cluster/components/ClusterPlot.tsx";
 import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {UserRole} from "./model/User.ts";
@@ -14,6 +13,7 @@ import MyProfileView from "./views/profile/MyProfileView.tsx";
 import RecordingsDetails from "./views/recordings/RecordingsDetails.tsx";
 import IdentifyView from "./views/identify/IdentifyView.tsx";
 import ExampleMap from "./views/recordings/map/components/ExampleMap.tsx";
+import ClusterPlotView from "./views/admin/cluster/ClusterPlotView.tsx";
 
 const router = createBrowserRouter([
     {
@@ -38,15 +38,24 @@ const router = createBrowserRouter([
             },
             {
                 path: "/clusters",
-                element: <ClusterPlot/>,
+                element:
+                    <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+                        <ClusterPlotView/>
+                    </ProtectedRoute>,
             },
             {
                 path: "/profile",
-                element: <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.ADMIN]}><MyProfileView/></ProtectedRoute>,
+                element:
+                    <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.ADMIN]}>
+                        <MyProfileView/>
+                    </ProtectedRoute>,
             },
             {
                 path: "/admin",
-                element: <ProtectedRoute allowedRoles={[UserRole.ADMIN]}><Admin/></ProtectedRoute>,
+                element:
+                    <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+                        <Admin/>
+                    </ProtectedRoute>,
             },
             {
                 path: "/map",

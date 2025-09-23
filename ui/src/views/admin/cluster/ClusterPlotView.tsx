@@ -4,16 +4,16 @@ import {ClusterContextProvider} from "../../../hooks/useClusterContext.tsx";
 import ClusterPlotControls from "./components/ClusterPlotControls.tsx";
 import ClusterPlotInfo from "./components/ClusterPlotInfo.tsx";
 import {Group} from "@mantine/core";
-import BottomControlBar from "../components/BottomControlBar.tsx";
 
 const ClusterPlotView: React.FC = () => {
 
     return (
         <ClusterContextProvider>
-            <BottomControlBar>
-                <ClusterPlotControls/>
-                <ClusterPlotInfo/>
-            </BottomControlBar>
+
+            <Group px={"md"} justify={"space-between"} mb={"md"} mt={"xs"}>
+                    <ClusterPlotControls/>
+                    <ClusterPlotInfo/>
+            </Group>
 
             <Group justify={"space-between"} wrap={"nowrap"} align={"start"}>
                 <ClusterPlot/>
