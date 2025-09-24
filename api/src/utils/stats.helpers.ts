@@ -4,6 +4,7 @@ import ParishToCounty from "../transformers/ParishToCounty";
 import {Counties, Parishes} from "./common.lists";
 import {GroupBy} from "../model/GroupBy";
 import {Recording} from "../model/Recording";
+import SplitBySemicolon from "../transformers/SplitBySemicolon";
 
 const range = (start: number, end: number): number[] => {
     const range: number[] = [];
@@ -14,6 +15,7 @@ const range = (start: number, end: number): number[] => {
 }
 
 export const GroupByToDataTransformerMap = new Map<GroupBy, DataTransformer[]>([
+    [GroupBy.TUNE, [new SplitBySemicolon()]],
     [GroupBy.INSTRUMENT, [new SplitByComma()]],
     [GroupBy.PARISH, [new SplitByComma()]],
     [GroupBy.PERFORMER, [new SplitByComma()]],

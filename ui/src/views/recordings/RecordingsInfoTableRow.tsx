@@ -17,7 +17,7 @@ const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separat
 
     return (
         <Table.Tr>
-            <Table.Td fw={"bold"} pr={50}>
+            <Table.Td fw={"bold"} >
                 {t(`recording.${field}`)}
             </Table.Td>
             <Table.Td>
@@ -38,7 +38,6 @@ const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separat
                         </TableLink>}
                 </>}
             </Table.Td>
-
         </Table.Tr>
     );
 }

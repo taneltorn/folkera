@@ -22,7 +22,7 @@ const TableLink: React.FC<Properties> = (props) => {
 
     const openTable = () => {
         if (props.value) {
-            navigate("/", {replace: false});
+            navigate("/", {replace: true});
             useFilter(props.field, props.value);
             setActiveView(View.TABLE);
         }
@@ -35,6 +35,7 @@ const TableLink: React.FC<Properties> = (props) => {
             size={props.size || "sm"}
             variant={"transparent"}
             onClick={openTable}
+            style={{borderRadius: 0}}
         >
             {props.children}
         </Button>

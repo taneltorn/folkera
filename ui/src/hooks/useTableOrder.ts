@@ -13,7 +13,7 @@ export interface RecordingTableField {
 export const fields: RecordingTableField[] = [
     {field: "ref", sortField: "order", type: "input"},
     {field: "content", type: "input"},
-    {field: "tune", type: "select"},
+    {field: "tune", type: "select", split: ";"},
     {field: "datatype", type: "select", split: ","},
     {field: "dance", type: "select", split: ","},
     {field: "year", type: "select", split: ","},
