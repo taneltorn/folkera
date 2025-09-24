@@ -178,15 +178,7 @@
       },
       "modelVersion": {
         "title": "Mudel",
-        "label": "Treenitud: {{name}}",
-        "name": {
-          "v1.3_pretrained_folk160": "v1.3: shs100k + folk160",
-          "v1.2_pretrained_folk150": "v1.2: shs100k + folk150",
-          "v1.1_pretrained_folk150": "v1.1: shs100k + folk150",
-          "v1.0_pretrained_folk150": "v1.0: shs100k + folk150",
-          "folk150": "v0.1: folk150",
-          "pretrained": "v0.0: shs100k"
-        }
+        "label": "Treenitud: {{name}}"
       },
       "colorScheme": {
         "title": "Värviskeem",

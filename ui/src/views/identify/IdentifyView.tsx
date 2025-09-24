@@ -137,8 +137,8 @@ const IdentifyView: React.FC = () => {
                         <Button
                             leftSection={<FaMagnifyingGlass/>}
                             onClick={handleSubmit}
-                            disabled={!file || isLoading}
-                            loading={identifyService.isLoading}
+                            disabled={isLoading}
+                            loading={isLoading}
                         >
                             {t("view.identify.submit")}
                         </Button>

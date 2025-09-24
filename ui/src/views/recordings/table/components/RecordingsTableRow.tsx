@@ -23,7 +23,7 @@ const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => 
             </Table.Td>
 
             {sortedFields.map((tf) => (
-                <RecordingsTableCell key={tf.field} recording={recording} field={tf.field}>
+                <RecordingsTableCell key={tf.field} recording={recording} field={tf.field} unmodifiable={["ref", "content"].includes(tf.field)}>
                     {(() => {
                         switch (tf.field) {
                             case "ref":

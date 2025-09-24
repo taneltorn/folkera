@@ -55,6 +55,8 @@ const RecordingsList: React.FC = () => {
     useEffect(() => {
         setSimilarRecordings([]);
         fetchData(id);
+        
+        return () => dataService.cancelSource.cancel();
     }, [id]);
 
     return (
@@ -67,9 +69,11 @@ const RecordingsList: React.FC = () => {
                     />
 
                     <RecordingsInfoTable recording={recording}/>
+
                     <Button
-                        mt={"lg"}
+                        mt={"md"}
                         disabled={isLoading}
+                        loading={isLoading}
                         variant={"filled"}
                         leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
                         onClick={fetchSimilarRecordings}
