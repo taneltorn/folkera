@@ -65,6 +65,7 @@ const RecordingStatsChart: React.FC<ChartProps> = ({onElementClick}) => {
             ref={chartRef}
             data={chartData}
             options={options}
+            style={{maxHeight: 600}}
         />
     )
 };

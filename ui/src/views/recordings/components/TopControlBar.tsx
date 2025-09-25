@@ -32,12 +32,7 @@ const TopControlBar: React.FC = () => {
 
     return (<>
             <Group justify={"space-between"} mb={"md"}>
-                <Group>
-                    <RecordingSearch/>
-                    <Group visibleFrom={"lg"}>
-                        <RecordingFilters/>
-                    </Group>
-                </Group>
+                <RecordingSearch/>
 
                 <Group gap={4}>
                     {modifications.length > 0 && <>
@@ -69,10 +64,8 @@ const TopControlBar: React.FC = () => {
                     </Button>
                 </Group>
             </Group>
-            
-            <Group hiddenFrom={"lg"}>
-                <RecordingFilters/>
-            </Group>
+
+            <RecordingFilters/>
         </>
     );
 }

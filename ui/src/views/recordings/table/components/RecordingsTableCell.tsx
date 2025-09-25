@@ -1,11 +1,12 @@
 import React, {ReactNode, useEffect, useState} from "react";
-import {Group, Input, Table} from "@mantine/core";
+import {CloseButton, Group, Table, TextInput} from "@mantine/core";
 import {useClickOutside, useFocusTrap} from "@mantine/hooks";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {UserRole} from "../../../../model/User.ts";
+import {transform} from "./helpers.ts";
 
 interface Properties {
     recording: Recording;
@@ -17,23 +18,19 @@ interface Properties {
 
 const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiable, alwaysVisible, children}) => {
 
-    const ref = useClickOutside(() => handleChange());
+    const ref = useClickOutside(() => handleChange(value));
 
     const [value, setValue] = useState(recording[field]);
     const [isEdit, setIsEdit] = useState(false);
     const focusTrapRef = useFocusTrap();
     const {hiddenFields, toggleField} = useDataContext();
-    const {addModification, modifications} = useModifications();
+    const {addModification} = useModifications();
     const {currentUser} = useAuth();
 
-    const handleChange = () => {
+    const handleChange = (value: string | number | undefined) => {
         if (recording[field] !== value) {
-            if (!modifications.length) {
-
-            }
-
             // @ts-ignore
-            recording[field] = value;
+            recording[field] = transform(value, field);
             addModification(recording);
         }
         setIsEdit(false)
@@ -59,7 +56,7 @@ const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiab
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (["Enter", "Tab"].includes(e.key)) {
-            handleChange();
+            handleChange(value);
         }
         if (e.key === "Escape") {
             handleCancel();
@@ -81,13 +78,19 @@ const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiab
             {!hiddenFields.includes(field) && <>
                 {isEdit
                     ? <Group wrap={"nowrap"} gap={4} ref={ref} display={"flex"}>
-                        <Input
+                        <TextInput
                             ref={focusTrapRef}
                             value={value}
                             w={"100%"}
                             size={"xs"}
                             onKeyDown={handleKeyDown}
                             onChange={e => setValue(e.target.value)}
+                            rightSection={<CloseButton
+                                size={"md"}
+                                className={"hover-pointer"}
+                                onClick={() => setValue("")}
+                                style={{display: value ? undefined : 'none'}}
+                            />}
                         />
                     </Group>
                     : <Group gap={4}>

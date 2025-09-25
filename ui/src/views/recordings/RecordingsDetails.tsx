@@ -13,6 +13,7 @@ import RecordingsInfoTable from "./RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 import {Size} from "../../utils/constants.ts";
+import Loading from "../../components/Loading.tsx";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
 
@@ -55,7 +56,7 @@ const RecordingsList: React.FC = () => {
     useEffect(() => {
         setSimilarRecordings([]);
         fetchData(id);
-        
+
         return () => dataService.cancelSource.cancel();
     }, [id]);
 
@@ -72,8 +73,6 @@ const RecordingsList: React.FC = () => {
 
                     <Button
                         mt={"md"}
-                        disabled={isLoading}
-                        loading={isLoading}
                         variant={"filled"}
                         leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
                         onClick={fetchSimilarRecordings}
@@ -82,10 +81,11 @@ const RecordingsList: React.FC = () => {
                     </Button>
                 </Box>
 
-                <SimilarRecordingsTable
-                    recordings={similarRecordings}
+                <SimilarRecordingsTable recordings={similarRecordings}/>
+
+                <Loading
                     isLoading={isLoading}
-                    loadingText={loadingText}
+                    text={loadingText}
                 />
             </>}
         </Page>

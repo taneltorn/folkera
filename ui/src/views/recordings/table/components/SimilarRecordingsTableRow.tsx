@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {similarityToColor, distanceToSimilarity, similarityToOpacity} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import ModifyRecordingButton from "../../../admin/users/components/ModifyRecordingButton.tsx";
+import ModifyRecordingButton from "../../components/ModifyRecordingButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import { TbEdit } from "react-icons/tb";
 

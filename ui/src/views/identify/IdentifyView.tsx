@@ -12,6 +12,7 @@ import ClearButton = Combobox.ClearButton;
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
+import Loading from "../../components/Loading.tsx";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
 const MAX_SIZE = 10;
@@ -137,18 +138,17 @@ const IdentifyView: React.FC = () => {
                         <Button
                             leftSection={<FaMagnifyingGlass/>}
                             onClick={handleSubmit}
-                            disabled={isLoading}
-                            loading={isLoading}
                         >
                             {t("view.identify.submit")}
                         </Button>
                     </Group>}
             </Stack>
 
-            <SimilarRecordingsTable
-                recordings={similarRecordings}
+            <SimilarRecordingsTable recordings={similarRecordings}/>
+
+            <Loading
                 isLoading={isLoading}
-                loadingText={loadingText}
+                text={loadingText}
             />
         </Box>
     );
