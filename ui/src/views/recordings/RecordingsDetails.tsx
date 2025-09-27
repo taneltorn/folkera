@@ -74,29 +74,30 @@ const RecordingsList: React.FC = () => {
 
                     <RecordingsInfoTable recording={recording}/>
 
-                {currentUser?.isUser && <>
-                    <Group gap={4} my={"md"}>
-                        <Button
-                            variant={"filled"}
-                            leftSection={<GiMagnifyingGlass size={Size.icon.SM}/>}
-                            onClick={fetchSimilarRecordings}
-                        >
-                            {t("view.recordings.details.similarRecordings")}
-                        </Button>
+                    {currentUser?.isUser && <>
+                        <Group gap={4} my={"md"}>
+                            {similarRecordings.length === 0 &&
+                                <Button
+                                    variant={"filled"}
+                                    leftSection={<GiMagnifyingGlass size={Size.icon.SM}/>}
+                                    onClick={fetchSimilarRecordings}
+                                >
+                                    {t("view.recordings.details.similarRecordings")}
+                                </Button>}
 
-                        {similarRecordings.length > 0 && currentUser?.isAdmin && <BulkSelectionButtons/>}
-                    </Group>
-                    
+                            {similarRecordings.length > 0 && currentUser?.isAdmin && <BulkSelectionButtons/>}
+                        </Group>
 
-                    <Loading
-                        isLoading={isLoading}
-                        text={loadingText}
-                    />
-                </>}
+
+                        <Loading
+                            isLoading={isLoading}
+                            text={loadingText}
+                        />
+                    </>}
                 </Box>
 
                 <SimilarRecordingsTable recordings={similarRecordings}/>
-                
+
             </>}
         </Page>
     );

@@ -236,7 +236,7 @@
       "title": "Muuda pillilugu"
     },
     "bulkModifyRecordings": {
-      "title": "Muuda {{count}} pillilugu"
+      "title": "Määra väärtused {{count}} pilliloole"
     },
     "removeUser": {
       "title": "Kustuta kasutaja",

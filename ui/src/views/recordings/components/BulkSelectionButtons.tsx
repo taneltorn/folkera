@@ -22,6 +22,7 @@ const BulkSelectionButtons: React.FC = () => {
         <>
             {isActive
                 ? <>
+                    <BulkModifyRecordingsButton/>
                     <Button
                         variant={"subtle"}
                         size={"sm"}
@@ -29,7 +30,6 @@ const BulkSelectionButtons: React.FC = () => {
                         onClick={handleSelectionCancel}>
                         {t("button.cancel")}
                     </Button>
-                    <BulkModifyRecordingsButton/>
                 </>
                 : <Button
                     variant={"subtle"}

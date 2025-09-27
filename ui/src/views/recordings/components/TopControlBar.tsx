@@ -46,55 +46,58 @@ const TopControlBar: React.FC = () => {
                 <RecordingSearch/>
 
                 <Group gap={4}>
-                    {modifications.length > 0 && <>
-                        <Button
-                            variant={"subtle"}
-                            size={"sm"}
-                            color={"dark"}
-                            onClick={handleClear}>
-                            {t("view.recordings.controls.clear")}
-                        </Button>
-                        <Button
-                            variant={"filled"}
-                            size={"sm"}
-                            color={"green"}
-                            leftSection={<RxCheck size={Size.icon.MD}/>}
-                            onClick={handleSave}>
-                            {t("view.recordings.controls.save")}
-                        </Button>
-                    </>}
-
-                    {currentUser?.isAdmin && <>
-                        {isActive
-                            ? <>
-                                <Button
-                                    variant={"subtle"}
-                                    size={"sm"}
-                                    color={"dark"}
-                                    onClick={handleSelectionCancel}>
-                                    {t("button.cancel")}
-                                </Button>
-                                <BulkModifyRecordingsButton/>
-                            </>
-                            : <Button
+                    {modifications.length > 0 && currentUser?.isAdmin
+                        ? <>
+                            <Button
                                 variant={"subtle"}
                                 size={"sm"}
                                 color={"dark"}
-                                disabled={modifications.length > 0}
-                                leftSection={<TbCheckbox size={Size.icon.MD}/>}
-                                onClick={() => setIsActive(true)} px={"xs"} mx={0}>
-                                {t("view.recordings.controls.selection")}
-                            </Button>}
-                    </>}
+                                onClick={handleClear}>
+                                {t("view.recordings.controls.clear")}
+                            </Button>
+                            <Button
+                                variant={"filled"}
+                                size={"sm"}
+                                color={"green"}
+                                leftSection={<RxCheck size={Size.icon.MD}/>}
+                                onClick={handleSave}>
+                                {t("view.recordings.controls.save")}
+                            </Button>
+                        </>
+                        : <>
+                            {isActive
+                                ? <>
+                                    <Button
+                                        variant={"subtle"}
+                                        size={"sm"}
+                                        color={"dark"}
+                                        onClick={handleSelectionCancel}>
+                                        {t("button.cancel")}
+                                    </Button>
+                                    <BulkModifyRecordingsButton/>
+                                </>
+                                : <>
+                                    {currentUser?.isAdmin && <Button
+                                        variant={"subtle"}
+                                        size={"sm"}
+                                        color={"dark"}
+                                        disabled={modifications.length > 0}
+                                        leftSection={<TbCheckbox size={Size.icon.MD}/>}
+                                        onClick={() => setIsActive(true)} px={"xs"} mx={0}>
+                                        {t("view.recordings.controls.selection")}
+                                    </Button>}
+                                    <Button
+                                        variant={"subtle"}
+                                        size={"sm"}
+                                        color={"dark"}
+                                        leftSection={<FaFileExport size={Size.icon.SM}/>}
+                                        onClick={exportData} px={"xs"} mx={0}>
+                                        {t("view.recordings.controls.export")}
+                                    </Button>
+                                </>}
+                        </>}
 
-                    <Button
-                        variant={"subtle"}
-                        size={"sm"}
-                        color={"dark"}
-                        leftSection={<FaFileExport size={Size.icon.SM}/>}
-                        onClick={exportData} px={"xs"} mx={0}>
-                        {t("view.recordings.controls.export")}
-                    </Button>
+
                 </Group>
             </Group>
 
