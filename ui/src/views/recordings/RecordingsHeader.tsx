@@ -5,6 +5,8 @@ import {Group, Title} from "@mantine/core";
 import ModifyRecordingButton from "./components/ModifyRecordingButton.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useTranslation} from "react-i18next";
+import {AiFillEdit} from "react-icons/ai";
+import {Size} from "../../utils/constants.ts";
 
 interface Properties {
     recording: Recording;
@@ -33,8 +35,10 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                     {auth.currentUser?.isAdmin &&
                         <ModifyRecordingButton
                             size={"sm"}
+                            color={"dark"}
                             recording={recording}
-                            variant={"outline"}
+                            variant={"subtle"}
+                            leftSection={<AiFillEdit size={Size.icon.MD}/>}
                             onChange={reloadData}>
                             {t("button.modify")}
                         </ModifyRecordingButton>}

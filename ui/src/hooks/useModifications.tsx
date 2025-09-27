@@ -22,6 +22,7 @@ export const ModificationsContextProvider: React.FC<Properties> = ({children}) =
     const context = useMemo(() => ({
         modifications,
         addModification,
+        setModifications,
         clearModifications,
     }), [modifications]);
 

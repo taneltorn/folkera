@@ -12,6 +12,7 @@ interface Properties {
     recording: Recording;
     variant?: string;
     size?: string;
+    color?: string;
     leftSection?: React.ReactNode;
     onChange?: () => void;
     children?: React.ReactNode;
@@ -42,6 +43,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
     return (
         <Button
             size={props.size || "md"}
+            color={props.color || "red"}
             variant={props.variant}
             leftSection={props.leftSection}
             onClick={openModifyRecordingModal}

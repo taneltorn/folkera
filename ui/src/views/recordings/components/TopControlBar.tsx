@@ -6,14 +6,20 @@ import {Size} from "../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import RecordingSearch from "./RecordingSearch.tsx";
 import {useModifications} from "../../../hooks/useModifications.tsx";
-import {RxCheck, RxCross2} from "react-icons/rx";
+import {RxCheck} from "react-icons/rx";
 import {NotificationType} from "../../../context/NotificationContext.tsx";
 import {useNotifications} from "../../../hooks/useNotifications.tsx";
 import RecordingFilters from "./RecordingFilters.tsx";
+import {useAuth} from "../../../hooks/useAuth.tsx";
+import {useRecordingSelection} from "../../../hooks/useRecordingSelection.tsx";
+import {TbCheckbox} from "react-icons/tb";
+import BulkModifyRecordingsButton from "./BulkModifyRecordingsButton.tsx";
 
 const TopControlBar: React.FC = () => {
 
     const {t} = useTranslation();
+    const {currentUser} = useAuth();
+    const {isActive, setIsActive, clearSelection} = useRecordingSelection();
     const {exportData} = useDataContext();
     const {modifications, clearModifications} = useModifications();
     const {saveData, loadData} = useDataContext();
@@ -30,12 +36,24 @@ const TopControlBar: React.FC = () => {
         clearModifications();
     };
 
+    const handleSelectionCancel = () => {
+        clearSelection();
+        setIsActive(false);
+    };
+
     return (<>
             <Group justify={"space-between"} mb={"md"}>
                 <RecordingSearch/>
 
                 <Group gap={4}>
                     {modifications.length > 0 && <>
+                        <Button
+                            variant={"subtle"}
+                            size={"sm"}
+                            color={"dark"}
+                            onClick={handleClear}>
+                            {t("view.recordings.controls.clear")}
+                        </Button>
                         <Button
                             variant={"filled"}
                             size={"sm"}
@@ -44,14 +62,29 @@ const TopControlBar: React.FC = () => {
                             onClick={handleSave}>
                             {t("view.recordings.controls.save")}
                         </Button>
-                        <Button
-                            variant={"subtle"}
-                            size={"sm"}
-                            color={"red"}
-                            leftSection={<RxCross2 size={Size.icon.MD}/>}
-                            onClick={handleClear}>
-                            {t("view.recordings.controls.clear")}
-                        </Button>
+                    </>}
+
+                    {currentUser?.isAdmin && <>
+                        {isActive
+                            ? <>
+                                <Button
+                                    variant={"subtle"}
+                                    size={"sm"}
+                                    color={"dark"}
+                                    onClick={handleSelectionCancel}>
+                                    {t("button.cancel")}
+                                </Button>
+                                <BulkModifyRecordingsButton/>
+                            </>
+                            : <Button
+                                variant={"subtle"}
+                                size={"sm"}
+                                color={"dark"}
+                                disabled={modifications.length > 0}
+                                leftSection={<TbCheckbox size={Size.icon.MD}/>}
+                                onClick={() => setIsActive(true)} px={"xs"} mx={0}>
+                                {t("view.recordings.controls.selection")}
+                            </Button>}
                     </>}
 
                     <Button

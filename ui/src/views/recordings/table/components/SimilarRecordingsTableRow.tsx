@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {Group, Progress, Table, Text} from "@mantine/core";
+import {Checkbox, Group, Progress, Table, Text} from "@mantine/core";
 import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
@@ -9,6 +9,7 @@ import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyRecordingButton from "../../components/ModifyRecordingButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import { TbEdit } from "react-icons/tb";
+import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
 
 interface Properties {
     recording: Recording;
@@ -18,6 +19,7 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
     const ref = useRef<any>();
     const {currentUser} = useAuth();
+    const {isActive, selection, toggleSelection} = useRecordingSelection();
     
     const min = 70;
     const max = 95;
@@ -29,7 +31,15 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
         <Table.Tr key={recording.id} ref={ref} opacity={similarityToOpacity(similarity)}>
             <Table.Td>
                 <Group justify={"center"}>
-                    <PlayRecordingButton recording={recording}/>
+                    {isActive
+                        ? <Checkbox
+                            p={"xs"}
+                            size={"sm"}
+                            radius={"sm"}
+                            checked={!!selection.find(r => r.id === recording.id)}
+                            onChange={() => toggleSelection(recording)}
+                        />
+                        : <PlayRecordingButton recording={recording}/>}
                 </Group>
             </Table.Td>
             <Table.Td miw={150}>

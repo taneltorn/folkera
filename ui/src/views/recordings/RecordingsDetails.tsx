@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box, Button} from "@mantine/core";
+import {Box, Button, Group} from "@mantine/core";
 import {Recording} from "../../model/Recording.ts";
 import {useDataService} from "../../services/useDataService.ts";
 import {NotificationType} from "../../context/NotificationContext.tsx";
@@ -11,9 +11,11 @@ import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.ts
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import RecordingsInfoTable from "./RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
-import {TbZoomQuestion} from "react-icons/tb";
 import {Size} from "../../utils/constants.ts";
 import Loading from "../../components/Loading.tsx";
+import {useAuth} from "../../hooks/useAuth.tsx";
+import BulkSelectionButtons from "./components/BulkSelectionButtons.tsx";
+import {GiMagnifyingGlass} from "react-icons/gi";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
 
@@ -22,6 +24,7 @@ const RecordingsList: React.FC = () => {
     const {t} = useTranslation();
     const {id} = useParams();
     const {notify} = useNotifications();
+    const {currentUser} = useAuth();
     const dataService = useDataService();
     const {
         similarRecordings,
@@ -71,22 +74,29 @@ const RecordingsList: React.FC = () => {
 
                     <RecordingsInfoTable recording={recording}/>
 
-                    <Button
-                        mt={"md"}
-                        variant={"filled"}
-                        leftSection={<TbZoomQuestion size={Size.icon.MD}/>}
-                        onClick={fetchSimilarRecordings}
-                    >
-                        {t("view.recordings.details.similarRecordings")}
-                    </Button>
+                {currentUser?.isUser && <>
+                    <Group gap={4} my={"md"}>
+                        <Button
+                            variant={"filled"}
+                            leftSection={<GiMagnifyingGlass size={Size.icon.SM}/>}
+                            onClick={fetchSimilarRecordings}
+                        >
+                            {t("view.recordings.details.similarRecordings")}
+                        </Button>
+
+                        {similarRecordings.length > 0 && currentUser?.isAdmin && <BulkSelectionButtons/>}
+                    </Group>
+                    
+
+                    <Loading
+                        isLoading={isLoading}
+                        text={loadingText}
+                    />
+                </>}
                 </Box>
 
                 <SimilarRecordingsTable recordings={similarRecordings}/>
-
-                <Loading
-                    isLoading={isLoading}
-                    text={loadingText}
-                />
+                
             </>}
         </Page>
     );

@@ -1,11 +1,12 @@
 import React, {useRef} from "react";
-import {Group, Table, Text} from "@mantine/core";
+import {Checkbox, Group, Table, Text} from "@mantine/core";
 import RecordingsTableCell from "./RecordingsTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Recording} from "../../../../model/Recording.ts";
 import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
 import {RecordingTableField} from "../../../../hooks/useTableOrder.ts";
+import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
 
 interface Properties {
     recording: Recording;
@@ -15,15 +16,25 @@ interface Properties {
 const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
 
     const ref = useRef<any>();
+    const {isActive, selection, toggleSelection} = useRecordingSelection();
 
     return (
         <Table.Tr ref={ref}>
             <Table.Td>
-                <PlayRecordingButton recording={recording}/>
+                {isActive
+                    ? <Checkbox
+                        p={"xs"}
+                        size={"sm"}
+                        radius={"sm"}
+                        checked={!!selection.find(r => r.id === recording.id)}
+                        onChange={() => toggleSelection(recording)}
+                    />
+                    : <PlayRecordingButton recording={recording}/>}
             </Table.Td>
 
             {sortedFields.map((tf) => (
-                <RecordingsTableCell key={tf.field} recording={recording} field={tf.field} unmodifiable={["ref", "content"].includes(tf.field)}>
+                <RecordingsTableCell key={tf.field} recording={recording} field={tf.field}
+                                     unmodifiable={["ref", "content"].includes(tf.field)}>
                     {(() => {
                         switch (tf.field) {
                             case "ref":

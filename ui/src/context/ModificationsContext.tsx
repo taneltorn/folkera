@@ -5,6 +5,7 @@ export interface Properties {
 
     modifications: Recording[];
     addModification: (modification: Recording) => void;
+    setModifications: (modifications: Recording[]) => void;
     clearModifications: () => void;
 }
 

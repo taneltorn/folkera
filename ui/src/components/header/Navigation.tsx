@@ -10,16 +10,16 @@ import {
     Stack,
 } from "@mantine/core";
 import {FaDatabase} from "react-icons/fa";
-import {GiMagnifyingGlass} from "react-icons/gi";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Size} from "../../utils/constants.ts";
 import Login from "./Login.tsx";
 import UserMenu from "./UserMenu.tsx";
 import Help from "./Help.tsx";
+import {TbZoomQuestion} from "react-icons/tb";
 
 const routes = [
     {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings?view=table"},
-    {id: "identify", icon: <GiMagnifyingGlass size={Size.icon.SM}/>, link: "/identify"},
+    {id: "identify", icon: <TbZoomQuestion size={Size.icon.MD}/>, link: "/identify"},
 ];
 
 const Navigation: React.FC = () => {

@@ -106,6 +106,8 @@
       "controls": {
         "search": "Otsi...",
         "export": "Ekspordi",
+        "selection": "Hulgivalik",
+        "bulkModify": "Määra väärtused",
         "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
@@ -233,6 +235,9 @@
     "modifyRecording": {
       "title": "Muuda pillilugu"
     },
+    "bulkModifyRecordings": {
+      "title": "Muuda {{count}} pillilugu"
+    },
     "removeUser": {
       "title": "Kustuta kasutaja",
       "content": "Kas oled kindel, et soovid kasutaja kustutada? Kasutajat ei saa taastada pärast kustutamist.",
@@ -251,7 +256,8 @@
     "reset": "Lähtesta",
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
-    "removeFilter": "Eemalda filter"
+    "removeFilter": "Eemalda filter",
+    "assign": "Määra"
   },
   "validation": {
     "required": "Väli on kohustuslik",
