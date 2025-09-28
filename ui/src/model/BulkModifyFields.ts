@@ -1,3 +1,3 @@
 import {Recording} from "./Recording.ts";
 
-export type BulkModifyFields = Pick<Recording, 'tune' | 'datatype'>;
+export type BulkModifyFields = Pick<Recording, 'tune' | 'trainset'>;

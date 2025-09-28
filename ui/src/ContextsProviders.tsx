@@ -6,6 +6,7 @@ import {AuthContextProvider} from "./hooks/useAuth.tsx";
 import {DataContextProvider} from "./hooks/useDataContext.tsx";
 import {ModalsProvider} from "@mantine/modals";
 import {RecordingSelectionContextProvider} from "./hooks/useRecordingSelection.tsx";
+import {ControlStateContextProvider} from "./hooks/useControlState.tsx";
 
 interface Properties {
     children: React.ReactNode;
@@ -19,13 +20,15 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
             <NotificationContextProvider>
                 <AuthContextProvider>
                     <AudioContextProvider>
-                        <RecordingSelectionContextProvider>
-                            <ModificationsContextProvider>
-                                <DataContextProvider>
-                                    {children}
-                                </DataContextProvider>
-                            </ModificationsContextProvider>
-                        </RecordingSelectionContextProvider>
+                        <ControlStateContextProvider>
+                            <RecordingSelectionContextProvider>
+                                <ModificationsContextProvider>
+                                    <DataContextProvider>
+                                        {children}
+                                    </DataContextProvider>
+                                </ModificationsContextProvider>
+                            </RecordingSelectionContextProvider>
+                        </ControlStateContextProvider>
                     </AudioContextProvider>
                 </AuthContextProvider>
             </NotificationContextProvider>

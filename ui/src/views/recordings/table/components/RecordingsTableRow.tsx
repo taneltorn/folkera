@@ -7,6 +7,8 @@ import PlayRecordingButton from "./controls/PlayRecordingButton.tsx";
 import {Link} from "react-router-dom";
 import {RecordingTableField} from "../../../../hooks/useTableOrder.ts";
 import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
+import {useControlState} from "../../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../../model/ControlState.ts";
 
 interface Properties {
     recording: Recording;
@@ -16,12 +18,13 @@ interface Properties {
 const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
 
     const ref = useRef<any>();
-    const {isActive, selection, toggleSelection} = useRecordingSelection();
+    const {selection, toggleSelection} = useRecordingSelection();
+    const {state} = useControlState();
 
     return (
         <Table.Tr ref={ref}>
             <Table.Td>
-                {isActive
+                {state === ControlState.SELECT
                     ? <Checkbox
                         p={"xs"}
                         size={"sm"}

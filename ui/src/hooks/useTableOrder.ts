@@ -14,7 +14,7 @@ export const fields: RecordingTableField[] = [
     {field: "ref", sortField: "order", type: "input"},
     {field: "content", type: "input"},
     {field: "tune", type: "select", split: ";"},
-    {field: "datatype", type: "select", split: ","},
+    {field: "trainset", type: "select", split: ","},
     {field: "dance", type: "select", split: ","},
     {field: "year", type: "select", split: ","},
     {field: "instrument", type: "select", split: ","},
@@ -33,7 +33,7 @@ export const fields: RecordingTableField[] = [
 const defaultOrder: Array<keyof Recording> = [
     "ref", "content", "tune", "year", "dance",
     "instrument", "performer", "parish", "county", "origin", "collector",
-    "archive", "notes", "file", "datatype", "duration", "comments"
+    "archive", "notes", "file", "trainset", "duration", "comments"
 ];
 
 function normalizeOrder(

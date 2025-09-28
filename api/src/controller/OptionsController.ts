@@ -34,7 +34,7 @@ class OptionsController {
                 tune: withBlankOptions(extractAndSort(data, "tune")),
                 instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
                 dance: withBlankOptions(extractAndSort(data, "dance", ",")),
-                datatype: withBlankOptions(extractAndSort(data, "datatype", ",")),
+                trainset: withBlankOptions(extractAndSort(data, "trainset", ",")),
                 performer: withBlankOptions(extractAndSort(data, "performer", ",")),
                 collector: withBlankOptions(extractAndSort(data, "collector", ",")),
                 comments: withBlankOptions([]),

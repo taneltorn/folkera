@@ -59,7 +59,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(r.archive, filters.filter(f => f.field === "archive"), Operation.OR) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
         isIn(r.dance, filters.filter(f => f.field === "dance"), Operation.OR) &&
-        isIn(r.datatype, filters.filter(f => f.field === "datatype"), Operation.OR) &&
+        isIn(r.trainset, filters.filter(f => f.field === "trainset"), Operation.OR) &&
         isIn(r.performer, filters.filter(f => f.field === "performer")) &&
         isIn(r.collector, filters.filter(f => f.field === "collector")) &&
         isIn(r.parish, filters.filter(f => f.field === "parish"), Operation.OR) &&
@@ -70,6 +70,7 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(`${r.duration}`, filters.filter(f => f.field === "duration")) &&
 
         (contains(r.ref, search)
+            || contains(r.pid, search)
             || contains(r.content, search)
             || contains(r.tune, search)
             || contains(r.dance, search)

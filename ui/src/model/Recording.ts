@@ -5,7 +5,7 @@ export interface Recording {
     tune?: string;
     year?: string;
     instrument?: string;
-    datatype?: string;
+    trainset?: string;
     performer?: string;
     parish?: string;
     county?: string;
@@ -18,6 +18,8 @@ export interface Recording {
     file?: string;
     duration?: number;
     order?: number;
+    pid?: string;
+    datatype?: string;
     distance?: number;
 }
 

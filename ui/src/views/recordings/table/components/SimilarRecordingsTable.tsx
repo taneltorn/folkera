@@ -1,29 +1,29 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, Group, ScrollArea, Table, Pagination as MantinePagination} from "@mantine/core";
-import {Recording} from "../../../../model/Recording.ts";
 import SimilarRecordingsTableRow from "./SimilarRecordingsTableRow.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {IoIosMusicalNotes} from "react-icons/io";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {Pagination} from "../../../../model/Pagination.ts";
+import {useSimilarRecordings} from "../../../../hooks/useSimilarRecordingsContext.tsx";
 
 interface Properties {
-    recordings: Recording[];
 }
 
-const SimilarRecordingsTable: React.FC<Properties> = ({recordings}) => {
+const SimilarRecordingsTable: React.FC<Properties> = () => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {modifications} = useModifications();
+    const {similarRecordings} = useSimilarRecordings();
     const [pagination, setPagination] = useState<Pagination>({size: 20, page: 1});
 
     return (
         <Box pos={"relative"} mih={50}>
             <ScrollArea pb={"xs"}>
-                {recordings.length > 0 &&
+                {similarRecordings.length > 0 &&
                     <Table highlightOnHover stickyHeader={true} opacity={(modifications.length) ? 0.8 : 1}>
                         <Table.Thead>
                             <Table.Tr>
@@ -44,7 +44,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings}) => {
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {recordings
+                            {similarRecordings
                                 .slice(pagination.page && pagination.size
                                         ? (pagination.page - 1) * pagination.size
                                         : 0,
@@ -60,7 +60,7 @@ const SimilarRecordingsTable: React.FC<Properties> = ({recordings}) => {
             <Group mt={"md"} mb={85} px={"md"} justify={"end"}>
                 <MantinePagination
                     value={pagination.page}
-                    total={pagination.size ? Math.ceil(recordings.length / pagination.size) : recordings.length}
+                    total={pagination.size ? Math.ceil(similarRecordings.length / pagination.size) : similarRecordings.length}
                     onChange={(value) => setPagination({...pagination, page: value})}
                 />
             </Group>

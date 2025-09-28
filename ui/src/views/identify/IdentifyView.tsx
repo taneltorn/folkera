@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Alert, Box, Button, Combobox, FileButton, Group, Stack, Text} from "@mantine/core";
 import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
 import SimilarRecordingsTable from "../recordings/table/components/SimilarRecordingsTable.tsx";
-import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
+import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
 import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
@@ -12,7 +12,7 @@ import ClearButton = Combobox.ClearButton;
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
-import Loading from "../../components/Loading.tsx";
+import IdentifyLoader from "../recordings/IdentifyLoader.tsx";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
 const MAX_SIZE = 10;
@@ -26,11 +26,8 @@ const IdentifyView: React.FC = () => {
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const {
-        similarRecordings,
-        isLoading,
-        loadingText,
         findSimilarRecordings,
-        setSimilarRecordings
+        setSimilarRecordings,
     } = useSimilarRecordings();
 
     const handleFileChange = (file: File | null) => {
@@ -63,6 +60,10 @@ const IdentifyView: React.FC = () => {
                 findSimilarRecordings(file, SIMILAR_RECORDINGS_TO_FETCH, "", true)
             });
     };
+    
+    useEffect(() => {
+        setSimilarRecordings([]);
+    }, []);
 
     return (
         <Box px={"md"} flex={{base: 1, sm: 0}}>
@@ -144,12 +145,8 @@ const IdentifyView: React.FC = () => {
                     </Group>}
             </Stack>
 
-            <SimilarRecordingsTable recordings={similarRecordings}/>
-
-            <Loading
-                isLoading={isLoading}
-                text={loadingText}
-            />
+            <SimilarRecordingsTable/>
+            <IdentifyLoader/>
         </Box>
     );
 };

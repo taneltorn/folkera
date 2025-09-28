@@ -21,7 +21,7 @@ const BulkModifyRecordingsForm: React.FC<Properties> = ({onSubmit, onCancel}) =>
         mode: 'uncontrolled',
         initialValues: {
             tune: "",
-            datatype: "",
+            trainset: "",
         },
         validate: {},
     });
@@ -38,11 +38,11 @@ const BulkModifyRecordingsForm: React.FC<Properties> = ({onSubmit, onCancel}) =>
                     {...form.getInputProps('tune')}
                 />
             </Input.Wrapper>
-            <Input.Wrapper label={t("recording.datatype")} mb={"md"} labelProps={{ms: "xs"}}>
+            <Input.Wrapper label={t("recording.trainset")} mb={"md"} labelProps={{ms: "xs"}}>
                 <Select
                     withAsterisk
-                    placeholder={t("recording.datatype")}
-                    key={form.key('datatype')}
+                    placeholder={t("recording.trainset")}
+                    key={form.key('trainset')}
                     size={"md"}
                     clearable
                     data={[
@@ -50,7 +50,7 @@ const BulkModifyRecordingsForm: React.FC<Properties> = ({onSubmit, onCancel}) =>
                         {value: "TR", label: "TR"},
                         {value: "TE", label: "TE"},
                     ]}
-                    {...form.getInputProps('datatype')}
+                    {...form.getInputProps('trainset')}
                 />
             </Input.Wrapper>
 

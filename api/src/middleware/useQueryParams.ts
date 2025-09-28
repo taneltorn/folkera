@@ -8,7 +8,7 @@ const filterableKeys = [
     "tune",
     "year",
     "dance",
-    "datatype",
+    "trainset",
     "performer",
     "instrument",
     "parish",

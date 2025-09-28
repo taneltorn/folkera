@@ -7,6 +7,8 @@ import {Recording} from "../../../../model/Recording.ts";
 import ModifyRecordingForm from "../form/ModifyRecordingForm.tsx";
 import {NotificationType} from "../../../../context/NotificationContext.tsx";
 import {useNotifications} from "../../../../hooks/useNotifications.tsx";
+import {useControlState} from "../../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../../model/ControlState.ts";
 
 interface Properties {
     recording: Recording;
@@ -18,16 +20,17 @@ interface Properties {
     children?: React.ReactNode;
 }
 
-const ModifyRecordingControls: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
+const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
 
     const {t} = useTranslation();
     const {notify} = useNotifications();
+    const {state} = useControlState();
 
     const handleSubmit = () => {
         notify(t("toast.success.saveData"), NotificationType.SUCCESS);
         onChange && onChange();
     }
-    
+
     const openModifyRecordingModal = () =>
         modals.open({
             title: <Title order={4}>{t("modal.modifyRecording.title")}</Title>,
@@ -40,17 +43,19 @@ const ModifyRecordingControls: React.FC<Properties> = ({recording, onChange, chi
             ),
         });
 
-    return (
-        <Button
-            size={props.size || "md"}
-            color={props.color || "red"}
-            variant={props.variant}
-            leftSection={props.leftSection}
-            onClick={openModifyRecordingModal}
-        >
-            {children}
-        </Button>
+    return (<>
+            {state === ControlState.IDLE &&
+                <Button
+                    size={props.size || "md"}
+                    color={props.color || "dark"}
+                    variant={props.variant || "subtle"}
+                    leftSection={props.leftSection}
+                    onClick={openModifyRecordingModal}
+                >
+                    {children}
+                </Button>}
+        </>
     );
 }
 
-export default ModifyRecordingControls;
+export default ModifyRecordingButton;

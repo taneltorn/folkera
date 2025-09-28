@@ -6,10 +6,12 @@ import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {similarityToColor, distanceToSimilarity, similarityToOpacity} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import ModifyRecordingControls from "../../components/controls/ModifyRecordingControls.tsx";
+import ModifyRecordingButton from "../../components/controls/ModifyRecordingButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
 import {AiFillEdit} from "react-icons/ai";
+import {useControlState} from "../../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../../model/ControlState.ts";
 
 interface Properties {
     recording: Recording;
@@ -19,7 +21,8 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
     const ref = useRef<any>();
     const {currentUser} = useAuth();
-    const {isActive, selection, toggleSelection} = useRecordingSelection();
+    const {selection, toggleSelection} = useRecordingSelection();
+    const {state} = useControlState();
 
     const min = 70;
     const max = 95;
@@ -31,7 +34,7 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
         <Table.Tr key={recording.id} ref={ref} opacity={similarityToOpacity(similarity)}>
             <Table.Td>
                 <Group justify={"center"}>
-                    {isActive
+                    {state === ControlState.SELECT
                         ? <Checkbox
                             p={"xs"}
                             size={"sm"}
@@ -102,14 +105,14 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                 </Group>
             </Table.Td>
             {currentUser?.isAdmin && <Table.Td>
-                <ModifyRecordingControls
+                <ModifyRecordingButton
                     variant={"subtle"}
                     color={"dark"}
                     size={"compact-md"}
                     recording={recording}
                 >
                     <AiFillEdit size={Size.icon.SM}/>
-                </ModifyRecordingControls>
+                </ModifyRecordingButton>
             </Table.Td>}
         </Table.Tr>
     );

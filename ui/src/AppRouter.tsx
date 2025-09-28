@@ -14,6 +14,7 @@ import RecordingsDetails from "./views/recordings/RecordingsDetails.tsx";
 import IdentifyView from "./views/identify/IdentifyView.tsx";
 import ExampleMap from "./views/recordings/map/components/ExampleMap.tsx";
 import ClusterPlotView from "./views/admin/cluster/ClusterPlotView.tsx";
+import {SimilarRecordingsContextProvider} from "./hooks/useSimilarRecordingsContext.tsx";
 
 const router = createBrowserRouter([
     {
@@ -30,11 +31,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/recordings/:id",
-                element: <RecordingsDetails/>,
+                element: <SimilarRecordingsContextProvider>
+                    <RecordingsDetails/>
+                </SimilarRecordingsContextProvider>,
             },
             {
                 path: "/identify",
-                element: <IdentifyView/>,
+                element: <SimilarRecordingsContextProvider>
+                    <IdentifyView/>
+                </SimilarRecordingsContextProvider>,
             },
             {
                 path: "/clusters",

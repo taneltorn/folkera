@@ -47,10 +47,12 @@
   "recording": {
     "id": "ID",
     "ref": "Viide",
+    "pid": "PID",
     "content": "Sisu",
     "tune": "Viis",
     "quality": "Kvaliteet",
-    "datatype": "Andmestik",
+    "datatype": "Andmetüüp",
+    "trainset": "Treeningandmestik",
     "TR": "Treeningandmed",
     "TE": "Testandmed",
     "dance": "Tantsutüüp",
@@ -95,7 +97,7 @@
       "label": "Vali helifail",
       "placeholder": "Vali helifail",
       "submit": "Otsi sarnaseid salvestusi",
-      "identifying": "Tuvastan sarnaseid salvestusi...",
+      "identifyingRecordings": "Tuvastan sarnaseid salvestusi...",
       "loadingData": "Laen andmeid...",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
       "fileUploadPlaceholder": "Vali või lohista helifail.",
@@ -118,8 +120,10 @@
         "statsView": "Statistika"
       },
       "details": {
-        "similarRecordings": "Otsi sama viisitüübi salvestusi",
-        "performerRecordings": "Samalt esitajalt"
+        "similarRecordings": "Tuvasta",
+        "performerRecordings": "Samalt esitajalt",
+        "openInKivike": "Ava Kivikes",
+        "pidMissing": "Ava Kivikes (PID puudub)"
       },
       "table": {
         "results": "Tulemusi",

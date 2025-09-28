@@ -9,7 +9,6 @@ interface Properties {
 
 export const RecordingSelectionContextProvider: React.FC<Properties> = ({children}) => {
 
-    const [isActive, setIsActive] = useState<boolean>(false);
     const [selection, setSelection] = useState<Recording[]>([]);
 
     const addToSelection = (recording: Recording) => {
@@ -20,7 +19,7 @@ export const RecordingSelectionContextProvider: React.FC<Properties> = ({childre
     const removeFromSelection = (recording: Recording) => {
         setSelection(selection.filter(r => r.id !== recording.id));
     }
-    
+
     const toggleSelection = (recording: Recording) => {
         if (selection.find(r => r.id === recording.id)) {
             removeFromSelection(recording);
@@ -28,19 +27,18 @@ export const RecordingSelectionContextProvider: React.FC<Properties> = ({childre
         }
         addToSelection(recording);
     }
-    
+
     const clearSelection = () => {
         setSelection([]);
     }
 
     const context = useMemo(() => ({
-        isActive, setIsActive,
         selection, setSelection,
         addToSelection,
         removeFromSelection,
         toggleSelection,
         clearSelection,
-    }), [isActive, selection]);
+    }), [selection]);
 
     return (
         <RecordingSelectionContext.Provider value={context}>

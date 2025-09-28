@@ -83,7 +83,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                     year: t("recording.year"),
                     instrument: t("recording.instrument"),
                     dance: t("recording.dance"),
-                    datatype: t("recording.datatype"),
+                    trainset: t("recording.trainset"),
                     performer: t("recording.performer"),
                     parish: t("recording.parish"),
                     origin: t("recording.origin"),

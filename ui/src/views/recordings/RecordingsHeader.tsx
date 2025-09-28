@@ -2,11 +2,16 @@ import React from "react";
 import {Recording} from "../../model/Recording.ts";
 import PlayRecordingButton from "./table/components/controls/PlayRecordingButton.tsx";
 import {Group, Title} from "@mantine/core";
-import ModifyRecordingControls from "./components/controls/ModifyRecordingControls.tsx";
-import {useAuth} from "../../hooks/useAuth.tsx";
+import ModifyRecordingButton from "./components/controls/ModifyRecordingButton.tsx";
 import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
 import {Size} from "../../utils/constants.ts";
+import SelectRecordingsButton from "./components/controls/SelectRecordingsButton.tsx";
+import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
+import IdentifyRecordingButton from "./components/controls/IdentifyRecordingButton.tsx";
+import SaveModificationsButtons from "./components/controls/SaveModificationsButtons.tsx";
+import BulkModifyRecordingsButtons from "./components/controls/BulkModifyRecordingsButtons.tsx";
+import {useAuth} from "../../hooks/useAuth.tsx";
 
 interface Properties {
     recording: Recording;
@@ -16,7 +21,8 @@ interface Properties {
 const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
 
     const {t} = useTranslation();
-    const auth = useAuth();
+    const {currentUser} = useAuth();
+    const {similarRecordings} = useSimilarRecordings();
 
     return (
         <>
@@ -28,20 +34,24 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                         variant={"light"}
                     />
                     <Title order={2}>{recording.content}</Title>
-                    
+
                 </Group>
 
                 <Group gap={4}>
-                    {auth.currentUser?.isAdmin &&
-                        <ModifyRecordingControls
+                    {currentUser?.isAdmin && <>
+                        <SaveModificationsButtons/>
+                        <BulkModifyRecordingsButtons/>
+
+                        {similarRecordings.length > 0 && <SelectRecordingsButton/>}
+                        <IdentifyRecordingButton recording={recording}/>
+                        <ModifyRecordingButton
                             size={"sm"}
-                            color={"dark"}
                             recording={recording}
-                            variant={"subtle"}
                             leftSection={<AiFillEdit size={Size.icon.MD}/>}
                             onChange={reloadData}>
                             {t("button.modify")}
-                        </ModifyRecordingControls>}
+                        </ModifyRecordingButton>
+                    </>}
                 </Group>
             </Group>
         </>

@@ -19,12 +19,12 @@ export const RecordingTableFields = [
     "archive",
     "file",
     "duration",
-    "datatype",
     "comments",
+    "trainset",
 ];
 
 export const DefaultHiddenFields: Array<keyof Recording> = [
-    "comments", "file", "origin", "dance", "duration", "datatype", "archive", "notes"
+    "comments", "file", "origin", "dance", "duration", "trainset", "archive", "notes", "pid", "trainset", "datatype"
 ];
 
 export const ItemsPerPageOptions = [10, 20, 50];

@@ -7,6 +7,8 @@ import {Recording} from "../../../../model/Recording.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {UserRole} from "../../../../model/User.ts";
 import {transform} from "./helpers.ts";
+import {useControlState} from "../../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../../model/ControlState.ts";
 
 interface Properties {
     recording: Recording;
@@ -26,12 +28,14 @@ const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiab
     const {hiddenFields, toggleField} = useDataContext();
     const {addModification} = useModifications();
     const {currentUser} = useAuth();
+    const {setState} = useControlState();
 
     const handleChange = (value: string | number | undefined) => {
         if (recording[field] !== value) {
             // @ts-ignore
             recording[field] = transform(value, field);
             addModification(recording);
+            setState(ControlState.SAVE);
         }
         setIsEdit(false)
     }
@@ -39,6 +43,7 @@ const RecordingsTableCell: React.FC<Properties> = ({recording, field, unmodifiab
     const handleCancel = () => {
         setValue(recording[field]);
         setIsEdit(false);
+        setState(ControlState.IDLE);
     };
 
     const handleEditClick = (e: any) => {

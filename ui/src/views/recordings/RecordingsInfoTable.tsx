@@ -16,6 +16,7 @@ const RecordingsInfoTable: React.FC<Properties> = ({recording}) => {
                 <Table>
                     <Table.Tbody>
                         {["ref",
+                            "pid",
                             "year",
                             "tune",
                             "instrument",
@@ -25,18 +26,19 @@ const RecordingsInfoTable: React.FC<Properties> = ({recording}) => {
                             "origin",
                             "collector",
                             "archive",
-                            "datatype",
+                            "trainset",
                             "notes",
                             "comments"]
-                            .map((field) => (<>
-                                {recording[field as keyof Recording] &&
-                                    <RecordingsInfoTableRow
-                                        key={field}
-                                        field={field as keyof Recording}
-                                        recording={recording}
-                                        separator={separatedFields.includes(field) ? "," : ""}
-                                    />}
-                            </>))}
+                            .map((field, index) => (
+                                <React.Fragment key={`row-div-${index}-${field}`}>
+                                    {recording[field as keyof Recording] &&
+                                        <RecordingsInfoTableRow
+                                            key={`info-table-row-${index}-${field}`}
+                                            field={field as keyof Recording}
+                                            recording={recording}
+                                            separator={separatedFields.includes(field) ? "," : ""}
+                                        />}
+                                </React.Fragment>))}
                     </Table.Tbody>
                 </Table>
             </Grid.Col>

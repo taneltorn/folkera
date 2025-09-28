@@ -53,11 +53,11 @@ const ModifyRecordingForm: React.FC<Properties> = ({initialValues, ...props}) =>
                     </Input.Wrapper>
                 </Grid.Col>
                 <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.datatype")} mb={"md"} labelProps={{ms: "xs"}}>
+                    <Input.Wrapper label={t("recording.trainset")} mb={"md"} labelProps={{ms: "xs"}}>
                         <Select
                             withAsterisk
-                            placeholder={t("recording.datatype")}
-                            key={form.key('datatype')}
+                            placeholder={t("recording.trainset")}
+                            key={form.key('trainset')}
                             size={"md"}
                             clearable
                             data={[
@@ -65,7 +65,7 @@ const ModifyRecordingForm: React.FC<Properties> = ({initialValues, ...props}) =>
                                 {value: "TR", label: "TR"},
                                 {value: "TE", label: "TE"},
                             ]}
-                            {...form.getInputProps('datatype')}
+                            {...form.getInputProps('trainset')}
                         />
                     </Input.Wrapper>
                 </Grid.Col>
