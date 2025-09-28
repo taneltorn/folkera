@@ -40,6 +40,7 @@ services:
         - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
         - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
         - VITE_CONTACT_EMAIL=${VITE_CONTACT_EMAIL}
+        - VITE_KIVIKE_PID_URL=${VITE_KIVIKE_PID_URL}
     container_name: folkera-ui
     ports:
       - "80:80"
@@ -50,6 +51,7 @@ services:
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
       - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
       - VITE_CONTACT_EMAIL=${VITE_CONTACT_EMAIL}
+      - VITE_KIVIKE_PID_URL=${VITE_KIVIKE_PID_URL}
     depends_on:
       - api
     networks:
