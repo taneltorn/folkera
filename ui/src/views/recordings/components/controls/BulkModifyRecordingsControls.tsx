@@ -4,17 +4,17 @@ import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {MdAssignment} from "react-icons/md";
-import {Size} from "../../../utils/constants.ts";
-import BulkModifyRecordingsForm from "./BulkModifyRecordingsForm.tsx";
-import {useRecordingSelection} from "../../../hooks/useRecordingSelection.tsx";
-import {useModifications} from "../../../hooks/useModifications.tsx";
-import {BulkModifyFields} from "../../../model/BulkModifyFields.ts";
-import {useDataContext} from "../../../hooks/useDataContext.tsx";
+import {Size} from "../../../../utils/constants.ts";
+import BulkModifyRecordingsForm from "../form/BulkModifyRecordingsForm.tsx";
+import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
+import {useModifications} from "../../../../hooks/useModifications.tsx";
+import {BulkModifyFields} from "../../../../model/BulkModifyFields.ts";
+import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 
 interface Properties {
 }
 
-const BulkModifyRecordingsButton: React.FC<Properties> = () => {
+const BulkModifyRecordingsControls: React.FC<Properties> = () => {
 
     const {t} = useTranslation();
     const {data} = useDataContext();
@@ -74,4 +74,4 @@ const BulkModifyRecordingsButton: React.FC<Properties> = () => {
     );
 }
 
-export default BulkModifyRecordingsButton;
+export default BulkModifyRecordingsControls;

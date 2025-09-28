@@ -14,7 +14,7 @@ import RecordingHeader from "./RecordingsHeader.tsx";
 import {Size} from "../../utils/constants.ts";
 import Loading from "../../components/Loading.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import BulkSelectionButtons from "./components/BulkSelectionButtons.tsx";
+import SelectionControls from "./components/controls/SelectionControls.tsx";
 import {GiMagnifyingGlass} from "react-icons/gi";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
@@ -85,9 +85,8 @@ const RecordingsList: React.FC = () => {
                                     {t("view.recordings.details.similarRecordings")}
                                 </Button>}
 
-                            {similarRecordings.length > 0 && currentUser?.isAdmin && <BulkSelectionButtons/>}
+                            {similarRecordings.length > 0 && currentUser?.isAdmin && <SelectionControls/>}
                         </Group>
-
 
                         <Loading
                             isLoading={isLoading}

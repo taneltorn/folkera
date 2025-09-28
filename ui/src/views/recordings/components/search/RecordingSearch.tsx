@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useDataContext} from "../../../hooks/useDataContext.tsx";
+import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {CloseButton, Input} from "@mantine/core";
-import {Size} from "../../../utils/constants.ts";
+import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {IoSearchOutline} from "react-icons/io5";
-import useDebounce from "../../../hooks/useDebounce.ts";
+import useDebounce from "../../../../hooks/useDebounce.ts";
 import {useFocusWithin} from "@mantine/hooks";
 
 const RecordingSearch: React.FC = () => {

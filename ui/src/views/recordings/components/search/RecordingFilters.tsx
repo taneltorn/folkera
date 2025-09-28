@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import {useDataContext} from "../../../hooks/useDataContext.tsx";
+import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {Button, Group, Pill} from "@mantine/core";
-import {Color, Size} from "../../../utils/constants.ts";
+import {Color, Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {LuFilterX} from "react-icons/lu";
 

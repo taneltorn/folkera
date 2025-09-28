@@ -3,10 +3,10 @@ import {Title} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
-import {Recording} from "../../../model/Recording.ts";
-import ModifyRecordingForm from "./ModifyRecordingForm.tsx";
-import {NotificationType} from "../../../context/NotificationContext.tsx";
-import {useNotifications} from "../../../hooks/useNotifications.tsx";
+import {Recording} from "../../../../model/Recording.ts";
+import ModifyRecordingForm from "../form/ModifyRecordingForm.tsx";
+import {NotificationType} from "../../../../context/NotificationContext.tsx";
+import {useNotifications} from "../../../../hooks/useNotifications.tsx";
 
 interface Properties {
     recording: Recording;
@@ -18,7 +18,7 @@ interface Properties {
     children?: React.ReactNode;
 }
 
-const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
+const ModifyRecordingControls: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
 
     const {t} = useTranslation();
     const {notify} = useNotifications();
@@ -53,4 +53,4 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
     );
 }
 
-export default ModifyRecordingButton;
+export default ModifyRecordingControls;

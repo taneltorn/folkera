@@ -2,7 +2,7 @@ import React from "react";
 import {Recording} from "../../model/Recording.ts";
 import PlayRecordingButton from "./table/components/controls/PlayRecordingButton.tsx";
 import {Group, Title} from "@mantine/core";
-import ModifyRecordingButton from "./components/ModifyRecordingButton.tsx";
+import ModifyRecordingControls from "./components/controls/ModifyRecordingControls.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
@@ -33,7 +33,7 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
 
                 <Group gap={4}>
                     {auth.currentUser?.isAdmin &&
-                        <ModifyRecordingButton
+                        <ModifyRecordingControls
                             size={"sm"}
                             color={"dark"}
                             recording={recording}
@@ -41,7 +41,7 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                             leftSection={<AiFillEdit size={Size.icon.MD}/>}
                             onChange={reloadData}>
                             {t("button.modify")}
-                        </ModifyRecordingButton>}
+                        </ModifyRecordingControls>}
                 </Group>
             </Group>
         </>

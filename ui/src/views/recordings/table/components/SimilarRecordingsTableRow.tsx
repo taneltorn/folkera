@@ -6,10 +6,10 @@ import {Link} from "react-router-dom";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {similarityToColor, distanceToSimilarity, similarityToOpacity} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import ModifyRecordingButton from "../../components/ModifyRecordingButton.tsx";
+import ModifyRecordingControls from "../../components/controls/ModifyRecordingControls.tsx";
 import {Size} from "../../../../utils/constants.ts";
-import { TbEdit } from "react-icons/tb";
 import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
+import {AiFillEdit} from "react-icons/ai";
 
 interface Properties {
     recording: Recording;
@@ -20,13 +20,13 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
     const ref = useRef<any>();
     const {currentUser} = useAuth();
     const {isActive, selection, toggleSelection} = useRecordingSelection();
-    
+
     const min = 70;
     const max = 95;
 
     const similarity: number = distanceToSimilarity(recording.distance);
     const progress = Math.min(Math.max((similarity - min) / (max - min), 0), 1) * 100;
-    
+
     return (
         <Table.Tr key={recording.id} ref={ref} opacity={similarityToOpacity(similarity)}>
             <Table.Td>
@@ -97,19 +97,19 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             </Table.Td>
             <Table.Td miw={150} pr={"xl"}>
                 <Group gap={"xs"} wrap={"nowrap"}>
-                    <Progress w={"100%"} title={`${similarity}`} value={progress} color={similarityToColor(similarity)}/>
-                    {/*{similarity.toFixed(0) + "%"}*/}
+                    <Progress w={"100%"} title={`${similarity}`} value={progress}
+                              color={similarityToColor(similarity)}/>
                 </Group>
             </Table.Td>
-            { currentUser?.isAdmin && <Table.Td>
-                <ModifyRecordingButton
+            {currentUser?.isAdmin && <Table.Td>
+                <ModifyRecordingControls
                     variant={"subtle"}
+                    color={"dark"}
                     size={"compact-md"}
                     recording={recording}
                 >
-                    <TbEdit size={Size.icon.SM}/>
-                </ModifyRecordingButton>
-                
+                    <AiFillEdit size={Size.icon.SM}/>
+                </ModifyRecordingControls>
             </Table.Td>}
         </Table.Tr>
     );

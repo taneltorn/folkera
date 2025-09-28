@@ -3,8 +3,8 @@ import {Group, Input, Select, TextInput} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
-import {Recording} from "../../../model/Recording.ts";
-import {BulkModifyFields} from "../../../model/BulkModifyFields.ts";
+import {Recording} from "../../../../model/Recording.ts";
+import {BulkModifyFields} from "../../../../model/BulkModifyFields.ts";
 
 interface Properties {
     selection: Recording[];

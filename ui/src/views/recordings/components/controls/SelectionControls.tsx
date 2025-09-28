@@ -1,13 +1,13 @@
 import React from "react";
 import {Button} from "@mantine/core";
-import {Size} from "../../../utils/constants.ts";
+import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
-import {useModifications} from "../../../hooks/useModifications.tsx";
-import {useRecordingSelection} from "../../../hooks/useRecordingSelection.tsx";
+import {useModifications} from "../../../../hooks/useModifications.tsx";
+import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
 import {TbCheckbox} from "react-icons/tb";
-import BulkModifyRecordingsButton from "./BulkModifyRecordingsButton.tsx";
+import BulkModifyRecordingsControls from "./BulkModifyRecordingsControls.tsx";
 
-const BulkSelectionButtons: React.FC = () => {
+const SelectionControls: React.FC = () => {
 
     const {t} = useTranslation();
     const {isActive, setIsActive, clearSelection} = useRecordingSelection();
@@ -22,7 +22,6 @@ const BulkSelectionButtons: React.FC = () => {
         <>
             {isActive
                 ? <>
-                    <BulkModifyRecordingsButton/>
                     <Button
                         variant={"subtle"}
                         size={"sm"}
@@ -30,6 +29,7 @@ const BulkSelectionButtons: React.FC = () => {
                         onClick={handleSelectionCancel}>
                         {t("button.cancel")}
                     </Button>
+                    <BulkModifyRecordingsControls/>
                 </>
                 : <Button
                     variant={"subtle"}
@@ -41,8 +41,7 @@ const BulkSelectionButtons: React.FC = () => {
                     {t("view.recordings.controls.selection")}
                 </Button>}
         </>
-
     );
 }
 
-export default BulkSelectionButtons;
+export default SelectionControls;
