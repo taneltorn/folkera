@@ -18,7 +18,7 @@ const BulkModifyRecordingsButtons: React.FC = () => {
 
     const {state, setState} = useControlState();
     const {data} = useDataContext();
-    const {setModifications, clearModifications} = useModifications();
+    const {setModifications} = useModifications();
     const {selection, clearSelection} = useRecordingSelection();
 
     const handleSubmit = (values: BulkModifyFields) => {
@@ -44,11 +44,7 @@ const BulkModifyRecordingsButtons: React.FC = () => {
     }
 
     const handleCancel = () => {
-        clearModifications();
-        clearSelection();
         modals.closeAll();
-
-        setState(ControlState.IDLE);
     }
 
     const openModifyRecordingModal = () =>

@@ -26,12 +26,12 @@ const RecordingsInfoTableRow: React.FC<Properties> = ({field, recording, separat
                     {value && <>
                         {separator
                             ? value?.toString().split(separator)
-                                .map((v, index) => <React.Fragment key={`table-cell-${index}-${field}`}>
+                                .map((v, index) => <span key={`table-cell-${index}-${field}`}>
                                     <TableLink value={v} field={field}>
                                         {v.trim()}
                                     </TableLink>
                                     {index < value.split(separator).length - 1 && <span>, </span>}
-                                </React.Fragment>)
+                                </span>)
                             : <TableLink
                                 field={field}
                                 value={recording[field] as string}
