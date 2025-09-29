@@ -24,15 +24,17 @@ const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => 
     return (
         <Table.Tr ref={ref}>
             <Table.Td>
-                {state === ControlState.SELECT
-                    ? <Checkbox
-                        p={"xs"}
-                        size={"sm"}
-                        radius={"sm"}
-                        checked={!!selection.find(r => r.id === recording.id)}
-                        onChange={() => toggleSelection(recording)}
-                    />
-                    : <PlayRecordingButton recording={recording}/>}
+                <Group justify={"center"}>
+                    {state === ControlState.SELECT
+                        ? <Checkbox
+                            p={"xs"}
+                            size={"sm"}
+                            radius={"sm"}
+                            checked={!!selection.find(r => r.id === recording.id)}
+                            onChange={() => toggleSelection(recording)}
+                        />
+                        : <PlayRecordingButton recording={recording}/>}
+                </Group>
             </Table.Td>
 
             {sortedFields.map((tf) => (
