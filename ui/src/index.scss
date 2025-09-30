@@ -25,11 +25,11 @@ a {
   padding: 0 !important;
 
   .rhap_controls-section {
-    max-width: 50px !important;
+    //max-width: 50px !important;
   }
 
   .rhap_footer {
-    text-align: end;
+    //text-align: end;
   }
 }
 
@@ -75,20 +75,31 @@ a {
 }
 
 /* AudioPlayerStyles.css */
-.rhap_container:not(.transparent) .rhap_main {
-  background-color:  var(--mantine-color-gray-1) !important;
+
+.rhap_controls-section {
+  margin: 0 !important;
 }
+
+.rhap_additional-controls {
+  justify-content: center !important;
+}
+
+.rhap_time {
+  //font-size: 10px !important;
+}
+
+.rhap_progress-section {
+}
+
+.rhap_container:not(.transparent) .rhap_main {
+  background-color: var(--mantine-color-gray-1) !important;
+}
+
 .rhap_main-controls-button svg {
   color: var(--mantine-color-red-9) !important;
 }
+
 .rhap_progress-filled,
 .rhap_progress-indicator {
-  background-color:  var(--mantine-color-red-9) !important;
-}
-
-.looping {
-  .rhap_progress-filled,
-  .rhap_progress-indicator {
-    background-color:  var(--mantine-color-yellow-6) !important;
-  }
+  background-color: var(--mantine-color-red-9) !important;
 }

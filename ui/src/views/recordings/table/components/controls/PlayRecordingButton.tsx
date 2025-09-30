@@ -28,7 +28,6 @@ const PlayRecordingButton: React.FC<Properties> = ({recording, size, c, color, .
         <Button
             px={"xs"}
             color={color || theme.colors.red[9]}
-            size={size || "compact-md"}
             variant={props.variant ||  "subtle"}
             title={recording.file ? recording.file : t(`view.recordings.table.fileNotFound`)}
             onClick={() => isPlaying && recording === track ? pause() : play(recording)}

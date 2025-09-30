@@ -8,14 +8,14 @@ import {useDataService} from "../../services/useDataService.ts";
 import {NotificationType} from "../../context/NotificationContext.tsx";
 import {useNotifications} from "../../hooks/useNotifications.tsx";
 import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.tsx";
-import RecordingsInfoTable from "./RecordingsInfoTable.tsx";
+import RecordingsInfoTable from "./details/components/RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
 import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
 import {useModifications} from "../../hooks/useModifications.tsx";
 import {useRecordingSelection} from "../../hooks/useRecordingSelection.tsx";
 import {useControlState} from "../../hooks/useControlState.tsx";
 import {ControlState} from "../../model/ControlState.ts";
-import IdentifyLoader from "./IdentifyLoader.tsx";
+import IdentifyLoader from "./components/IdentifyLoader.tsx";
 
 const RecordingsList: React.FC = () => {
 
@@ -43,7 +43,6 @@ const RecordingsList: React.FC = () => {
                 notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
             });
     }
-
 
     useEffect(() => {
         clearModifications();

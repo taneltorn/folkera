@@ -12,7 +12,7 @@ import ClearButton = Combobox.ClearButton;
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
-import IdentifyLoader from "../recordings/IdentifyLoader.tsx";
+import IdentifyLoader from "../recordings/components/IdentifyLoader.tsx";
 
 const SIMILAR_RECORDINGS_TO_FETCH = 100;
 const MAX_SIZE = 10;

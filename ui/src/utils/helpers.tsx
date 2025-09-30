@@ -1,7 +1,12 @@
 import {Filter} from "../model/Filter.ts";
+import {Recording} from "../model/Recording.ts";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;
+}
+
+export const fullRef = (recording: Recording): string => {
+    return `${recording.ref} < ${recording.parish} ₋ ${truncate(recording.collector, 30)} < ${truncate(recording.performer, 30)} (${recording.year})`;
 }
 
 export const truncate = (text: string | undefined, limit: number = 25): string => {

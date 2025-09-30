@@ -1,9 +1,9 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {Button, Tooltip} from "@mantine/core";
-import {Recording} from "../../model/Recording.ts";
+import {Recording} from "../../../../model/Recording.ts";
 import {FaExternalLinkAlt} from "react-icons/fa";
-import {Size} from "../../utils/constants.ts";
+import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
     recording: Recording;
