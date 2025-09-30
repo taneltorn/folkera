@@ -9,6 +9,10 @@ export const fullRef = (recording: Recording): string => {
     return `${recording.ref} < ${recording.parish} ₋ ${truncate(recording.collector, 30)} < ${truncate(recording.performer, 30)} (${recording.year})`;
 }
 
+export const contentRef = (recording: Recording): string => {
+    return `${truncate(recording.content, 50)} < ${recording.parish} < ${truncate(recording.performer, 30)} (${recording.year})`;
+}
+
 export const truncate = (text: string | undefined, limit: number = 25): string => {
     return text && text.length > limit ? text.slice(0, limit) + "..." : text || "";
 }
