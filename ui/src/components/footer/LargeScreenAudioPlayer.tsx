@@ -37,11 +37,11 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                 <Group align="center" h="100%">
                     <Stack gap={0}>
                         <Link to={`/recordings/${track.id}`}>
-                            <Text size={"md"} fw={"bold"}>
+                            <Text size={"sm"} fw={"bold"}>
                                 {track.ref}
                             </Text>
                         </Link>
-                        <Text size={"sm"}>{truncate(contentRef(track), 50)}</Text>
+                        <Text size={"sm"}>{truncate(contentRef(track), 40)}</Text>
                     </Stack>
                 </Group>
             </Grid.Col>
