@@ -4,7 +4,7 @@ import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
 import SimilarRecordingsTable from "../recordings/table/components/SimilarRecordingsTable.tsx";
-import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
+import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";

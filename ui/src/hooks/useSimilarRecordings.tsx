@@ -1,18 +1,22 @@
-import {useState} from "react";
-import {Recording} from "../model/Recording";
-import {useTranslation} from "react-i18next";
-import {useIdentifyService} from "../services/useIdentifyService";
-import {useDataService} from "../services/useDataService";
+import React, {useContext, useMemo, useState} from 'react';
+import {isEmpty} from "../utils/helpers.tsx";
+import {Recording} from "../model/Recording.ts";
+import {SimilarRecordingsContext} from "../context/SimilarRecordingsContext.tsx";
+import {useIdentifyService} from "../services/useIdentifyService.ts";
+import {useDataService} from "../services/useDataService.ts";
+import {LoadingState} from "../model/LoadingState.ts";
 
-export const useSimilarRecordings = () => {
+interface Properties {
+    children: React.ReactNode;
+}
 
-    const {t} = useTranslation();
+export const SimilarRecordingsContextProvider: React.FC<Properties> = ({children}) => {
+
     const identifyService = useIdentifyService();
     const dataService = useDataService();
 
     const [similarRecordings, setSimilarRecordings] = useState<Recording[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [loadingText, setLoadingText] = useState<string>("");
+    const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.IDLE);
 
     const findSimilarRecordings = async (
         filePath: string | undefined,
@@ -24,18 +28,16 @@ export const useSimilarRecordings = () => {
             return;
         }
 
-        setIsLoading(true);
-        setLoadingText(t("view.identify.identifying"));
+        setLoadingState(LoadingState.IDENTIFYING_RECORDINGS);
 
         try {
             const r = await identifyService.identify(filePath, top, selfRef);
             const distances = r.data;
             const ids = Object.keys(distances);
-            
-            setLoadingText(t("view.identify.loadingData"));
+
+            setLoadingState(LoadingState.LOADING_DATA);
 
             const data = await dataService.fetchRecordingsByIds(ids);
-
             data.forEach((recording: Recording) => {
                 recording.distance = distances[recording.id];
             });
@@ -43,20 +45,32 @@ export const useSimilarRecordings = () => {
             data.sort((a: Recording, b: Recording) => (a.distance || 0) - (b.distance || 0));
             setSimilarRecordings(data);
 
-            setLoadingText("");
             if (removeFile) {
                 identifyService.deleteFile(filePath);
             }
         } finally {
-            setIsLoading(false);
+            setLoadingState(LoadingState.IDLE);
         }
     };
+    
+    const context = useMemo(() => ({
+        similarRecordings, setSimilarRecordings,
+        loadingState, setLoadingState,
+        findSimilarRecordings
+    }), [similarRecordings, loadingState]);
 
-    return {
-        isLoading,
-        loadingText,
-        similarRecordings,
-        findSimilarRecordings,
-        setSimilarRecordings,
-    };
+    return (
+        <SimilarRecordingsContext.Provider value={context}>
+            {children}
+        </SimilarRecordingsContext.Provider>
+    )
+}
+
+export const useSimilarRecordings = () => {
+    const context = useContext(SimilarRecordingsContext);
+    if (isEmpty(context)) {
+        throw new Error('useSimilarRecordings must be used within a SimilarRecordingsContextProvider')
+    }
+
+    return context;
 };

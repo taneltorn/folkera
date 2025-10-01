@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
 import {Size} from "../../utils/constants.ts";
 import SelectRecordingsButton from "./components/controls/SelectRecordingsButton.tsx";
-import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
+import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import IdentifyRecordingButton from "./components/controls/IdentifyRecordingButton.tsx";
 import SaveModificationsButtons from "./components/controls/SaveModificationsButtons.tsx";
 import BulkModifyRecordingsButtons from "./components/controls/BulkModifyRecordingsButtons.tsx";

@@ -10,7 +10,7 @@ import {useNotifications} from "../../hooks/useNotifications.tsx";
 import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.tsx";
 import RecordingsInfoTable from "./details/components/RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
-import {useSimilarRecordings} from "../../hooks/useSimilarRecordingsContext.tsx";
+import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
 import {useModifications} from "../../hooks/useModifications.tsx";
 import {useRecordingSelection} from "../../hooks/useRecordingSelection.tsx";
 import {useControlState} from "../../hooks/useControlState.tsx";

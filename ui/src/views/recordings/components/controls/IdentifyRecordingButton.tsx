@@ -2,7 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {Button} from "@mantine/core";
 import {Recording} from "../../../../model/Recording.ts";
-import {useSimilarRecordings} from "../../../../hooks/useSimilarRecordingsContext.tsx";
+import {useSimilarRecordings} from "../../../../hooks/useSimilarRecordings.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {TbZoomQuestion} from "react-icons/tb";
 import {useControlState} from "../../../../hooks/useControlState.tsx";

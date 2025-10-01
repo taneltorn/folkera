@@ -7,7 +7,7 @@ import {IoIosMusicalNotes} from "react-icons/io";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {Pagination} from "../../../../model/Pagination.ts";
-import {useSimilarRecordings} from "../../../../hooks/useSimilarRecordingsContext.tsx";
+import {useSimilarRecordings} from "../../../../hooks/useSimilarRecordings.tsx";
 
 interface Properties {
 }
