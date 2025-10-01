@@ -41,6 +41,18 @@ const ModifyRecordingForm: React.FC<Properties> = ({initialValues, ...props}) =>
     return (
         <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
             <Grid>
+                <Grid.Col span={12}>
+                    <Input.Wrapper label={t("recording.content")} mb={"md"} labelProps={{ms: "xs"}}>
+                        <TextInput
+                            placeholder={t("recording.content")}
+                            key={form.key('content')}
+                            size={"md"}
+                            {...form.getInputProps('content')}
+                        />
+                    </Input.Wrapper>
+                </Grid.Col>
+            </Grid>
+            <Grid>
                 <Grid.Col span={6}>
                     <Input.Wrapper label={t("recording.tune")} mb={"md"} labelProps={{ms: "xs"}}>
                         <TextInput
