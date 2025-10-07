@@ -56,6 +56,14 @@ export const ColorSchemes: ColorScheme[] = [
 export const ClusterPlots: ClusterPlot[] = [
     {
         name: "SHS100K + FolkERA",
+        version: "v0.3",
+        file: "cluster-data/pretrained_folk3859.json",
+        works: 272,
+        perfs: 3859,
+        colorSchemeType: ColorSchemeType.VIRIDIS,
+    },
+    {
+        name: "SHS100K + FolkERA",
         version: "v0.2",
         file: "cluster-data/shs100k_folkera_v0.2.json",
         works: 160,
@@ -92,6 +100,18 @@ export const ClusterPlots: ClusterPlot[] = [
         file: "",
         works: undefined,
         perfs: undefined,
+    },
+    {
+        name: "TEST: SHS100K + FolkERA",
+        version: "v0.4",
+        file: "cluster-data/test_pretrained_folk3859_default.json",
+        mAP: 0.802,
+        rank1: 1.730,
+        works: 241,
+        perfs: 3182,
+        testWorks: 30,
+        testPerfs: 677,
+        colorSchemeType: ColorSchemeType.SET1,
     },
     {
         name: "TEST: SHS100K + FolkERA",
