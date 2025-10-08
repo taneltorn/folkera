@@ -98,6 +98,7 @@
       "placeholder": "Vali helifail",
       "submit": "Otsi sarnaseid salvestusi",
       "identifyingRecordings": "Tuvastan sarnaseid salvestusi...",
+      "uploadingFile": "Laen faili üles...",
       "loadingData": "Laen andmeid...",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
       "fileUploadPlaceholder": "Vali või lohista helifail.",
@@ -261,7 +262,8 @@
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
     "removeFilter": "Eemalda filter",
-    "assign": "Määra"
+    "assign": "Määra",
+    "copyToClipboard": "Kopeeri"
   },
   "validation": {
     "required": "Väli on kohustuslik",

@@ -18,7 +18,7 @@ const SimilarRecordingsTable: React.FC<Properties> = () => {
     const {currentUser} = useAuth();
     const {modifications} = useModifications();
     const {similarRecordings} = useSimilarRecordings();
-    const [pagination, setPagination] = useState<Pagination>({size: 20, page: 1});
+    const [pagination, setPagination] = useState<Pagination>({size: 10, page: 1});
 
     return (
         <Box pos={"relative"} mih={50}>

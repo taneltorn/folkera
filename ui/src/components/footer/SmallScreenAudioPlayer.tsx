@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button, Flex, Group} from "@mantine/core";
-import {IoIosClose} from "react-icons/io";
-import {Size} from "../../utils/constants.ts";
+import {Flex, Group} from "@mantine/core";
 import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 import LoopControls from "./LoopControls.tsx";
 import TempoControls from "./TempoControls.tsx";
+import PlayerCloseButton from "./PlayerCloseButton.tsx";
 
 interface Properties {
     playerRef: any;
@@ -12,7 +11,6 @@ interface Properties {
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
-    onClose: () => void;
 }
 
 const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
@@ -23,7 +21,6 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
         onPlaying,
         onPause,
         onError,
-        onClose
     } = {...props};
 
     return (
@@ -54,14 +51,7 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
             </Group>
 
             <Group justify={"end"}>
-                <Button
-                    px={0}
-                    variant={"transparent"}
-                    color={"dark"}
-                    onClick={onClose}
-                >
-                    <IoIosClose size={Size.icon.MD}/>
-                </Button>
+                <PlayerCloseButton/>
             </Group>
         </Flex>
     );

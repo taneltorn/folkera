@@ -12,7 +12,7 @@ interface Properties {
     recording: Recording;
 }
 
-const SIMILAR_RECORDINGS_TO_FETCH = 100;
+const SIMILAR_RECORDINGS_TO_FETCH = 50;
 
 const IdentifyRecordingButton: React.FC<Properties> = ({recording}) => {
 

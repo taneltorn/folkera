@@ -12,7 +12,6 @@ import IdentifyRecordingButton from "./components/controls/IdentifyRecordingButt
 import SaveModificationsButtons from "./components/controls/SaveModificationsButtons.tsx";
 import BulkModifyRecordingsButtons from "./components/controls/BulkModifyRecordingsButtons.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {fullRef, truncate} from "../../utils/helpers.tsx";
 
 interface Properties {
     recording: Recording;
@@ -34,7 +33,7 @@ const RecordingHeader: React.FC<Properties> = ({recording, reloadData}) => {
                         recording={recording}
                         variant={"light"}
                     />
-                    <Title order={3}>{truncate(fullRef(recording), 100)}</Title>
+                    <Title order={3}>{recording.ref}</Title>
                 </Group>
 
                 <Group gap={4}>

@@ -16,6 +16,7 @@ import {useRecordingSelection} from "../../hooks/useRecordingSelection.tsx";
 import {useControlState} from "../../hooks/useControlState.tsx";
 import {ControlState} from "../../model/ControlState.ts";
 import IdentifyLoader from "./components/IdentifyLoader.tsx";
+import RecordingReference from "./RecordingReference.tsx";
 
 const RecordingsList: React.FC = () => {
 
@@ -63,6 +64,9 @@ const RecordingsList: React.FC = () => {
                         recording={recording}
                         reloadData={() => fetchData(id)}
                     />
+
+                    <RecordingReference recording={recording}/>
+
                     <RecordingsInfoTable recording={recording}/>
                 </Box>
 

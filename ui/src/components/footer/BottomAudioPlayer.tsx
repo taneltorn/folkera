@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Text} from "@mantine/core";
+import {Box, Group, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Trans, useTranslation} from "react-i18next";
@@ -8,6 +8,7 @@ import {NotificationType} from "../../context/NotificationContext.tsx";
 import useCurrentBreakpoint from "../../hooks/useCurrentBreakPoint.tsx";
 import LargeScreenAudioPlayer from "./LargeScreenAudioPlayer.tsx";
 import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
+import PlayerCloseButton from "./PlayerCloseButton.tsx";
 
 const audioUrl = `${import.meta.env.VITE_API_URL}/recordings/audio`;
 
@@ -16,7 +17,7 @@ const BottomAudioPlayer: React.FC = () => {
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {notify} = useNotifications();
-    const {track, setTrack, setIsPlaying, playerRef} = useAudioPlayer();
+    const {track, setIsPlaying, playerRef} = useAudioPlayer();
     const breakpoint = useCurrentBreakpoint();
 
     const handlePlaybackError = () => {
@@ -26,12 +27,16 @@ const BottomAudioPlayer: React.FC = () => {
 
     return (
         <Box py={4} px={"xs"}>
-            {!currentUser?.isUser ?
-                <Trans
-                    i18nKey={"player.insufficientPrivileges"}
-                    values={{ref: track?.ref || ""}}
-                    components={{b: <Text fw={"bold"}/>}}
-                />
+            {!currentUser?.isUser ? <Group justify={"space-between"}>
+                    <Group>
+                        <Trans
+                            i18nKey={"player.insufficientPrivileges"}
+                            values={{ref: track?.ref || ""}}
+                            components={{b: <Text fw={"bold"}/>}}
+                        />
+                    </Group>
+                    <PlayerCloseButton/>
+                </Group>
                 : <>
                     {track && <>
                         {["xs"].includes(breakpoint) ?
@@ -41,7 +46,6 @@ const BottomAudioPlayer: React.FC = () => {
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
-                                onClose={() => setTrack(undefined)}
                             />
                             :
                             <LargeScreenAudioPlayer
@@ -51,7 +55,6 @@ const BottomAudioPlayer: React.FC = () => {
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
-                                onClose={() => setTrack(undefined)}
                             />}
 
                     </>}

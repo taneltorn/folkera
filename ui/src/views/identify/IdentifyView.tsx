@@ -13,8 +13,9 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
 import IdentifyLoader from "../recordings/components/IdentifyLoader.tsx";
+import {LoadingState} from "../../model/LoadingState.ts";
 
-const SIMILAR_RECORDINGS_TO_FETCH = 100;
+const SIMILAR_RECORDINGS_TO_FETCH = 50;
 const MAX_SIZE = 10;
 
 const IdentifyView: React.FC = () => {
@@ -23,6 +24,7 @@ const IdentifyView: React.FC = () => {
     const identifyService = useIdentifyService();
 
     const [file, setFile] = useState<File | null>(null);
+    const [isUploading, setIsUploading] = useState<boolean>(false);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const {
@@ -55,10 +57,12 @@ const IdentifyView: React.FC = () => {
     const handleSubmit = async () => {
         if (!file) return;
 
+        setIsUploading(true);
         identifyService.upload(file)
             .then(file => {
                 findSimilarRecordings(file, SIMILAR_RECORDINGS_TO_FETCH, "", true)
-            });
+            })
+            .finally(() => setIsUploading(false));
     };
     
     useEffect(() => {
@@ -146,7 +150,7 @@ const IdentifyView: React.FC = () => {
             </Stack>
 
             <SimilarRecordingsTable/>
-            <IdentifyLoader/>
+            <IdentifyLoader externalLoadingState={isUploading ? LoadingState.UPLOADING_FILE : undefined}/>
         </Box>
     );
 };
