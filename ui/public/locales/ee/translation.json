@@ -4,7 +4,8 @@
       "admin": "Adminpaneel",
       "recordings": "Pillilood",
       "clusterMap": "Klasterkaart",
-      "profile": "Minu profiil"
+      "profile": "Minu profiil",
+      "changelog": "Muutelugu"
     },
     "loading": "Laen andmeid...",
     "example": "Näide",
@@ -32,7 +33,8 @@
       "title": "FolkERA",
       "description": "Veebirakendus sisaldab 20. sajandi rahvapillimuusika helisalvestusi Eesti Rahvaluule Arhiivi kogudest ning moodustab uurimiskorpuse, mis on mõeldud eesti rahvapillimuusika analüüsiks ja uurimiseks.",
       "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
-      "version": "Versioon"
+      "version": "Versioon",
+      "navigateToChangelog": "Vaata muutelugu"
     }
   },
   "player": {
@@ -254,7 +256,22 @@
       "newPassword": "Uus parool"
     }
   },
+  "filtering": {
+    "exact": "Täpne vaste",
+    "contains": "Sisaldab",
+    "from": "Alates",
+    "to": "Kuni",
+    "blank": "Ilma väärtuseta",
+    "not_blank": "Väärtusega",
+    "advanced": {
+      "title": "Täpsem otsing",
+      "open": "Ava täpsem otsing",
+      "close": "Sulge täpsem otsing"
+    }
+  },
   "button": {
+    "search": "Otsi",
+    "clear": "Tühjenda",
     "save": "Salvesta",
     "modify": "Muuda",
     "cancel": "Tühista",

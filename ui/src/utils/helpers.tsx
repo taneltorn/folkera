@@ -23,6 +23,7 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     }
     return filters.reduce((acc, {field, value, type}) => {
         const formattedValue = type ? `${value}:${type}` : value;
+        // @ts-ignore
         acc[field] = acc[field]
             ? `${acc[field]};${formattedValue}`
             : formattedValue;
@@ -68,3 +69,11 @@ export const similarityToColor = (distance: number | undefined): string => {
     }
     return "green";
 }
+
+export const range = (start: number, end: number): number[] => {
+    const range: number[] = [];
+    for (let i = start; i <= end; i++) {
+        range.push(i);
+    }
+    return range;
+} 

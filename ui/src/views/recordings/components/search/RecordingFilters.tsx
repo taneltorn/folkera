@@ -20,15 +20,23 @@ const RecordingFilters: React.FC = () => {
                     {filters
                         .slice(0, showAllFilters ? 100 : MAX_NUMBER_OF_FILTERS_TO_DISPLAY)
                         .map((filter, index) =>
-                            <Pill key={index}
-                                  size={"md"}
-                                  bg={`${Color.get(filter.field) || "gray"}.8`}
-                                  c={"white"}
-                                  withRemoveButton
-                                  removeButtonProps={{title: t("button.removeFilter")}}
-                                  onRemove={() => removeFilter(filter.field, filter.value)}>
-                         
-                                    {t(`recording.${filter.field}`)}{filter.type === "exact" ? t(`view.recordings.exactMatch`) : ""}: {filter.value}
+                            <Pill
+                                key={index}
+                                size={"md"}
+                                bg={`${Color.get(filter.field) || "gray"}.8`}
+                                c={"white"}
+                                withRemoveButton
+                                removeButtonProps={{title: t("button.removeFilter")}}
+                                onRemove={() => removeFilter({
+                                    field: filter.field,
+                                    value: filter.value,
+                                    type: filter.type
+                                })}
+                            >
+                                {t(`recording.${filter.field}`)}{
+                                filter.type === "exact"
+                                    ? t(`view.recordings.exactMatch`)
+                                    : ""}: {filter.value}
                             </Pill>)}
 
                     {!showAllFilters && filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY &&

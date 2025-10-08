@@ -7,14 +7,21 @@ import ExportCsvButton from "./controls/ExportCsvButton.tsx";
 import SaveModificationsButtons from "./controls/SaveModificationsButtons.tsx";
 import {useAuth} from "../../../hooks/useAuth.tsx";
 import BulkModifyRecordingsButtons from "./controls/BulkModifyRecordingsButtons.tsx";
+import AdvancedFilteringPanel from "./search/AdvancedFilteringPanel.tsx";
+import {useAdvancedFilteringContext} from "../../../hooks/useAdvancedFilteringContext.tsx";
+import AdvancedSearchToggle from "./search/AdvancedSearchToggle.tsx";
 
 const TopControlBar: React.FC = () => {
 
     const {currentUser} = useAuth();
+    const {visible} = useAdvancedFilteringContext();
 
     return (<>
             <Group justify={"space-between"} mb={"md"}>
-                <RecordingSearch/>
+                <Group>
+                    <RecordingSearch/>
+                    <AdvancedSearchToggle/>
+                </Group>
 
                 <Group gap={4}>
                     {currentUser?.isAdmin && <>
@@ -25,6 +32,8 @@ const TopControlBar: React.FC = () => {
                     <ExportCsvButton/>
                 </Group>
             </Group>
+
+            {visible && <AdvancedFilteringPanel/>}
 
             <RecordingFilters/>
         </>

@@ -18,7 +18,7 @@ interface Properties {
 const FilterButtons: React.FC<Properties> = ({recording, field, split, size, replace, returnHome}) => {
 
     const navigate = useNavigate();
-    const {addFilter, useFilter, filters} = useDataContext();
+    const {addFilter} = useDataContext();
 
     const values = split
         ? recording[field]
@@ -28,21 +28,14 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
             ?.map(it => it.trim())
         : [recording[field]];
 
-    const handleClick = (value: string, event: React.MouseEvent) => {
-        const isCtrlPressed = event.ctrlKey;
-        if (replace || isCtrlPressed || filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
-            useFilter(field, value, isCtrlPressed ? "exact" : "contains");
-        } else {
-            if (filters.find(f => f.field === field && f.type === "exact")) {
-                useFilter(field, value, "contains");
-            } else {
-                addFilter(field, value);
-            }
-        }
+    const handleClick = (value: string) => {
+        const type = field === "year" ? "exact" : "contains";
+        addFilter({field, value, type}, field === "year" || replace);
+
         if (returnHome) {
             navigate("/");
         }
-    }
+    };
 
     return (
         <Group gap={4}>
@@ -50,10 +43,10 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
             {values?.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
-                        // color={`${chroma.scale(ColorScales.get(field) || "YlOrBr").colors(10)[9 - i % 5]}`}
+                    // color={`${chroma.scale(ColorScales.get(field) || "YlOrBr").colors(10)[9 - i % 5]}`}
                         color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
                         size={size || "compact-xs"}
-                        onClick={(event) => handleClick(v, event)}>
+                        onClick={() => handleClick(v)}>
                     <Text size={size || "xs"} className={"pill-button"}>
                         {v}
                     </Text>

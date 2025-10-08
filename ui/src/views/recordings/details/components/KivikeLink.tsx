@@ -20,7 +20,7 @@ const KivikeLink: React.FC<Properties> = ({recording}) => {
             <Button
                 component="a"
                 href={recording.pid ? `${KIVIKE_PID_URL}${recording.pid}` : undefined}
-                target="_blank"
+                target="blank"
                 variant="subtle"
                 color={"dark"}
                 size={"compact-md"}

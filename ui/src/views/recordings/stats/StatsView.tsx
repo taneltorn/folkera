@@ -17,7 +17,7 @@ const StatsView: React.FC = () => {
     const {setActiveView} = useActiveView();
 
     const handleClick = (label: string) => {
-        addFilter(groupBy, label);
+        addFilter({field: groupBy, value: label});
         setActiveView(View.TABLE);
     }
 

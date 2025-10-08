@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
-import {DataContext, Filter} from "../context/DataContext.tsx";
+import {DataContext} from "../context/DataContext.tsx";
 import {Recording} from "../model/Recording.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
@@ -12,6 +12,7 @@ import {useNotifications} from "./useNotifications.tsx";
 import Papa from "papaparse";
 import {useOptionsService} from "../services/useOptionsService.ts";
 import {FilteringOptions} from "../model/FilteringOptions.ts";
+import {Filter} from "../model/Filter.ts";
 
 const DefaultPagination: Pagination = {
     size: ItemsPerPageOptions[0],
@@ -41,8 +42,11 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", DefaultHiddenFields);
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
 
-    const loadData = () => {
-        dataService.fetchRecordings(filters, pagination)
+    const loadData = (fs?: Filter[]) => {
+        const filtersToUse = fs || filters || [];
+
+        setFilters(filtersToUse);
+        dataService.fetchRecordings(filtersToUse, pagination)
             .then((result) => {
                 setData(result.data);
                 setTotalItems(result.page.totalItems);
@@ -124,31 +128,31 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             });
     }
 
-    const addFilter = (field: string, value: string) => {
-        if (filters.find(f => f.field === field && f.value === value)) {
-            console.log("returning early, filter already exists", field, value);
+    const addFilter = (filter: Filter, replace?: boolean) => {
+        if (filters.find(f => f.field === filter.field && f.type === filter.type && f.value === filter.value)) {
             return;
         }
-        if (value) {
-            filters.push({field: field, value: value});
-        }
 
-        setFilters(filters);
-        setPagination({...pagination, page: 1});
-    }
+        const filterList: Filter[] = replace
+            ? filters.filter(f => !(f.field === filter.field))
+            : filters;
 
-    const useFilter = (field: string, value: string, type?: string) => {
-        const filterList: Filter[] = filters.filter(f => !(f.field === field));
-        if (value) {
-            filterList.push({field: field, value: value, type: type});
-        }
+        filterList.push({...filter, type: filter.type || "contains"});
 
         setFilters(filterList);
         setPagination({...pagination, page: 1});
     }
 
-    const removeFilter = (field: string, value?: string) => {
-        setFilters(filters.filter(f => !(f.field === field && (!value || f.value === value))));
+    const useFilter = (filter: Filter) => {
+        const filterList: Filter[] = filters.filter(f => !(f.field === filter.field && (!filter.type || f.type === filter.type)));
+        filterList.push({...filter});
+
+        setFilters(filterList);
+        setPagination({...pagination, page: 1});
+    }
+
+    const removeFilter = (filter: Filter) => {
+        setFilters(filters.filter(f => !(f.field === filter.field && (!filter.value || f.value === filter.value || (!filter.type || f.type === filter.type)))));
         setPagination({...pagination, page: 1});
     }
 

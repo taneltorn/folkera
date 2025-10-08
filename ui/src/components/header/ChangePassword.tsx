@@ -42,7 +42,6 @@ const ChangePassword: React.FC = () => {
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-
                     <TextInput
                         withAsterisk
                         type={"password"}

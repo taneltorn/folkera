@@ -29,32 +29,18 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
-const extract = (field: string, filters: Filter[], splitBy: string = ";"): string[] => {
-    const values = filters
-        .filter(f => f.field === field)
-        .map(f => f.value.toLowerCase().trim()) || [];
-
-    if (!splitBy) {
-        return values;
-    }
-    return values.map(v => v.split(splitBy).map(v => v.trim())).flat();
-}
-
 export const filter = (data: Recording[], filters?: Filter[]) => {
     if (!filters) {
         return data;
     }
 
     const search = filters.find(f => f.field === "search")?.value?.toLowerCase().trim();
-    const ref = filters.find(f => f.field === "ref")?.value?.toLowerCase().trim();
-    const content = filters.find(f => f.field === "content")?.value?.toLowerCase().trim();
-    const notes = filters.find(f => f.field === "notes")?.value?.toLowerCase().trim();
 
     return data.filter(r =>
-        isLike(r.ref, ref) &&
-        isLike(r.content, content) &&
-        isLike(r.notes, notes) &&
-        isBetween(r.year, extract("year", filters)) &&
+        isIn(r.ref, filters.filter(f => f.field === "ref"), Operation.OR) &&
+        isIn(r.notes, filters.filter(f => f.field === "notes"), Operation.OR) &&
+        isIn(r.content, filters.filter(f => f.field === "content"), Operation.OR) &&
+        isBetween(r.year, filters.filter(f => f.field === "year")) &&
         isIn(r.tune, filters.filter(f => f.field === "tune"), Operation.OR) &&
         isIn(r.archive, filters.filter(f => f.field === "archive"), Operation.OR) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
@@ -97,39 +83,31 @@ const contains = (value: string | undefined, search: string | undefined) => {
     return value?.toLowerCase().includes(search);
 }
 
-const isWithinRange = (num: number, range: string): boolean => {
-    const [min, max] = range.includes("-")
-        ? range.split("-").map(it => Number.parseInt(it.trim()))
-        : [Number.parseInt(range.trim()), Number.parseInt(range.trim())];
-    if (isNaN(min) || isNaN(max)) {
-        return false;
-    }
-    return num >= min && num <= max;
+const isBetween = (value: string, filters: Filter[]): boolean => {
+    if (filters.length === 0) return true;
+
+    if (filters.some(f => f.type === "blank")) return !value;
+    if (filters.some(f => f.type === "not_blank")) return !!value;
+    const exact = filters.find(f => f.type === "exact")?.value;
+
+    const from = filters.find(f => f.type === "from")?.value;
+    const to = filters.find(f => f.type === "to")?.value;
+
+    const match = (f: Filter) =>
+        f.type === "exact"
+            ? value === exact
+            : isWithinRange(value, Number.parseInt(from) || Number.MIN_SAFE_INTEGER, Number.parseInt(to) || Number.MAX_SAFE_INTEGER);
+
+    return filters.some(match);
 };
 
-export const isBetween = (value: string | undefined, filters: string[]) => {
-    if (!filters.length) {
-        return true;
-    }
-    if (!value) {
-        return false;
-    }
 
-    const numValue = Number.parseInt(value.trim());
-    if (isNaN(numValue)) {
-        return false;
-    }
-
-    return filters.some(f => isWithinRange(numValue, f));
+const isWithinRange = (value: string, from: number, to: number): boolean => {
+    const [min, max] = value.includes("-")
+        ? value.split("-").map(it => Number.parseInt(it.trim()))
+        : [Number.parseInt(value.trim()), Number.parseInt(value.trim())];
+    return max >= from && max <= to || min >= from && min <= to;
 };
-
-export const isLike = (value: string | undefined, filterValue: string | undefined) => {
-    if (!filterValue) {
-        return true;
-    }
-
-    return value?.toLowerCase().includes(filterValue.toLowerCase());
-}
 
 export const isIn = (value: string | undefined, filters: Filter[], operation?: Operation): boolean => {
     if (filters.length === 0) return true;

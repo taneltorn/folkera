@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {MultiSelect, useMantineTheme} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import {Recording} from "../../../../../model/Recording.ts";
@@ -11,9 +11,8 @@ interface Properties {
 
 const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
 
-    const ctrlPressed = useRef(false);
     const theme = useMantineTheme();
-    const {filters, addFilter, useFilter, removeFilter} = useDataContext();
+    const {filters, useFilter, addFilter, removeFilter} = useDataContext();
     const {filteringOptions} = useDataContext();
 
     const value = filters
@@ -23,30 +22,22 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
     const handleChange = (values: string[]) => {
         filters.forEach(f => {
             if (!values.find(v => v === f.value) && f.field === field) {
-                removeFilter(f.field, f.value);
+                removeFilter({field: f.field, value: f.value});
             }
         })
 
         values.forEach(v => {
             if (!filters.find(f => f.field === field && f.value === v)) {
-                if (v === "_blank") {
-                    useFilter(field, v, "blank");
+                if (v === "blank") {
+                    useFilter({field: field, value: v, type: "blank"});
                     return;
                 }
-                if (v === "_not_blank") {
-                    useFilter(field, v, "not_blank");
+                if (v === "not_blank") {
+                    useFilter({field: field, value: v, type: "not_blank"});
                     return;
                 }
-                
-                if (filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.type as string))) {
-                    useFilter(field, v);
-                } else {
-                    if (ctrlPressed.current) {
-                        useFilter(field, v, "exact");
-                    } else {
-                        addFilter(field, v);
-                    }
-                }
+                const type = field === "year" ? "exact" : "contains";
+                addFilter({field: field, value: v, type: type}, field === "year" );
             }
         })
     }
@@ -63,10 +54,8 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
             clearable
             value={value}
             onChange={handleChange}
-            onClear={() => removeFilter(field)}
+            onClear={() => removeFilter({field: field})}
             data={filteringOptions[field] || []}
-            onKeyDown={(e) => ctrlPressed.current = e.ctrlKey || e.metaKey}
-            onKeyUp={() => ctrlPressed.current = false}
             clearButtonProps={{
                 // @ts-ignore
                 icon: <LuFilterX color={theme.colors.red[9]}/>

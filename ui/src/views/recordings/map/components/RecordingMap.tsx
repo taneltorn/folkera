@@ -15,7 +15,7 @@ const RecordingMap: React.FC = () => {
 
     const handleClick = (location: string) => {
         const filter = groupBy === GroupBy.COUNTY ? GroupBy.COUNTY: GroupBy.PARISH;
-        addFilter(filter, location);
+        addFilter({field: filter, value: location});
         setActiveView(View.TABLE);
     }
 

@@ -64,7 +64,6 @@ const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => 
                                         recording={recording}
                                         field={tf.field}
                                         split={tf.split || undefined}
-                                        replace={false}
                                     />
                                 );
                         }

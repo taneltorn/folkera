@@ -21,6 +21,8 @@ const filterableKeys = [
     "duration",
     "file",
     "archive",
+    "from",
+    "to",
 ];
 
 export const useQueryParams = (req: ApiRequest, res: Response, next: NextFunction) => {

@@ -6,9 +6,12 @@ import {MenuSelectOption} from "../model/MenuSelectOption.ts";
 
 interface Properties {
     title?: string;
+    size?: string;
     color?: string;
     variant?: string;
     label: string;
+    value?: string;
+    w?: number;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
 }
@@ -19,13 +22,14 @@ const MenuSelect: React.FC<Properties> = (props) => {
         <Menu shadow="md" closeOnClickOutside={true}>
             <Menu.Target>
                 <Button
+                    w={props.w || undefined}
                     title={props.title}
                     variant={props.variant || "subtle"}
-                    size={"sm"}
+                    size={props.size || "sm"}
                     color={props.color || "dark"}
                     leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                 >
-                    {props.label}
+                    {props.value || props.label}
                 </Button>
             </Menu.Target>
             <Menu.Dropdown>

@@ -7,7 +7,7 @@ import {LuFilterX} from "react-icons/lu";
 
 interface Properties {
     field: keyof Recording;
-    placeholder?: string;
+    placeholder?: string; 
 }
 
 const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
@@ -24,11 +24,11 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
 
     const handleClear = () => {
         setValue("");
-        removeFilter(field);
+        removeFilter({field: field});
     };
 
     const searchRequest = useDebounce(() => {
-        useFilter(field, value);
+        useFilter({field: field, value: value});
     });
 
     useEffect(() => {

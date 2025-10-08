@@ -21,12 +21,12 @@ const RecordingSearch: React.FC = () => {
     };
 
     const triggerSearch = useDebounce(() => {
-        useFilter("search", value);
+        useFilter({field: "search", value: value});
     });
 
     useEffect(() => {
-        if (value && filters.length === 0 ) {
-            setValue("");            
+        if (value && filters.length === 0) {
+            setValue("");
         }
     }, [filters]);
 

@@ -7,6 +7,7 @@ import {DataContextProvider} from "./hooks/useDataContext.tsx";
 import {ModalsProvider} from "@mantine/modals";
 import {RecordingSelectionContextProvider} from "./hooks/useRecordingSelection.tsx";
 import {ControlStateContextProvider} from "./hooks/useControlState.tsx";
+import {AdvancedFilteringContextProvider} from "./hooks/useAdvancedFilteringContext.tsx";
 
 interface Properties {
     children: React.ReactNode;
@@ -24,7 +25,9 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
                             <RecordingSelectionContextProvider>
                                 <ModificationsContextProvider>
                                     <DataContextProvider>
-                                        {children}
+                                        <AdvancedFilteringContextProvider>
+                                            {children}
+                                        </AdvancedFilteringContextProvider>
                                     </DataContextProvider>
                                 </ModificationsContextProvider>
                             </RecordingSelectionContextProvider>

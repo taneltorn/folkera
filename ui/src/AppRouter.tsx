@@ -15,6 +15,7 @@ import IdentifyView from "./views/identify/IdentifyView.tsx";
 import ExampleMap from "./views/recordings/map/components/ExampleMap.tsx";
 import ClusterPlotView from "./views/admin/cluster/ClusterPlotView.tsx";
 import {SimilarRecordingsContextProvider} from "./hooks/useSimilarRecordings.tsx";
+import ChangeLog from "./ChangeLog.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home/>,
+            },
+            {
+                path: "/changelog",
+                element: <ChangeLog/>,
             },
             {
                 path: "/recordings",
