@@ -12,7 +12,7 @@ const AdvancedSearchToggle: React.FC = () => {
 
     return (
         <Button
-            px={4}
+            px={2}
             size={"md"}
             title={t(`filtering.advanced.${visible ? "close" : "open"}`)}
             onClick={() => setVisible(!visible)}

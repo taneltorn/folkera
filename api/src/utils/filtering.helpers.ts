@@ -3,7 +3,6 @@ import {Filter} from "../model/Filter";
 import {GroupedOption} from "../model/GroupedOption";
 import {SortDirection} from "../model/Pagination";
 import {Recording} from "../model/Recording";
-import {Operation} from "../model/Operation";
 
 export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
     const values = extractByField(recordings, field, split);
@@ -37,20 +36,20 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
     const search = filters.find(f => f.field === "search")?.value?.toLowerCase().trim();
 
     return data.filter(r =>
-        isIn(r.ref, filters.filter(f => f.field === "ref"), Operation.OR) &&
-        isIn(r.notes, filters.filter(f => f.field === "notes"), Operation.OR) &&
-        isIn(r.content, filters.filter(f => f.field === "content"), Operation.OR) &&
+        isIn(r.ref, filters.filter(f => f.field === "ref")) &&
+        isIn(r.notes, filters.filter(f => f.field === "notes")) &&
+        isIn(r.content, filters.filter(f => f.field === "content")) &&
         isBetween(r.year, filters.filter(f => f.field === "year")) &&
-        isIn(r.tune, filters.filter(f => f.field === "tune"), Operation.OR) &&
-        isIn(r.archive, filters.filter(f => f.field === "archive"), Operation.OR) &&
+        isIn(r.tune, filters.filter(f => f.field === "tune")) &&
+        isIn(r.archive, filters.filter(f => f.field === "archive")) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
-        isIn(r.dance, filters.filter(f => f.field === "dance"), Operation.OR) &&
-        isIn(r.trainset, filters.filter(f => f.field === "trainset"), Operation.OR) &&
+        isIn(r.dance, filters.filter(f => f.field === "dance")) &&
+        isIn(r.trainset, filters.filter(f => f.field === "trainset")) &&
         isIn(r.performer, filters.filter(f => f.field === "performer")) &&
         isIn(r.collector, filters.filter(f => f.field === "collector")) &&
-        isIn(r.parish, filters.filter(f => f.field === "parish"), Operation.OR) &&
-        isIn(r.county, filters.filter(f => f.field === "county"), Operation.OR) &&
-        isIn(r.origin, filters.filter(f => f.field === "origin"), Operation.OR) &&
+        isIn(r.parish, filters.filter(f => f.field === "parish")) &&
+        isIn(r.county, filters.filter(f => f.field === "county")) &&
+        isIn(r.origin, filters.filter(f => f.field === "origin")) &&
         isIn(r.comments, filters.filter(f => f.field === "comments")) &&
         isIn(r.file, filters.filter(f => f.field === "file")) &&
         isIn(`${r.duration}`, filters.filter(f => f.field === "duration")) &&
@@ -109,7 +108,7 @@ const isWithinRange = (value: string, from: number, to: number): boolean => {
     return max >= from && max <= to || min >= from && min <= to;
 };
 
-export const isIn = (value: string | undefined, filters: Filter[], operation?: Operation): boolean => {
+export const isIn = (value: string | undefined, filters: Filter[]): boolean => {
     if (filters.length === 0) return true;
 
     if (filters.some(f => f.type === "blank")) return !value;
@@ -119,11 +118,9 @@ export const isIn = (value: string | undefined, filters: Filter[], operation?: O
     const match = (f: Filter) =>
         f.type === "exact"
             ? value.toLowerCase() === f.value.toLowerCase()
-            : value.toLowerCase().includes(f.value.toLowerCase());
+            : f.type === "not_contains" ? !value.toLowerCase().includes(f.value.toLowerCase()) : value.toLowerCase().includes(f.value.toLowerCase());
 
-    return operation === Operation.OR
-        ? filters.some(match)
-        : filters.every(match);
+    return filters.some(match);
 };
 
 

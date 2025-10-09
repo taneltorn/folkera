@@ -259,6 +259,7 @@
   "filtering": {
     "exact": "Täpne vaste",
     "contains": "Sisaldab",
+    "not_contains": "Ei sisalda",
     "from": "Alates",
     "to": "Kuni",
     "blank": "Ilma väärtuseta",

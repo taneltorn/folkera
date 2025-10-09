@@ -33,7 +33,6 @@ const RecordingSearch: React.FC = () => {
     return (
         <Input
             ref={ref}
-            w={{base: 150, xs: 300}}
             size={"md"}
             value={value}
             leftSection={<IoSearchOutline size={Size.icon.MD}/>}

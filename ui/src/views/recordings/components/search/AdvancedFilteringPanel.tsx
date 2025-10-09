@@ -10,10 +10,10 @@ const AdvancedFilteringPanel: React.FC = () => {
 
     const {t} = useTranslation();
     const {filters, setFilters} = useAdvancedFilteringContext();
-    const dataContext = useDataContext();
+    const ctx = useDataContext();
 
     const handleSubmit = () => {
-        dataContext.loadData(filters);
+        ctx.loadData(filters);
     }
 
     const handleClear = () => {
@@ -21,8 +21,8 @@ const AdvancedFilteringPanel: React.FC = () => {
     }
 
     useEffect(() => {
-        setFilters(dataContext.filters);
-    }, [dataContext.filters]);
+        setFilters(ctx.filters);
+    }, [ctx.filters]);
 
     return (
         <Box mb={"xl"}>
@@ -34,14 +34,14 @@ const AdvancedFilteringPanel: React.FC = () => {
                 <AdvancedFilterInput field={"ref"}/>
                 <AdvancedFilterInput field={"content"}/>
                 <AdvancedPeriodInput field={"year"}/>
-                <AdvancedFilterInput field={"tune"}/>
-                <AdvancedFilterInput field={"dance"}/>
-                <AdvancedFilterInput field={"instrument"}/>
-                <AdvancedFilterInput field={"performer"}/>
-                <AdvancedFilterInput field={"collector"}/>
-                <AdvancedFilterInput field={"parish"}/>
-                <AdvancedFilterInput field={"county"}/>
-                <AdvancedFilterInput field={"origin"}/>
+                <AdvancedFilterInput field={"tune"} autocomplete/>
+                <AdvancedFilterInput field={"dance"} autocomplete/>
+                <AdvancedFilterInput field={"instrument"} autocomplete />
+                <AdvancedFilterInput field={"performer"} autocomplete/>
+                <AdvancedFilterInput field={"collector"} autocomplete/>
+                <AdvancedFilterInput field={"parish"} autocomplete/>
+                <AdvancedFilterInput field={"county"} autocomplete/>
+                <AdvancedFilterInput field={"origin"} autocomplete/>
                 <AdvancedFilterInput field={"archive"}/>
                 <AdvancedFilterInput field={"file"}/>
             </Stack>
