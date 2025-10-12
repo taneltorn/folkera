@@ -1,5 +1,5 @@
 import React from "react";
-import {Group} from "@mantine/core";
+import {Box, Group} from "@mantine/core";
 import RecordingSearch from "./search/RecordingSearch.tsx";
 import RecordingFilters from "./search/RecordingFilters.tsx";
 import AdvancedFilteringPanel from "./search/AdvancedFilteringPanel.tsx";
@@ -11,9 +11,13 @@ const TopControlBar: React.FC = () => {
     const {visible} = useAdvancedFilteringContext();
 
     return (<>
-            <Group justify={"start"} mb={"md"}>
-                <RecordingSearch/>
-                <AdvancedSearchToggle/>
+            <Group justify={"start"} mb={"md"} wrap={"nowrap"}>
+                <Box>
+                    <RecordingSearch/>
+                </Box>
+                <Box w="auto" style={{flexShrink: 1}}>
+                    <AdvancedSearchToggle/>
+                </Box>
             </Group>
 
             {visible && <AdvancedFilteringPanel/>}

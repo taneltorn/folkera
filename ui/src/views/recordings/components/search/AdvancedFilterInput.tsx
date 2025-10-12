@@ -37,6 +37,7 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
                 {autocomplete
                     ? <Autocomplete
                         size={"sm"}
+                        variant={"filled"}
                         className={filter.value ? "active-input" : ""}
                         value={filter.value}
                         disabled={["blank", "not_blank"].includes(filter.type as string)}
@@ -47,6 +48,7 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
                     />
                     : <Input
                         size={"sm"}
+                        variant={"filled"}
                         className={filter.value ? "active-input" : ""}
                         value={filter.value}
                         disabled={["blank", "not_blank"].includes(filter.type as string)}

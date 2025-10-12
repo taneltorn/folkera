@@ -48,7 +48,7 @@ const Login: React.FC = () => {
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
                     <TextInput
                         mb={"md"}
-                        withAsterisk
+                        variant={"filled"}
                         placeholder={t("view.auth.form.email")}
                         key={form.key('email')}
                         size={"lg"}
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
                     />
 
                     <TextInput
-                        withAsterisk
+                        variant={"filled"}
                         type={"password"}
                         placeholder={t("view.auth.form.password")}
                         key={form.key('password')}

@@ -18,7 +18,7 @@ const AdvancedPeriodInput: React.FC<Properties> = ({field}) => {
     const {filters, setFilters, clearFilter} = useAdvancedFilteringContext();
 
     const handleChange = (value: string, type: string) => {
-        const filterList = filters.filter(f => f.field === field && f.type !== "exact" );
+        const filterList = filters.filter(f => f.field === field && f.type !== "exact");
         filterList.push({field: field, value: value, type: type as "from" | "to" | "exact"});
         setFilters(filterList);
     };
@@ -33,6 +33,7 @@ const AdvancedPeriodInput: React.FC<Properties> = ({field}) => {
                     value={filters.find(f => f.field === field && f.type === "from")?.value
                         || filters.find(f => f.field === field && f.type === "exact")?.value || ""}
                     data={period}
+                    variant={"filled"}
                     placeholder={t("filtering.from")}
                     onChange={v => handleChange(v || "", "from")}
                     clearButtonProps={{
@@ -46,6 +47,7 @@ const AdvancedPeriodInput: React.FC<Properties> = ({field}) => {
                 <Select
                     value={filters.find(f => f.field === field && f.type === "to")?.value || filters.find(f => f.field === field && f.type === "exact")?.value || ""}
                     placeholder={t("filtering.to")}
+                    variant={"filled"}
                     data={period}
                     onChange={v => handleChange(v || "", "to")}
                     clearButtonProps={{
