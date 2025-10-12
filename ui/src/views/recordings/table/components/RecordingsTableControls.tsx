@@ -9,7 +9,7 @@ import LabelValue from "../../../../components/LabelValue.tsx";
 import ExportRecordingsCsvButton from "../../components/controls/ExportRecordingsCsvButton.tsx";
 import SelectRecordingsButton from "../../components/controls/SelectRecordingsButton.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import {HiViewColumns} from "react-icons/hi2";
+import {BiColumns} from "react-icons/bi";
 
 const RecordingsTableControls: React.FC = () => {
 
@@ -34,8 +34,7 @@ const RecordingsTableControls: React.FC = () => {
                         variant={"subtle"}
                         size={"sm"}
                         color={"dark"}
-                        leftSection={<HiViewColumns size={Size.icon.MD}/>}
-                        // rightSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
+                        leftSection={<BiColumns size={Size.icon.MD}/>}
                     >
                         {t("view.recordings.controls.visibleFields")}
                     </Button>
