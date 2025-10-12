@@ -7,12 +7,12 @@ import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../model/Pagination.ts";
 import {useDataService} from "../services/useDataService.ts";
 import {useTranslation} from "react-i18next";
-import {NotificationType} from "../context/NotificationContext.tsx";
-import {useNotifications} from "./useNotifications.tsx";
-import Papa from "papaparse";
+import {ToastType} from "../context/ToastContext.tsx";
+import {useToasts} from "./useToasts.tsx";
 import {useOptionsService} from "../services/useOptionsService.ts";
 import {FilteringOptions} from "../model/FilteringOptions.ts";
 import {Filter} from "../model/Filter.ts";
+import {useDataExport} from "./useDataExport.tsx";
 
 const DefaultPagination: Pagination = {
     size: ItemsPerPageOptions[0],
@@ -29,9 +29,10 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
     const {t} = useTranslation();
 
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
     const dataService = useDataService();
     const optionsService = useOptionsService();
+    const {exportCsv} = useDataExport();
 
     const [data, setData] = useState<Recording[]>([]);
     const [filteringOptions, setFilteringOptions] = useState<FilteringOptions>({});
@@ -53,7 +54,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                 setTotalPages(result.page.totalPages);
             })
             .catch(error => {
-                notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             });
     }
 
@@ -61,14 +62,14 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         optionsService.fetchOptions(filters)
             .then(result => setFilteringOptions(result))
             .catch(error => {
-                notify(t("toast.error.fetchOptions"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchOptions"), ToastType.ERROR, error);
             });
     }
 
     const saveData = (data: Recording[]) => {
         dataService.saveData(data)
             .catch(error => {
-                notify(t("toast.error.saveData"), NotificationType.ERROR, error);
+                notify(t("toast.error.saveData"), ToastType.ERROR, error);
             });
     }
 
@@ -76,7 +77,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         dataService.fetchRecordings(filters, {sortField: "order", sortDirection: SortDirection.ASC})
             .then((result) => {
                 const data = result.data;
-                const filename = generateFileName(filters);
+                const filename = generateFileName("pillilood", filters);
 
                 // @ts-ignore
                 const headerTranslations: Record<keyof Recording, string> = {
@@ -110,21 +111,11 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                     });
                     return transformedRecord;
                 });
-                const csvData = Papa.unparse(transformedData);
-
-                const blob = new Blob([csvData]);
-                const link = document.createElement('a');
-                const url = URL.createObjectURL(blob);
-                link.setAttribute('href', url);
-                link.setAttribute('download', filename);
-                document.body.appendChild(link);
-                link.click();
-
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
+                
+                exportCsv(filename, transformedData);
             })
             .catch(error => {
-                notify(t("toast.error.exportData"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             });
     }
 

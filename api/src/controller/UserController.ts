@@ -200,7 +200,7 @@ class UserController {
                 return;
             }
 
-            const result = await userService.delete(userId);
+            const result = await userService.deleteById(userId);
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;

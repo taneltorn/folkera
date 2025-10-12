@@ -6,6 +6,7 @@ import Header from "./components/header/Header.tsx";
 import BottomAudioPlayer from "./components/footer/BottomAudioPlayer.tsx";
 import {useAudioPlayer} from "./hooks/useAudioContext.tsx";
 import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
+import ActiveNotificationsPanel from "./ActiveNotificationsPanel.tsx";
 
 const Layout: React.FC = () => {
 
@@ -15,8 +16,8 @@ const Layout: React.FC = () => {
         <ActiveViewContextProvider>
             <AppShell layout={"default"}>
                 <Notifications position="top-right"/>
-
                 <AppShell.Main>
+                    <ActiveNotificationsPanel/>
                     <Header/>
                     <Divider mb={"md"}/>
 

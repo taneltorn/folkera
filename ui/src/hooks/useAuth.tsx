@@ -3,8 +3,8 @@ import {useTranslation} from "react-i18next";
 import {AuthContext} from "../context/AuthContext.tsx";
 import {UserDetails} from '../model/UserDetails.ts';
 import {UserRole} from '../model/User.ts';
-import {NotificationType} from "../context/NotificationContext.tsx";
-import {useNotifications} from "./useNotifications.tsx";
+import {ToastType} from "../context/ToastContext.tsx";
+import {useToasts} from "./useToasts.tsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,7 +15,7 @@ interface AuthProviderProps {
 export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<UserDetails | null>();
 
@@ -45,7 +45,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
                 }
             })
             .catch(e => {
-                notify(t("toast.error.login"), NotificationType.ERROR, e);
+                notify(t("toast.error.login"), ToastType.ERROR, e);
                 setCurrentUser(null);
             });
     }
@@ -80,7 +80,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
                 }
             })
             .catch(e => {
-                notify(t("toast.error.verifyToken"), NotificationType.ERROR, e);
+                notify(t("toast.error.verifyToken"), ToastType.ERROR, e);
                 setCurrentUser(null);
             });
     }

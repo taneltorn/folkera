@@ -6,7 +6,6 @@ import {View} from "../../context/ActiveViewContext.tsx";
 import TableView from "./table/TableView.tsx";
 import MapView from "./map/MapView.tsx";
 import StatsView from "./stats/StatsView.tsx";
-import {StatsContextProvider} from "../../hooks/useStatsContext.tsx";
 import {useLocation} from "react-router-dom";
 import {MapContextProvider} from "../../hooks/useMapContext.tsx";
 import Page from "../../Page.tsx";
@@ -39,10 +38,7 @@ const RecordingsList: React.FC = () => {
                     <MapView/>
                 </MapContextProvider>}
 
-            {activeView === View.STATS &&
-                <StatsContextProvider>
-                    <StatsView/>
-                </StatsContextProvider>}
+            {activeView === View.STATS && <StatsView/>}
         </Page>
     );
 }

@@ -3,11 +3,10 @@ import {Group, Input, Radio, TextInput, Title} from "@mantine/core";
 import {User, UserRole} from "../../../../model/User.ts";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
-import { RiEdit2Fill} from "react-icons/ri";
-import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
 import {isNotEmpty, useForm} from "@mantine/form";
+import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
 
 interface Properties {
     user: User;
@@ -24,7 +23,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
         initialValues: {...user},
 
         validate: {
-            name: isNotEmpty(t("field.required")),
+            name: isNotEmpty(t("validation.required")),
         },
     });
 
@@ -37,7 +36,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
         }
     }
 
-    const openModifyUserModal = () =>
+    const openModal = () =>
         modals.open({
             title: <Title order={4}>{t("modal.modifyUser.title")}</Title>,
             centered: true,
@@ -87,9 +86,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
         });
 
     return (
-        <Button px={"xs"} onClick={openModifyUserModal} variant="light">
-            <RiEdit2Fill size={Size.icon.SM}/>
-        </Button>
+        <TableRowButton type={"modify"} onClick={openModal}/>
     );
 }
 

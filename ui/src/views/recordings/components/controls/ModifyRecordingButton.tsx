@@ -5,8 +5,8 @@ import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {Recording} from "../../../../model/Recording.ts";
 import ModifyRecordingForm from "../form/ModifyRecordingForm.tsx";
-import {NotificationType} from "../../../../context/NotificationContext.tsx";
-import {useNotifications} from "../../../../hooks/useNotifications.tsx";
+import {ToastType} from "../../../../context/ToastContext.tsx";
+import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 
@@ -23,11 +23,11 @@ interface Properties {
 const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, children, ...props}) => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
     const {state} = useControlState();
 
     const handleSubmit = () => {
-        notify(t("toast.success.saveData"), NotificationType.SUCCESS);
+        notify(t("toast.success.saveData"), ToastType.SUCCESS);
         onChange && onChange();
     }
 

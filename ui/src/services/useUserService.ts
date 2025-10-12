@@ -1,8 +1,8 @@
 import {useState} from "react";
 import axios from 'axios';
-import {NotificationType} from "../context/NotificationContext.tsx";
+import {ToastType} from "../context/ToastContext.tsx";
 import {useTranslation} from "react-i18next";
-import {useNotifications} from "../hooks/useNotifications.tsx";
+import {useToasts} from "../hooks/useToasts.tsx";
 import {User} from "../model/User.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -10,7 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const useUserService = () => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const useUserService = () => {
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.fetchUser"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchUser"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;
@@ -48,7 +48,7 @@ const useUserService = () => {
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.fetchUsers"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchUsers"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;
@@ -64,13 +64,13 @@ const useUserService = () => {
             withCredentials: true
         })
             .then(response => {
-                notify(t("toast.success.createUser"), NotificationType.SUCCESS);
+                notify(t("toast.success.createUser"), ToastType.SUCCESS);
                 
                 setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.createUser"), NotificationType.ERROR, error);
+                notify(t("toast.error.createUser"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;
@@ -86,13 +86,13 @@ const useUserService = () => {
             withCredentials: true
         })
             .then(response => {
-                notify(t("toast.success.modifyUser"), NotificationType.SUCCESS);
+                notify(t("toast.success.modifyUser"), ToastType.SUCCESS);
                 
                 setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.modifyUser"), NotificationType.ERROR, error);
+                notify(t("toast.error.modifyUser"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;
@@ -109,13 +109,13 @@ const useUserService = () => {
             withCredentials: true
         })
             .then(response => {
-                notify(t("toast.success.modifyUser"), NotificationType.SUCCESS);
+                notify(t("toast.success.modifyUser"), ToastType.SUCCESS);
                 
                 setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.modifyUser"), NotificationType.ERROR, error);
+                notify(t("toast.error.modifyUser"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;
@@ -131,13 +131,13 @@ const useUserService = () => {
             withCredentials: true
         })
             .then(response => {
-                notify(t("toast.success.removeUser"), NotificationType.SUCCESS);
+                notify(t("toast.success.removeUser"), ToastType.SUCCESS);
                 
                 setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                notify(t("toast.error.removeUser"), NotificationType.ERROR, error);
+                notify(t("toast.error.removeUser"), ToastType.ERROR, error);
 
                 setIsLoading(false);
                 throw error;

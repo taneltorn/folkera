@@ -9,9 +9,9 @@ import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyRecordingButton from "../../components/controls/ModifyRecordingButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {useRecordingSelection} from "../../../../hooks/useRecordingSelection.tsx";
-import {AiFillEdit} from "react-icons/ai";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
+import {RiEdit2Fill} from "react-icons/ri";
 
 interface Properties {
     recording: Recording;
@@ -106,12 +106,12 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
             </Table.Td>
             {currentUser?.isAdmin && <Table.Td>
                 <ModifyRecordingButton
-                    variant={"subtle"}
+                    variant={"light"}
                     color={"dark"}
-                    size={"compact-md"}
+                    size={"compact-xl"}
                     recording={recording}
                 >
-                    <AiFillEdit size={Size.icon.SM}/>
+                    <RiEdit2Fill size={Size.icon.SM}/>
                 </ModifyRecordingButton>
             </Table.Td>}
         </Table.Tr>

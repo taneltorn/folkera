@@ -16,8 +16,12 @@ const RecordingMapControls: React.FC = () => {
     const {totalItems} = useDataContext();
 
     return (
-        <Group gap={"md"}>
-            <LabelValue label={t("view.recordings.table.results")} value={totalItems}/>
+        <Group gap={4}>
+            <LabelValue
+                label={t("view.recordings.table.results")}
+                value={totalItems}
+                mr={"md"}
+            />
 
             <MenuSelect
                 label={t(`view.recordings.map.groupBy.${groupBy}`)}
@@ -37,7 +41,7 @@ const RecordingMapControls: React.FC = () => {
                         variant={"subtle"}
                         size={"sm"}
                         color={"dark"}
-                        leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
+                        rightSection={<RiArrowDropDownLine size={Size.icon.LG} />}
                     >
                         {t("view.recordings.controls.mapOptions")}
                     </Button>

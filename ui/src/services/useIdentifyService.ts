@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import axios from "axios";
-import {NotificationType} from "../context/NotificationContext.tsx";
-import {useNotifications} from "../hooks/useNotifications.tsx";
+import {ToastType} from "../context/ToastContext.tsx";
+import {useToasts} from "../hooks/useToasts.tsx";
 import {useTranslation} from "react-i18next";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const useIdentifyService = () => {
 
     const {t} = useTranslation();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
@@ -33,7 +33,7 @@ export const useIdentifyService = () => {
             })
             .catch(error => {
                 setIsLoading(false);
-                notify(t("toast.error.identifySimilarRecordings"), NotificationType.ERROR, error);
+                notify(t("toast.error.identifySimilarRecordings"), ToastType.ERROR, error);
                 throw error;
             });
     }
@@ -56,7 +56,7 @@ export const useIdentifyService = () => {
             })
             .catch((error) => {
                 setIsLoading(false);
-                notify(t("toast.error.uploadRecording"), NotificationType.ERROR, error);
+                notify(t("toast.error.uploadRecording"), ToastType.ERROR, error);
                 throw error;
             });
     };
@@ -70,7 +70,7 @@ export const useIdentifyService = () => {
                 },
             });
         } catch (error) {
-            notify(t("toast.error.deleteRecording"), NotificationType.ERROR, error);
+            notify(t("toast.error.deleteRecording"), ToastType.ERROR, error);
             throw error;
         }
     };

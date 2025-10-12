@@ -83,6 +83,13 @@
     "role": "Roll",
     "createdAt": "Loodud"
   },
+  "notification": {
+    "id": "ID",
+    "title": "Pealkiri",
+    "message": "Teade",
+    "validFrom": "Alates",
+    "validTo": "Kuni"
+  },
   "role": {
     "ADMIN": "Administraator",
     "USER": "Kasutaja"
@@ -90,7 +97,8 @@
   "view": {
     "admin": {
       "tab": {
-        "users": "Kasutajad"
+        "users": "Kasutajad",
+        "notifications": "Teavitused"
       }
     },
     "identify": {
@@ -111,6 +119,7 @@
       "controls": {
         "search": "Otsi...",
         "export": "Ekspordi",
+        "exportStats": "Ekspordi",
         "selection": "Hulgivalik",
         "bulkModify": "Määra väärtused",
         "clear": "Tühista",
@@ -147,12 +156,15 @@
       "stats": {
         "barChart": "Tulpdiagramm",
         "pieChart": "Sektordiagramm",
+        "export": "Ekspordi",
         "groupBy": {
           "year": "Aastate lõikes",
           "instrument": "Pillide lõikes",
           "parish": "Kihelkondade lõikes",
           "tune": "Viiside lõikes",
-          "performer": "Esitajate lõikes"
+          "performer": "Esitajate lõikes",
+          "county": "Maakondade lõikes",
+          "collector": "Kogujate lõikes"
         },
         "tooltip": {
           "year": "Esitusi (aastaid)",
@@ -213,9 +225,12 @@
     "success": {
       "saveData": "Andmed salvestatud",
       "exportData": "{{count}} rida eksporditud",
-      "createUser": "Kasutaje lisatud",
+      "createUser": "Kasutaja lisatud",
       "modifyUser": "Kasutaja muudetud",
-      "removeUser": "Kasutaja eemaldatud"
+      "removeUser": "Kasutaja eemaldatud",
+      "createNotification": "Teavitus lisatud",
+      "modifyNotification": "Teavitus muudetud",
+      "removeNotification": "Teavitus eemaldatud"
     },
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
@@ -224,6 +239,11 @@
       "identifySimilarRecordings": "Sarnaste lugude tuvastamine ebaõnnestus",
       "uploadRecording": "Salvestuse üleslaadimine ebaõnnestus",
       "deleteRecording": "Salvestuse kustutamine ebaõnnestus",
+      "fetchNotification": "Teavituse laadimine ebaõnnestus",
+      "fetchNotifications": "Teavituste laadimine ebaõnnestus",
+      "createNotification": "Teavituse loomine ebaõnnestus",
+      "saveNotification": "Teavituse salvestamine ebaõnnestus",
+      "deleteNotification": "Teavituse kustutamine ebaõnnestus",
       "saveData": "Andmete salvestamine ebaõnnestus",
       "exportData": "Andmete eksportimine ebaõnnestus",
       "verifyToken": "Autentimine ebaõnnestus",
@@ -232,7 +252,22 @@
       "playbackError": "Faili {{file}} ei õnnestunud mängida"
     }
   },
+  "export": {
+    "count": "Kirjeid"
+  },
   "modal": {
+    "createNotification": {
+      "title": "Lisa teavitus"
+    },
+    "modifyNotification": {
+      "title": "Muuda teavitust"
+    },
+    "removeNotification": {
+      "title": "Kustuta teavitus",
+      "content": "Kas oled kindel, et soovid teavituse kustutada?",
+      "confirm": "Kustuta teavitus",
+      "cancel": "Ei, jäta teavitus alles."
+    },
     "createUser": {
       "title": "Lisa kasutaja"
     },
@@ -275,6 +310,7 @@
     "clear": "Tühjenda",
     "save": "Salvesta",
     "modify": "Muuda",
+    "close": "Sulge",
     "cancel": "Tühista",
     "reset": "Lähtesta",
     "addNew": "Lisa uus",

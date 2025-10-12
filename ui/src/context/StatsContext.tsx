@@ -1,6 +1,7 @@
 import React from 'react';
 import {GroupBy} from "../model/GroupBy.ts";
 import { ChartType } from '../model/ChartType.ts';
+import {Filter} from "../model/Filter.ts";
 
 export interface Properties {
     stats: { [key: string]: number }[];
@@ -13,6 +14,8 @@ export interface Properties {
 
     chartType: ChartType;
     setChartType: (value: ChartType) => void;
+
+    exportStats: (filters?: Filter[]) => void;
 }
 
 export const StatsContext = React.createContext<Properties>({} as Properties);

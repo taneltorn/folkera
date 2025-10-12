@@ -5,8 +5,8 @@ import {useParams} from "react-router";
 import {Box} from "@mantine/core";
 import {Recording} from "../../model/Recording.ts";
 import {useDataService} from "../../services/useDataService.ts";
-import {NotificationType} from "../../context/NotificationContext.tsx";
-import {useNotifications} from "../../hooks/useNotifications.tsx";
+import {ToastType} from "../../context/ToastContext.tsx";
+import {useToasts} from "../../hooks/useToasts.tsx";
 import SimilarRecordingsTable from "./table/components/SimilarRecordingsTable.tsx";
 import RecordingsInfoTable from "./details/components/RecordingsInfoTable.tsx";
 import RecordingHeader from "./RecordingsHeader.tsx";
@@ -22,7 +22,7 @@ const RecordingsList: React.FC = () => {
 
     const {t} = useTranslation();
     const {id} = useParams();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
     const dataService = useDataService();
     const {setSimilarRecordings} = useSimilarRecordings();
     const {clearSelection} = useRecordingSelection();
@@ -41,7 +41,7 @@ const RecordingsList: React.FC = () => {
                 setRecording(data);
             })
             .catch(error => {
-                notify(t("toast.error.fetchData"), NotificationType.ERROR, error);
+                notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             });
     }
 

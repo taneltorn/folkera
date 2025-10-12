@@ -1,11 +1,10 @@
 import React from "react";
 import {User} from "../../../../model/User.ts";
-import {Button, Text} from '@mantine/core';
+import {Text} from '@mantine/core';
 import {modals} from '@mantine/modals';
-import {RiDeleteBinLine} from "react-icons/ri";
-import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
+import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
 
 interface Properties {
     user: User;
@@ -17,7 +16,7 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
     const {t} = useTranslation();
     const {removeUser} = useUserService();
 
-    const openRemoveUserModal = () =>
+    const openModal = () =>
         modals.openConfirmModal({
             title: t("modal.removeUser.title"),
             centered: true,
@@ -36,9 +35,7 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
         });
 
     return (
-        <Button px={"xs"} onClick={openRemoveUserModal} variant="light">
-            <RiDeleteBinLine size={Size.icon.SM}/>
-        </Button>
+        <TableRowButton type={"remove"} onClick={openModal}/>
     );
 }
 

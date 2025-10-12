@@ -1,6 +1,5 @@
 import DataTransformer from "../transformers/DataTransformer";
 import SplitByComma from "../transformers/SplitByComma";
-import ParishToCounty from "../transformers/ParishToCounty";
 import {Counties, Parishes} from "./common.lists";
 import {GroupBy} from "../model/GroupBy";
 import {Recording} from "../model/Recording";
@@ -20,6 +19,8 @@ export const GroupByToDataTransformerMap = new Map<GroupBy, DataTransformer[]>([
     [GroupBy.PARISH, [new SplitByComma()]],
     [GroupBy.PERFORMER, [new SplitByComma()]],
     [GroupBy.COUNTY, [new SplitByComma()]],
+    [GroupBy.COLLECTOR, [new SplitByComma()]],
+    [GroupBy.DANCE, [new SplitByComma()]],
 ]);
 
 export const GroupByToListMap = new Map<GroupBy, string[]>([

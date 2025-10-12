@@ -27,7 +27,7 @@ const MenuSelect: React.FC<Properties> = (props) => {
                     variant={props.variant || "subtle"}
                     size={props.size || "sm"}
                     color={props.color || "dark"}
-                    leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
+                    rightSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                 >
                     {props.value || props.label}
                 </Button>

@@ -4,6 +4,7 @@ import {Button, Group, Pill} from "@mantine/core";
 import {Color, Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {LuFilterX} from "react-icons/lu";
+import {generateFilterName} from "../../../../utils/helpers.tsx";
 
 const MAX_NUMBER_OF_FILTERS_TO_DISPLAY = 6;
 
@@ -33,10 +34,7 @@ const RecordingFilters: React.FC = () => {
                                     type: filter.type
                                 })}
                             >
-                                {t(`recording.${filter.field}`)}{
-                                filter.type === "exact"
-                                    ? t(`view.recordings.exactMatch`)
-                                    : ""}: {filter.value}
+                                {generateFilterName(filter, t)}
                             </Pill>)}
 
                     {!showAllFilters && filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY &&

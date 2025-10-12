@@ -1,21 +1,32 @@
 import React from "react";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Button, Menu, Switch} from "@mantine/core";
+import {Button, Group, Menu, Switch} from "@mantine/core";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {RecordingTableFields} from "../../../../utils/lists.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
 import {Recording} from "../../../../model/Recording.ts";
 import LabelValue from "../../../../components/LabelValue.tsx";
+import ExportRecordingsCsvButton from "../../components/controls/ExportRecordingsCsvButton.tsx";
+import SelectRecordingsButton from "../../components/controls/SelectRecordingsButton.tsx";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 const RecordingsTableControls: React.FC = () => {
 
     const {t} = useTranslation();
+    const {currentUser} = useAuth();
     const {hiddenFields, toggleField, totalItems} = useDataContext();
 
     return (
-        <>
-            <LabelValue label={t("view.recordings.table.results")} value={totalItems}/>
+        <Group gap={4}>
+            <LabelValue
+                label={t("view.recordings.table.results")}
+                value={totalItems}
+                mr={"md"}
+            />
+
+            {currentUser?.isAdmin && <SelectRecordingsButton/>}
+            <ExportRecordingsCsvButton/>
 
             <Menu shadow="md" closeOnClickOutside={true} closeOnItemClick={false}>
                 <Menu.Target>
@@ -23,7 +34,7 @@ const RecordingsTableControls: React.FC = () => {
                         variant={"subtle"}
                         size={"sm"}
                         color={"dark"}
-                        leftSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
+                        rightSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
                     >
                         {t("view.recordings.controls.visibleFields")}
                     </Button>
@@ -40,7 +51,7 @@ const RecordingsTableControls: React.FC = () => {
                             </Menu.Item>)}
                 </Menu.Dropdown>
             </Menu>
-        </>
+        </Group>
     );
 }
 

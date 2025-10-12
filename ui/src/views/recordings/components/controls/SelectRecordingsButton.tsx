@@ -19,7 +19,7 @@ const SelectRecordingsButton: React.FC = () => {
                     variant={"subtle"}
                     size={"sm"}
                     color={"dark"}
-                    disabled={modifications.length > 0}
+                    disabled={state !== ControlState.IDLE || modifications.length > 0}
                     leftSection={<TbCheckbox size={Size.icon.MD}/>}
                     onClick={() => setState(ControlState.SELECT)}
                 >

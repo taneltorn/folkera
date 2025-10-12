@@ -72,18 +72,18 @@ const BulkModifyRecordingsButtons: React.FC = () => {
                     variant={"subtle"}
                     size={"sm"}
                     color={"dark"}
-                    onClick={handleSelectionCancel}>
-                    {t("button.cancel")}
-                </Button>
-                <Button
-                    variant={"subtle"}
-                    size={"sm"}
-                    color={"dark"}
                     disabled={selection.length === 0}
                     leftSection={<MdAssignment size={Size.icon.MD}/>}
                     onClick={openModifyRecordingModal}
                 >
                     {t("view.recordings.controls.bulkModify")}
+                </Button>
+                <Button
+                    variant={"subtle"}
+                    size={"sm"}
+                    color={"dark"}
+                    onClick={handleSelectionCancel}>
+                    {t("button.cancel")}
                 </Button>
             </>}
         </>

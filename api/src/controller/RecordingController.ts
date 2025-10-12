@@ -4,11 +4,11 @@ import CsvRecordingService from "../service/recordings/CsvRecordingService";
 import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {ApiRequest} from "../model/ApiRequest";
-import {ResultList} from "../model/ResultList";
 import {Recording} from "../model/Recording";
 import path from "path";
 import fs from "fs";
 import {verifyToken} from "../middleware/verifyToken";
+import {Result} from "../model/Result";
 
 class RecordingController {
 
@@ -76,7 +76,7 @@ class RecordingController {
         }
     }
     
-    async getRecordings(req: ApiRequest, res: Response): Promise<ResultList<Recording>> {
+    async getRecordings(req: ApiRequest, res: Response): Promise<Result<Recording[]>> {
         try {
             const result = await this.recordingService.find(req.filters, req.pagination);
 

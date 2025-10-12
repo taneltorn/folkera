@@ -1,5 +1,6 @@
 import {Filter} from "../model/Filter.ts";
 import {Recording} from "../model/Recording.ts";
+import {TFunction} from "i18next";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;
@@ -31,10 +32,18 @@ export const urlify = (filters?: Filter[]): Record<string, string> => {
     }, {} as Record<string, string>);
 };
 
-export const generateFileName = (filters?: Filter[]) => {
+export const generateFileName = (basename: string, filters?: Filter[]) => {
     return filters && filters.length > 0
-        ? "pillilood_" + filters.map(f => f.value).join("_").replace(".", "").replace(" / ", "_") + ".csv"
-        : "pillilood.csv";
+        ? `${basename}_` + filters.map(f => f.value).join("_").replace(".", "").replace(" / ", "_") + ".csv"
+        : `${basename}.csv`;
+}
+
+export const generateFilterName = (filter: Filter, t: TFunction): string => {
+    const field = t(`recording.${filter.field}`);
+    const matchType = ["exact", "not_contains", "from", "to"].includes(filter.type as string)
+        ? ` (${t("filtering." + filter.type)})`.toLowerCase()
+        : "";
+    return `${field}${matchType}: ${filter.value}`;
 }
 
 export const distanceToSimilarity = (distance: number | undefined): number => {

@@ -2,15 +2,18 @@ import pool from "../../config/dbConfig";
 import log4js from "log4js";
 import Mapper from "../../utils/Mapper";
 import UserService from "./UserService";
+import {User} from "../../model/User";
+import {Result} from "../../model/Result";
 
 class PostgresUserService implements UserService {
+    
     private logger = log4js.getLogger("UserService");
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
-    public async findAll() {
+    public async findAll(): Promise<Result<User[]>> {
         try {
             this.logger.info(`Fetching users`);
             const query = `
@@ -29,7 +32,7 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async findByEmail(email: string): Promise<any> {
+    public async findByEmail(email: string): Promise<Result<User>> {
         try {
             this.logger.info(`Fetching user with email = ${email}`);
 
@@ -48,7 +51,7 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async insert(data: any, user: any) {
+    public async insert(data: User, user: User): Promise<Result<any>> {
         try {
             this.logger.info(`Inserting new user`);
             const query = `
@@ -76,7 +79,7 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async update(id: number, data: any, user: any) {
+    public async update(id: number, data: User, user: User): Promise<Result<any>>  {
         try {
             this.logger.info(`Updating user with id = ${id}`);
             const query = `
@@ -104,7 +107,7 @@ class PostgresUserService implements UserService {
     }
 
 
-    public async updateUserPassword(id: number, password: string, user: any) {
+    public async updateUserPassword(id: number, password: string, user: User): Promise<Result<any>>  {
         try {
             this.logger.info(`Updating user password with id = ${id}`);
             const query = `
@@ -129,7 +132,7 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async delete(id: number) {
+    public async deleteById(id: number): Promise<Result<any>>  {
         try {
             this.logger.info(`Deleting user with id = ${id}`);
 

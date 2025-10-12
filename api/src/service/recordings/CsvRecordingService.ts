@@ -5,9 +5,9 @@ import Papa from "papaparse";
 import RecordingService from "./RecordingService";
 import {Filter} from "../../model/Filter";
 import {filter, sortByField} from "../../utils/filtering.helpers";
-import {ResultList} from "../../model/ResultList";
 import {Pagination, SortDirection} from "../../model/Pagination";
 import {Recording} from "../../model/Recording";
+import {Result} from "../../model/Result";
 
 class CsvRecordingService implements RecordingService {
 
@@ -18,7 +18,7 @@ class CsvRecordingService implements RecordingService {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
-    public async findById(id: string): Promise<{ success: boolean, data?: Recording, error?: any }> {
+    public async findById(id: string): Promise<Result<Recording>> {
         try {
             const data = this.readFromCsvFile();
             const found = data.find(recording => recording.id === id);
@@ -27,7 +27,8 @@ class CsvRecordingService implements RecordingService {
                 this.logger.warn(`Recording with id '${id}' not found`);
                 return {
                     success: false,
-                    error: {message: "Recording not found", detail: `No recording with id '${id}'`}
+                    error: "Recording not found",
+                    detail: `No recording with id '${id}'`
                 };
             }
 
@@ -39,15 +40,15 @@ class CsvRecordingService implements RecordingService {
             this.logger.error(`Error finding recording with ID ${id}`, err);
             return {
                 success: false,
-                error: {message: "Error finding recording", detail: err.message}
+                error: "Error finding recording",
+                detail: err.message
             };
         }
     }
 
-    public async findByIds(ids: string[]): Promise<{ success: boolean, data: Recording[], error?: any }> {
+    public async findByIds(ids: string[]): Promise<Result<Recording[]>> {
         try {
             const data = this.readFromCsvFile();
-
             const matched = data.filter(recording => ids.includes(recording.id));
 
             this.logger.info(`Found ${matched.length} recordings for ${ids.length} requested IDs`);
@@ -61,13 +62,14 @@ class CsvRecordingService implements RecordingService {
             return {
                 success: false,
                 data: [],
-                error: {message: "Error finding recordings by IDs", detail: err.message}
+                error: "Error finding recordings by IDs",
+                detail: err.message
             };
         }
     }
 
 
-    public async find(filters?: Filter[], pagination?: Pagination): Promise<ResultList<Recording>> {
+    public async find(filters?: Filter[], pagination?: Pagination): Promise<Result<Recording[]>> {
         try {
             const data = this.readFromCsvFile();
 
@@ -107,12 +109,13 @@ class CsvRecordingService implements RecordingService {
             return {
                 success: false,
                 data: [],
-                error: {message: "Error querying recordings", detail: err.message}
+                error: "Error querying recordings",
+                detail: err.message
             }
         }
     }
 
-    public async save(data: Recording[]): Promise<any> {
+    public async save(data: Recording[]): Promise<Result<Recording[]>> {
         this.logger.info(`Updating ${data.length} recordings`);
 
         try {

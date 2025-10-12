@@ -7,25 +7,24 @@ import {useTranslation} from "react-i18next";
 import {ControlState} from "../../../../model/ControlState.ts";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 
-const ExportCsvButton: React.FC = () => {
+const ExportRecordingsCsvButton: React.FC = () => {
 
     const {t} = useTranslation();
     const {exportData} = useDataContext();
     const {state} = useControlState();
 
     return (<>
-        {state === ControlState.IDLE &&
-            <Button
-                variant={"subtle"}
-                size={"sm"}
-                color={"dark"}
-                leftSection={<FaFileExport size={Size.icon.SM}/>}
-                onClick={exportData} px={"xs"} mx={0}>
-                {t("view.recordings.controls.export")}
-            </Button>}
+            {state === ControlState.IDLE &&
+                <Button
+                    variant={"subtle"}
+                    size={"sm"}
+                    color={"dark"}
+                    leftSection={<FaFileExport size={Size.icon.SM}/>}
+                    onClick={exportData} px={"xs"} mx={0}>
+                    {t("view.recordings.controls.export")}
+                </Button>}
         </>
-
     );
 }
 
-export default ExportCsvButton;
+export default ExportRecordingsCsvButton;

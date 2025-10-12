@@ -6,8 +6,8 @@ import {Recording} from "../../../../model/Recording.ts";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
-import {useNotifications} from "../../../../hooks/useNotifications.tsx";
-import {NotificationType} from "../../../../context/NotificationContext.tsx";
+import {useToasts} from "../../../../hooks/useToasts.tsx";
+import {ToastType} from "../../../../context/ToastContext.tsx";
 import {ClusterPlots, ColorSchemes, MarkerSymbols} from "../../../../utils/lists.ts";
 import {ClusterData} from "../../../../model/ClusterData.ts";
 import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
@@ -24,7 +24,7 @@ const ClusterPlot: React.FC = () => {
     const {track, isPlaying, play, pause} = useAudioPlayer();
     const {fetchRecordings, cancelSource} = useDataService();
     const currentBreakpoint = useCurrentBreakpoint();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
 
     const {
         clusterPlot,
@@ -120,7 +120,7 @@ const ClusterPlot: React.FC = () => {
     useEffect(() => {
         fetchRecordings()
             .then(r => setRecordings(r.data))
-            .catch(e => notify(t("toast.error.fetchData"), NotificationType.ERROR, e));
+            .catch(e => notify(t("toast.error.fetchData"), ToastType.ERROR, e));
 
         return () => {
             cancelSource.cancel('Operation canceled by the user.');

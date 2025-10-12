@@ -3,8 +3,8 @@ import {Box, Group, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Trans, useTranslation} from "react-i18next";
-import {useNotifications} from "../../hooks/useNotifications.tsx";
-import {NotificationType} from "../../context/NotificationContext.tsx";
+import {useToasts} from "../../hooks/useToasts.tsx";
+import {ToastType} from "../../context/ToastContext.tsx";
 import useCurrentBreakpoint from "../../hooks/useCurrentBreakPoint.tsx";
 import LargeScreenAudioPlayer from "./LargeScreenAudioPlayer.tsx";
 import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
@@ -16,12 +16,12 @@ const BottomAudioPlayer: React.FC = () => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
-    const {notify} = useNotifications();
+    const {notify} = useToasts();
     const {track, setIsPlaying, playerRef} = useAudioPlayer();
     const breakpoint = useCurrentBreakpoint();
 
     const handlePlaybackError = () => {
-        notify(t("toast.error.playbackError", {file: track?.file || ""}), NotificationType.ERROR)
+        notify(t("toast.error.playbackError", {file: track?.file || ""}), ToastType.ERROR)
         setIsPlaying(false);
     }
 

@@ -54,7 +54,8 @@ class CsvStatsService implements StatsService {
             return {
                 success: false,
                 data: null,
-                error: {message: "Error querying stats", detail: err.message}
+                error:  "Error querying stats",
+                detail: err.message
             };
         }
     }

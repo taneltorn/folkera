@@ -5,4 +5,6 @@ export enum GroupBy {
     PERFORMER = "performer",
     TUNE = "tune",
     COUNTY = "county",
+    COLLECTOR = "collector",
+    DANCE = "dance",
 }

@@ -1,29 +1,28 @@
 import React from "react";
 import {Group, GroupProps, Text, Tooltip} from "@mantine/core";
 
-interface Properties {
-    props?: GroupProps;
+interface Properties extends GroupProps {
     title?: string;
     label: string;
     value: any;
 }
 
-const LabelValue: React.FC<Properties> = (props) => {
+const LabelValue: React.FC<Properties> = ({title, label, value, ...props}) => {
 
     return (
-        <Group {...props.props} gap={"xs"}>
+        <Group {...props} gap={"xs"}>
             <Text size={"sm"} fw={"bold"}>
-                {props.label}
+                {label}
             </Text>
 
-            {props.title
-                ? <Tooltip label={props.title}>
+            {title
+                ? <Tooltip label={title}>
                     <Text size={"sm"}>
-                        {props.value}
+                        {value}
                     </Text>
                 </Tooltip>
                 : <Text size={"sm"}>
-                    {props.value}
+                    {value}
                 </Text>}
         </Group>
     );
