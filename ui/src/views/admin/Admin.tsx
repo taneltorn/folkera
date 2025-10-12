@@ -17,12 +17,12 @@ const Admin: React.FC = () => {
             <Box mx={"md"}>
                 <Tabs defaultValue="users" radius={"xs"}>
                     <Tabs.List>
-                        <Tabs.Tab value="users" leftSection={<FaUser size={Size.icon.SM}/>}>
+                        <Tabs.Tab value="users" leftSection={<FaUser size={Size.icon.XS}/>}>
                             <Text size={"lg"}>
                                 {t("view.admin.tab.users")}
                             </Text>
                         </Tabs.Tab>
-                        <Tabs.Tab value="notifications" leftSection={<IoIosNotifications size={Size.icon.LG}/>}>
+                        <Tabs.Tab value="notifications" leftSection={<IoIosNotifications size={Size.icon.SM}/>}>
                             <Text size={"lg"}>
                                 {t("view.admin.tab.notifications")}
                             </Text>

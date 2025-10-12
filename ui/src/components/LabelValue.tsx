@@ -17,11 +17,11 @@ const LabelValue: React.FC<Properties> = ({title, label, value, ...props}) => {
 
             {title
                 ? <Tooltip label={title}>
-                    <Text size={"sm"}>
+                    <Text size={"md"} fw={"bold"} c={"red"}>
                         {value}
                     </Text>
                 </Tooltip>
-                : <Text size={"sm"}>
+                : <Text size={"md"} fw={"bold"} c={"red"}>
                     {value}
                 </Text>}
         </Group>

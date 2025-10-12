@@ -1,5 +1,4 @@
 import React from "react";
-import {Title} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
@@ -33,7 +32,7 @@ const ModifyRecordingButton: React.FC<Properties> = ({recording, onChange, child
 
     const openModifyRecordingModal = () =>
         modals.open({
-            title: <Title order={4}>{t("modal.modifyRecording.title")}</Title>,
+            title: t("modal.modifyRecording.title", {ref: recording.ref}),
             size: "lg",
             children: (
                 <ModifyRecordingForm

@@ -1,10 +1,11 @@
 import React from "react";
-import {Group, Input, Select, TextInput} from "@mantine/core";
+import {Group} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Recording} from "../../../../model/Recording.ts";
 import {BulkModifyFields} from "../../../../model/BulkModifyFields.ts";
+import FormInput from "../../../../components/form/FormInput.tsx";
 
 interface Properties {
     selection: Recording[];
@@ -29,30 +30,26 @@ const BulkModifyRecordingsForm: React.FC<Properties> = ({onSubmit, onCancel}) =>
 
     return (
         <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-            <Input.Wrapper label={t("recording.tune")} mb={"md"} labelProps={{ms: "xs"}}>
-                <TextInput
-                    withAsterisk
-                    placeholder={t("recording.tune")}
-                    key={form.key('tune')}
-                    size={"md"}
-                    {...form.getInputProps('tune')}
-                />
-            </Input.Wrapper>
-            <Input.Wrapper label={t("recording.trainset")} mb={"md"} labelProps={{ms: "xs"}}>
-                <Select
-                    withAsterisk
-                    placeholder={t("recording.trainset")}
-                    key={form.key('trainset')}
-                    size={"md"}
-                    clearable
-                    data={[
-                        {value: "", label: ""},
-                        {value: "TR", label: "TR"},
-                        {value: "TE", label: "TE"},
-                    ]}
-                    {...form.getInputProps('trainset')}
-                />
-            </Input.Wrapper>
+            <FormInput
+                name={"tune"}
+                type={"text"}
+                label={t("recording.tune")}
+                placeholder={t("recording.tune")}
+                form={form}
+            />
+
+            <FormInput
+                name={"trainset"}
+                type={"select"}
+                label={t("recording.trainset")}
+                placeholder={t("recording.trainset")}
+                options={[
+                    {value: "", label: ""},
+                    {value: "TR", label: "TR"},
+                    {value: "TE", label: "TE"},
+                ]}
+                form={form}
+            />
 
             <Group justify={"end"} gap={4} mt={"md"}>
                 <Button type={"button"} onClick={onCancel} variant={"subtle"}>

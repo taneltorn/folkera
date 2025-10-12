@@ -58,8 +58,8 @@ const UserMenu: React.FC = () => {
                 </Menu.Item>
                 <Divider my={"xs"}/>
 
-                <Menu.Item onClick={auth.logout} py={"xs"}>
-                    <Group gap={"xs"}>
+                <Menu.Item onClick={auth.logout}>
+                    <Group gap={"sm"}>
                         <MdOutlineLogout color={theme.colors.red[9]} size={Size.icon.SM}/>
                         <Text c={"red.9"} size={"sm"} fw={"bold"}>
                             {t("view.auth.button.logout")}

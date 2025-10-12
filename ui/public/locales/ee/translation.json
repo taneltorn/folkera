@@ -125,7 +125,7 @@
         "clear": "Tühista",
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
-        "mapOptions": "Kuvasätted",
+        "mapOptions": "Kaardisätted",
         "clearFilters": "Eemalda filtrid",
         "tableView": "Tabel",
         "mapView": "Kaart",
@@ -235,6 +235,9 @@
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
       "fetchUsers": "Kasutajate laadimine ebaõnnestus",
+      "createUser": "Kasutaja loomine ebaõnnestus",
+      "modifyUser": "Kasutaja muutmine ebaõnnestus",
+      "removeUser": "Kasutaja kustutamine ebaõnnestus",
       "fetchOptions": "Filtreerimisvalikute laadimine ebaõnnestus",
       "identifySimilarRecordings": "Sarnaste lugude tuvastamine ebaõnnestus",
       "uploadRecording": "Salvestuse üleslaadimine ebaõnnestus",
@@ -275,7 +278,7 @@
       "title": "Muuda kasutajat"
     },
     "modifyRecording": {
-      "title": "Muuda pillilugu"
+      "title": "Muuda pillilugu: {{ref}}"
     },
     "bulkModifyRecordings": {
       "title": "Määra väärtused {{count}} pilliloole"

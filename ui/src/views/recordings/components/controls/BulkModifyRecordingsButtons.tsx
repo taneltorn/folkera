@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Title} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
@@ -49,7 +49,7 @@ const BulkModifyRecordingsButtons: React.FC = () => {
 
     const openModifyRecordingModal = () =>
         modals.open({
-            title: <Title order={4}>{t("modal.bulkModifyRecordings.title", {count: selection.length})}</Title>,
+            title: t("modal.bulkModifyRecordings.title", {count: selection.length}),
             size: "md",
             children: (
                 <BulkModifyRecordingsForm

@@ -5,11 +5,14 @@ import AdvancedPeriodInput from "./AdvancedPeriodInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useTranslation} from "react-i18next";
+import {RxReset} from "react-icons/rx";
+import {Size} from "../../../../utils/constants.ts";
+import {IoSearchOutline} from "react-icons/io5";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
     const {t} = useTranslation();
-    const {filters, setFilters} = useAdvancedFilteringContext();
+    const {filters, setFilters, setVisible} = useAdvancedFilteringContext();
     const ctx = useDataContext();
 
     const handleSubmit = () => {
@@ -36,7 +39,7 @@ const AdvancedFilteringPanel: React.FC = () => {
                 <AdvancedPeriodInput field={"year"}/>
                 <AdvancedFilterInput field={"tune"} autocomplete/>
                 <AdvancedFilterInput field={"dance"} autocomplete/>
-                <AdvancedFilterInput field={"instrument"} autocomplete />
+                <AdvancedFilterInput field={"instrument"} autocomplete/>
                 <AdvancedFilterInput field={"performer"} autocomplete/>
                 <AdvancedFilterInput field={"collector"} autocomplete/>
                 <AdvancedFilterInput field={"parish"} autocomplete/>
@@ -47,17 +50,29 @@ const AdvancedFilteringPanel: React.FC = () => {
             </Stack>
 
             <Group mt={"md"} gap={4}>
-                <Button onClick={handleSubmit}>
+                <Button
+                    onClick={handleSubmit}
+                    leftSection={<IoSearchOutline size={Size.icon.MD}/>}
+                >
                     {t("button.search")}
                 </Button>
-                {filters.length &&
-                    <Button
-                        color={"dark"}
-                        variant={"subtle"}
-                        onClick={handleClear}
-                    >
-                        {t("button.reset")}
-                    </Button>}
+
+                {filters.length && <Button
+                    color={"dark"}
+                    variant={"light"}
+                    leftSection={<RxReset size={Size.icon.SM}/>}
+                    onClick={handleClear}
+                >
+                    {t("button.reset")}
+                </Button>}
+
+                <Button
+                    color={"dark"}
+                    variant={"subtle"}
+                    onClick={() => setVisible(false)}
+                >
+                    {t("button.close")}
+                </Button>
             </Group>
 
             <Divider my={"md"}/>

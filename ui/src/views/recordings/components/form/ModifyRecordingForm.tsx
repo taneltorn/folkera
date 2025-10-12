@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
-import {Grid, Group, Input, Select, TextInput} from "@mantine/core";
+import {Group, SimpleGrid} from "@mantine/core";
 import {Button} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Recording} from "../../../../model/Recording.ts";
 import {useDataService} from "../../../../services/useDataService.ts";
+import FormInput from "../../../../components/form/FormInput.tsx";
 
 interface Properties {
     initialValues: Recording;
@@ -40,168 +41,121 @@ const ModifyRecordingForm: React.FC<Properties> = ({initialValues, ...props}) =>
 
     return (
         <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-            <Grid>
-                <Grid.Col span={12}>
-                    <Input.Wrapper label={t("recording.content")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.content")}
-                            key={form.key('content')}
-                            size={"md"}
-                            {...form.getInputProps('content')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.tune")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.tune")}
-                            key={form.key('tune')}
-                            size={"md"}
-                            {...form.getInputProps('tune')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.trainset")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <Select
-                            withAsterisk
-                            placeholder={t("recording.trainset")}
-                            key={form.key('trainset')}
-                            size={"md"}
-                            clearable
-                            data={[
-                                {value: "", label: ""},
-                                {value: "TR", label: "TR"},
-                                {value: "TE", label: "TE"},
-                            ]}
-                            {...form.getInputProps('trainset')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
+            <SimpleGrid cols={1}>
+                <FormInput
+                    name={"content"}
+                    type={"text"}
+                    label={t("recording.content")}
+                    placeholder={t("recording.content")}
+                    form={form}
+                />
+            </SimpleGrid>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"tune"}
+                    type={"text"}
+                    label={t("recording.tune")}
+                    placeholder={t("recording.tune")}
+                    form={form}
+                />
+                <FormInput
+                    name={"trainset"}
+                    type={"select"}
+                    label={t("recording.trainset")}
+                    placeholder={t("recording.trainset")}
+                    options={[
+                        {value: "", label: ""},
+                        {value: "TR", label: "TR"},
+                        {value: "TE", label: "TE"},
+                    ]}
+                    form={form}
+                />
+            </SimpleGrid>
 
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.year")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.year")}
-                            key={form.key('year')}
-                            size={"md"}
-                            {...form.getInputProps('year')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.collector")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.collector")}
-                            key={form.key('collector')}
-                            size={"md"}
-                            {...form.getInputProps('collector')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"year"}
+                    type={"text"}
+                    label={t("recording.year")}
+                    placeholder={t("recording.year")}
+                    form={form}
+                />
+                <FormInput
+                    name={"collector"}
+                    type={"text"}
+                    label={t("recording.collector")}
+                    placeholder={t("recording.collector")}
+                    form={form}
+                />
+            </SimpleGrid>
 
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.performer")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.performer")}
-                            key={form.key('performer')}
-                            size={"md"}
-                            {...form.getInputProps('performer')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.instrument")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.instrument")}
-                            key={form.key('instrument')}
-                            size={"md"}
-                            {...form.getInputProps('instrument')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"performer"}
+                    type={"text"}
+                    label={t("recording.performer")}
+                    placeholder={t("recording.performer")}
+                    form={form}
+                />
+                <FormInput
+                    name={"instrument"}
+                    type={"text"}
+                    label={t("recording.instrument")}
+                    placeholder={t("recording.instrument")}
+                    form={form}
+                />
+            </SimpleGrid>
 
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.parish")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            withAsterisk
-                            placeholder={t("recording.parish")}
-                            key={form.key('parish')}
-                            size={"md"}
-                            {...form.getInputProps('parish')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.county")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.county")}
-                            key={form.key('county')}
-                            size={"md"}
-                            {...form.getInputProps('county')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"parish"}
+                    type={"text"}
+                    label={t("recording.parish")}
+                    placeholder={t("recording.parish")}
+                    form={form}
+                />
+                <FormInput
+                    name={"county"}
+                    type={"text"}
+                    label={t("recording.county")}
+                    placeholder={t("recording.county")}
+                    form={form}
+                />
+            </SimpleGrid>
 
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.dance")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.dance")}
-                            key={form.key('dance')}
-                            size={"md"}
-                            {...form.getInputProps('dance')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.origin")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.origin")}
-                            key={form.key('origin')}
-                            size={"md"}
-                            {...form.getInputProps('origin')}
-                        />
-                    </Input.Wrapper>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"dance"}
+                    type={"text"}
+                    label={t("recording.dance")}
+                    placeholder={t("recording.dance")}
+                    form={form}
+                />
+                <FormInput
+                    name={"origin"}
+                    type={"text"}
+                    label={t("recording.origin")}
+                    placeholder={t("recording.origin")}
+                    form={form}
+                />
+            </SimpleGrid>
 
-                </Grid.Col>
-            </Grid>
-
-            <Grid>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.notes")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.notes")}
-                            key={form.key('notes')}
-                            size={"md"}
-                            {...form.getInputProps('notes')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Input.Wrapper label={t("recording.comments")} mb={"md"} labelProps={{ms: "xs"}}>
-                        <TextInput
-                            placeholder={t("recording.comments")}
-                            key={form.key('comments')}
-                            size={"md"}
-                            {...form.getInputProps('comments')}
-                        />
-                    </Input.Wrapper>
-                </Grid.Col>
-            </Grid>
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"notes"}
+                    type={"text"}
+                    label={t("recording.notes")}
+                    placeholder={t("recording.notes")}
+                    form={form}
+                />
+                <FormInput
+                    name={"comments"}
+                    type={"text"}
+                    label={t("recording.comments")}
+                    placeholder={t("recording.comments")}
+                    form={form}
+                />
+            </SimpleGrid>
 
             <Group justify={"end"} gap={4} mt={"md"}>
                 <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>

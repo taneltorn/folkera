@@ -33,7 +33,7 @@ const Navigation: React.FC = () => {
     const navMenu = routes.map((item, index) => (
         <Button
             key={index}
-            size="xs"
+            size={"sm"}
             leftSection={item.icon}
             variant={location.pathname.startsWith(item.link.split("?")[0]) ? "filled" : "subtle"}
             onClick={() => {

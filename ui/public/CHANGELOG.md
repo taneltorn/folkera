@@ -1,3 +1,8 @@
+#### [0.2.9] - 12.10.2025
+- Lisatud teavituste süsteem
+- Kasutajaliides täiendused
+- Refaktooring ja pisitäiendused
+
 #### [0.2.8] - 09.10.2025
 - Lisatud liitotsing
 - Uuendatud CoverHunteri mudelit

@@ -6,8 +6,8 @@ import LabelValue from "../../../../components/LabelValue.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
 import {GroupBy} from "../../../../model/GroupBy.ts";
-import {RiArrowDropDownLine} from "react-icons/ri";
 import {Size} from "../../../../utils/constants.ts";
+import {FaLayerGroup} from "react-icons/fa";
 
 const RecordingMapControls: React.FC = () => {
 
@@ -23,25 +23,13 @@ const RecordingMapControls: React.FC = () => {
                 mr={"md"}
             />
 
-            <MenuSelect
-                label={t(`view.recordings.map.groupBy.${groupBy}`)}
-                options={[
-                    GroupBy.PARISH,
-                    GroupBy.COUNTY,
-                ].map(v => ({
-                    label: t(`view.recordings.map.groupBy.${v}`),
-                    value: v
-                }))}
-                onChange={v => setGroupBy(v as GroupBy)}
-            />
-
             <Menu shadow="md" closeOnClickOutside={true} closeOnItemClick={false}>
                 <Menu.Target>
                     <Button
                         variant={"subtle"}
                         size={"sm"}
                         color={"dark"}
-                        rightSection={<RiArrowDropDownLine size={Size.icon.LG} />}
+                        leftSection={<FaLayerGroup size={Size.icon.SM} />}
                     >
                         {t("view.recordings.controls.mapOptions")}
                     </Button>
@@ -73,6 +61,18 @@ const RecordingMapControls: React.FC = () => {
                     </Menu.Item>
                 </Menu.Dropdown>
             </Menu>
+
+            <MenuSelect
+                label={t(`view.recordings.map.groupBy.${groupBy}`)}
+                options={[
+                    GroupBy.PARISH,
+                    GroupBy.COUNTY,
+                ].map(v => ({
+                    label: t(`view.recordings.map.groupBy.${v}`),
+                    value: v
+                }))}
+                onChange={v => setGroupBy(v as GroupBy)}
+            />
         </Group>
     );
 }
