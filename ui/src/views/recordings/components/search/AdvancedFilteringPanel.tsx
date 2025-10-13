@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Button, Divider, Group, Stack, Title} from "@mantine/core";
+import {Box, Button, Divider, Group, Stack, Text, Title} from "@mantine/core";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
@@ -42,6 +42,10 @@ const AdvancedFilteringPanel: React.FC = () => {
             <Title order={5} mb={"sm"}>
                 {t("filtering.advanced.title")}
             </Title>
+            
+            <Text fs={"italic"} mb={"md"}>
+                {t("filtering.advanced.hint")}
+            </Text>
 
             <Stack gap={"xs"}>
                 <AdvancedFilterInput field={"ref"}/>

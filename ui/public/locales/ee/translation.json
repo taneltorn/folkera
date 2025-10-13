@@ -306,6 +306,7 @@
     "not_blank": "Väärtusega",
     "advanced": {
       "title": "Täpsem otsing",
+      "hint": "Kui soovid otsida mitut väärtust, eralda need semikooloniga.",
       "open": "Ava täpsem otsing",
       "close": "Sulge täpsem otsing",
       "selectYearRange": "...või määra vahemik"
