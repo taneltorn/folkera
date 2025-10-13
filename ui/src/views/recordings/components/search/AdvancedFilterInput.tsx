@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Autocomplete, Button, Grid, Group, Input} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import MenuSelect from "../../../../components/MenuSelect.tsx";
@@ -7,6 +7,7 @@ import {Size} from "../../../../utils/constants.ts";
 import {Recording} from "../../../../model/Recording.ts";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
+import useDebounce from "../../../../hooks/useDebounce.ts";
 
 interface Properties {
     field: keyof Recording;
@@ -19,7 +20,9 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
     const {t} = useTranslation();
 
     const {filters, clearFilter, updateFilter} = useAdvancedFilteringContext();
-    const {filteringOptions} = useDataContext();
+    const ctx = useDataContext();
+
+    const [value, setValue] = React.useState<string>();
 
     const filter = filters.find(f => f.field === field) || {field: field, value: "", type: "contains"};
 
@@ -31,6 +34,26 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
         });
     }
 
+    const handleChange = (value: string) => {
+        setValue(value);
+        triggerUpdate();
+    }
+
+    const handleClear = () => {
+        setValue("");
+        clearFilter(field);
+    }
+
+    const triggerUpdate = useDebounce(() => {
+        updateFilter(field, {...filter, value: value});
+    });
+
+    useEffect(() => {
+        if (!filters.length) {
+            setValue("");
+        }
+    }, [filters.find(f => f.field === field)]);
+
     return (
         <Grid>
             <Grid.Col span={{base: 6, lg: 4}}>
@@ -38,22 +61,22 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
                     ? <Autocomplete
                         size={"sm"}
                         variant={"filled"}
-                        className={filter.value ? "active-input" : ""}
-                        value={filter.value}
+                        className={value ? "active-input" : ""}
+                        value={value}
                         disabled={["blank", "not_blank"].includes(filter.type as string)}
                         placeholder={t(`recording.${field}`)}
-                        onChange={(v) => updateFilter(field, {...filter, value: v})}
+                        onChange={handleChange}
                         rightSectionPointerEvents="all"
-                        data={options || filteringOptions[field]?.[1]?.items || []}
+                        data={options || ctx.filteringOptions[field]?.[1]?.items || []}
                     />
                     : <Input
                         size={"sm"}
                         variant={"filled"}
-                        className={filter.value ? "active-input" : ""}
-                        value={filter.value}
+                        className={value ? "active-input" : ""}
+                        value={value}
                         disabled={["blank", "not_blank"].includes(filter.type as string)}
                         placeholder={t(`recording.${field}`)}
-                        onChange={(e) => updateFilter(field, {...filter, value: e.currentTarget.value})}
+                        onChange={(e) => handleChange(e.currentTarget.value)}
                         rightSectionPointerEvents="all"
                     />}
             </Grid.Col>
@@ -78,7 +101,7 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
                         px={"xs"}
                         visibleFrom={"xs"}
                         variant={"subtle"}
-                        onClick={() => clearFilter(field)}
+                        onClick={handleClear}
                         style={{display: filters.find(f => f.field === filter.field) ? undefined : 'none'}}
                     >
                         <LuFilterX size={Size.icon.SM}/>

@@ -60,7 +60,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     recording={recording}
                     field={"tune"}
                     returnHome
-                    replace
                 />
             </Table.Td>
             <Table.Td>
@@ -68,7 +67,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     recording={recording}
                     field={"year"}
                     returnHome
-                    replace
                 />
             </Table.Td>
             <Table.Td>
@@ -77,7 +75,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     field={"instrument"}
                     split={","}
                     returnHome
-                    replace
                 />
             </Table.Td>
             <Table.Td>
@@ -86,7 +83,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     field={"performer"}
                     split={","}
                     returnHome
-                    replace
                 />
             </Table.Td>
             <Table.Td>
@@ -95,7 +91,6 @@ const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
                     field={"parish"}
                     split={","}
                     returnHome
-                    replace
                 />
             </Table.Td>
             <Table.Td miw={150} pr={"xl"}>

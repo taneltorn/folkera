@@ -55,8 +55,8 @@ export const ColorSchemes: ColorScheme[] = [
 
 export const ClusterPlots: ClusterPlot[] = [
     {
-        name: "SHS100K + FolkERA",
-        version: "v0.3",
+        name: "SHS100K + FolkERA (latest)",
+        version: "v0.4",
         file: "cluster-data/pretrained_folk3859.json",
         works: 272,
         perfs: 3859,
@@ -65,7 +65,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "SHS100K + FolkERA",
         version: "v0.2",
-        file: "cluster-data/shs100k_folkera_v0.2.json",
+        file: "cluster-data/pretrained_folk3030.json",
         works: 160,
         perfs: 3030,
         colorSchemeType: ColorSchemeType.VIRIDIS,
@@ -73,7 +73,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "SHS100K + FolkERA",
         version: "v0.1",
-        file: "cluster-data/shs100k_folkera_v0.1.json",
+        file: "cluster-data/pretrained_folk2400.json",
         works: 150,
         perfs: 2400,
         colorSchemeType: ColorSchemeType.VIRIDIS,
@@ -89,7 +89,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "SHS100K",
         version: "v0.1",
-        file: "cluster-data/shs100k_v0.1.json",
+        file: "cluster-data/pretrained_v0.1.json",
         works: undefined,
         perfs: undefined,
         colorSchemeType: ColorSchemeType.VIRIDIS,
@@ -104,7 +104,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K + FolkERA",
         version: "v0.4",
-        file: "cluster-data/test_pretrained_folk3859_default.json",
+        file: "cluster-data/eval_pretrained_folk3859.json",
         mAP: 0.802,
         rank1: 1.730,
         works: 241,
@@ -116,7 +116,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K + FolkERA",
         version: "v0.3",
-        file: "cluster-data/shs100k_folkera_v0.3_eval.json",
+        file: "cluster-data/eval_pretrained_folkera_v0.3.json",
         mAP: 0.781,
         rank1: 1.968,
         works: 234,
@@ -128,7 +128,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K + FolkERA",
         version: "v0.2",
-        file: "cluster-data/shs100k_folkera_v0.2_eval.json",
+        file: "cluster-data/eval_pretrained_folkera_v0.2.json",
         mAP: 0.720,
         rank1: 3.906,
         works: 130,
@@ -140,7 +140,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K + FolkERA",
         version: "v0.1",
-        file: "cluster-data/shs100k_folkera_v0.1_eval.json",
+        file: "cluster-data/eval_pretrained_folkera_v0.1.json",
         mAP: 0.704,
         rank1: 3.906,
         works: 120,
@@ -152,7 +152,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: FolkERA",
         version: "v0.1",
-        file: "cluster-data/folkera_v0.1_eval.json",
+        file: "cluster-data/eval_folkera_v0.1.json",
         mAP: 0.232,
         rank1: 8.923,
         works: 120,
@@ -164,7 +164,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K",
         version: "v0.2",
-        file: "cluster-data/shs100k_v0.2_eval.json",
+        file: "cluster-data/eval_pretrained_v0.2.json",
         mAP: 0.502,
         rank1: 3.69,
         works: undefined,
@@ -176,7 +176,7 @@ export const ClusterPlots: ClusterPlot[] = [
     {
         name: "TEST: SHS100K",
         version: "v0.1",
-        file: "cluster-data/shs100k_v0.1_eval.json",
+        file: "cluster-data/eval_pretrained_v0.1.json",
         mAP: 0.508,
         rank1: 5.881,
         works: undefined,

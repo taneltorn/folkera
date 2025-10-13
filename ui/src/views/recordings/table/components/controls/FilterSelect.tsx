@@ -41,6 +41,11 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
             }
         })
     }
+    
+    const handleClear = () => {
+        console.log("clear")
+        removeFilter({field: field})
+    }
 
     return (
         <MultiSelect
@@ -54,7 +59,8 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
             clearable
             value={value}
             onChange={handleChange}
-            onClear={() => removeFilter({field: field})}
+            onClear={handleClear}
+            // onClear={() => removeFilter({field: field})}
             data={filteringOptions[field] || []}
             clearButtonProps={{
                 // @ts-ignore

@@ -12,17 +12,21 @@ export const AdvancedFilteringContextProvider: React.FC<Properties> = ({children
 
     const dataContext = useDataContext();
 
-    const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(true);
     const [filters, setFilters] = useState<Filter[]>([]);
 
     const updateFilter = (field: string, filter: Filter) => {
-        const filterList = filters.filter(f => f.field !== field);
-        filterList.push(filter);
-        setFilters(filterList);
-    }
+        setFilters(prev => {
+            const updated = prev.filter(f => f.field !== field);
+            updated.push(filter);
+            return updated;
+        });
+    };
 
-    const clearFilter = (field: string) => {
-        const filterList = filters.filter(f => f.field !== field);
+    const clearFilter = (field: string | string[]) => {
+        const filterList = filters.filter(f => Array.isArray(field)
+            ? !field.includes(f.field)
+            : f.field !== field);
         setFilters(filterList);
     }
 

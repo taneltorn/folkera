@@ -11,6 +11,8 @@ export const Size = {
 export const Color = new Map([
     ["tune", "red"],
     ["year", "pink"],
+    ["from", "pink"],
+    ["to", "pink"],
     ["performer", "orange"],
     ["parish", "blue"],
     ["instrument", "green"],

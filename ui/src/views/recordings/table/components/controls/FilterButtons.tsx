@@ -10,12 +10,11 @@ interface Properties {
     field: keyof Recording;
     split?: string;
     color?: string;
-    replace?: boolean;
     returnHome?: boolean;
     size?: string;
 }
 
-const FilterButtons: React.FC<Properties> = ({recording, field, split, size, replace, returnHome}) => {
+const FilterButtons: React.FC<Properties> = ({recording, field, split, size, returnHome}) => {
 
     const navigate = useNavigate();
     const {addFilter} = useDataContext();
@@ -29,8 +28,7 @@ const FilterButtons: React.FC<Properties> = ({recording, field, split, size, rep
         : [recording[field]];
 
     const handleClick = (value: string) => {
-        const type = field === "year" ? "exact" : "contains";
-        addFilter({field, value, type}, field === "year" || replace);
+        addFilter({field, value, type: "contains"});
 
         if (returnHome) {
             navigate("/");

@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {Box, Button, Divider, Group, Stack, Title} from "@mantine/core";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
-import AdvancedPeriodInput from "./AdvancedPeriodInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useTranslation} from "react-i18next";
 import {RxReset} from "react-icons/rx";
 import {Size} from "../../../../utils/constants.ts";
 import {IoSearchOutline} from "react-icons/io5";
+import AdvancedYearInput from "./AdvancedYearInput.tsx";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -36,7 +36,9 @@ const AdvancedFilteringPanel: React.FC = () => {
             <Stack gap={"xs"}>
                 <AdvancedFilterInput field={"ref"}/>
                 <AdvancedFilterInput field={"content"}/>
-                <AdvancedPeriodInput field={"year"}/>
+
+                <AdvancedYearInput/>
+
                 <AdvancedFilterInput field={"tune"} autocomplete/>
                 <AdvancedFilterInput field={"dance"} autocomplete/>
                 <AdvancedFilterInput field={"instrument"} autocomplete/>

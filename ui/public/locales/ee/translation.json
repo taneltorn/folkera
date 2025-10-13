@@ -73,7 +73,9 @@
     "order": "Jrk",
     "kivike": "Kivike",
     "search": "Otsing",
-    "similarity": "Sarnasus"
+    "similarity": "Sarnasus",
+    "from": "Aasta (alates)",
+    "to": "Aasta (kuni)"
   },
   "user": {
     "id": "ID",
@@ -305,7 +307,8 @@
     "advanced": {
       "title": "Täpsem otsing",
       "open": "Ava täpsem otsing",
-      "close": "Sulge täpsem otsing"
+      "close": "Sulge täpsem otsing",
+      "selectYearRange": "...või määra vahemik"
     }
   },
   "button": {

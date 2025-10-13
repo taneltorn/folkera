@@ -7,7 +7,7 @@ export interface Properties {
     filters: Filter[];
     setFilters: (filters: Filter[]) => void;
     updateFilter: (field: string, filter: Filter) => void;
-    clearFilter: (field: string) => void;
+    clearFilter: (field: string | string[]) => void;
 }
 
 export const AdvancedFilteringContext = React.createContext<Properties>({} as Properties);

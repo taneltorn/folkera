@@ -111,7 +111,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                     });
                     return transformedRecord;
                 });
-                
+
                 exportCsv(filename, transformedData);
             })
             .catch(error => {
@@ -143,9 +143,15 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     }
 
     const removeFilter = (filter: Filter) => {
-        setFilters(filters.filter(f => !(f.field === filter.field && (!filter.value || f.value === filter.value || (!filter.type || f.type === filter.type)))));
+        setFilters(prev =>
+            prev.filter(f => !(
+                f.field === filter.field &&
+                (!filter.value || f.value === filter.value) &&
+                (!filter.type  || f.type  === filter.type)
+            ))
+        );
         setPagination({...pagination, page: 1});
-    }
+    };
 
     const clearFilters = () => {
         setFilters([]);

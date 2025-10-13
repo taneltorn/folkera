@@ -1,11 +1,17 @@
+#### [0.2.10] - 
+- Täpsema otsingu veaparandused ja täiendused
+- Täiustatud mudel
+
+
 #### [0.2.9] - 12.10.2025
 - Lisatud teavituste süsteem
-- Kasutajaliides täiendused
+- Kasutajaliidese täiendused
 - Refaktooring ja pisitäiendused
 
+
 #### [0.2.8] - 09.10.2025
-- Lisatud liitotsing
-- Uuendatud CoverHunteri mudelit
+- Lisatud täpsem otsing
+- Täiustatud mudel
 - Pisitäiendused
 
 
