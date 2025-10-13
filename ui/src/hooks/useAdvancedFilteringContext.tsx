@@ -12,7 +12,7 @@ export const AdvancedFilteringContextProvider: React.FC<Properties> = ({children
 
     const dataContext = useDataContext();
 
-    const [visible, setVisible] = useState<boolean>(true);
+    const [visible, setVisible] = useState<boolean>(false);
     const [filters, setFilters] = useState<Filter[]>([]);
 
     const updateFilter = (field: string, filter: Filter) => {

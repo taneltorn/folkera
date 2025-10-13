@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Box, Button, Divider, Group, Stack, Title} from "@mantine/core";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
@@ -8,6 +8,7 @@ import {RxReset} from "react-icons/rx";
 import {Size} from "../../../../utils/constants.ts";
 import {IoSearchOutline} from "react-icons/io5";
 import AdvancedYearInput from "./AdvancedYearInput.tsx";
+import {Filter} from "../../../../model/Filter.ts";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -16,16 +17,25 @@ const AdvancedFilteringPanel: React.FC = () => {
     const ctx = useDataContext();
 
     const handleSubmit = () => {
-        ctx.loadData(filters);
+        const filterList: Filter[] = [];
+        
+        filters.forEach(f => {
+            if (f.value?.includes(";")) {
+                const values = f.value.split(";").map(v => v.trim()).filter(v => v);
+                values.forEach(v => {
+                    filterList.push({...f, value: v});
+                });
+            } else {
+                filterList.push({...f});
+            }
+        });
+
+        ctx.loadData(filterList);
     }
 
     const handleClear = () => {
         setFilters([]);
     }
-
-    useEffect(() => {
-        setFilters(ctx.filters);
-    }, [ctx.filters]);
 
     return (
         <Box mb={"xl"}>

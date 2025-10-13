@@ -6,7 +6,6 @@ import {LuFilterX} from "react-icons/lu";
 import {Size} from "../../../../utils/constants.ts";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
-import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 
 interface Properties {
 }
@@ -18,7 +17,6 @@ const AdvancedYearInput: React.FC<Properties> = () => {
     const {t} = useTranslation();
 
     const {filters, clearFilter, updateFilter, setFilters} = useAdvancedFilteringContext();
-    const ctx = useDataContext();
 
     const yearFilter = filters.find(f => f.field === "year") || {field: "year", value: "", type: "contains"};
 
@@ -63,11 +61,16 @@ const AdvancedYearInput: React.FC<Properties> = () => {
 
     useEffect(() => {
         if (!filters.length) {
-            setYear("");
             setYearRange(DefaultRange as [number, number]);
         }
-    }, [ctx.filters.filter(f => ["year", "from", "to"].includes(f.field))]);
+    }, [filters.find(f => f.field === "from" || f.field ==="to") ]);
 
+    useEffect(() => {
+        if (!filters.length) {
+            setYear("");
+        }
+    }, [filters.find(f => f.field === "year") ]);
+    
     return (<>
             <Grid>
                 <Grid.Col span={{base: 6, lg: 4}}>
@@ -104,7 +107,7 @@ const AdvancedYearInput: React.FC<Properties> = () => {
                             visibleFrom={"xs"}
                             variant={"subtle"}
                             onClick={handleClear}
-                            style={{display: filters.find(f => f.field === yearFilter.field) ? undefined : 'none'}}
+                            style={{display: filters.find(f => ["year", "from", "to"].includes(f.field)) ? undefined : 'none'}}
                         >
                             <LuFilterX size={Size.icon.SM}/>
                         </Button>
