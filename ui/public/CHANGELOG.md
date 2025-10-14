@@ -1,5 +1,6 @@
 #### [0.6.2] - 14.10.2025
 - Parandatud viga, kus ei kuvata ilma aastata salvestusi
+- Lisatud võimalus CH andmestikku valida (admin)
 - Pisitäiendused
 
 
