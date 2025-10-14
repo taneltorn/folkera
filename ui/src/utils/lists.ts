@@ -53,6 +53,11 @@ export const ColorSchemes: ColorScheme[] = [
     },
 ];
 
+export const CoverHunterDatasets = [
+    "folkera",
+    "3030",
+];
+
 export const ClusterPlots: ClusterPlot[] = [
     {
         name: "SHS100K + FolkERA",

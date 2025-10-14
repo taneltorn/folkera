@@ -18,7 +18,7 @@ class IdentifyController {
     storage = multer.diskStorage({
         destination: (req, file, cb) => {
             if (!fs.existsSync(this.uploadDir)) {
-                fs.mkdirSync(this.uploadDir, { recursive: true });
+                fs.mkdirSync(this.uploadDir, {recursive: true});
             }
             cb(null, this.uploadDir);
         },
@@ -26,8 +26,8 @@ class IdentifyController {
             cb(null, Date.now() + "-" + file.originalname);
         },
     });
-    upload = multer({ storage: this.storage });
-    
+    upload = multer({storage: this.storage});
+
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
         this.initializeRoutes();
@@ -46,10 +46,10 @@ class IdentifyController {
 
     async identify(req: ApiRequest, res: Response): Promise<any> {
         try {
-            const {file, top, selfRef} = req.query;
+            const {file, top, selfRef, dataset} = req.query;
 
             // @ts-ignore
-            const result = await this.identifyService.identify(file, top, selfRef);
+            const result = await this.identifyService.identify(file, top, selfRef, dataset);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});
@@ -66,44 +66,44 @@ class IdentifyController {
         try {
             // @ts-ignore
             if (!req.file) {
-                return res.status(400).json({ error: "No file uploaded" });
+                return res.status(400).json({error: "No file uploaded"});
             }
 
             // @ts-ignore
             const filePath = `${this.uploadDir}/${req.file.filename}`;
             this.logger.info(`File uploaded to ${filePath}`);
 
-            return res.status(200).json({ message: "File uploaded successfully", filePath });
+            return res.status(200).json({message: "File uploaded successfully", filePath});
         } catch (err) {
             this.logger.error("Upload error:", err);
-            return res.status(500).json({ error: "Failed to upload file" });
+            return res.status(500).json({error: "Failed to upload file"});
         }
     }
 
     async deleteFile(req: Request, res: Response): Promise<any> {
         try {
-            
+
             // @ts-ignore
-            const filePath = req.body.filePath; 
+            const filePath = req.body.filePath;
 
             if (!filePath) {
-                return res.status(400).json({ error: "Missing filePath in request body" });
+                return res.status(400).json({error: "Missing filePath in request body"});
             }
 
             if (!fs.existsSync(filePath)) {
-                return res.status(404).json({ error: "File not found" });
+                return res.status(404).json({error: "File not found"});
             }
 
             this.logger.info(`Deleting file: ${filePath}`);
-            
+
 
             fs.unlinkSync(filePath);
             this.logger.info(`Deleted file: ${filePath}`);
-            return res.status(200).json({ message: "File deleted successfully" });
+            return res.status(200).json({message: "File deleted successfully"});
 
         } catch (err) {
             this.logger.error("Delete file error:", err);
-            return res.status(500).json({ error: "Failed to delete file" });
+            return res.status(500).json({error: "Failed to delete file"});
         }
     }
 }

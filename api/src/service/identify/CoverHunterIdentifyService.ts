@@ -11,7 +11,7 @@ class CoverHunterIdentifyService implements IdentifyService {
         this.logger.level = process.env.LOG_LEVEL || "info";
     }
 
-    public async identify(file: string, n: number = 10, selfRef: string = ""): Promise<any> {
+    public async identify(file: string, n: number = 10, selfRef: string = "", dataset = "folkera"): Promise<any> {
         const filePath = path.resolve(this.recordingsDir, file);
 
         const pythonPath = process.env.PYTHON_PATH || "python3";
@@ -24,9 +24,10 @@ class CoverHunterIdentifyService implements IdentifyService {
         this.logger.info(`Running identify on file: ${filePath} (top: ${top}, selfRef: ${selfRef})`);
         this.logger.info(`Using Python: ${pythonPath}`);
         this.logger.info(`Using root directory: ${rootDir}`);
+        this.logger.info(`Using dataset: ${dataset}`);
         this.logger.info(`Using recordings directory: ${recordingsDir}`);
 
-        const args: string[] = [scriptPath, filePath, "-top", top, "--root", rootDir, "--recordings", recordingsDir];
+        const args: string[] = [scriptPath, filePath, "-top", top, "--root", rootDir, "--dataset", dataset, "--recordings", recordingsDir];
         return this.runPython(pythonPath, selfRef, args);
     }
 

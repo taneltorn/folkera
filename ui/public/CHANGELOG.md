@@ -1,5 +1,6 @@
 #### [0.6.2] - 14.10.2025
 - Parandatud viga, kus ei kuvata ilma aastata salvestusi
+- Pisitäiendused
 
 
 #### [0.6.1] - 13.10.2025

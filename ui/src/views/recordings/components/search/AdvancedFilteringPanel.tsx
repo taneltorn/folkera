@@ -43,7 +43,7 @@ const AdvancedFilteringPanel: React.FC = () => {
                 {t("filtering.advanced.title")}
             </Title>
             
-            <Text fs={"italic"} mb={"md"}>
+            <Text fs={"italic"} mb={"md"} size={"sm"}>
                 {t("filtering.advanced.hint")}
             </Text>
 

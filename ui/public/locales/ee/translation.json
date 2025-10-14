@@ -114,7 +114,11 @@
       "loadingData": "Laen andmeid...",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
       "fileUploadPlaceholder": "Vali või lohista helifail.",
-      "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB."
+      "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB.",
+      "dataset": {
+        "folkera": "3859/272 (viimane)",
+        "3030": "3030/160"
+      }
     },
     "recordings": {
       "exactMatch": " (täpne vaste)",
@@ -173,7 +177,9 @@
           "instrument": "Esitusi (pille)",
           "parish": "Esitusi (kihelkondi)",
           "tune": "Esitusi (viise)",
-          "performer": "Esitusi (esitajaid)"
+          "performer": "Esitusi (esitajaid)",
+          "county": "Esitusi (maakondi)",
+          "collector": "Esitusi (kogujaid)"
         }
       },
       "viewSelection": {

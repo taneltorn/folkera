@@ -14,6 +14,7 @@ export interface Properties {
         filePath: string | undefined,
         top: number,
         selfRef: string,
+        dataset: string,
         removeFile: boolean
     ) => void;
 }

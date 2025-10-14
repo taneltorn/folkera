@@ -22,6 +22,7 @@ export const SimilarRecordingsContextProvider: React.FC<Properties> = ({children
         filePath: string | undefined,
         top: number = 20,
         selfRef: string,
+        dataset: string,
         removeFile: boolean = false
     ) => {
         if (!filePath) {
@@ -31,7 +32,7 @@ export const SimilarRecordingsContextProvider: React.FC<Properties> = ({children
         setLoadingState(LoadingState.IDENTIFYING_RECORDINGS);
 
         try {
-            const r = await identifyService.identify(filePath, top, selfRef);
+            const r = await identifyService.identify(filePath, top, selfRef, dataset);
             const distances = r.data;
             const ids = Object.keys(distances);
 

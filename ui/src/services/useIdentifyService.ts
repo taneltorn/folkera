@@ -14,14 +14,15 @@ export const useIdentifyService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const identify = async (file: string, top: number = 10, selfRef: string): Promise<any> => {
+    const identify = async (file: string, top: number = 10, selfRef: string, dataset?: string): Promise<any> => {
         setIsLoading(true);
 
         return axios.get(`${API_URL}/identify`, {
             params: {
                 file: file,
                 top: top,
-                selfRef: selfRef
+                selfRef: selfRef,
+                dataset: dataset,
             },
             headers: {
                 'Content-Type': 'application/json',
