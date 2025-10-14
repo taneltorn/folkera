@@ -42,7 +42,6 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(r.content, filters.filter(f => f.field === "content")) &&
         isIn(r.year, filters.filter(f => f.field === "year")) &&
         isBetween(r.year, from, to) &&
-        // isBetween(r.year, filters.filter(f => f.field === "year")) &&
         isIn(r.tune, filters.filter(f => f.field === "tune")) &&
         isIn(r.archive, filters.filter(f => f.field === "archive")) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
@@ -86,34 +85,9 @@ const contains = (value: string | undefined, search: string | undefined) => {
 }
 
 const isBetween = (value: string, from?: string, to?: string): boolean => {
+    if (!from && !to) return true;
     return isWithinRange(value, Number.parseInt(from) || Number.MIN_SAFE_INTEGER, Number.parseInt(to) || Number.MAX_SAFE_INTEGER);
 };
-
-const isBetween22 = (value: string, filters: Filter[]): boolean => {
-    if (filters.length === 0) return true;
-
-    if (filters.some(f => f.type === "blank")) return !value;
-    if (filters.some(f => f.type === "not_blank")) return !!value;
-    
-    const exact = filters.find(f => f.type === "exact")?.value;
-
-    const from = filters.find(f => f.type === "from")?.value;
-    const to = filters.find(f => f.type === "to")?.value;
-
-    const match = (f: Filter) => {
-        if (f.type === "exact") {
-            return value === exact;
-        }
-        if (f.type === "contains") {
-            return value.includes(f.value);
-        }
-        return isWithinRange(value, Number.parseInt(from) || Number.MIN_SAFE_INTEGER, Number.parseInt(to) || Number.MAX_SAFE_INTEGER);
-    }
-       
-
-    return filters.some(match);
-};
-
 
 const isWithinRange = (value: string, from: number, to: number): boolean => {
     const [min, max] = value.includes("-")
