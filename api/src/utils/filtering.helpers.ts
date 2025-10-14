@@ -105,7 +105,7 @@ export const isIn = (value: string | undefined, filters: Filter[]): boolean => {
 
     if (!value) return false;
 
-    const operation = filters.some(f => f.type === "contains_all")
+    const operation = filters.some(f => ["contains_all", "not_contains"].includes(f.type))
         ? Operation.AND
         : Operation.OR;
     

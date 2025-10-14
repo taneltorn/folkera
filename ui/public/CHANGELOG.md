@@ -1,8 +1,10 @@
+#### [0.6.3] - 14.10.2025
+- Otsingule lisatud "Sisaldab kõiki" valik
+
 #### [0.6.2] - 14.10.2025
 - Parandatud viga, kus ei kuvata ilma aastata salvestusi
 - Lisatud võimalus CH andmestikku valida (admin)
 - Pisitäiendused
-
 
 #### [0.6.1] - 13.10.2025
 - Täpsema otsingu veaparandused ja täiendused
