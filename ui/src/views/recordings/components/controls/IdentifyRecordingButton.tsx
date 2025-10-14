@@ -22,7 +22,7 @@ const IdentifyRecordingButton: React.FC<Properties> = ({recording}) => {
 
     const fetchSimilarRecordings = () => {
         if (recording?.file) {
-            findSimilarRecordings(recording?.file, SIMILAR_RECORDINGS_TO_FETCH, recording.id, false);
+            findSimilarRecordings(recording?.file, SIMILAR_RECORDINGS_TO_FETCH, recording.id, "folkera", false);
         }
     }
 
