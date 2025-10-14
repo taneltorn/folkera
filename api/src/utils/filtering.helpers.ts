@@ -3,6 +3,7 @@ import {Filter} from "../model/Filter";
 import {GroupedOption} from "../model/GroupedOption";
 import {SortDirection} from "../model/Pagination";
 import {Recording} from "../model/Recording";
+import {Operation} from "../model/Operation";
 
 export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
     const values = extractByField(recordings, field, split);
@@ -101,14 +102,21 @@ export const isIn = (value: string | undefined, filters: Filter[]): boolean => {
 
     if (filters.some(f => f.type === "blank")) return !value;
     if (filters.some(f => f.type === "not_blank")) return !!value;
+
     if (!value) return false;
 
+    const operation = filters.some(f => f.type === "contains_all")
+        ? Operation.AND
+        : Operation.OR;
+    
     const match = (f: Filter) =>
         f.type === "exact"
             ? value.toLowerCase() === f.value.toLowerCase()
             : f.type === "not_contains" ? !value.toLowerCase().includes(f.value.toLowerCase()) : value.toLowerCase().includes(f.value.toLowerCase());
 
-    return filters.every(match);
+    return operation === Operation.OR
+        ? filters.some(match)
+        : filters.every(match);
 };
 
 

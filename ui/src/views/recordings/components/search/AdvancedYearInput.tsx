@@ -95,6 +95,7 @@ const AdvancedYearInput: React.FC<Properties> = () => {
                             label={t(`filtering.${yearFilter.type}`)}
                             options={[
                                 {value: "contains", label: t("filtering.contains")},
+                                {value: "contains_all", label: t("filtering.contains_all")},
                                 {value: "not_contains", label: t("filtering.not_contains")},
                                 {value: "exact", label: t("filtering.exact")},
                                 {value: "not_blank", label: t("filtering.not_blank")},

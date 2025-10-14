@@ -305,6 +305,7 @@
   "filtering": {
     "exact": "Täpne vaste",
     "contains": "Sisaldab",
+    "contains_all": "Sisaldab kõiki",
     "not_contains": "Ei sisalda",
     "from": "Alates",
     "to": "Kuni",

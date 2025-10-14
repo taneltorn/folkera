@@ -36,8 +36,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
                     useFilter({field: field, value: v, type: "not_blank"});
                     return;
                 }
-                const type = field === "year" ? "exact" : "contains";
-                addFilter({field: field, value: v, type: type}, field === "year" );
+                addFilter({field: field, value: v, type: "contains"});
             }
         })
     }
