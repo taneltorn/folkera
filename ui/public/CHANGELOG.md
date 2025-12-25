@@ -1,3 +1,7 @@
+#### [0.6.4] - 25.12.2025
+- Teekide uuendused
+- Pisiparandused
+
 #### [0.6.3] - 14.10.2025
 - Otsingule lisatud "Sisaldab kõiki" valik
 
