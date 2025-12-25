@@ -19,7 +19,7 @@ interface Properties {
 
 const SimilarRecordingsTableRow: React.FC<Properties> = ({recording}) => {
 
-    const ref = useRef<any>();
+    const ref = useRef<HTMLTableRowElement | null>(null);
     const {currentUser} = useAuth();
     const {selection, toggleSelection} = useRecordingSelection();
     const {state} = useControlState();

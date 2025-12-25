@@ -17,7 +17,7 @@ interface Properties {
 
 const RecordingsTableRow: React.FC<Properties> = ({recording, sortedFields}) => {
 
-    const ref = useRef<any>();
+    const ref = useRef<HTMLTableRowElement | null>(null);
     const {selection, toggleSelection} = useRecordingSelection();
     const {state} = useControlState();
 
