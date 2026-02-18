@@ -19,6 +19,7 @@ class UserController {
     }
 
     initializeRoutes() {
+        this.router.get("/:username", verifyToken, logRequest, this.getUser.bind(this));
         this.router.get("/:email", verifyToken, logRequest, this.getUser.bind(this));
         this.router.get("/", verifyToken, logRequest, this.getUsers.bind(this));
         this.router.post("/", verifyToken, logRequest, this.createUser.bind(this));
@@ -31,15 +32,15 @@ class UserController {
         try {
             // @ts-ignore todo use custom type
             const user = req.user;
-            const email = req.params.email;
+            const usernameOrEmail = req.params.usernameOrEmail;
             
             if (user?.role !== 'ADMIN') {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.usernameOrEmail}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }
 
-            const result = await userService.findByEmail(email);
+            const result = await userService.findByUsernameOrEmail(usernameOrEmail);
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;

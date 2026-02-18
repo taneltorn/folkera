@@ -1,3 +1,7 @@
+#### [0.6.5] - 
+- Liitotsingu täiustused
+- Lisatud võimalus sisse logida kasutajanimega
+
 #### [0.6.4] - 25.12.2025
 - Teekide uuendused
 - Pisiparandused

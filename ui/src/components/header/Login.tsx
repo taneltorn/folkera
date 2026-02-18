@@ -3,12 +3,12 @@ import {Button, Group, Modal, TextInput, useMantineTheme} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {useForm, isNotEmpty, isEmail} from '@mantine/form';
+import {useForm, isNotEmpty} from '@mantine/form';
 import {Size} from "../../utils/constants.ts";
 import {MdOutlineLogin} from "react-icons/md";
 
 interface LoginFormValues {
-    email: string;
+    usernameOrEmail: string;
     password: string;
 }
 
@@ -23,18 +23,18 @@ const Login: React.FC = () => {
     const form = useForm<LoginFormValues>({
         mode: 'uncontrolled',
         initialValues: {
-            email: '',
+            usernameOrEmail: '',
             password: '',
         },
 
         validate: {
-            email: isEmail(t("validation.invalidEmail")),
+            usernameOrEmail: isNotEmpty(t("validation.required")),
             password: isNotEmpty(t("validation.required")),
         },
     });
 
     const onSubmit = async (values: LoginFormValues) => {
-        login(values.email, values.password)
+        login(values.usernameOrEmail, values.password)
             .then(response => {
                 if (response) {
                     close();
@@ -49,10 +49,10 @@ const Login: React.FC = () => {
                     <TextInput
                         mb={"md"}
                         variant={"filled"}
-                        placeholder={t("view.auth.form.email")}
-                        key={form.key('email')}
+                        placeholder={t("view.auth.form.usernameOrEmail")}
+                        key={form.key('usernameOrEmail')}
                         size={"lg"}
-                        {...form.getInputProps('email')}
+                        {...form.getInputProps('usernameOrEmail')}
                     />
 
                     <TextInput

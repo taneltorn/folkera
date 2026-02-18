@@ -25,9 +25,9 @@ class AuthController {
 
     private login = async (req: Request, res: Response) => {
         try {
-            const {email, password} = req.body;
+            const {usernameOrEmail, password} = req.body;
 
-            const result = await userService.findByEmail(email);
+            const result = await userService.findByUsernameOrEmail(usernameOrEmail);
             if (result.data) {
                 const user = result.data;
                 
@@ -37,6 +37,7 @@ class AuthController {
 
                     const token = jwt.sign({
                         id: user.id,
+                        username: user.username,
                         email: user.email,
                         name: user.name,
                         role: user.role,
@@ -50,6 +51,7 @@ class AuthController {
                         token,
                         user: {
                             id: user.id,
+                            username: user.username,
                             email: user.email,
                             name: user.name,
                             role: user.role,

@@ -51,6 +51,25 @@ class PostgresUserService implements UserService {
         }
     }
 
+    public async findByUsernameOrEmail(usernameOrEmail: string): Promise<Result<User>> {
+        try {
+            this.logger.info(`Fetching user with username or email = ${usernameOrEmail}`);
+
+            const query = "SELECT * FROM folkera.users WHERE deleted_at IS NULL AND (LOWER(username) = LOWER($1) OR LOWER(email) = LOWER($1))";
+            const result = await pool.query(query, [usernameOrEmail]);
+
+            this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`);
+            if (result.rows.length === 0) {
+                return {success: false, error: "Not found"};
+            }
+            return {success: true, data: Mapper.mapFields(result.rows[0])};
+
+        } catch (err) {
+            this.logger.error(err);
+            return {success: false, error: `Error querying user with username or email = ${usernameOrEmail}`, detail: err.detail};
+        }
+    }
+
     public async insert(data: User, user: User): Promise<Result<any>> {
         try {
             this.logger.info(`Inserting new user`);

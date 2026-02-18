@@ -19,14 +19,14 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<UserDetails | null>();
 
-    const login = async (email: string, password: string): Promise<any> => {
+    const login = async (usernameOrEmail: string, password: string): Promise<any> => {
         return fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "email": email,
+                "usernameOrEmail": usernameOrEmail,
                 "password": password
             }),
             credentials: "include"

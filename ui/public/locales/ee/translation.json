@@ -81,7 +81,8 @@
     "id": "ID",
     "name": "Nimi",
     "password": "Parool",
-    "email": "Email",
+    "username": "Kasutajanimi",
+    "email": "E-mail",
     "role": "Roll",
     "createdAt": "Loodud"
   },
@@ -224,7 +225,7 @@
       },
       "form": {
         "header": "Logi sisse",
-        "email": "Email",
+        "usernameOrEmail": "Kasutajanimi või e-mail",
         "password": "Parool"
       }
     }
