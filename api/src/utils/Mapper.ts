@@ -5,6 +5,7 @@ class Mapper {
     static toUserDTO(user: any): UserDTO {
         return {
             id: user.id,
+            username: user.username,
             email: user.email,
             name: user.name,
             role: user.role,

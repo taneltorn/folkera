@@ -27,6 +27,7 @@ const UserList: React.FC = () => {
             <Table.Thead>
                 <Table.Tr>
                     <Table.Th>{t("user.id")}</Table.Th>
+                    <Table.Th>{t("user.username")}</Table.Th>
                     <Table.Th>{t("user.email")}</Table.Th>
                     <Table.Th>{t("user.name")}</Table.Th>
                     <Table.Th>{t("user.role")}</Table.Th>

@@ -12,6 +12,7 @@ interface Properties {
 }
 
 const InitialValues: User = {
+    username: "",
     email: "",
     name: "",
     password: "",

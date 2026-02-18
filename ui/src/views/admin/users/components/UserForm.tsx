@@ -22,6 +22,7 @@ const UserForm: React.FC<Properties> = ({initialValues, onSubmit, isEdit}) => {
         validate: {
             email: isEmail(t("validation.invalidEmail")),
             name: isNotEmpty(t("validation.required")),
+            username: isNotEmpty(t("validation.required")),
             password: (value) => (!isEdit ? isNotEmpty(t("validation.required"))(value) : null),
         },
     });
@@ -42,6 +43,15 @@ const UserForm: React.FC<Properties> = ({initialValues, onSubmit, isEdit}) => {
                 placeholder={t("user.name")}
                 form={form}
             />
+
+            <FormInput
+                name={"username"}
+                type={"text"}
+                label={t("user.username")}
+                placeholder={t("user.username")}
+                form={form}
+            />
+
             <FormInput
                 name={"email"}
                 type={"text"}

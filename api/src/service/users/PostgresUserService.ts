@@ -32,25 +32,6 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async findByEmail(email: string): Promise<Result<User>> {
-        try {
-            this.logger.info(`Fetching user with email = ${email}`);
-
-            const query = "SELECT * FROM folkera.users WHERE LOWER(email) = LOWER($1) AND deleted_at IS NULL";
-            const result = await pool.query(query, [email]);
-
-            this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`);
-            if (result.rows.length === 0) {
-                return {success: false, error: "Not found"};
-            }
-            return {success: true, data: Mapper.mapFields(result.rows[0])};
-
-        } catch (err) {
-            this.logger.error(err);
-            return {success: false, error: `Error querying user with email = ${email}`, detail: err.detail};
-        }
-    }
-
     public async findByUsernameOrEmail(usernameOrEmail: string): Promise<Result<User>> {
         try {
             this.logger.info(`Fetching user with username or email = ${usernameOrEmail}`);
@@ -74,15 +55,16 @@ class PostgresUserService implements UserService {
         try {
             this.logger.info(`Inserting new user`);
             const query = `
-                INSERT INTO folkera.users(email, password, name, role, created_by, deleted_at)
-                VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
+                INSERT INTO folkera.users(email, username, password, name, role, created_by, deleted_at)
+                VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
             `;
             const result = await pool.query(query, [
                 data.email,
+                data.username,
                 data.password,
                 data.name,
                 data.role,
-                user.email,
+                user.username,
                 null,
             ]);
 
@@ -90,8 +72,8 @@ class PostgresUserService implements UserService {
             return {success: true, data: result.rows[0]};
         } catch (err) {
             if (err.code === '23505') {
-                this.logger.info("Duplicate email");
-                return {success: false, error: "Duplicate email"};
+                this.logger.info("Duplicate username or email");
+                return {success: false, error: "Duplicate username or email"};
             }
             this.logger.error(err);
             return {success: false, error: "Error inserting user", detail: err.detail};
@@ -113,7 +95,7 @@ class PostgresUserService implements UserService {
             const result = await pool.query(query, [
                 data.name,
                 data.role,
-                user.email,
+                user.username,
                 id
             ]);
 
@@ -139,7 +121,7 @@ class PostgresUserService implements UserService {
 
             const result = await pool.query(query, [
                 password,
-                user.email,
+                user.username,
                 id
             ]);
 

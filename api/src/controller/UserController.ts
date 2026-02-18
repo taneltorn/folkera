@@ -19,8 +19,7 @@ class UserController {
     }
 
     initializeRoutes() {
-        this.router.get("/:username", verifyToken, logRequest, this.getUser.bind(this));
-        this.router.get("/:email", verifyToken, logRequest, this.getUser.bind(this));
+        this.router.get("/:usernameOrEmail", verifyToken, logRequest, this.getUser.bind(this));
         this.router.get("/", verifyToken, logRequest, this.getUsers.bind(this));
         this.router.post("/", verifyToken, logRequest, this.createUser.bind(this));
         this.router.patch("/:id", verifyToken, logRequest, this.updateUser.bind(this));
@@ -59,7 +58,7 @@ class UserController {
             const user = req.user;
 
             if (user?.role !== 'ADMIN') {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.username}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }
@@ -85,7 +84,7 @@ class UserController {
             const data = req.body;
 
             if (user?.role !== 'ADMIN') {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.username}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }
@@ -100,8 +99,8 @@ class UserController {
 
             const result = await userService.insert(data, user);
             if (!result.success) {
-                if (result.error === "Duplicate email") {
-                    res.status(409).json({error: "Email already exists"});
+                if (result.error === "Duplicate username or email") {
+                    res.status(409).json({error: "Username or email already exists"});
                     return;
                 }
                 res.status(500).json({error: result.error});
@@ -122,7 +121,7 @@ class UserController {
             const data = req.body;
 
             if (user?.role !== 'ADMIN') {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.username}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }
@@ -153,7 +152,7 @@ class UserController {
             const data = req.body;
 
             if (user?.id !== id) {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.username}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }
@@ -190,7 +189,7 @@ class UserController {
             const userId = parseInt(req.params.id);
 
             if (user?.role !== 'ADMIN') {
-                this.logger.info(`Not authorized: ${user.email}`);
+                this.logger.info(`Not authorized: ${user.username}`);
                 res.status(403).json({error: "Not authorized"});
                 return;
             }

@@ -18,6 +18,7 @@ const UserRow: React.FC<Properties> = ({user, onChange}) => {
     return (
         <Table.Tr>
             <Table.Td>{user.id}</Table.Td>
+            <Table.Td>{user.username}</Table.Td>
             <Table.Td>{user.email}</Table.Td>
             <Table.Td>{user.name}</Table.Td>
             <Table.Td>

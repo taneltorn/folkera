@@ -3,7 +3,6 @@ import {User} from "../../model/User";
 
 interface UserService {
     findAll: () => Promise<Result<User[]>>,
-    findByEmail: (email: string) => Promise<Result<User>>,
     findByUsernameOrEmail: (usernameOrEmail: string) => Promise<Result<User>>,
     insert: (data: User, user: User) => Promise<Result<any>>,
     update: (id: number, data: User, user: User) => Promise<Result<any>>,
