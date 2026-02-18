@@ -1,4 +1,4 @@
-#### [0.6.5] - 
+#### [0.6.5] - 18.02.2026
 - Liitotsingu täiustused
 - Lisatud võimalus sisse logida kasutajanimega
 
