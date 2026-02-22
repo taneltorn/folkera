@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {DataContext} from "../context/DataContext.tsx";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
-import {DefaultHiddenFields, ItemsPerPageOptions} from "../utils/lists.ts";
+import {DefaultVisibleFields, ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../model/Pagination.ts";
-import {useDataService} from "../services/useDataService.ts";
+import {useTuneService} from "../services/useTuneService.ts";
 import {useTranslation} from "react-i18next";
 import {ToastType} from "../context/ToastContext.tsx";
 import {useToasts} from "./useToasts.tsx";
@@ -30,24 +30,28 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const {t} = useTranslation();
 
     const {notify} = useToasts();
-    const dataService = useDataService();
+    const dataService = useTuneService();
     const optionsService = useOptionsService();
     const {exportCsv} = useDataExport();
 
-    const [data, setData] = useState<Recording[]>([]);
+    const [data, setData] = useState<Tune[]>([]);
     const [filteringOptions, setFilteringOptions] = useState<FilteringOptions>({});
     const [filters, setFilters] = useState<Filter[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
 
-    const [hiddenFields, setHiddenFields] = useLocalStorage<Array<keyof Recording>>("hiddenFields", DefaultHiddenFields);
+    const [visibleFields, setVisibleFields] = useLocalStorage<Array<keyof Tune>>("visibleFields", DefaultVisibleFields);
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
+
+    const tuneIds = useMemo(() => {
+        return data.map(t => t.id) || [];
+    }, [data]);
 
     const loadData = (fs?: Filter[]) => {
         const filtersToUse = fs || filters || [];
 
         setFilters(filtersToUse);
-        dataService.fetchRecordings(filtersToUse, pagination)
+        dataService.fetchTunes(filtersToUse, pagination)
             .then((result) => {
                 setData(result.data);
                 setTotalItems(result.page.totalItems);
@@ -66,49 +70,45 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             });
     }
 
-    const saveData = (data: Recording[]) => {
-        dataService.saveData(data)
+    const saveData = (data: Tune[]) => {
+        dataService.saveTunes(data)
             .catch(error => {
                 notify(t("toast.error.saveData"), ToastType.ERROR, error);
             });
     }
 
     const exportData = () => {
-        dataService.fetchRecordings(filters, {sortField: "order", sortDirection: SortDirection.ASC})
+        dataService.fetchTunes(filters, {sortField: "order", sortDirection: SortDirection.ASC})
             .then((result) => {
                 const data = result.data;
                 const filename = generateFileName("pillilood", filters);
 
                 // @ts-ignore
-                const headerTranslations: Record<keyof Recording, string> = {
-                    id: t("recording.id"),
-                    ref: t("recording.ref"),
-                    content: t("recording.content"),
-                    tune: t("recording.tune"),
-                    year: t("recording.year"),
-                    instrument: t("recording.instrument"),
-                    dance: t("recording.dance"),
-                    trainset: t("recording.trainset"),
-                    performer: t("recording.performer"),
-                    parish: t("recording.parish"),
-                    origin: t("recording.origin"),
-                    collector: t("recording.collector"),
-                    notes: t("recording.notes"),
-                    comments: t("recording.comments"),
-                    archive: t("recording.archive"),
-                    file: t("recording.file"),
-                    order: t("recording.order"),
-                    duration: t("recording.duration"),
-                    distance: t("recording.distance"),
+                const exportableFields: Record<keyof Tune, string> = {
+                    id: t("tune.id"),
+                    ref: t("tune.ref"),
+                    content: t("tune.content"),
+                    melody: t("tune.melody"),
+                    year: t("tune.year"),
+                    instrument: t("tune.instrument"),
+                    performer: t("tune.performer"),
+                    parish: t("tune.parish"),
+                    collector: t("tune.collector"),
+                    dance: t("tune.dance"),
+                    origin: t("tune.origin"),
+                    notes: t("tune.notes"),
+                    audioRef: t("tune.audioRef"),
+                    notationRef: t("tune.notationRef"),
+                    order: t("tune.order"),
                 };
 
                 const transformedData = data.map(record => {
-                    // @ts-ignore
                     const transformedRecord: Record<string, any> = {};
-                    Object.keys(record).forEach((key) => {
-                        const typedKey = key as keyof Recording;
-                        transformedRecord[headerTranslations[typedKey] || typedKey] = record[typedKey];
+
+                    (Object.keys(exportableFields) as Array<keyof Tune>).forEach((key) => {
+                        transformedRecord[exportableFields[key]] = record[key];
                     });
+
                     return transformedRecord;
                 });
 
@@ -147,7 +147,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             prev.filter(f => !(
                 f.field === filter.field &&
                 (!filter.value || f.value === filter.value) &&
-                (!filter.type  || f.type  === filter.type)
+                (!filter.type || f.type === filter.type)
             ))
         );
         setPagination({...pagination, page: 1});
@@ -159,13 +159,14 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         window.history.replaceState({}, "");
     }
 
-    const toggleField = (field: keyof Recording) => {
-        if (hiddenFields.includes(field)) {
-            setHiddenFields(hiddenFields.filter(c => c !== field));
+    const toggleField = (field: keyof Tune) => {
+        if (visibleFields.includes(field)) {
+            setVisibleFields(visibleFields.filter(c => c !== field));
             return;
         }
-        hiddenFields.push(field);
-        setHiddenFields([...hiddenFields]);
+
+        visibleFields.push(field);
+        setVisibleFields([...visibleFields]);
     }
 
     useEffect(() => {
@@ -185,6 +186,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         exportData,
 
         data, setData,
+        tuneIds,
         totalItems,
         totalPages,
 
@@ -198,11 +200,11 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         removeFilter,
         clearFilters,
 
-        hiddenFields, setHiddenFields,
+        visibleFields, setVisibleFields,
         toggleField,
 
         filteringOptions
-    }), [data, dataService.isLoading, filters, hiddenFields, filteringOptions, pagination]);
+    }), [data, dataService.isLoading, tuneIds, filters, visibleFields, filteringOptions, pagination]);
 
     return (
         <DataContext.Provider value={context}>

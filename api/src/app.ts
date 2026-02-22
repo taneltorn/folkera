@@ -1,10 +1,8 @@
 import express from 'express';
 import cors from "cors";
-
 import {config} from 'dotenv';
 import * as path from 'path';
-
-import RecordingController from "./controller/RecordingController";
+import TuneController from "./controller/TuneController";
 import log4js from "log4js";
 import * as process from "process";
 import StatsController from "./controller/StatsController";
@@ -36,9 +34,12 @@ app.use(express.json({limit: '10mb'}));
 app.use(express.urlencoded({limit: '10mb', extended: true}));
 app.use(cookieParser());
 
+app.use("/notations", express.static(path.resolve(process.cwd(),  process.env.VITE_NOTATIONS_DIR)));
+app.use("/musicxml", express.static(path.resolve(process.cwd(),  process.env.VITE_MUSICXML_DIR)));
+
 app.use('/auth', AuthController);
 
-app.use('/recordings', new RecordingController().router);
+app.use('/tunes', new TuneController().router);
 app.use('/stats', new StatsController().router);
 app.use('/options', new OptionsController().router);
 app.use('/users', new UserController().router);

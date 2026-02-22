@@ -1,5 +1,5 @@
 import React from 'react';
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 
 export interface Properties {
     playerRef: any;
@@ -7,10 +7,10 @@ export interface Properties {
     isPlaying: boolean;
     setIsPlaying: (value: boolean) => void;
 
-    track?: Recording;
-    setTrack: (value: Recording | undefined) => void;
+    track?: Tune;
+    setTrack: (value: Tune | undefined) => void;
 
-    play: (track: Recording) => void;
+    play: (track: Tune) => void;
     pause: () => void;
 }
 

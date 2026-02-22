@@ -1,17 +1,17 @@
 import {Filter} from "../model/Filter.ts";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 import {TFunction} from "i18next";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;
 }
 
-export const fullRef = (recording: Recording): string => {
-    return `${recording.ref} < ${recording.parish} ₋ ${truncate(recording.collector, 30)} < ${truncate(recording.performer, 30)} (${recording.year})`;
+export const fullRef = (tune: Tune): string => {
+    return `${tune.ref} < ${tune.parish} ₋ ${truncate(tune.collector, 30)} < ${truncate(tune.performer, 30)} (${tune.year})`;
 }
 
-export const contentRef = (recording: Recording): string => {
-    return `${truncate(recording.content, 50)} < ${recording.parish} < ${truncate(recording.performer, 30)} (${recording.year})`;
+export const contentRef = (tune: Tune): string => {
+    return `${truncate(tune.content, 50)} < ${tune.parish} < ${truncate(tune.performer, 30)} (${tune.year})`;
 }
 
 export const truncate = (text: string | undefined, limit: number = 25): string => {
@@ -39,7 +39,7 @@ export const generateFileName = (basename: string, filters?: Filter[]) => {
 }
 
 export const generateFilterName = (filter: Filter, t: TFunction): string => {
-    const field = t(`recording.${filter.field}`);
+    const field = t(`tune.${filter.field}`);
     const matchType = ["exact", "not_contains", "from", "to"].includes(filter.type as string)
         ? ` (${t("filtering." + filter.type)})`.toLowerCase()
         : "";

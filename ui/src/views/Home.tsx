@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     const {setActiveView} = useActiveView();
 
     useEffect(() => {
-        navigate("/recordings");
+        navigate("/tunes");
         setActiveView(View.TABLE);
     }, []);
 

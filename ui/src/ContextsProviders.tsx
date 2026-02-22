@@ -5,7 +5,7 @@ import {ModificationsContextProvider} from "./hooks/useModifications.tsx";
 import {AuthContextProvider} from "./hooks/useAuth.tsx";
 import {DataContextProvider} from "./hooks/useDataContext.tsx";
 import {ModalsProvider} from "@mantine/modals";
-import {RecordingSelectionContextProvider} from "./hooks/useRecordingSelection.tsx";
+import {TuneSelectionContextProvider} from "./hooks/useTuneSelection.tsx";
 import {ControlStateContextProvider} from "./hooks/useControlState.tsx";
 import {AdvancedFilteringContextProvider} from "./hooks/useAdvancedFilteringContext.tsx";
 import {StatsContextProvider} from "./hooks/useStatsContext.tsx";
@@ -19,12 +19,12 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
 
 
     return (
-        <ModalsProvider>
-            <ToastContextProvider>
-                <AuthContextProvider>
-                    <AudioContextProvider>
+        <ToastContextProvider>
+            <AuthContextProvider>
+                <AudioContextProvider>
+                    <ModalsProvider>
                         <ControlStateContextProvider>
-                            <RecordingSelectionContextProvider>
+                            <TuneSelectionContextProvider>
                                 <ModificationsContextProvider>
                                     <ExportContextProvider>
                                         <DataContextProvider>
@@ -36,12 +36,12 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
                                         </DataContextProvider>
                                     </ExportContextProvider>
                                 </ModificationsContextProvider>
-                            </RecordingSelectionContextProvider>
+                            </TuneSelectionContextProvider>
                         </ControlStateContextProvider>
-                    </AudioContextProvider>
-                </AuthContextProvider>
-            </ToastContextProvider>
-        </ModalsProvider>
+                    </ModalsProvider>
+                </AudioContextProvider>
+            </AuthContextProvider>
+        </ToastContextProvider>
     )
 }
 

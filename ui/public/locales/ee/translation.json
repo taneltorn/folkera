@@ -2,7 +2,7 @@
   "page": {
     "title": {
       "admin": "Adminpaneel",
-      "recordings": "Pillilood",
+      "tunes": "Pillilood",
       "clusterMap": "Klasterkaart",
       "profile": "Minu profiil",
       "changelog": "Muutelugu"
@@ -15,7 +15,7 @@
     },
     "navigation": {
       "title": "Menüü",
-      "recordings": "Pillilood",
+      "tunes": "Pillilood",
       "identify": "Tuvasta",
       "clusters": "Klasterkaart",
       "changePassword": "Muuda parooli",
@@ -31,7 +31,7 @@
     },
     "help": {
       "title": "FolkERA",
-      "description": "Veebirakendus sisaldab 20. sajandi rahvapillimuusika helisalvestusi Eesti Rahvaluule Arhiivi kogudest ning moodustab uurimiskorpuse, mis on mõeldud eesti rahvapillimuusika analüüsiks ja uurimiseks.",
+      "description": "Käesolev veebirakendus on osa valmivast doktoritööst, mille eesmärk on Eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
       "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
       "version": "Versioon",
       "navigateToChangelog": "Vaata muutelugu"
@@ -46,12 +46,12 @@
     },
     "insufficientPrivileges": "Helisalvestuse kuulamiseks puuduvad õigused: <b>{{ref}}</b>"
   },
-  "recording": {
+  "tune": {
     "id": "ID",
     "ref": "Viide",
     "pid": "PID",
     "content": "Sisukirjeldus",
-    "tune": "Viis",
+    "melody": "Viisitüüp",
     "quality": "Kvaliteet",
     "datatype": "Andmetüüp",
     "trainset": "Treeningandmestik",
@@ -67,8 +67,10 @@
     "collector": "Koguja",
     "notes": "Märkmed",
     "comments": "Kommentaar",
-    "archive": "Kogu",
-    "file": "Fail",
+    "audio": "Helisalvestuse fail",
+    "notation": "Noodistuse fail",
+    "audioRef": "Helisalvestuse viide",
+    "notationRef": "Noodistuse viide",
     "duration": "Kestus",
     "order": "Jrk",
     "kivike": "Kivike",
@@ -110,7 +112,7 @@
       "label": "Vali helifail",
       "placeholder": "Vali helifail",
       "submit": "Otsi sarnaseid salvestusi",
-      "identifyingRecordings": "Tuvastan sarnaseid salvestusi...",
+      "identifyingTunes": "Tuvastan sarnaseid salvestusi...",
       "uploadingFile": "Laen faili üles...",
       "loadingData": "Laen andmeid...",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
@@ -121,7 +123,7 @@
         "3030": "3030/160"
       }
     },
-    "recordings": {
+    "tunes": {
       "exactMatch": " (täpne vaste)",
       "controls": {
         "search": "Otsi...",
@@ -139,17 +141,28 @@
         "statsView": "Statistika"
       },
       "details": {
-        "similarRecordings": "Tuvasta",
-        "performerRecordings": "Samalt esitajalt",
+        "similarTunes": "Tuvasta",
+        "performerTunes": "Samalt esitajalt",
         "openInKivike": "Ava Kivikes",
-        "pidMissing": "Ava Kivikes (PID puudub)"
+        "pidMissing": "Ava Kivikes (PID puudub)",
+        "notationNotYetAdded": "Noodistust ei ole veel lisatud.",
+        "notationRenderingFailed": "Noodistust ei õnnestunud kuvada.",
+        "datatype": {
+          "select": "Vali andmetüüp",
+          "all": "Kõik pillilood",
+          "audio":  "Ainult helisalvestused",
+          "notation": "Ainult noodistused"
+        }
       },
       "table": {
         "results": "Tulemusi",
         "play": "Esita",
-        "fileNotFound": "Helifail puudub",
+        "showNotation": "Vaata noodistust",
+        "notationNotFound": "Noodistust ei ole veel lisatud",
+        "audioNotFound": "Helifail puudub",
         "sort": "Sorteeri",
-        "drag": "Nihuta"
+        "drag": "Nihuta",
+        "showDetails": "Kuva detailvaade"
       },
       "map": {
         "showLabels": "Kuva nimetused",
@@ -168,7 +181,7 @@
           "year": "Aastate lõikes",
           "instrument": "Pillide lõikes",
           "parish": "Kihelkondade lõikes",
-          "tune": "Viiside lõikes",
+          "melody": "Viiside lõikes",
           "performer": "Esitajate lõikes",
           "county": "Maakondade lõikes",
           "collector": "Kogujate lõikes"
@@ -248,7 +261,7 @@
       "modifyUser": "Kasutaja muutmine ebaõnnestus",
       "removeUser": "Kasutaja kustutamine ebaõnnestus",
       "fetchOptions": "Filtreerimisvalikute laadimine ebaõnnestus",
-      "identifySimilarRecordings": "Sarnaste lugude tuvastamine ebaõnnestus",
+      "identifySimilarTunes": "Sarnaste lugude tuvastamine ebaõnnestus",
       "uploadRecording": "Salvestuse üleslaadimine ebaõnnestus",
       "deleteRecording": "Salvestuse kustutamine ebaõnnestus",
       "fetchNotification": "Teavituse laadimine ebaõnnestus",
@@ -268,6 +281,9 @@
     "count": "Kirjeid"
   },
   "modal": {
+    "archiveDocuments": {
+      "title": "Käsikirjaline noodistus"
+    },
     "createNotification": {
       "title": "Lisa teavitus"
     },
@@ -286,10 +302,10 @@
     "modifyUser": {
       "title": "Muuda kasutajat"
     },
-    "modifyRecording": {
+    "modifyTune": {
       "title": "Muuda pillilugu: {{ref}}"
     },
-    "bulkModifyRecordings": {
+    "bulkModifyTunes": {
       "title": "Määra väärtused {{count}} pilliloole"
     },
     "removeUser": {
@@ -328,11 +344,16 @@
     "close": "Sulge",
     "cancel": "Tühista",
     "reset": "Lähtesta",
+    "next": "Järgmine",
+    "previous": "Eelmine",
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
     "removeFilter": "Eemalda filter",
     "assign": "Määra",
-    "copyToClipboard": "Kopeeri"
+    "play": "Esita",
+    "stop": "Peata",
+    "copyToClipboard": "Kopeeri",
+    "showArchiveItems": "Käsikirjaline noodistus"
   },
   "validation": {
     "required": "Väli on kohustuslik",

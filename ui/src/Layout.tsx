@@ -1,6 +1,6 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
-import {AppShell, Divider} from "@mantine/core";
+import {AppShell, Divider, Portal, useMantineTheme} from "@mantine/core";
 import {Notifications} from "@mantine/notifications";
 import Header from "./components/header/Header.tsx";
 import BottomAudioPlayer from "./components/footer/BottomAudioPlayer.tsx";
@@ -11,6 +11,7 @@ import ActiveNotificationsPanel from "./ActiveNotificationsPanel.tsx";
 const Layout: React.FC = () => {
 
     const {track} = useAudioPlayer();
+    const theme = useMantineTheme();
 
     return (
         <ActiveViewContextProvider>
@@ -24,9 +25,14 @@ const Layout: React.FC = () => {
                     <Outlet/>
                 </AppShell.Main>
 
-                <AppShell.Footer bg={"gray.1"} withBorder={true}>
-                    {track && <BottomAudioPlayer/>}
-                </AppShell.Footer>
+                <Portal>
+                    <AppShell.Footer
+                        zIndex={10000} bg={"gray.1"}
+                        style={{borderTop: `1px solid ${theme.colors.gray[2]}`}}
+                    >
+                        {track && <BottomAudioPlayer/>}
+                    </AppShell.Footer>
+                </Portal>
             </AppShell>
         </ActiveViewContextProvider>
     );

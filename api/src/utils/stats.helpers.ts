@@ -2,7 +2,7 @@ import DataTransformer from "../transformers/DataTransformer";
 import SplitByComma from "../transformers/SplitByComma";
 import {Counties, Parishes} from "./common.lists";
 import {GroupBy} from "../model/GroupBy";
-import {Recording} from "../model/Recording";
+import {Tune} from "../model/Tune";
 import SplitBySemicolon from "../transformers/SplitBySemicolon";
 
 const range = (start: number, end: number): number[] => {
@@ -14,7 +14,7 @@ const range = (start: number, end: number): number[] => {
 }
 
 export const GroupByToDataTransformerMap = new Map<GroupBy, DataTransformer[]>([
-    [GroupBy.TUNE, [new SplitBySemicolon()]],
+    [GroupBy.MELODY, [new SplitBySemicolon()]],
     [GroupBy.INSTRUMENT, [new SplitByComma()]],
     [GroupBy.PARISH, [new SplitByComma()]],
     [GroupBy.PERFORMER, [new SplitByComma()]],
@@ -24,10 +24,10 @@ export const GroupByToDataTransformerMap = new Map<GroupBy, DataTransformer[]>([
 ]);
 
 export const GroupByToListMap = new Map<GroupBy, string[]>([
-    [GroupBy.YEAR, range(1912, 1999).map(n => `${n}`)],
+    [GroupBy.YEAR, range(1874, 1999).map(n => `${n}`)],
     [GroupBy.PARISH, Parishes],
     [GroupBy.COUNTY, Counties],
 ]);
 
-export const GroupByToFieldMap = new Map<GroupBy, keyof Recording>([
+export const GroupByToFieldMap = new Map<GroupBy, keyof Tune>([
 ]);

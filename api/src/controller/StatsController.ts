@@ -2,7 +2,7 @@ import express, {Request, Response} from "express";
 import log4js from "log4js";
 import CsvStatsService from "../service/stats/CsvStatsService";
 import DataTransformer from "../transformers/DataTransformer";
-import CsvRecordingService from "../service/recordings/CsvRecordingService";
+import CsvTuneService from "../service/tunes/CsvTuneService";
 import {logRequest} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {GroupByToDataTransformerMap, GroupByToListMap} from "../utils/stats.helpers";
@@ -16,7 +16,7 @@ class StatsController {
     logger = log4js.getLogger("StatsController");
 
     statsService = new CsvStatsService();
-    recordingService = new CsvRecordingService();
+    tuneService = new CsvTuneService();
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
@@ -32,7 +32,7 @@ class StatsController {
             const {groupBy} = req.query;
             
             // @ts-ignore
-            const data = await this.recordingService.find(req.filters, {sortField: groupBy, sortDirection: SortDirection.ASC}).then(result => result.data);
+            const data = await this.tuneService.find(req.filters, {sortField: groupBy, sortDirection: SortDirection.ASC}).then(result => result.data);
             
             if (!groupBy) {
                 res.status(400).json({error: "Missing groupBy URL parameter"});

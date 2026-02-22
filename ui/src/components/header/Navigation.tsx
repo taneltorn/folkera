@@ -18,7 +18,7 @@ import Help from "./Help.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 
 const routes = [
-    {id: "recordings", icon: <FaDatabase size={Size.icon.XS}/>, link: "/recordings?view=table"},
+    {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},
     {id: "identify", icon: <TbZoomQuestion size={Size.icon.MD}/>, link: "/identify"},
 ];
 

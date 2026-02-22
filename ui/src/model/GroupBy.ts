@@ -3,7 +3,7 @@ export enum GroupBy {
     INSTRUMENT = "instrument",
     PARISH = "parish",
     PERFORMER = "performer",
-    TUNE = "tune",
+    MELODY = "melody",
     COUNTY = "county",
     COLLECTOR = "collector",
     DANCE = "dance",

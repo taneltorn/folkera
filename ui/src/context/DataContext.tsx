@@ -1,5 +1,5 @@
 import React from 'react';
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 import {Pagination} from "../model/Pagination.ts";
 import {FilteringOptions} from '../model/FilteringOptions.ts';
 import {Filter} from "../model/Filter.ts";
@@ -7,10 +7,11 @@ import {Filter} from "../model/Filter.ts";
 export interface Properties {
     loadData: (filters?: Filter[]) => void;
     exportData: () => void;
-    saveData: (data: Recording[]) => void;
+    saveData: (data: Tune[]) => void;
 
-    data: Recording[];
-    setData: (value: Recording[]) => void;
+    data: Tune[];
+    tuneIds: string[];
+    setData: (value: Tune[]) => void;
     isLoading: boolean;
 
     totalItems: number;
@@ -26,8 +27,8 @@ export interface Properties {
 
     clearFilters: () => void;
 
-    hiddenFields: Array<keyof Recording>;
-    toggleField: (field: keyof Recording) => void;
+    visibleFields: Array<keyof Tune>;
+    toggleField: (field: keyof Tune) => void;
 
     pagination: Pagination;
     setPagination: (value: Pagination) => void;

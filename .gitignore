@@ -3,5 +3,4 @@
 docker-compose.yml
 ui/public/mp3
 api/resources
-mp3
-csvdata
+data

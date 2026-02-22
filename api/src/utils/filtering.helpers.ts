@@ -2,21 +2,21 @@ import {FieldState} from "../model/FieldState";
 import {Filter} from "../model/Filter";
 import {GroupedOption} from "../model/GroupedOption";
 import {SortDirection} from "../model/Pagination";
-import {Recording} from "../model/Recording";
+import {Tune} from "../model/Tune";
 import {Operation} from "../model/Operation";
 
-export const extractAndSort = (recordings: Recording[], field: keyof Recording, split?: string): GroupedOption[] => {
-    const values = extractByField(recordings, field, split);
+export const extractAndSort = (tunes: Tune[], field: keyof Tune, split?: string): GroupedOption[] => {
+    const values = extractByField(tunes, field, split);
     return [{
         group: "\n",
         items: Array.from(new Set(values)).sort()
     }];
 };
 
-export const extractByField = (recordings: Recording[], fieldName: keyof Recording, split?: string): string[] => {
-    return recordings
-        ?.flatMap(recording => {
-            const fieldValue = recording[fieldName] as string;
+export const extractByField = (tunes: Tune[], fieldName: keyof Tune, split?: string): string[] => {
+    return tunes
+        ?.flatMap(tune => {
+            const fieldValue = tune[fieldName] as string;
             if (!fieldValue) return [];
             return split
                 ? fieldValue.split(split).map(value => value.trim())
@@ -28,7 +28,7 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
-export const filter = (data: Recording[], filters?: Filter[]) => {
+export const filter = (data: Tune[], filters?: Filter[]) => {
     if (!filters) {
         return data;
     }
@@ -43,26 +43,23 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
         isIn(r.content, filters.filter(f => f.field === "content")) &&
         isIn(r.year, filters.filter(f => f.field === "year")) &&
         isBetween(r.year, from, to) &&
-        isIn(r.tune, filters.filter(f => f.field === "tune")) &&
-        isIn(r.archive, filters.filter(f => f.field === "archive")) &&
+        isIn(r.melody, filters.filter(f => f.field === "melody")) &&
         isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
         isIn(r.dance, filters.filter(f => f.field === "dance")) &&
-        isIn(r.trainset, filters.filter(f => f.field === "trainset")) &&
         isIn(r.performer, filters.filter(f => f.field === "performer")) &&
         isIn(r.collector, filters.filter(f => f.field === "collector")) &&
         isIn(r.parish, filters.filter(f => f.field === "parish")) &&
         isIn(r.county, filters.filter(f => f.field === "county")) &&
         isIn(r.origin, filters.filter(f => f.field === "origin")) &&
         isIn(r.comments, filters.filter(f => f.field === "comments")) &&
-        isIn(r.file, filters.filter(f => f.field === "file")) &&
-        isIn(`${r.duration}`, filters.filter(f => f.field === "duration")) &&
+        isIn(r.datatype, filters.filter(f => f.field === "datatype")) &&
+        isIn(r.trainset, filters.filter(f => f.field === "trainset")) &&
 
         (contains(r.ref, search)
             || contains(r.pid, search)
             || contains(r.content, search)
-            || contains(r.tune, search)
+            || contains(r.melody, search)
             || contains(r.dance, search)
-            || contains(r.archive, search)
             || contains(r.year, search)
             || contains(r.instrument, search)
             || contains(r.performer, search)
@@ -71,7 +68,10 @@ export const filter = (data: Recording[], filters?: Filter[]) => {
             || contains(r.county, search)
             || contains(r.origin, search)
             || contains(r.notes, search)
-            || contains(r.file, search)
+            || contains(r.audio, search)
+            || contains(r.notation, search)
+            || contains(r.notationRef, search)
+            || contains(r.audioRef, search)
             || contains(r.comments, search)
         )
     );
@@ -121,10 +121,10 @@ export const isIn = (value: string | undefined, filters: Filter[]): boolean => {
 
 
 export const sortByField = (
-    data: Recording[],
-    field: keyof Recording = "order",
+    data: Tune[],
+    field: keyof Tune = "order",
     direction: SortDirection = SortDirection.ASC
-): Recording[] => {
+): Tune[] => {
     return [...data].sort((a, b) => {
         const fieldA = a[field];
         const fieldB = b[field];
@@ -132,13 +132,13 @@ export const sortByField = (
         if (fieldA === undefined || fieldB === undefined) {
             return 0;
         }
-
-        if (field === "order") {
-            const a = parseInt(`${fieldA}`);
-            const b = parseInt(`${fieldB}`);
-
-            return direction === SortDirection.ASC ? a - b : b - a;
-        }
+        //
+        // if (field === "order") {
+        //     const a = parseInt(`${fieldA}`);
+        //     const b = parseInt(`${fieldB}`);
+        //
+        //     return direction === SortDirection.ASC ? a - b : b - a;
+        // }
 
         if (typeof fieldA === "string" && typeof fieldB === "string") {
             return direction === SortDirection.ASC ? fieldA.localeCompare(fieldB, "et") : fieldB.localeCompare(fieldA, "et");

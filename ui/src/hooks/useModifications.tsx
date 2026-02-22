@@ -1,7 +1,7 @@
 import React, {useContext, useMemo, useState} from 'react';
 import {isEmpty} from "../utils/helpers.tsx";
 import {ModificationsContext} from "../context/ModificationsContext.tsx";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 
 interface Properties {
     children: React.ReactNode;
@@ -9,9 +9,9 @@ interface Properties {
 
 export const ModificationsContextProvider: React.FC<Properties> = ({children}) => {
 
-    const [modifications, setModifications] = useState<Recording[]>([]);
+    const [modifications, setModifications] = useState<Tune[]>([]);
 
-    const addModification = (modification: Recording) => {
+    const addModification = (modification: Tune) => {
         setModifications([...modifications, modification]);
     }
 

@@ -4,7 +4,7 @@ import {GroupByToFieldMap} from "../../utils/stats.helpers";
 import {Stats} from "../../model/Stats";
 import {Result} from "../../model/Result";
 import StatsService from "./StatsService";
-import {Recording} from "../../model/Recording";
+import {Tune} from "../../model/Tune";
 
 class CsvStatsService implements StatsService {
 
@@ -14,7 +14,7 @@ class CsvStatsService implements StatsService {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
-    public async getStats(data: Recording[], groupBy: string, dataTransformers: DataTransformer[], groups?: string[]): Promise<Result<Stats>> {
+    public async getStats(data: Tune[], groupBy: string, dataTransformers: DataTransformer[], groups?: string[]): Promise<Result<Stats>> {
         this.logger.info(`Counting statistics for field '${groupBy}'`);
 
         try {
@@ -23,11 +23,11 @@ class CsvStatsService implements StatsService {
                 groups.forEach(item => stats.set(item, 0));
             }
 
-            for (const recording of data) {
-                if (!recording) continue;
+            for (const tune of data) {
+                if (!tune) continue;
 
                 // @ts-ignore
-                const field = recording[GroupByToFieldMap.get(groupBy) || groupBy] as string;
+                const field = tune[GroupByToFieldMap.get(groupBy) || groupBy] as string;
 
                 if (!field) continue;
 

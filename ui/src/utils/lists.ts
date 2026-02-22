@@ -1,30 +1,18 @@
 import chroma from "chroma-js";
 import {ClusterPlot} from "../model/ClusterPlot.ts";
 import {ColorScheme, ColorSchemeType} from "../model/ColorScheme.ts";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 
-export const RecordingTableFields = [
+export const DefaultVisibleFields: Array<keyof Tune> = [
     "ref",
     "content",
-    "tune",
-    "dance",
+    "melody",
     "year",
     "instrument",
     "performer",
     "parish",
-    "county",
-    "origin",
     "collector",
     "notes",
-    "archive",
-    "file",
-    "duration",
-    "comments",
-    "trainset",
-];
-
-export const DefaultHiddenFields: Array<keyof Recording> = [
-    "comments", "file", "origin", "dance", "duration", "trainset", "archive", "notes", "pid", "trainset", "datatype"
 ];
 
 export const ItemsPerPageOptions = [10, 20, 50];
@@ -34,7 +22,6 @@ export const ItemsPerPageOptions = [10, 20, 50];
 // 'Greens', 'YlGnBu', 'Purples', 'GnBu', 'Greys', 'YlOrRd', 'PuRd', 'Blues', 'PuBuGn',
 // 'Viridis', 'Spectral', 'RdYlGn', 'RdBu', 'PiYG', 'PRGn', 'RdYlBu', 'BrBG', 'RdGy', 'PuOr',
 // 'Set2', 'Accent', 'Set1', 'Set3', 'Dark2', 'Paired', 'Pastel2', 'Pastel1'
-
 export const ColorSchemes: ColorScheme[] = [
     {
         type: ColorSchemeType.SET1,

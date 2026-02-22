@@ -34,7 +34,7 @@ export const useIdentifyService = () => {
             })
             .catch(error => {
                 setIsLoading(false);
-                notify(t("toast.error.identifySimilarRecordings"), ToastType.ERROR, error);
+                notify(t("toast.error.identifySimilarTunes"), ToastType.ERROR, error);
                 throw error;
             });
     }

@@ -1,7 +1,7 @@
 import React, {createRef, useContext, useMemo, useState} from 'react';
 import {AudioContext} from "../context/AudioContext.tsx";
 import {isEmpty} from "../utils/helpers.tsx";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 
 interface Properties {
     children: React.ReactNode;
@@ -12,9 +12,9 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
     const playerRef = createRef();
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [track, setTrack] = useState<Recording>();
+    const [track, setTrack] = useState<Tune>();
 
-    const play = (track: Recording) => {
+    const play = (track: Tune) => {
         setTrack(track);
 
         if (playerRef.current) {

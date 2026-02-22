@@ -10,7 +10,7 @@ import LargeScreenAudioPlayer from "./LargeScreenAudioPlayer.tsx";
 import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 
-const audioUrl = `${import.meta.env.VITE_API_URL}/recordings/audio`;
+const audioUrl = `${import.meta.env.VITE_API_URL}/tunes/audio`;
 
 const BottomAudioPlayer: React.FC = () => {
 
@@ -21,7 +21,7 @@ const BottomAudioPlayer: React.FC = () => {
     const breakpoint = useCurrentBreakpoint();
 
     const handlePlaybackError = () => {
-        notify(t("toast.error.playbackError", {file: track?.file || ""}), ToastType.ERROR)
+        notify(t("toast.error.playbackError", {file: track?.audio || ""}), ToastType.ERROR)
         setIsPlaying(false);
     }
 
@@ -42,7 +42,7 @@ const BottomAudioPlayer: React.FC = () => {
                         {["xs"].includes(breakpoint) ?
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
-                                src={`${audioUrl}?filename=${encodeURIComponent(track.file || "")}`}
+                                src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
@@ -51,7 +51,7 @@ const BottomAudioPlayer: React.FC = () => {
                             <LargeScreenAudioPlayer
                                 playerRef={playerRef}
                                 track={track}
-                                src={`${audioUrl}?filename=${encodeURIComponent(track.file || "")}`}
+                                src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}

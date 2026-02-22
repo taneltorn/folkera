@@ -3,8 +3,8 @@ import {Alert, Box, Button, Combobox, FileButton, Group, Stack, Text} from "@man
 import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
-import SimilarRecordingsTable from "../recordings/table/components/SimilarRecordingsTable.tsx";
-import {useSimilarRecordings} from "../../hooks/useSimilarRecordings.tsx";
+import SimilarTunesTable from "../tunes/table/components/SimilarTunesTable.tsx";
+import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
@@ -12,13 +12,13 @@ import ClearButton = Combobox.ClearButton;
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
-import IdentifyLoader from "../recordings/components/IdentifyLoader.tsx";
+import IdentifyLoader from "../tunes/components/IdentifyLoader.tsx";
 import {LoadingState} from "../../model/LoadingState.ts";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {CoverHunterDatasets} from "../../utils/lists.ts";
 import MenuSelect from "../../components/MenuSelect.tsx";
 
-const SIMILAR_RECORDINGS_TO_FETCH = 50;
+const SIMILAR_TUNES_TO_FETCH = 50;
 const MAX_SIZE = 10;
 
 const IdentifyView: React.FC = () => {
@@ -33,13 +33,13 @@ const IdentifyView: React.FC = () => {
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const {
-        findSimilarRecordings,
-        setSimilarRecordings,
-    } = useSimilarRecordings();
+        findSimilarTunes,
+        setSimilarTunes,
+    } = useSimilarTunes();
 
     const handleFileChange = (file: File | null) => {
         setFile(file);
-        setSimilarRecordings([]);
+        setSimilarTunes([]);
         if (file) {
             const url = URL.createObjectURL(file);
             setAudioUrl(url);
@@ -56,7 +56,7 @@ const IdentifyView: React.FC = () => {
 
     const handleFileClear = async () => {
         setFile(null);
-        setSimilarRecordings([]);
+        setSimilarTunes([]);
     };
 
     const handleSubmit = async () => {
@@ -65,13 +65,13 @@ const IdentifyView: React.FC = () => {
         setIsUploading(true);
         identifyService.upload(file)
             .then(file => {
-                findSimilarRecordings(file, SIMILAR_RECORDINGS_TO_FETCH, "", dataset, true)
+                findSimilarTunes(file, SIMILAR_TUNES_TO_FETCH, "", dataset, true)
             })
             .finally(() => setIsUploading(false));
     };
 
     useEffect(() => {
-        setSimilarRecordings([]);
+        setSimilarTunes([]);
     }, []);
 
     return (<>
@@ -81,7 +81,8 @@ const IdentifyView: React.FC = () => {
                     variant="light"
                     color="blue"
                     title={t("view.identify.alertTitle")}
-                    icon={<FaInfo size={Size.icon.MD}/>}>
+                    icon={<FaInfo size={Size.icon.MD}/>}
+                >
 
                 </Alert>
                 <Stack justify={"center"}>
@@ -171,7 +172,7 @@ const IdentifyView: React.FC = () => {
 
             </Box>
 
-            <SimilarRecordingsTable/>
+            <SimilarTunesTable/>
             <IdentifyLoader externalLoadingState={isUploading ? LoadingState.UPLOADING_FILE : undefined}/>
         </>
     );

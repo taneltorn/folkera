@@ -1,11 +1,11 @@
 import React from 'react';
-import { Recording } from '../model/Recording.ts';
+import { Tune } from '../model/Tune.ts';
 
 export interface Properties {
 
-    modifications: Recording[];
-    addModification: (modification: Recording) => void;
-    setModifications: (modifications: Recording[]) => void;
+    modifications: Tune[];
+    addModification: (modification: Tune) => void;
+    setModifications: (modifications: Tune[]) => void;
     clearModifications: () => void;
 }
 

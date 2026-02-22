@@ -9,6 +9,7 @@ import AppRouter from "./AppRouter.tsx";
 import "./i18n";
 import 'leaflet/dist/leaflet.css';
 import 'react-h5-audio-player/lib/styles.css';
+import "react-image-gallery/styles/image-gallery.css";
 import chroma from "chroma-js";
 import ContextProviders from "./ContextsProviders.tsx";
 

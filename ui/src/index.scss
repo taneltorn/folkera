@@ -5,6 +5,10 @@ body,
   //max-width: 1400px;
 }
 
+button[disabled] {
+  background: none;
+}
+
 a {
   font-weight: 500;
   color: black;
@@ -71,6 +75,41 @@ a {
 
   ::-ms-input-placeholder {
     color: var(--mantine-color-red-9) !important;
+  }
+}
+
+
+.notation-gallery {
+  .image-gallery-bullets-container .image-gallery-bullet:hover {
+    background: var(--mantine-color-red-9) !important;
+    border-color: var(--mantine-color-red-9) !important;
+  }
+
+  .image-gallery-fullscreen-button:active .image-gallery-svg {
+    background: white;
+  }
+
+  .image-gallery-left-nav .image-gallery-svg,
+  .image-gallery-right-nav .image-gallery-svg,
+  .image-gallery-fullscreen-button .image-gallery-svg {
+    color: white;
+    transition: color 0.2s ease;
+  }
+
+  .image-gallery-left-nav:hover .image-gallery-svg,
+  .image-gallery-right-nav:hover .image-gallery-svg,
+  .image-gallery-fullscreen-button:hover .image-gallery-svg,
+  .image-gallery-bullets-inner .image-gallery-svg {
+    color: var(--mantine-color-red-9) !important;
+  }
+
+  .image-gallery-left-nav:focus .image-gallery-svg,
+  .image-gallery-right-nav:focus .image-gallery-svg,
+  .image-gallery-fullscreen-button:focus .image-gallery-svg,
+  .image-gallery-left-nav:active .image-gallery-svg,
+  .image-gallery-right-nav:active .image-gallery-svg,
+  .image-gallery-fullscreen-button:active .image-gallery-svg {
+    color: white;
   }
 }
 

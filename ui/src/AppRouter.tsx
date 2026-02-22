@@ -5,16 +5,16 @@ import {
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import Home from "./views/Home.tsx";
-import RecordingsList from "./views/recordings/RecordingsList.tsx";
+import TuneList from "./views/tunes/TuneList.tsx";
 import Admin from "./views/admin/Admin.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import {UserRole} from "./model/User.ts";
 import MyProfileView from "./views/profile/MyProfileView.tsx";
-import RecordingsDetails from "./views/recordings/RecordingsDetails.tsx";
+import TuneDetails from "./views/tunes/TuneDetails.tsx";
 import IdentifyView from "./views/identify/IdentifyView.tsx";
-import ExampleMap from "./views/recordings/map/components/ExampleMap.tsx";
+import ExampleMap from "./views/tunes/map/components/ExampleMap.tsx";
 import ClusterPlotView from "./views/admin/cluster/ClusterPlotView.tsx";
-import {SimilarRecordingsContextProvider} from "./hooks/useSimilarRecordings.tsx";
+import {SimilarTunesContextProvider} from "./hooks/useSimilarTunes.tsx";
 import ChangeLog from "./ChangeLog.tsx";
 
 const router = createBrowserRouter([
@@ -31,20 +31,20 @@ const router = createBrowserRouter([
                 element: <ChangeLog/>,
             },
             {
-                path: "/recordings",
-                element: <RecordingsList/>,
+                path: "/tunes",
+                element: <TuneList/>,
             },
             {
-                path: "/recordings/:id",
-                element: <SimilarRecordingsContextProvider>
-                    <RecordingsDetails/>
-                </SimilarRecordingsContextProvider>,
+                path: "/tunes/:id",
+                element: <SimilarTunesContextProvider>
+                    <TuneDetails/>
+                </SimilarTunesContextProvider>,
             },
             {
                 path: "/identify",
-                element: <SimilarRecordingsContextProvider>
+                element: <SimilarTunesContextProvider>
                     <IdentifyView/>
-                </SimilarRecordingsContextProvider>,
+                </SimilarTunesContextProvider>,
             },
             {
                 path: "/clusters",

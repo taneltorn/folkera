@@ -20,7 +20,8 @@ const filterableKeys = [
     "comments",
     "duration",
     "file",
-    "archive",
+    "datatype",
+    "order",
     "from",
     "to",
 ];

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {LoadingOverlay} from "@mantine/core";
 import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
-import {useDataService} from "../../../../services/useDataService.ts";
-import {Recording} from "../../../../model/Recording.ts";
+import {useTuneService} from "../../../../services/useTuneService.ts";
+import {Tune} from "../../../../model/Tune.ts";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
@@ -22,7 +22,7 @@ const ClusterPlot: React.FC = () => {
 
     const {t} = useTranslation();
     const {track, isPlaying, play, pause} = useAudioPlayer();
-    const {fetchRecordings, cancelSource} = useDataService();
+    const {fetchTunes, cancelSource} = useTuneService();
     const currentBreakpoint = useCurrentBreakpoint();
     const {notify} = useToasts();
 
@@ -35,7 +35,7 @@ const ClusterPlot: React.FC = () => {
     } = useClusterContext();
 
     const [plotData, setPlotData] = useState<ExtendedPlotlyData[]>([]);
-    const [recordings, setRecordings] = useState<Recording[]>([]);
+    const [tunes, setTunes] = useState<Tune[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const fetchClusterData = (file: string) => {
@@ -105,9 +105,9 @@ const ClusterPlot: React.FC = () => {
             const index = trace.data.text.findIndex(text => text === trace.text);
             const file = trace.data.file[index];
 
-            const recording = recordings.find(r => r.file === file);
-            if (recording) {
-                isPlaying && recording === track ? pause() : play(recording)
+            const tune = tunes.find(r => r.audio === file);
+            if (tune) {
+                isPlaying && tune === track ? pause() : play(tune)
             }
         }
     };
@@ -118,8 +118,8 @@ const ClusterPlot: React.FC = () => {
     }
 
     useEffect(() => {
-        fetchRecordings()
-            .then(r => setRecordings(r.data))
+        fetchTunes()
+            .then(r => setTunes(r.data))
             .catch(e => notify(t("toast.error.fetchData"), ToastType.ERROR, e));
 
         return () => {
@@ -128,7 +128,7 @@ const ClusterPlot: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (recordings.length === 0) {
+        if (tunes.length === 0) {
             return;
         }
         setIsLoading(true);
@@ -141,7 +141,7 @@ const ClusterPlot: React.FC = () => {
                 setColorScheme(colorScheme);
             }
         }
-    }, [colorScheme, clusterPlot, recordings]);
+    }, [colorScheme, clusterPlot, tunes]);
 
     useEffect(() => {
         if (!plotData.length) {

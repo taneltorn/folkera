@@ -4,13 +4,13 @@ import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 import {Link} from "react-router-dom";
 import LoopControls from "./LoopControls.tsx";
 import TempoControls from "./TempoControls.tsx";
-import {Recording} from "../../model/Recording.ts";
+import {Tune} from "../../model/Tune.ts";
 import {contentRef, truncate} from "../../utils/helpers.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 
 interface Properties {
     playerRef: any;
-    track: Recording;
+    track: Tune;
     src: string;
     onPlaying: () => void;
     onPause: () => void;
@@ -33,7 +33,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
             <Grid.Col span={3}>
                 <Group align="center" h="100%">
                     <Stack gap={0}>
-                        <Link to={`/recordings/${track.id}`}>
+                        <Link to={`/tunes/${track.id}`}>
                             <Text size={"sm"} fw={"bold"}>
                                 {track.ref}
                             </Text>

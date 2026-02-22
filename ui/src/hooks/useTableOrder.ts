@@ -1,21 +1,19 @@
 import {useMemo} from "react";
-import {Recording} from "../model/Recording.ts";
+import {Tune} from "../model/Tune.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {useDataContext} from "./useDataContext.tsx";
 
-export interface RecordingTableField {
-    field: keyof Recording;
-    sortField?: keyof Recording;
+export interface TunesTableField {
+    field: keyof Tune;
+    sortField?: keyof Tune;
     type: "input" | "select";
-    split?: string; 
+    split?: string;
 }
 
-export const fields: RecordingTableField[] = [
+export const fields: TunesTableField[] = [
     {field: "ref", sortField: "order", type: "input"},
     {field: "content", type: "input"},
-    {field: "tune", type: "select", split: ";"},
-    {field: "trainset", type: "select", split: ","},
-    {field: "dance", type: "select", split: ","},
+    {field: "melody", type: "select", split: ";"},
     {field: "year", type: "select", split: ","},
     {field: "instrument", type: "select", split: ","},
     {field: "performer", type: "select", split: ","},
@@ -23,48 +21,54 @@ export const fields: RecordingTableField[] = [
     {field: "county", type: "select", split: ","},
     {field: "origin", type: "select", split: ","},
     {field: "collector", type: "select", split: ","},
-    {field: "archive", type: "select"},
     {field: "notes", type: "select"},
-    {field: "file", type: "select"},
-    {field: "duration", type: "select"},
-    {field: "comments", type: "select"}
+    {field: "dance", type: "select", split: ","},
+    {field: "notationRef", type: "input"},
+    {field: "audioRef", type: "input"},
 ];
 
-const defaultOrder: Array<keyof Recording> = [
-    "ref", "content", "tune", "year", "dance",
-    "instrument", "performer", "parish", "county", "origin", "collector",
-    "archive", "notes", "file", "trainset", "duration", "comments"
+export const technicalFields: TunesTableField[] = [
+    {field: "datatype", type: "input"},
+    {field: "audio", type: "input"},
+    {field: "notation", type: "input"},
+    {field: "duration", type: "select"},
+    {field: "trainset", type: "select", split: ","},
+    {field: "comments", type: "select"},
+    {field: "order", type: "input"},
 ];
+
+export const fieldList = [...fields, ...technicalFields];
+const defaultOrder: Array<keyof Tune> = fieldList.map(f => f.field) as Array<keyof Tune>;
 
 function normalizeOrder(
-    order: Array<keyof Recording>,
-    fields: RecordingTableField[],
-    hiddenFields: Array<keyof Recording>
-): Array<keyof Recording> {
-    const allVisible = fields.map(f => f.field).filter(f => !hiddenFields.includes(f));
+    order: Array<keyof Tune>,
+    fields: TunesTableField[],
+    visibleFields: Array<keyof Tune>
+): Array<keyof Tune> {
+    const allVisible = fields.map(f => f.field).filter(f => visibleFields.includes(f));
     return [...order, ...allVisible.filter(f => !order.includes(f))];
 }
 
 export function useTableOrder() {
 
-    const {hiddenFields} = useDataContext();
-    const [order, setOrder] = useLocalStorage<Array<keyof Recording>>("table.columnOrder",
-        defaultOrder.filter(f => !hiddenFields.includes(f)));
+    const {visibleFields} = useDataContext();
+    const [order, setOrder] = useLocalStorage<Array<keyof Tune>>("table.columnOrder",
+        defaultOrder.filter(f => visibleFields.includes(f)));
 
-    const handleSetOrder = (newOrder: Array<keyof Recording>) => {
-        const normalized = normalizeOrder(newOrder, fields, hiddenFields);
+    const handleSetOrder = (newOrder: Array<keyof Tune>) => {
+        const normalized = normalizeOrder(newOrder, fieldList, visibleFields);
         setOrder(normalized);
     };
-    
+
     const sortedFields = useMemo(() => {
-        return [...fields]
-            .filter(f => !hiddenFields.includes(f.field))
+        return fieldList
+            .filter(f => visibleFields.includes(f.field))
             .sort((a, b) => {
                 const ai = order.indexOf(a.field);
                 const bi = order.indexOf(b.field);
                 return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
             });
-    }, [order, hiddenFields]);
+    }, [order, visibleFields]);
 
     return {
         sortedFields,
