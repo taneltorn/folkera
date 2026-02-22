@@ -6,6 +6,9 @@ const base = new URL(process.env.VITE_PUBLIC_URL || '/', 'http://localhost').pat
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    build: {
+        sourcemap: false,
+    },
     server: {
         host: true,
         port: 5173

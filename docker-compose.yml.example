@@ -80,7 +80,7 @@ services:
       - ./scripts/insert-data.sql:/docker-entrypoint-initdb.d/insert-data.sql
     restart: always
     networks:
-      - folkera-network:
+      - folkera-network
 
 volumes:
   postgres-data:

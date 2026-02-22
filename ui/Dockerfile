@@ -1,5 +1,7 @@
 FROM node:20 as build
 
+ENV NODE_OPTIONS="--max-old-space-size=3072"
+
 ARG VITE_API_URL
 ARG VITE_PUBLIC_URL
 ARG VITE_CONTACT_EMAIL
