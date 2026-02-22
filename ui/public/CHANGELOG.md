@@ -1,5 +1,6 @@
-#### [0.7.0] - 
+#### [0.7.0] - 22.02.2026
 - Tehnilised täiendused noodistuste toetamiseks
+- Lisatud käsikirjaliste noodistuste kirjed
 - Mitmed pisitäiendused
 
 #### [0.6.5] - 18.02.2026

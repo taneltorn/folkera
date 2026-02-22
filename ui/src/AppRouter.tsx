@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    createBrowserRouter,
+    createBrowserRouter, Navigate,
     RouterProvider,
 } from "react-router-dom";
 import Layout from "./Layout.tsx";
@@ -70,6 +70,10 @@ const router = createBrowserRouter([
             {
                 path: "/map",
                 element: <ExampleMap/>,
+            },
+            {
+                path: "*",
+                element: <Navigate to="/" replace />,
             },
         ]
     }
