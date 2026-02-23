@@ -25,6 +25,7 @@ class TuneController {
     initializeRoutes() {
         this.router.get("/audio", verifyToken, logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getTuneByIds.bind(this));
+        this.router.get("/ids-only", logRequest, useQueryParams, this.getTuneIds.bind(this));
         this.router.get("/:id", logRequest, this.getTune.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getTunes.bind(this));
         this.router.put("/", verifyToken, logRequestWithBody, this.saveTune.bind(this));
@@ -79,6 +80,21 @@ class TuneController {
     async getTunes(req: ApiRequest, res: Response): Promise<Result<Tune[]>> {
         try {
             const result = await this.tuneService.find(req.filters, req.pagination);
+
+            if (!result.success) {
+                res.status(500).json({error: result.error});
+                return;
+            }
+            res.status(200).json(result);
+        } catch (err) {
+            this.logger.error(err);
+            res.status(500).json({error: "An unexpected error occurred."});
+        }
+    }
+
+    async getTuneIds(req: ApiRequest, res: Response): Promise<Result<string[]>> {
+        try {
+            const result = await this.tuneService.findIdsOnly(req.filters, req.pagination);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});

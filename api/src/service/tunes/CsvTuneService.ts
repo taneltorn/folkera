@@ -9,6 +9,8 @@ import {Pagination, SortDirection} from "../../model/Pagination";
 import {Tune} from "../../model/Tune";
 import {Result} from "../../model/Result";
 
+const NO_TUNE_IDS_HARD_LIMIT = 1000;
+
 class CsvTuneService implements TuneService {
 
     private logger = log4js.getLogger("TuneService");
@@ -70,6 +72,9 @@ class CsvTuneService implements TuneService {
 
 
     public async find(filters?: Filter[], pagination?: Pagination): Promise<Result<Tune[]>> {
+        this.logger.info("FIND ALL DATA")
+        this.logger.info(`FILTERS:`)
+        this.logger.info(JSON.stringify(filters))
         try {
             const data = this.readFromCsvFile();
 
@@ -103,6 +108,42 @@ class CsvTuneService implements TuneService {
                         totalPages: Math.ceil(filtered.length / pagination.size)
                     }
                     : undefined
+            };
+        } catch (err) {
+            this.logger.error(err);
+            return {
+                success: false,
+                data: [],
+                error: "Error querying tunes",
+                detail: err.message
+            }
+        }
+    }
+
+    public async findIdsOnly(filters?: Filter[], pagination?: Pagination): Promise<Result<string[]>> {
+        try {
+            this.logger.info("FIND IDS ONLY")
+            this.logger.info(`FILTERS:`)
+            this.logger.info(JSON.stringify(filters))
+
+
+            const data = this.readFromCsvFile();
+
+
+            let filtered = filter(data, filters);
+
+            if (pagination?.sortField) {
+                filtered = sortByField(
+                    filtered,
+                    pagination.sortField as keyof Tune,
+                    pagination.sortDirection as SortDirection || SortDirection.ASC);
+            }
+
+            const ids = filtered.slice(0, NO_TUNE_IDS_HARD_LIMIT).map(t => t.id);
+
+            return {
+                success: true,
+                data: ids,
             };
         } catch (err) {
             this.logger.error(err);

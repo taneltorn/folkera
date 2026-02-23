@@ -7,6 +7,7 @@ interface TuneService {
     findById: (id: string) => Promise<Result<Tune>>
     findByIds: (id: string[]) => Promise<Result<Tune[]>>
     find: (filters?: Filter[], pagination?: Pagination) => Promise<Result<Tune[]>>
+    findIdsOnly: (filters?: Filter[], pagination?: Pagination) => Promise<Result<string[]>>
     save: (data: Tune[]) => Promise<Result<Tune[]>>
 }
 

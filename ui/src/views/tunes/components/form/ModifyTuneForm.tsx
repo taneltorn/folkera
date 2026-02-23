@@ -157,6 +157,53 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
                 />
             </SimpleGrid>
 
+            <SimpleGrid cols={2}>
+                <FormInput
+                    name={"audioRef"}
+                    type={"text"}
+                    label={t("tune.audioRef")}
+                    placeholder={t("tune.audioRef")}
+                    form={form}
+                />
+                <FormInput
+                    name={"notationRef"}
+                    type={"text"}
+                    label={t("tune.notationRef")}
+                    placeholder={t("tune.notationRef")}
+                    form={form}
+                />
+            </SimpleGrid>
+
+            <SimpleGrid cols={1}>
+                <FormInput
+                    name={"audio"}
+                    type={"text"}
+                    label={t("tune.audio")}
+                    placeholder={t("tune.audio")}
+                    form={form}
+                />
+            </SimpleGrid>
+
+            <SimpleGrid cols={1}>
+                <FormInput
+                    name={"notation"}
+                    type={"text"}
+                    label={t("tune.notation")}
+                    placeholder={t("tune.notation")}
+                    form={form}
+                />
+            </SimpleGrid>
+
+            <SimpleGrid cols={1}>
+                <FormInput
+                    name={"musicxml"}
+                    type={"text"}
+                    label={t("tune.musicxml")}
+                    placeholder={t("tune.musicxml")}
+                    form={form}
+                />
+            </SimpleGrid>
+
             <Group justify={"end"} gap={4} mt={"md"}>
                 <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
                     {t("button.cancel")}

@@ -35,6 +35,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const {exportCsv} = useDataExport();
 
     const [data, setData] = useState<Tune[]>([]);
+    const [tuneIds, setTuneIds] = useState<string[]>([]);
     const [filteringOptions, setFilteringOptions] = useState<FilteringOptions>({});
     const [filters, setFilters] = useState<Filter[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
@@ -43,19 +44,28 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     const [visibleFields, setVisibleFields] = useLocalStorage<Array<keyof Tune>>("visibleFields", DefaultVisibleFields);
     const [pagination, setPagination] = useLocalStorage<Pagination>("pagination", DefaultPagination);
 
-    const tuneIds = useMemo(() => {
-        return data.map(t => t.id) || [];
-    }, [data]);
-
     const loadData = (fs?: Filter[]) => {
         const filtersToUse = fs || filters || [];
 
         setFilters(filtersToUse);
+
+        console.log("all")
+        console.log(filtersToUse)
         dataService.fetchTunes(filtersToUse, pagination)
             .then((result) => {
                 setData(result.data);
                 setTotalItems(result.page.totalItems);
                 setTotalPages(result.page.totalPages);
+            })
+            .catch(error => {
+                notify(t("toast.error.fetchData"), ToastType.ERROR, error);
+            });
+
+        console.log("ids only")
+        console.log(filtersToUse)
+        dataService.fetchTuneIds(filtersToUse, pagination)
+            .then((result) => {
+                setTuneIds(result.data);
             })
             .catch(error => {
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
@@ -121,6 +131,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
     const addFilter = (filter: Filter, replace?: boolean) => {
         if (filters.find(f => f.field === filter.field && f.type === filter.type && f.value === filter.value)) {
+            // setFilters([...filters]);
             return;
         }
 
@@ -173,7 +184,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         loadFilteringOptions();
         return () => optionsService.cancelSource.cancel();
     }, []);
-
 
     useEffect(() => {
         loadData();

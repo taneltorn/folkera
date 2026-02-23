@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollArea, Table} from "@mantine/core";
+import {Group, ScrollArea, Table} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import TunesTablePagination from "./TunesTablePagination.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
@@ -32,7 +32,9 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                     <Table.Thead>
                         <Table.Tr>
                             <Table.Th>
-                                <DataTypeSelector/>
+                                <Group justify={"center"}>
+                                    <DataTypeSelector/>
+                                </Group>
                             </Table.Th>
 
                             <DndContext

@@ -69,6 +69,7 @@
     "comments": "Kommentaar",
     "audio": "Helisalvestuse fail",
     "notation": "Noodistuse fail",
+    "musicxml": "MusicXML fail",
     "audioRef": "Helisalvestuse viide",
     "notationRef": "Noodistuse viide",
     "duration": "Kestus",

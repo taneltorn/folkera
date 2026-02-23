@@ -10,14 +10,14 @@ interface Properties {
 const TuneInfoTable: React.FC<Properties> = ({tune}) => {
 
     return (
-        <Grid>
+        <Grid mt={"md"}>
             <Grid.Col span={{baseline: 12, md: 8, xl: 6}}>
                 <Table>
                     <Table.Tbody>
                         {[
+                            "content",
                             "ref",
                             "pid",
-                            "content",
                             "year",
                             "melody",
                             "instrument",

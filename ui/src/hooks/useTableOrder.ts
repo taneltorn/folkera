@@ -29,8 +29,9 @@ export const fields: TunesTableField[] = [
 
 export const technicalFields: TunesTableField[] = [
     {field: "datatype", type: "input"},
-    {field: "audio", type: "input"},
-    {field: "notation", type: "input"},
+    {field: "audio", type: "select"},
+    {field: "notation", type: "select"},
+    {field: "musicxml", type: "select"},
     {field: "duration", type: "select"},
     {field: "trainset", type: "select", split: ","},
     {field: "comments", type: "select"},

@@ -51,6 +51,27 @@ export const useTuneService = () => {
             });
     }
 
+    const fetchTuneIds = async (filters?: Filter[], pagination?: Pagination): Promise<ApiResponse<string>> => {
+        setIsLoading(true);
+        return axios.get(`${API_URL}/tunes/ids-only`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: {
+                ...pagination,
+                ...urlify(filters)
+            }
+        })
+            .then(response => {
+                setIsLoading(false);
+                return response.data;
+            })
+            .catch(error => {
+                setIsLoading(false);
+                throw error;
+            });
+    }
+
     const fetchTunesByIds = async (ids: string[]): Promise<Tune[]> => {
         setIsLoading(true);
         return axios.get(`${API_URL}/tunes/by-ids`, {
@@ -94,6 +115,7 @@ export const useTuneService = () => {
         cancelSource,
         fetchTune,
         fetchTunes,
+        fetchTuneIds,
         fetchTunesByIds,
         saveTunes,
     };

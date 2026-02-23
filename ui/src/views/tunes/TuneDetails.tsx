@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box} from "@mantine/core";
+import {Box, Grid} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import {useTuneService} from "../../services/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
@@ -17,7 +17,7 @@ import {useControlState} from "../../hooks/useControlState.tsx";
 import {ControlState} from "../../model/ControlState.ts";
 import IdentifyLoader from "./components/IdentifyLoader.tsx";
 import MusicXmlViewer from "./details/components/MusicXmlViewer.tsx";
-import ShowArchiveDocumentsButton from "./components/controls/ShowArchiveDocumentsButton.tsx";
+import TuneDetailsControls from "./TuneDetailsControls.tsx";
 
 const TuneDetails: React.FC = () => {
 
@@ -61,17 +61,17 @@ const TuneDetails: React.FC = () => {
 
             {tune && <>
                 <Box px={"md"} mb={"md"}>
-                    <TuneHeader
+                    <TuneHeader tune={tune}/>
+                    {tune.datatype === "NOOT" && <Grid>
+                        <Grid.Col span={{base: 12, xl: 8}}>
+                            <MusicXmlViewer tune={tune}/>
+                        </Grid.Col>
+                    </Grid>}
+
+                    <TuneDetailsControls
                         tune={tune}
                         reloadData={() => fetchData(id)}
                     />
-                    {tune.datatype === "NOOT" && <MusicXmlViewer tune={tune}/>}
-
-                    {tune.notation &&
-                        <ShowArchiveDocumentsButton tune={tune}>
-                            {t("button.showArchiveItems")}
-                        </ShowArchiveDocumentsButton>}
-
 
                     <TuneInfoTable tune={tune}/>
                 </Box>

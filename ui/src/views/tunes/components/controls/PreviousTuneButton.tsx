@@ -17,16 +17,16 @@ const PreviousTuneButton: React.FC<Properties> = ({tune}) => {
     const navigate = useNavigate();
     const {tuneIds} = useDataContext();
 
+    const tuneIndex = tuneIds.findIndex(id => id === tune.id);
+
     const handleNext = () => {
-        const index = tuneIds.findIndex(id => id === tune.id);
-        if (index > 0) {
-            const previousId = tuneIds[index - 1];
+        if (tuneIndex > 0) {
+            const previousId = tuneIds[tuneIndex - 1];
             if (previousId) {
                 navigate(`/tunes/${previousId}`);
             }
         }
     }
-
 
     return (
         <Button
@@ -34,7 +34,7 @@ const PreviousTuneButton: React.FC<Properties> = ({tune}) => {
             size={"sm"}
             color={"red"}
             variant={"subtle"}
-            disabled={tune.id === tuneIds[0]}
+            disabled={tuneIndex < 0 || tune.id === tuneIds[0]}
             onClick={handleNext}
         >
             <GrFormPreviousLink size={Size.icon.MD}/>
