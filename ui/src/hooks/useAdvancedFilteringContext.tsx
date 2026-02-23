@@ -16,6 +16,11 @@ export const AdvancedFilteringContextProvider: React.FC<Properties> = ({children
     const [filters, setFilters] = useState<Filter[]>([]);
 
     const updateFilter = (field: string, filter: Filter) => {
+        if (!filter.value) {
+            clearFilter(field);
+            return;
+        }
+
         setFilters(prev => {
             const updated = prev.filter(f => f.field !== field);
             updated.push(filter);
