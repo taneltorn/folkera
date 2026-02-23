@@ -11,6 +11,7 @@ import {modals} from "@mantine/modals";
 import BulkModifyTunesForm from "../form/BulkModifyTunesForm.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
+import ModalTitle from "./ModalTitle.tsx";
 
 const BulkModifyTunesButtons: React.FC = () => {
 
@@ -49,7 +50,7 @@ const BulkModifyTunesButtons: React.FC = () => {
 
     const openModal = () =>
         modals.open({
-            title: t("modal.bulkModifyTunes.title", {count: selection.length}),
+            title: <ModalTitle title={t("modal.bulkModifyTunes.title", {count: selection.length})}/>,
             size: "md",
             children: (
                 <BulkModifyTunesForm

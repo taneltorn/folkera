@@ -8,6 +8,7 @@ import {ToastType} from "../../../../context/ToastContext.tsx";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
+import ModalTitle from "./ModalTitle.tsx";
 
 interface Properties {
     tune: Tune;
@@ -32,7 +33,7 @@ const ModifyTuneButton: React.FC<Properties> = ({tune, onChange, children, ...pr
 
     const openModal = () =>
         modals.open({
-            title: t("modal.modifyTune.title", {ref: tune.ref}),
+            title: <ModalTitle title={t("modal.modifyTune.title", {ref: tune.ref})}/>,
             size: "lg",
             children: (
                 <ModifyTuneForm

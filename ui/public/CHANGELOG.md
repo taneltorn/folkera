@@ -1,5 +1,5 @@
 #### [0.7.1] - 23.02.2026
-- Pisiparandused
+- UI täiendused ja pisiparandused
 
 #### [0.7.0] - 22.02.2026
 - Tehnilised täiendused noodistuste toetamiseks

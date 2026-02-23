@@ -8,6 +8,7 @@ import useNotifications from "../../../../hooks/useNotifications.tsx";
 import NotificationForm from "./NotificationForm.tsx";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     onChange: () => void;
@@ -37,7 +38,7 @@ const AddNotificationButton: React.FC<Properties> = ({onChange}) => {
 
     const openModal = () =>
         modals.open({
-            title: t("modal.createNotification.title"),
+            title: <ModalTitle title={t("modal.createNotification.title")}/>,
             centered: true,
             children: (
                 <NotificationForm

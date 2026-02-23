@@ -6,6 +6,7 @@ import {modals} from "@mantine/modals";
 import UserForm from "./UserForm.tsx";
 import {User, UserRole} from "../../../../model/User.ts";
 import useUserService from "../../../../services/useUserService.ts";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     onChange: () => void;
@@ -33,7 +34,7 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
 
     const openModal = () =>
         modals.open({
-            title: t("modal.createUser.title"),
+            title: <ModalTitle title={t("modal.createUser.title")}/>,
             centered: true,
             children: (
                 <UserForm

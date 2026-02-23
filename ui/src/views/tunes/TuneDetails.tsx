@@ -62,16 +62,18 @@ const TuneDetails: React.FC = () => {
             {tune && <>
                 <Box px={"md"} mb={"md"}>
                     <TuneHeader tune={tune}/>
+
+                    <TuneDetailsControls
+                        tune={tune}
+                        reloadData={() => fetchData(id)}
+                    />
+
                     {tune.datatype === "NOOT" && <Grid>
                         <Grid.Col span={{base: 12, xl: 8}}>
                             <MusicXmlViewer tune={tune}/>
                         </Grid.Col>
                     </Grid>}
 
-                    <TuneDetailsControls
-                        tune={tune}
-                        reloadData={() => fetchData(id)}
-                    />
 
                     <TuneInfoTable tune={tune}/>
                 </Box>

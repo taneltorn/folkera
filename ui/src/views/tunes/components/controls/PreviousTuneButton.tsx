@@ -30,6 +30,7 @@ const PreviousTuneButton: React.FC<Properties> = ({tune}) => {
 
     return (
         <Button
+            px={"xs"}
             title={t("button.previous")}
             size={"sm"}
             color={"red"}
@@ -37,7 +38,7 @@ const PreviousTuneButton: React.FC<Properties> = ({tune}) => {
             disabled={tuneIndex < 0 || tune.id === tuneIds[0]}
             onClick={handleNext}
         >
-            <GrFormPreviousLink size={Size.icon.MD}/>
+            <GrFormPreviousLink size={Size.icon.LG}/>
         </Button>
     );
 }

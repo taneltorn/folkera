@@ -8,6 +8,7 @@ import {modals} from "@mantine/modals";
 import {isNotEmpty, useForm} from "@mantine/form";
 import useUserService from "../../services/useUserService.ts";
 import FormInput from "../form/FormInput.tsx";
+import ModalTitle from "../../views/tunes/components/controls/ModalTitle.tsx";
 
 const ChangePassword: React.FC = () => {
 
@@ -39,7 +40,7 @@ const ChangePassword: React.FC = () => {
 
     const openModal = () =>
         modals.open({
-            title: t("modal.changePassword.title"),
+            title: <ModalTitle title={t("modal.changePassword.title")}/>,
             centered: true,
             children: (
                 <form onSubmit={form.onSubmit((values) => onSubmit(values))}>

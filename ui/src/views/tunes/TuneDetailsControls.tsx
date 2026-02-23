@@ -12,6 +12,7 @@ import SaveModificationsButtons from "./components/controls/SaveModificationsBut
 import BulkModifyTunesButtons from "./components/controls/BulkModifyTunesButtons.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import ShowArchiveDocumentsButton from "./components/controls/ShowArchiveDocumentsButton.tsx";
+import PlayAudioButton from "./table/components/controls/PlayAudioButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -25,7 +26,8 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
     const {similarTunes} = useSimilarTunes();
 
     return (
-        <Group gap={"xs"}>
+        <Group gap={"xs"} mt={"xl"}>
+            {tune.audio && <PlayAudioButton tune={tune}/>}
 
             {tune.notation &&
                 <ShowArchiveDocumentsButton tune={tune}>

@@ -5,6 +5,7 @@ import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
 import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     user: User;
@@ -18,7 +19,7 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
 
     const openModal = () =>
         modals.openConfirmModal({
-            title: t("modal.removeUser.title"),
+            title: <ModalTitle title={t("modal.removeUser.title")}/>,
             centered: true,
             children: (
                 <Text size={"sm"}>

@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
 import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
 import UserForm from "./UserForm.tsx";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     user: User;
@@ -27,7 +28,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
 
     const openModal = () =>
         modals.open({
-            title: t("modal.modifyUser.title"),
+            title: <ModalTitle title={t("modal.modifyUser.title")}/>,
             centered: true,
             children: (
                 <UserForm

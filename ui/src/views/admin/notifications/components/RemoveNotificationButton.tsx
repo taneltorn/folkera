@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import useNotifications from "../../../../hooks/useNotifications.tsx";
 import {Notification} from "../../../../model/Notification.ts";
 import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     notification: Notification;
@@ -18,7 +19,7 @@ const RemoveNotificationButton: React.FC<Properties> = ({notification, onChange}
 
     const openModal = () =>
         modals.openConfirmModal({
-            title: t("modal.removeNotification.title"),
+            title: <ModalTitle title={t("modal.removeNotification.title")}/>,
             centered: true,
             children: (
                 <Text size={"sm"}>

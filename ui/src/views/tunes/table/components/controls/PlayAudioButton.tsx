@@ -1,9 +1,10 @@
 import React from "react";
-import {useMantineTheme} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {useAudioPlayer} from "../../../../../hooks/useAudioContext.tsx";
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../../model/Tune.ts";
 import {MdPauseCircle, MdPlayCircle} from "react-icons/md";
+import {Size} from "../../../../../utils/constants.ts";
 
 interface Properties {
     tune: Tune;
@@ -12,26 +13,25 @@ interface Properties {
 const PlayAudioButton: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
-    const theme = useMantineTheme();
     const {track, isPlaying, play, pause} = useAudioPlayer();
 
     return (<>
-            {isPlaying && track?.audio === tune.audio
-                ? <MdPauseCircle
-                    size={44}
-                    className={"hover-pointer"}
-                    color={theme.colors.dark[9]}
-                    title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
-                    onClick={() => pause()}
-                />
-                : <MdPlayCircle
-                    size={44}
-                    className={"hover-pointer"}
-                    // color={theme.colors.dark[9]}
-                    title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
-                    onClick={() => isPlaying && tune === track ? pause() : play(tune)}
-                />
-            }
+            <Button
+                variant={"subtle"}
+                color={"dark"}
+                onClick={() => isPlaying && tune === track ? pause() : play(tune)}
+                leftSection={isPlaying && track?.audio === tune.audio
+                    ? <MdPauseCircle
+                        size={Size.icon.LG}
+                        title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
+                    />
+                    : <MdPlayCircle
+                        size={Size.icon.LG}
+                        title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
+                    />}
+            >
+                {!isPlaying ? t("button.play") : t("button.stop")}
+            </Button>
         </>
     );
 }

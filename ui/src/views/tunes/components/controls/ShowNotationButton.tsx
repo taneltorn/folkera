@@ -1,13 +1,15 @@
 import React from "react";
-import {Button, Group, Text, useMantineTheme} from '@mantine/core';
+import {Button, Group, useMantineTheme} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {Tune} from "../../../../model/Tune.ts";
 import MusicXmlViewer from "../../details/components/MusicXmlViewer.tsx";
-import {FaItunesNote} from "react-icons/fa";
+import {FaEye, FaItunesNote} from "react-icons/fa";
 import {IconSize} from "../../../../utils/mappers.ts";
 import {useTranslation} from "react-i18next";
 import PlayAudioButton from "../../table/components/controls/PlayAudioButton.tsx";
 import {useNavigate} from "react-router-dom";
+import ModalTitle from "./ModalTitle.tsx";
+import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
     tune: Tune;
@@ -21,19 +23,21 @@ const ShowNotationButton: React.FC<Properties> = ({tune}) => {
 
     const open = () =>
         modals.open({
-            title: <Group>
-                <PlayAudioButton tune={tune}/>
-                <Text size={"xl"} fw={"bold"}>{tune.ref}</Text>
-            </Group>,
+            title: <ModalTitle title={tune.ref}/>,
             size: "90%",
             centered: true,
             children: <>
                 <MusicXmlViewer tune={tune}/>
-                <Button variant={"subtle"}
-                        mt={"md"}
+                <Group gap={"xs"} mt={"md"}>
+                    <PlayAudioButton tune={tune}/>
+                    <Button
+                        color={"dark"}
+                        variant={"subtle"}
+                        leftSection={<FaEye size={Size.icon.MD} />}
                         onClick={handleNavigation}>
-                    {t("view.tunes.table.showDetails")}
-                </Button>
+                        {t("view.tunes.table.showDetails")}
+                    </Button>
+                </Group>
             </>
         });
 

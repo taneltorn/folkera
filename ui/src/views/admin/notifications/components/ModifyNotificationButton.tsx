@@ -7,6 +7,7 @@ import NotificationForm from "./NotificationForm.tsx";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
 import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
     notification: Notification;
@@ -32,7 +33,7 @@ const ModifyNotificationButton: React.FC<Properties> = ({notification, onChange}
 
     const openModal = () =>
         modals.open({
-            title: t("modal.modifyNotification.title"),
+            title: <ModalTitle title={t("modal.modifyNotification.title")}/>,
             centered: true,
             children: (
                 <NotificationForm

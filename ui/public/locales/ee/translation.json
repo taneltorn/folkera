@@ -142,7 +142,7 @@
         "statsView": "Statistika"
       },
       "details": {
-        "similarTunes": "Tuvasta",
+        "similarTunes": "Otsi sarnaseid viise",
         "performerTunes": "Samalt esitajalt",
         "openInKivike": "Ava Kivikes",
         "pidMissing": "Ava Kivikes (PID puudub)",
@@ -354,7 +354,7 @@
     "play": "Esita",
     "stop": "Peata",
     "copyToClipboard": "Kopeeri",
-    "showArchiveItems": "Käsikirjaline noodistus"
+    "showArchiveItems": "Kuva käsikiri"
   },
   "validation": {
     "required": "Väli on kohustuslik",
