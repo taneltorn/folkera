@@ -1,3 +1,7 @@
+#### [0.7.2] - 24.02.2026
+- Lisatud keelevalik
+- Otsingu parandused
+
 #### [0.7.1] - 23.02.2026
 - UI täiendused ja pisiparandused
 

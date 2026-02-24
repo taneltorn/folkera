@@ -31,7 +31,7 @@ class OptionsController {
                 .then(result => result.data);
 
             const options: FilteringOptions = {
-                tune: withBlankOptions(extractAndSort(data, "melody")),
+                melody: withBlankOptions(extractAndSort(data, "melody")),
                 instrument: withBlankOptions(extractAndSort(data, "instrument", ",")),
                 dance: withBlankOptions(extractAndSort(data, "dance", ",")),
                 trainset: withBlankOptions(extractAndSort(data, "trainset", ",")),

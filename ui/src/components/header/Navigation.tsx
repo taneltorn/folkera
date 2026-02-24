@@ -12,10 +12,11 @@ import {
 import {FaDatabase} from "react-icons/fa";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {Size} from "../../utils/constants.ts";
-import Login from "./Login.tsx";
 import UserMenu from "./UserMenu.tsx";
 import Help from "./Help.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
+import LoginButton from "./LoginButton.tsx";
+import LanguageSelector from "../../views/tunes/table/components/controls/LanguageSelector.tsx";
 
 const routes = [
     {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},
@@ -45,9 +46,10 @@ const Navigation: React.FC = () => {
         </Button>));
 
     const userMenu = <>
+        <LanguageSelector/>
         <Help/>
         {!auth.currentUser?.email
-            ? <Login/>
+            ? <LoginButton/>
             : <UserMenu/>}
     </>;
 

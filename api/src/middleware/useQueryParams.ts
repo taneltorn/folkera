@@ -5,7 +5,7 @@ import {Filter} from "../model/Filter";
 const filterableKeys = [
     "search",
     "ref",
-    "tune",
+    "melody",
     "year",
     "dance",
     "trainset",
