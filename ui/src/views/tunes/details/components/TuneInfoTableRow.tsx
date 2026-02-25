@@ -12,11 +12,12 @@ interface Properties {
 }
 
 const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
+
     const value = tune[field]?.toString();
     if (!value) {
         return "";
     }
-    
+
     if (["year", "performer", "instrument", "collector"].includes(field)) {
         return value.split(",")
             .map((v, index) =>
@@ -27,7 +28,15 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
                     {index < value?.split(",").length - 1 && <span>, </span>}
                 </Text>)
     }
-    
+
+    if (["audioRef", "notationRef"].includes(field)) {
+        return <>
+            <TableLink field={"ref"} value={value} replace>
+                {value}
+            </TableLink>
+        </>
+    }
+
     if (["pid"].includes(field)) {
         return <>
             <TableLink field={field} value={value}>

@@ -19,6 +19,8 @@ const filterableKeys = [
     "notes",
     "comments",
     "duration",
+    "audioRef",
+    "notationRef",
     "audio",
     "notation",
     "musicxml",

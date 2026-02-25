@@ -32,7 +32,7 @@
     },
     "help": {
       "title": "FolkERA",
-      "description": "This web application is part of an ongoing doctoral research project aiming to systematize Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century instrumental recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated during the research process.",
+      "description": "This web application is part of an ongoing doctoral research project aiming to systematize Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century audio recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated during the research process.",
       "contact": "If you encounter errors in the application or have suggestions, please write to: <strong>{{email}}</strong>.",
       "version": "Version",
       "navigateToChangelog": "View changelog"
@@ -154,7 +154,8 @@
           "all": "All tunes",
           "audio": "Audio recordings only",
           "notation": "Notations only"
-        }
+        },
+        "back": "Back to the table view"
       },
       "table": {
         "results": "Results",
@@ -355,7 +356,8 @@
     "play": "Play",
     "stop": "Stop",
     "copyToClipboard": "Copy",
-    "showArchiveItems": "Show Manuscript"
+    "showArchiveItems": "Show Manuscript",
+    "addFilter": "Add filter"
   },
   "validation": {
     "required": "Field is required",

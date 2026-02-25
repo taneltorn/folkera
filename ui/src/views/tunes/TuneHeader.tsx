@@ -24,7 +24,7 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
                 <Button
                     px={"xs"}
                     size={"sm"}
-                    title={t("button.back")}
+                    title={t("view.tunes.details.back")}
                     variant={"subtle"}
                     color={"dark"}
                     onClick={() => navigate("/")}

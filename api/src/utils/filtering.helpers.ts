@@ -52,6 +52,8 @@ export const filter = (data: Tune[], filters?: Filter[]) => {
         isIn(r.county, filters.filter(f => f.field === "county")) &&
         isIn(r.origin, filters.filter(f => f.field === "origin")) &&
         isIn(r.audio, filters.filter(f => f.field === "audio")) &&
+        isIn(r.audioRef, filters.filter(f => f.field === "audioRef")) &&
+        isIn(r.notationRef, filters.filter(f => f.field === "notationRef")) &&
         isIn(r.musicxml, filters.filter(f => f.field === "musicxml")) &&
         isIn(r.notation, filters.filter(f => f.field === "notation")) &&
         isIn(r.origin, filters.filter(f => f.field === "origin")) &&

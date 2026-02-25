@@ -154,7 +154,8 @@
           "all": "Kõik pillilood",
           "audio":  "Ainult helisalvestused",
           "notation": "Ainult noodistused"
-        }
+        },
+        "back": "Tagasi tabelivaatesse"
       },
       "table": {
         "results": "Tulemusi",
@@ -355,7 +356,8 @@
     "play": "Esita",
     "stop": "Peata",
     "copyToClipboard": "Kopeeri",
-    "showArchiveItems": "Kuva käsikiri"
+    "showArchiveItems": "Kuva käsikiri",
+    "addFilter": "Lisa filter"
   },
   "validation": {
     "required": "Väli on kohustuslik",

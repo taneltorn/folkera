@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {Box, Button, Divider, Group, Stack, Text, Title} from "@mantine/core";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
@@ -9,22 +9,22 @@ import {Size} from "../../../../utils/constants.ts";
 import {IoSearchOutline} from "react-icons/io5";
 import AdvancedYearInput from "./AdvancedYearInput.tsx";
 import {Filter} from "../../../../model/Filter.ts";
+import DynamicRowsPanel from "./DynamicRowsPanel.tsx";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
     const {t} = useTranslation();
-    const {filters, setFilters, setVisible} = useAdvancedFilteringContext();
+    const {filters, setFilters, setVisible, dynamicRows, setDynamicRows} = useAdvancedFilteringContext();
     const ctx = useDataContext();
+
+    const seq = useRef(0);
 
     const handleSubmit = () => {
         const filterList: Filter[] = [];
-        
         filters.forEach(f => {
-            if (f.value?.includes(";")) {
-                const values = f.value.split(";").map(v => v.trim()).filter(v => v);
-                values.forEach(v => {
-                    filterList.push({...f, value: v});
-                });
+            if (typeof f.value === "string" && f.value.includes(";")) {
+                const values = f.value.split(";").map(v => v.trim()).filter(Boolean);
+                values.forEach(v => filterList.push({...f, value: v}));
             } else {
                 filterList.push({...f});
             }
@@ -34,42 +34,43 @@ const AdvancedFilteringPanel: React.FC = () => {
 
         handleClear();
         setVisible(false);
-    }
+    };
 
     const handleClear = () => {
         setFilters([]);
-    }
+        setDynamicRows([]);
+        seq.current = 0;
+    };
 
     const handleClose = () => {
         setVisible(false);
         handleClear();
-    }
+    };
 
     return (
         <Box mb={"xl"}>
             <Title order={5} mb={"sm"}>
                 {t("filtering.advanced.title")}
             </Title>
-            
+
             <Text fs={"italic"} mb={"md"} size={"sm"}>
                 {t("filtering.advanced.hint")}
             </Text>
 
             <Stack gap={"xs"}>
-                <AdvancedFilterInput field={"ref"}/>
-                <AdvancedFilterInput field={"content"}/>
+                <AdvancedFilterInput filterKey={"ref"} field={"ref"}/>
+                <AdvancedFilterInput filterKey={"content"} field={"content"}/>
+                <AdvancedYearInput filterKey={"year"}/>
 
-                <AdvancedYearInput/>
+                <AdvancedFilterInput filterKey={"melody"} field={"melody"} autocomplete/>
+                <AdvancedFilterInput filterKey={"performer"} field={"performer"} autocomplete/>
+                <AdvancedFilterInput filterKey={"collector"} field={"collector"} autocomplete/>
+                <AdvancedFilterInput filterKey={"parish"} field={"parish"} autocomplete/>
+                <AdvancedFilterInput filterKey={"county"} field={"county"} autocomplete/>
+                <AdvancedFilterInput filterKey={"origin"} field={"origin"} autocomplete/>
 
-                <AdvancedFilterInput field={"melody"} autocomplete/>
-                <AdvancedFilterInput field={"dance"} autocomplete/>
-                <AdvancedFilterInput field={"instrument"} autocomplete/>
-                <AdvancedFilterInput field={"performer"} autocomplete/>
-                <AdvancedFilterInput field={"collector"} autocomplete/>
-                <AdvancedFilterInput field={"parish"} autocomplete/>
-                <AdvancedFilterInput field={"county"} autocomplete/>
-                <AdvancedFilterInput field={"origin"} autocomplete/>
-                <AdvancedFilterInput field={"audio"}/>
+                <Divider my="xs"/>
+                <DynamicRowsPanel/>
             </Stack>
 
             <Group mt={"md"} gap={4}>
@@ -80,14 +81,16 @@ const AdvancedFilteringPanel: React.FC = () => {
                     {t("button.search")}
                 </Button>
 
-                {filters.length && <Button
-                    color={"dark"}
-                    variant={"light"}
-                    leftSection={<RxReset size={Size.icon.SM}/>}
-                    onClick={handleClear}
-                >
-                    {t("button.reset")}
-                </Button>}
+                {(!!filters.length || dynamicRows.length > 0) && (
+                    <Button
+                        color={"dark"}
+                        variant={"light"}
+                        leftSection={<RxReset size={Size.icon.SM}/>}
+                        onClick={handleClear}
+                    >
+                        {t("button.reset")}
+                    </Button>
+                )}
 
                 <Button
                     color={"dark"}
@@ -101,6 +104,6 @@ const AdvancedFilteringPanel: React.FC = () => {
             <Divider my={"md"}/>
         </Box>
     );
-}
+};
 
 export default AdvancedFilteringPanel;

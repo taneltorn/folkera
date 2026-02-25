@@ -8,14 +8,16 @@ import {Tune} from "../../../../model/Tune.ts";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
+import {Filter} from "../../../../model/Filter.ts";
 
 interface Properties {
+    filterKey: string;
     field: keyof Tune;
     autocomplete?: boolean;
     options?: string[];
 }
 
-const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options}) => {
+const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, autocomplete, options}) => {
 
     const {t} = useTranslation();
 
@@ -24,10 +26,10 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
 
     const [value, setValue] = React.useState<string>();
 
-    const filter = filters.find(f => f.field === field) || {field: field, value: "", type: "contains"};
+    const filter: Filter = filters.find(f => f.filterKey === filterKey) || {filterKey: filterKey, field: field, value: "", type: "contains"};
 
     const handleTypeChange = (type: string) => {
-        updateFilter(field, {
+        updateFilter(filterKey, {
             ...filter,
             value: ["blank", "not_blank"].includes(type) ? type : filter.value,
             type: type
@@ -45,7 +47,7 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
     }
 
     const triggerUpdate = useDebounce(() => {
-        updateFilter(field, {...filter, value: value});
+        updateFilter(filterKey, {...filter, value: value});
     });
 
     useEffect(() => {
@@ -103,7 +105,7 @@ const AdvancedFilterInput: React.FC<Properties> = ({field, autocomplete, options
                         visibleFrom={"xs"}
                         variant={"subtle"}
                         onClick={handleClear}
-                        style={{display: filters.find(f => f.field === filter.field) ? undefined : 'none'}}
+                        style={{display: filters.find(f => f.filterKey === filter.filterKey && !!filter.value) ? undefined : 'none'}}
                     >
                         <LuFilterX size={Size.icon.SM}/>
                     </Button>

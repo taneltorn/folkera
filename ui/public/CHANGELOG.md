@@ -1,5 +1,6 @@
 #### [0.7.3] - 25.02.2026
 - Lisatud keelevalik
+- Täiustatud detailotsingut
 
 #### [0.7.2] - 24.02.2026
 - Lisatud keelevalik

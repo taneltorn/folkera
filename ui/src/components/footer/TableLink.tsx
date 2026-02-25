@@ -10,21 +10,27 @@ interface Properties {
     field: string;
     value: string;
     size?: string;
+    replace?: boolean;
     children?: ReactNode;
 }
 
 const TableLink: React.FC<Properties> = (props) => {
 
     const {t} = useTranslation();
-    const {useFilter} = useDataContext();
+    const {useFilter, replaceFilters} = useDataContext();
     const {setActiveView} = useActiveView();
     const navigate = useNavigate();
 
     const openTable = () => {
         if (props.value) {
             navigate("/", {replace: true});
-            useFilter({field: props.field, value: props.value});
             setActiveView(View.TABLE);
+
+            if (props.replace) {
+                replaceFilters([{field: props.field, value: props.value}]);
+                return;
+            }
+            useFilter({field: props.field, value: props.value});
         }
     }
 

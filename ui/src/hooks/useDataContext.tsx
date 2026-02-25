@@ -130,11 +130,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
     }
 
     const addFilter = (filter: Filter, replace?: boolean) => {
-        if (filters.find(f => f.field === filter.field && f.type === filter.type && f.value === filter.value)) {
-            // setFilters([...filters]);
-            return;
-        }
-
         const filterList: Filter[] = replace
             ? filters.filter(f => !(f.field === filter.field))
             : filters;
@@ -150,6 +145,11 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         filterList.push({...filter});
 
         setFilters(filterList);
+        setPagination({...pagination, page: 1});
+    }
+
+    const replaceFilters = (filters: Filter[]) => {
+        setFilters(filters);
         setPagination({...pagination, page: 1});
     }
 
@@ -209,6 +209,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         useFilter,
         removeFilter,
         clearFilters,
+        replaceFilters,
 
         visibleFields, setVisibleFields,
         toggleField,

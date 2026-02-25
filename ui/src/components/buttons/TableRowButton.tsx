@@ -1,8 +1,9 @@
 import React, {ReactNode} from "react";
 import {Button} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import {RiDeleteBinLine, RiEdit2Fill} from "react-icons/ri";
+import {RiEdit2Fill} from "react-icons/ri";
 import {Size} from "../../utils/constants.ts";
+import {FaRegTrashCan} from "react-icons/fa6";
 
 interface Properties {
     type: "modify" | "remove";
@@ -11,7 +12,7 @@ interface Properties {
 
 const iconMap = new Map<string, ReactNode>([
     ["modify", <RiEdit2Fill size={Size.icon.SM}/>],
-    ["remove", <RiDeleteBinLine size={Size.icon.SM}/>],
+    ["remove", <FaRegTrashCan size={Size.icon.SM}/>],
 ])
 
 const TableRowButton: React.FC<Properties> = ({type, onClick}) => {

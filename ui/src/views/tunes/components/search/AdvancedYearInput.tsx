@@ -8,11 +8,12 @@ import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilterin
 import useDebounce from "../../../../hooks/useDebounce.ts";
 
 interface Properties {
+    filterKey: string;
 }
 
 const DefaultRange = [1874, 1999];
 
-const AdvancedYearInput: React.FC<Properties> = () => {
+const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
 
     const {t} = useTranslation();
 
@@ -24,7 +25,7 @@ const AdvancedYearInput: React.FC<Properties> = () => {
     const [yearRange, setYearRange] = useState<[number, number]>(DefaultRange as [number, number]);
 
     const handleTypeChange = (type: string) => {
-        updateFilter("year", {
+        updateFilter(filterKey, {
             ...yearFilter,
             value: ["blank", "not_blank"].includes(type) ? type : yearFilter.value,
             type: type
@@ -46,10 +47,10 @@ const AdvancedYearInput: React.FC<Properties> = () => {
     const triggerUpdate = useDebounce(() => {
         const filterList = filters.filter(f => !["year", "from", "to"].includes(f.field));
         if (year) {
-            filterList.push({field: "year", value: year, type: yearFilter.type});
+            filterList.push({filterKey: filterKey, field: "year", value: year, type: yearFilter.type});
         } else {
-            filterList.push({field: "from", value: yearRange[0].toString()});
-            filterList.push({field: "to", value: yearRange[1].toString()});
+            filterList.push({filterKey: filterKey, field: "from", value: yearRange[0].toString()});
+            filterList.push({filterKey: filterKey, field: "to", value: yearRange[1].toString()});
         }
         setFilters(filterList);
     });
@@ -63,14 +64,14 @@ const AdvancedYearInput: React.FC<Properties> = () => {
         if (!filters.length) {
             setYearRange(DefaultRange as [number, number]);
         }
-    }, [filters.find(f => f.field === "from" || f.field ==="to") ]);
+    }, [filters.find(f => f.field === "from" || f.field === "to")]);
 
     useEffect(() => {
         if (!filters.length) {
             setYear("");
         }
-    }, [filters.find(f => f.field === "year") ]);
-    
+    }, [filters.find(f => f.field === "year")]);
+
     return (<>
             <Grid>
                 <Grid.Col span={{base: 6, lg: 4}}>
