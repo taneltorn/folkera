@@ -17,6 +17,6 @@ export const Color = new Map([
     ["parish", "blue"],
     ["instrument", "green"],
     ["collector", "violet"],
-    ["archive", "purple"],
-    ["quality", "green"],
+    ["origin", "yellow"],
+    ["county", "purple"],
 ]);

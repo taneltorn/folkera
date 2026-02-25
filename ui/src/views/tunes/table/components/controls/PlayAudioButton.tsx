@@ -30,7 +30,7 @@ const PlayAudioButton: React.FC<Properties> = ({tune}) => {
                         title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
                     />}
             >
-                {!isPlaying ? t("button.play") : t("button.stop")}
+                {!(isPlaying && track?.audio === tune.audio) ? t("button.play") : t("button.stop")}
             </Button>
         </>
     );
