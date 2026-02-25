@@ -1,3 +1,6 @@
+#### [0.7.3] - 25.02.2026
+- Lisatud keelevalik
+
 #### [0.7.2] - 24.02.2026
 - Lisatud keelevalik
 - Otsingu parandused

@@ -8,7 +8,7 @@ i18n
     .use(HttpApi)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'ee',
+        fallbackLng: 'et',
 
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'
@@ -24,9 +24,10 @@ i18n
         },
 
         detection: {
-            order: ["localStorage", "navigator"],
+            order: ["localStorage"],
             caches: ["localStorage"],
             lookupLocalStorage: "lang",
+            fallbackLng: "et",
         },
 
         react: {

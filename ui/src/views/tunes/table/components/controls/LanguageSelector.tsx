@@ -5,13 +5,13 @@ import getUnicodeFlagIcon from "country-flag-icons/unicode";
 import { Language } from "../../../../../model/Language";
 
 const iconMap = new Map<Language, ReactNode>([
-    [Language.EE, getUnicodeFlagIcon("EE")],
+    [Language.ET, getUnicodeFlagIcon("EE")],
     [Language.EN, getUnicodeFlagIcon("GB_ENG")],
 ]);
 
 const normalizeLng = (lng: string): Language => {
     const base = lng.split("-")[0]; // "en-US" -> "en"
-    return (base as Language) === Language.EE ? Language.EE : Language.EN;
+    return (base as Language) === Language.ET ? Language.ET : Language.EN;
 };
 
 const LanguageSelector: React.FC = () => {
@@ -39,7 +39,7 @@ const LanguageSelector: React.FC = () => {
             </Menu.Target>
 
             <Menu.Dropdown>
-                {[Language.EE, Language.EN].map((lng) => (
+                {[Language.ET, Language.EN].map((lng) => (
                     <Menu.Item
                         key={lng}
                         leftSection={iconMap.get(lng)}
