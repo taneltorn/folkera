@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box, Grid} from "@mantine/core";
+import {Box, Grid, LoadingOverlay} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import {useTuneService} from "../../services/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
@@ -58,9 +58,10 @@ const TuneDetails: React.FC = () => {
 
     return (
         <Page title={t("page.title.tunes")}>
+            <Box px={"md"} mb={"md"} pos={"relative"}>
+                <LoadingOverlay visible={dataService.isLoading}/>
 
-            {tune && <>
-                <Box px={"md"} mb={"md"}>
+                {tune && <>
                     <TuneHeader tune={tune}/>
 
                     <TuneDetailsControls
@@ -68,19 +69,18 @@ const TuneDetails: React.FC = () => {
                         reloadData={() => fetchData(id)}
                     />
 
-                    {tune.datatype === "NOOT" && <Grid>
+                    {tune.datatype === "NOOT" && <Grid mt={"md"}>
                         <Grid.Col span={{base: 12, xl: 8}}>
                             <MusicXmlViewer tune={tune}/>
                         </Grid.Col>
                     </Grid>}
 
-
                     <TuneInfoTable tune={tune}/>
-                </Box>
+                </>}
+            </Box>
 
-                <SimilarTunesTable/>
-                <IdentifyLoader/>
-            </>}
+            <SimilarTunesTable/>
+            <IdentifyLoader/>
         </Page>
     );
 }

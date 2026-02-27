@@ -12,6 +12,7 @@ interface Properties {
     playerRef: any;
     track: Tune;
     src: string;
+    loopStage: number | null;
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
@@ -26,6 +27,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         onPlaying,
         onPause,
         onError,
+        loopStage,
     } = {...props};
 
     return (
@@ -44,7 +46,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
             </Grid.Col>
 
             <Grid.Col span={6}>
-                <Group align="center" h="100%">
+                <Group align="center" h="100%" className={loopStage ? "looping-player" : ""}>
                     <AudioPlayer
                         // @ts-ignore
                         ref={playerRef}

@@ -7,6 +7,7 @@ import PlayerCloseButton from "./PlayerCloseButton.tsx";
 
 interface Properties {
     playerRef: any;
+    loopStage: number | null;
     src: string;
     onPlaying: () => void;
     onPause: () => void;
@@ -21,11 +22,12 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
         onPlaying,
         onPause,
         onError,
+        loopStage,
     } = {...props};
 
     return (
         <Flex>
-            <Group flex={1}>
+            <Group flex={1} className={loopStage ? "looping-player" : ""}>
                 <AudioPlayer
                     // @ts-ignore
                     ref={playerRef}

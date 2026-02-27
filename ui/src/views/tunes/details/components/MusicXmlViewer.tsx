@@ -109,7 +109,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
     }, [tune]);
 
     return (
-        <Box mt="md">
+        <Box>
             {!tune.musicxml && (
                 <Alert
                     maw={500}
@@ -133,8 +133,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
             {loading && (
                 <Group mb="sm" gap="xs">
                     <Loader size="sm"/>
-                </Group>
-            )}
+                </Group>)}
 
             <Box
                 ref={containerRef}

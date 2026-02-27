@@ -16,7 +16,7 @@ import UserMenu from "./UserMenu.tsx";
 import Help from "./Help.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 import LoginButton from "./LoginButton.tsx";
-import LanguageSelector from "../../views/tunes/table/components/controls/LanguageSelector.tsx";
+import LanguageSelector from "../LanguageSelector.tsx";
 
 const routes = [
     {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},

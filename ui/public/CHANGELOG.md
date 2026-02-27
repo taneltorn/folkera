@@ -1,3 +1,7 @@
+#### [0.7.4] - 27.02.2026
+- Lisatud ukraina keele valik
+- Pisitäiendused
+
 #### [0.7.3] - 25.02.2026
 - Lisatud keelevalik
 - Täiustatud detailotsingut

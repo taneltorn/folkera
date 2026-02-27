@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
@@ -8,11 +8,17 @@ import {TbArrowBarToRight, TbRepeat, TbRepeatOff} from 'react-icons/tb';
 const LoopControls: React.FC = () => {
 
     const {t} = useTranslation();
-    const {track, playerRef} = useAudioPlayer();
-
-    const [loopStage, setLoopStage] = useState<0 | 1 | 2>(0);
-    const [loopStart, setLoopStart] = useState<number | null>(null);
-    const [loopEnd, setLoopEnd] = useState<number | null>(null);
+    const {
+        track,
+        playerRef,
+        loopStart,
+        setLoopStart,
+        loopEnd,
+        setLoopEnd,
+        loopStage,
+        setLoopStage,
+        clearLoop
+    } = useAudioPlayer();
 
     const handleLoopClick = () => {
         const audio = playerRef.current?.audio?.current;
@@ -29,11 +35,6 @@ const LoopControls: React.FC = () => {
         }
     };
 
-    const clearLoop = () => {
-        setLoopStart(null);
-        setLoopEnd(null);
-        setLoopStage(0);
-    }
 
     useEffect(() => {
         clearLoop();
@@ -62,9 +63,9 @@ const LoopControls: React.FC = () => {
             variant={"transparent"}
             onClick={handleLoopClick}
         >
-            {loopStage === 0 && <TbRepeatOff size={Size.icon.MD}/>}
+            {loopStage === 0 && <TbRepeat size={Size.icon.MD}/>}
             {loopStage === 1 && <TbArrowBarToRight size={Size.icon.MD}/>}
-            {loopStage === 2 && <TbRepeat size={Size.icon.MD}/>}
+            {loopStage === 2 && <TbRepeatOff size={Size.icon.MD}/>}
         </Button>
     );
 }

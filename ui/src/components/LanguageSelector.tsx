@@ -2,16 +2,21 @@ import React, { ReactNode } from "react";
 import { Button, Menu } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
-import { Language } from "../../../../../model/Language";
+import { Language } from "../model/Language.ts";
 
 const iconMap = new Map<Language, ReactNode>([
     [Language.ET, getUnicodeFlagIcon("EE")],
-    [Language.EN, getUnicodeFlagIcon("GB_ENG")],
+    [Language.EN, getUnicodeFlagIcon("GB")],
+    [Language.UK, getUnicodeFlagIcon("UA")],
 ]);
 
 const normalizeLng = (lng: string): Language => {
-    const base = lng.split("-")[0]; // "en-US" -> "en"
-    return (base as Language) === Language.ET ? Language.ET : Language.EN;
+    const base = lng.split("-")[0];
+
+    if (base === Language.ET) return Language.ET;
+    if (base === Language.UK) return Language.UK;
+
+    return Language.EN;
 };
 
 const LanguageSelector: React.FC = () => {
@@ -39,7 +44,7 @@ const LanguageSelector: React.FC = () => {
             </Menu.Target>
 
             <Menu.Dropdown>
-                {[Language.ET, Language.EN].map((lng) => (
+                {[Language.ET, Language.EN, Language.UK].map((lng) => (
                     <Menu.Item
                         key={lng}
                         leftSection={iconMap.get(lng)}

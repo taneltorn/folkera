@@ -138,6 +138,20 @@ a {
   color: var(--mantine-color-red-9) !important;
 }
 
+.looping-player {
+  .rhap_progress-filled {
+    background-color: var(--mantine-color-gray-2) !important;
+  }
+  .rhap_download-progress {
+    background-color: var(--mantine-color-gray-2) !important;
+
+  }
+  .rhap_progress-indicator {
+    background-color: var(--mantine-color-yellow-9) !important;
+  }
+}
+
+
 .rhap_progress-filled,
 .rhap_progress-indicator {
   background-color: var(--mantine-color-red-9) !important;

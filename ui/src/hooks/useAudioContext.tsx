@@ -12,6 +12,9 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
     const playerRef = createRef();
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [loopStage, setLoopStage] = useState<number>(0);
+    const [loopStart, setLoopStart] = useState<number | null>(null);
+    const [loopEnd, setLoopEnd] = useState<number | null>(null);
     const [track, setTrack] = useState<Tune>();
 
     const play = (track: Tune) => {
@@ -30,14 +33,24 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         }
     }
 
+    const clearLoop = () => {
+        setLoopStart(null);
+        setLoopEnd(null);
+        setLoopStage(0);
+    }
+
     const context = useMemo(() => ({
         playerRef,
         isPlaying, setIsPlaying,
+        loopStage, setLoopStage,
+        loopStart, setLoopStart,
+        loopEnd, setLoopEnd,
         track, setTrack,
         play,
         pause,
+        clearLoop,
 
-    }), [isPlaying, track]);
+    }), [isPlaying, loopStart, loopEnd, loopStage, track]);
 
     return (
         <AudioContext.Provider value={context}>

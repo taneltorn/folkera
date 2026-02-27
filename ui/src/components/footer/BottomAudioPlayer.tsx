@@ -17,8 +17,9 @@ const BottomAudioPlayer: React.FC = () => {
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {notify} = useToasts();
-    const {track, setIsPlaying, playerRef} = useAudioPlayer();
     const breakpoint = useCurrentBreakpoint();
+    const {track, playerRef, setIsPlaying, loopStage} = useAudioPlayer();
+
 
     const handlePlaybackError = () => {
         notify(t("toast.error.playbackError", {file: track?.audio || ""}), ToastType.ERROR)
@@ -42,6 +43,7 @@ const BottomAudioPlayer: React.FC = () => {
                         {["xs"].includes(breakpoint) ?
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
+                                loopStage={loopStage}
                                 src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
@@ -50,6 +52,7 @@ const BottomAudioPlayer: React.FC = () => {
                             :
                             <LargeScreenAudioPlayer
                                 playerRef={playerRef}
+                                loopStage={loopStage}
                                 track={track}
                                 src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
                                 onPlaying={() => setIsPlaying(true)}
@@ -58,9 +61,11 @@ const BottomAudioPlayer: React.FC = () => {
                             />}
 
                     </>}
-                </>}
+                </>
+            }
         </Box>
-    );
+    )
+        ;
 }
 
 export default BottomAudioPlayer;
