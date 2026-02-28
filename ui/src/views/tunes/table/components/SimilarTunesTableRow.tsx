@@ -49,7 +49,7 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                 </Group>
             </Table.Td>
             <Table.Td>
-                <Badge fullWidth={true} color={similarityToColor(similarity)} title={`${similarity}%`}>
+                <Badge w={120} color={similarityToColor(similarity)} title={`${Math.round(similarity)}%`}>
                     {t(`similarity.${similarityToLabel(similarity)}`)}
                 </Badge>
             </Table.Td>
