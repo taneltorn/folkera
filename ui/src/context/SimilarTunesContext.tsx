@@ -4,6 +4,7 @@ import {LoadingState} from "../model/LoadingState.ts";
 
 export interface Properties {
 
+    isBusy: boolean;
     similarTunes: Tune[];
     setSimilarTunes: (tunes: Tune[]) => void;
 

@@ -54,11 +54,20 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
         }
     };
 
+    const isBusy = useMemo<boolean>(() => {
+        return [
+            LoadingState.LOADING_DATA,
+            LoadingState.IDENTIFYING_TUNES,
+            LoadingState.UPLOADING_FILE].includes(loadingState) || false;
+    }, [loadingState]);
+
     const context = useMemo(() => ({
         similarTunes: similarTunes, setSimilarTunes,
         loadingState, setLoadingState,
-        findSimilarTunes
-    }), [similarTunes, loadingState]);
+        findSimilarTunes,
+        isBusy,
+    }), [similarTunes, isBusy, loadingState]);
+
 
     return (
         <SimilarTunesContext.Provider value={context}>

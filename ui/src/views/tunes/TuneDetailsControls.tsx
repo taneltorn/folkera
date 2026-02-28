@@ -15,6 +15,7 @@ import {View} from "../../context/ActiveViewContext.tsx";
 import {FaTableList} from "react-icons/fa6";
 import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
+import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 
 interface Properties {
     tune: Tune;
@@ -25,6 +26,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
+    const {isBusy} = useSimilarTunes();
 
     return (
         <Group justify={"space-between"} mt={"xl"}>
@@ -53,7 +55,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                 <ActiveViewButton view={View.DETAILS} icon={<FaTableList size={Size.icon.SM}/>}/>
 
                 {currentUser?.isResearcher && <>
-                    <ActiveViewButton view={View.SIMILAR_TUNES} icon={<RiNodeTree size={Size.icon.SM}/>}/>
+                    <ActiveViewButton view={View.SIMILAR_TUNES} loading={isBusy} icon={<RiNodeTree size={Size.icon.SM}/>}/>
                     <ActiveViewButton view={View.CLUSTER} icon={<MdScatterPlot size={Size.icon.SM}/>}/>
                 </>}
             </Group>

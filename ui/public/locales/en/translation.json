@@ -157,6 +157,9 @@
         "usernameOrEmail": "Username or e-mail",
         "password": "Password"
       }
+    },
+    "profile": {
+      "changePassword": "Change password"
     }
   },
   "toast": {

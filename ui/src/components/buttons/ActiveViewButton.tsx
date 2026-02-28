@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import {Button} from "@mantine/core";
+import {Button, Loader} from "@mantine/core";
 import {useActiveView} from "../../hooks/useActiveView.tsx";
 import {View} from "../../context/ActiveViewContext.tsx";
 import {useTranslation} from "react-i18next";
@@ -8,9 +8,10 @@ interface Properties {
     view: View;
     icon: ReactNode;
     disabled?: boolean;
+    loading?: boolean;
 }
 
-const ActiveViewButton: React.FC<Properties> = ({view, icon, disabled}) => {
+const ActiveViewButton: React.FC<Properties> = ({view, loading, icon, disabled}) => {
 
     const {t} = useTranslation();
     const {activeView, setActiveView} = useActiveView();
@@ -25,7 +26,7 @@ const ActiveViewButton: React.FC<Properties> = ({view, icon, disabled}) => {
             size={"sm"}
             onClick={() => setActiveView(view)}
         >
-            {icon}
+            {loading ? <Loader size={20}/> : icon}
         </Button>
     );
 }

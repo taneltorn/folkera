@@ -157,6 +157,9 @@
         "usernameOrEmail": "Kasutajanimi või e-mail",
         "password": "Parool"
       }
+    },
+    "profile": {
+      "changePassword": "Vaheta parool"
     }
   },
   "toast": {

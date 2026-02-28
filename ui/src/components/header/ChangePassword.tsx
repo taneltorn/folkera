@@ -69,7 +69,7 @@ const ChangePassword: React.FC = () => {
         <Button
             leftSection={<PiPassword size={Size.icon.XS}/>}
             onClick={() => openModal()}>
-            {t("page.userMenu.changePassword")}
+            {t("page.profile.changePassword")}
         </Button>
     );
 }
