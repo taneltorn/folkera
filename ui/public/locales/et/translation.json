@@ -31,6 +31,7 @@
         "performerTunes": "Samalt esitajalt",
         "openInKivike": "Ava Kivikes",
         "pidMissing": "Ava Kivikes (PID puudub)",
+        "audioNotYetAdded": "Helisalvestust ei ole veel lisatud.",
         "notationNotYetAdded": "Noodistust ei ole veel lisatud.",
         "notationRenderingFailed": "Noodistust ei õnnestunud kuvada.",
         "datatype": {
@@ -201,7 +202,7 @@
     "low": "Madal",
     "medium": "Keskmine",
     "high": "Kõrge",
-    "veryHigh": "Very kõrge"
+    "veryHigh": "Väga kõrge"
   },
   "export": {
     "count": "Kirjeid"
@@ -340,9 +341,9 @@
     "showArchiveItems": "Kuva käsikiri",
     "addFilter": "Lisa filter"
   },
-  "alert": {
+  "data": {
     "noResults": "Andmeid ei leitud.",
-    "loadFailed": "Andmeid ei õnnestunud laadida."
+    "fetchFailed": "Andmeid ei õnnestunud laadida."
   },
   "player": {
     "tempo": "Muuda tempot",

@@ -1,11 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Box, Group, Loader, Alert} from "@mantine/core";
+import {Box, Group, Loader} from "@mantine/core";
 import {OpenSheetMusicDisplay} from "opensheetmusicdisplay";
 import {Tune} from "../../../../model/Tune.ts";
 import {useTranslation} from "react-i18next";
-import {FaInfo} from "react-icons/fa";
-import {Size} from "../../../../utils/constants.ts";
-import {IoMdAlert} from "react-icons/io";
+import InfoMessage from "../../../../components/InfoMessage.tsx";
 
 interface Props {
     tune: Tune;
@@ -110,25 +108,11 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
 
     return (
         <Box>
-            {!tune.musicxml && (
-                <Alert
-                    maw={500}
-                    color="blue"
-                    title={t("page.tunes.details.notationNotYetAdded")}
-                    mb="sm"
-                    icon={<FaInfo size={Size.icon.MD}/>}
-                />)}
+            {!tune.musicxml && <InfoMessage color={"blue"} title={t("page.tunes.details.notationNotYetAdded")}/>}
 
-            {err && (
-                <Alert
-                    maw={500}
-                    color="red"
-                    title={t("page.tunes.details.notationRenderingFailed")}
-                    mb="sm"
-                    icon={<IoMdAlert size={Size.icon.MD}/>}
-                >
-                    {err}
-                </Alert>)}
+            {err && <InfoMessage color={"red"} title={t("page.tunes.details.notationRenderingFailed")}>
+                {err}
+            </InfoMessage>}
 
             {loading && (
                 <Group mb="sm" gap="xs">

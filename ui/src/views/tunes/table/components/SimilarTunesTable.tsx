@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Group, Pagination as MantinePagination, ScrollArea, Table} from "@mantine/core";
 import SimilarTunesTableRow from "./SimilarTunesTableRow.tsx";
-import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {Pagination} from "../../../../model/Pagination.ts";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 import {LuAudioLines} from "react-icons/lu";
+import {LoadingState} from "../../../../model/LoadingState.ts";
+import InfoMessage from "../../../../components/InfoMessage.tsx";
 
 interface Properties {
 }
@@ -16,14 +17,13 @@ const SimilarTunesTable: React.FC<Properties> = () => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
-    const {modifications} = useModifications();
-    const {similarTunes} = useSimilarTunes();
+    const {similarTunes, loadingState} = useSimilarTunes();
     const [pagination, setPagination] = useState<Pagination>({size: 10, page: 1});
 
     return (<>
         {similarTunes.length > 0 && <>
             <ScrollArea pb={"xs"}>
-                <Table highlightOnHover stickyHeader={true} opacity={(modifications.length) ? 0.8 : 1}>
+                <Table highlightOnHover stickyHeader={true}>
                     <Table.Thead>
                         <Table.Tr>
                             <Table.Th>
@@ -64,6 +64,9 @@ const SimilarTunesTable: React.FC<Properties> = () => {
                 />
             </Group>
         </>}
+
+        {loadingState === LoadingState.ERROR &&
+            <InfoMessage mx={"md"} color={"red"} title={t("data.fetchFailed")}/>}
     </>);
 }
 

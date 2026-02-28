@@ -4,6 +4,8 @@ import {Tune} from "../../model/Tune.ts";
 import SimilarTunesTable from "./table/components/SimilarTunesTable.tsx";
 import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 import IdentifyLoader from "./components/IdentifyLoader.tsx";
+import InfoMessage from "../../components/InfoMessage.tsx";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
     tune: Tune;
@@ -13,6 +15,7 @@ const SIMILAR_TUNES_TO_FETCH = 50;
 
 const TuneDetails: React.FC<Properties> = ({tune}) => {
 
+    const {t} = useTranslation();
     const {similarTunes, findSimilarTunes} = useSimilarTunes();
 
     useEffect(() => {
@@ -23,6 +26,8 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
 
     return (
         <Box pos={"relative"} mih={100}>
+            {!tune.audio && <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
+
             <SimilarTunesTable/>
             <IdentifyLoader/>
         </Box>

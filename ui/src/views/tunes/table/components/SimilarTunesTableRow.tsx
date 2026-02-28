@@ -49,7 +49,7 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                 </Group>
             </Table.Td>
             <Table.Td>
-                <Badge color={similarityToColor(similarity)}>
+                <Badge fullWidth={true} color={similarityToColor(similarity)} title={`${similarity}%`}>
                     {t(`similarity.${similarityToLabel(similarity)}`)}
                 </Badge>
             </Table.Td>
@@ -61,7 +61,7 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
             ))}
 
             <Table.Td>
-                <Group gap={0} justify={"end"}>
+                <Group gap={0} justify={"end"} wrap={"nowrap"}>
                     <IconButton
                         type={"open"}
                         onClick={() => navigate(`/tunes/${tune.id}`)}

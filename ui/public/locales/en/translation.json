@@ -31,6 +31,7 @@
         "performerTunes": "From the same performer",
         "openInKivike": "Open in Kivike",
         "pidMissing": "Open in Kivike (PID missing)",
+        "audioNotYetAdded": "Audio file has not yet been added.",
         "notationNotYetAdded": "Notation has not yet been added.",
         "notationRenderingFailed": "Failed to render notation.",
         "datatype": {
@@ -340,9 +341,9 @@
     "showArchiveItems": "Show manuscript",
     "addFilter": "Add filter"
   },
-  "alert": {
+  "data": {
     "noResults": "No data found.",
-    "loadFailed": "Failed to load data."
+    "fetchFeiled": "Failed to load data."
   },
   "player": {
     "tempo": "Change tempo",

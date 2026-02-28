@@ -12,11 +12,12 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
 
     return (
         <Box px={"md"}>
-            {tune.datatype === "NOOT" && <Grid mt={"md"}>
-                <Grid.Col span={{base: 12, xl: 8}}>
-                    <MusicXmlViewer tune={tune}/>
-                </Grid.Col>
-            </Grid>}
+            {tune.datatype === "NOOT" &&
+                <Grid mt={"md"}>
+                    <Grid.Col span={{base: 12}}>
+                        <MusicXmlViewer tune={tune}/>
+                    </Grid.Col>
+                </Grid>}
 
             <Grid mt={"md"}>
                 <Grid.Col span={{baseline: 12, md: 8, xl: 6}}>
