@@ -1,130 +1,17 @@
 {
   "page": {
-    "title": {
-      "admin": "Adminpaneel",
-      "tunes": "Pillilood",
-      "clusterMap": "Klasterkaart",
-      "profile": "Minu profiil",
-      "changelog": "Muutelugu"
-    },
-    "selectLanguage": "Vali keel",
-    "loading": "Laen andmeid...",
-    "example": "Näide",
-    "table": {
-      "items": "Kokku: {{count}}",
-      "noData": "Andmeid ei leitud."
-    },
     "navigation": {
       "title": "Menüü",
       "tunes": "Pillilood",
       "identify": "Tuvasta",
-      "clusters": "Klasterkaart",
-      "changePassword": "Muuda parooli",
-      "stats": "Statistika",
-      "showTable": "Kuva tabelis"
-    },
-    "userMenu": {
       "admin": "Adminpaneel",
       "clusters": "Klasterkaart",
-      "myProfile": "Profiil",
-      "changePassword": "Vaheta parool",
+      "profile": "Profiil",
+      "changelog": "Muutelugu",
+      "login": "Logi sisse",
       "logout": "Logi välja"
     },
-    "help": {
-      "title": "FolkERA",
-      "description": "Käesolev veebirakendus on osa valmivast doktoritööst, mille eesmärk on Eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
-      "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
-      "version": "Versioon",
-      "navigateToChangelog": "Vaata muutelugu"
-    }
-  },
-  "player": {
-    "tempo": "Muuda tempot",
-    "loop": {
-      "0": "Märgi algus",
-      "1": "Märgi lõpp",
-      "2": "Tühista"
-    },
-    "insufficientPrivileges": "Helisalvestuse kuulamiseks logi sisse."
-  },
-  "tune": {
-    "id": "ID",
-    "ref": "Viide",
-    "pid": "PID",
-    "content": "Sisukirjeldus",
-    "melody": "Viisitüüp",
-    "quality": "Kvaliteet",
-    "datatype": "Andmetüüp",
-    "trainset": "Treeningandmestik",
-    "TR": "Treeningandmed",
-    "TE": "Testandmed",
-    "dance": "Tantsutüüp",
-    "year": "Aasta",
-    "instrument": "Pill",
-    "performer": "Esitaja",
-    "parish": "Kihelkond",
-    "county": "Maakond",
-    "origin": "Päritolukoht (kihelkond)",
-    "collector": "Koguja",
-    "notes": "Märkmed",
-    "comments": "Kommentaar",
-    "audio": "Helisalvestuse fail",
-    "notation": "Noodistuse fail",
-    "musicxml": "MusicXML fail",
-    "audioRef": "Helisalvestuse viide",
-    "notationRef": "Noodistuse viide",
-    "duration": "Kestus",
-    "order": "Jrk",
-    "kivike": "Kivike",
-    "search": "Otsing",
-    "similarity": "Sarnasus",
-    "from": "Aasta (alates)",
-    "to": "Aasta (kuni)"
-  },
-  "user": {
-    "id": "ID",
-    "name": "Nimi",
-    "password": "Parool",
-    "username": "Kasutajanimi",
-    "email": "E-mail",
-    "role": "Roll",
-    "createdAt": "Loodud"
-  },
-  "notification": {
-    "id": "ID",
-    "title": "Pealkiri",
-    "message": "Teade",
-    "validFrom": "Alates",
-    "validTo": "Kuni"
-  },
-  "role": {
-    "ADMIN": "Administraator",
-    "USER": "Kasutaja"
-  },
-  "view": {
-    "admin": {
-      "tab": {
-        "users": "Kasutajad",
-        "notifications": "Teavitused"
-      }
-    },
-    "identify": {
-      "title": "Otsi sarnaseid esitusi",
-      "alertTitle": "Tegemist on prototüübiga. Tulemused võivad varieeruda.",
-      "label": "Vali helifail",
-      "placeholder": "Vali helifail",
-      "submit": "Otsi sarnaseid salvestusi",
-      "identifyingTunes": "Tuvastan sarnaseid salvestusi...",
-      "uploadingFile": "Laen faili üles...",
-      "loadingData": "Laen andmeid...",
-      "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
-      "fileUploadPlaceholder": "Vali või lohista helifail.",
-      "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB.",
-      "dataset": {
-        "folkera": "3859/272 (viimane)",
-        "3030": "3030/160"
-      }
-    },
+    "selectLanguage": "Vali keel",
     "tunes": {
       "exactMatch": " (täpne vaste)",
       "controls": {
@@ -137,10 +24,7 @@
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
         "mapOptions": "Kaardisätted",
-        "clearFilters": "Eemalda filtrid",
-        "tableView": "Tabel",
-        "mapView": "Kaart",
-        "statsView": "Statistika"
+        "clearFilters": "Eemalda filtrid"
       },
       "details": {
         "similarTunes": "Otsi sarnaseid viise",
@@ -202,7 +86,40 @@
       "viewSelection": {
         "table": "Kuva tabelivaade",
         "map": "Kuva kaart",
-        "stats": "Kuva statistika"
+        "stats": "Kuva statistika",
+        "cluster": "Kuva klasterkaart",
+        "details": "Kuva andmed",
+        "similarTunes": "Kuva sarnased viisid"
+      }
+    },
+    "identify": {
+      "title": "Otsi sarnaseid esitusi",
+      "alert": "Tegemist on prototüübiga. Tulemused võivad varieeruda.",
+      "submit": "Otsi sarnaseid salvestusi",
+      "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
+      "fileUploadPlaceholder": "Vali või lohista helifail.",
+      "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB.",
+      "state": {
+        "identifyingTunes": "Tuvastan sarnaseid salvestusi...",
+        "uploadingFile": "Laen faili üles...",
+        "loadingData": "Laen andmeid..."
+      },
+      "dataset": {
+        "folkera": "3859/272 (viimane)",
+        "3030": "3030/160"
+      }
+    },
+    "help": {
+      "title": "FolkERA",
+      "description": "Käesolev veebirakendus on osa valmivast doktoritööst, mille eesmärk on Eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
+      "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
+      "version": "Versioon",
+      "navigateToChangelog": "Vaata muutelugu"
+    },
+    "admin": {
+      "tab": {
+        "users": "Kasutajad",
+        "notifications": "Teavitused"
       }
     },
     "clusterMap": {
@@ -235,10 +152,6 @@
       }
     },
     "auth": {
-      "button": {
-        "login": "Logi sisse",
-        "logout": "Logi välja"
-      },
       "form": {
         "header": "Logi sisse",
         "usernameOrEmail": "Kasutajanimi või e-mail",
@@ -279,6 +192,13 @@
       "wrongCredentials": "Vale kasutajanimi/parool",
       "playbackError": "Faili {{file}} ei õnnestunud mängida"
     }
+  },
+  "similarity": {
+    "veryLow": "Väga madal",
+    "low": "Madal",
+    "medium": "Keskmine",
+    "high": "Kõrge",
+    "veryHigh": "Very kõrge"
   },
   "export": {
     "count": "Kirjeid"
@@ -339,16 +259,74 @@
       "selectYearRange": "...või määra vahemik"
     }
   },
+  "tune": {
+    "id": "ID",
+    "ref": "Viide",
+    "pid": "PID",
+    "content": "Sisukirjeldus",
+    "melody": "Viisitüüp",
+    "quality": "Kvaliteet",
+    "datatype": "Andmetüüp",
+    "trainset": "Treeningandmestik",
+    "TR": "Treeningandmed",
+    "TE": "Testandmed",
+    "dance": "Tantsutüüp",
+    "year": "Aasta",
+    "instrument": "Pill",
+    "performer": "Esitaja",
+    "parish": "Kihelkond",
+    "county": "Maakond",
+    "origin": "Päritolukoht (kihelkond)",
+    "collector": "Koguja",
+    "notes": "Märkmed",
+    "comments": "Kommentaar",
+    "audio": "Helisalvestuse fail",
+    "notation": "Noodistuse fail",
+    "musicxml": "MusicXML fail",
+    "audioRef": "Helisalvestuse viide",
+    "notationRef": "Noodistuse viide",
+    "duration": "Kestus",
+    "order": "Jrk",
+    "kivike": "Kivike",
+    "search": "Otsing",
+    "similarity": "Sarnasus",
+    "from": "Aasta (alates)",
+    "to": "Aasta (kuni)"
+  },
+  "user": {
+    "id": "ID",
+    "name": "Nimi",
+    "password": "Parool",
+    "username": "Kasutajanimi",
+    "email": "E-mail",
+    "role": "Roll",
+    "createdAt": "Loodud"
+  },
+  "notification": {
+    "id": "ID",
+    "title": "Pealkiri",
+    "message": "Teade",
+    "validFrom": "Alates",
+    "validTo": "Kuni"
+  },
+  "role": {
+    "ADMIN": "Administraator",
+    "RESEARCHER": "Uurija",
+    "USER": "Kasutaja"
+  },
   "button": {
     "search": "Otsi",
     "clear": "Tühjenda",
     "save": "Salvesta",
+    "open": "Ava",
     "modify": "Muuda",
     "close": "Sulge",
     "cancel": "Tühista",
     "reset": "Lähtesta",
+    "remove": "Eemalda",
     "next": "Järgmine",
     "previous": "Eelmine",
+    "selectFile": "Vali fail",
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
     "removeFilter": "Eemalda filter",
@@ -358,6 +336,19 @@
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
     "addFilter": "Lisa filter"
+  },
+  "alert": {
+    "noResults": "Andmeid ei leitud.",
+    "loadFailed": "Andmeid ei õnnestunud laadida."
+  },
+  "player": {
+    "tempo": "Muuda tempot",
+    "loop": {
+      "0": "Märgi algus",
+      "1": "Märgi lõpp",
+      "2": "Tühista"
+    },
+    "insufficientPrivileges": "Helisalvestuse kuulamiseks logi sisse."
   },
   "validation": {
     "required": "Väli on kohustuslik",

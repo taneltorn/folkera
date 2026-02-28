@@ -3,21 +3,27 @@ import ClusterPlot from "./components/ClusterPlot.tsx";
 import {ClusterContextProvider} from "../../../hooks/useClusterContext.tsx";
 import ClusterPlotControls from "./components/ClusterPlotControls.tsx";
 import ClusterPlotInfo from "./components/ClusterPlotInfo.tsx";
-import {Group} from "@mantine/core";
+import {Box, Group} from "@mantine/core";
 
-const ClusterPlotView: React.FC = () => {
+interface Properties {
+    showControls?: boolean;
+    needle?: string;
+}
+
+const ClusterPlotView: React.FC<Properties> = ({showControls, needle}) => {
 
     return (
         <ClusterContextProvider>
+            <Box pos={"relative"}>
 
-            <Group px={"md"} justify={"space-between"} mb={"md"} mt={"xs"}>
-                    <ClusterPlotControls/>
-                    <ClusterPlotInfo/>
-            </Group>
+                {showControls &&
+                    <Group px={"md"} justify={"space-between"} mb={"md"} mt={"xs"}>
+                        <ClusterPlotInfo/>
+                        <ClusterPlotControls/>
+                    </Group>}
 
-            <Group justify={"space-between"} wrap={"nowrap"} align={"start"}>
-                <ClusterPlot/>
-            </Group>
+                <ClusterPlot needle={needle}/>
+            </Box>
         </ClusterContextProvider>
     );
 }

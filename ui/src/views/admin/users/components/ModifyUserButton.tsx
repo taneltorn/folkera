@@ -3,7 +3,7 @@ import {User} from "../../../../model/User.ts";
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
-import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
 import UserForm from "./UserForm.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
@@ -40,7 +40,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
         });
 
     return (
-        <TableRowButton type={"modify"} onClick={openModal}/>
+        <IconButton type={"modify"} onClick={openModal}/>
     );
 }
 

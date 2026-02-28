@@ -4,7 +4,7 @@ import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import useNotifications from "../../../../hooks/useNotifications.tsx";
 import {Notification} from "../../../../model/Notification.ts";
-import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
@@ -36,7 +36,7 @@ const RemoveNotificationButton: React.FC<Properties> = ({notification, onChange}
         });
 
     return (
-        <TableRowButton type={"remove"} onClick={openModal}/>
+        <IconButton type={"remove"} onClick={openModal}/>
     );
 }
 

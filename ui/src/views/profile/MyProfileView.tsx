@@ -12,10 +12,10 @@ const MyProfileView: React.FC = () => {
     const {currentUser} = useAuth();
 
     return (
-        <Page title={t("page.title.profile")}>
+        <Page title={t("page.navigation.profile")}>
             <Box mx={"md"}>
                 <Title order={3} mb={"md"}>
-                    {t("page.title.profile")}
+                    {t("page.navigation.profile")}
                 </Title>
 
                 <Group gap={"xl"}>

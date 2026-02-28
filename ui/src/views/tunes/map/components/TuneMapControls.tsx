@@ -18,7 +18,7 @@ const TuneMapControls: React.FC = () => {
     return (
         <Group gap={4}>
             <LabelValue
-                label={t("view.tunes.table.results")}
+                label={t("page.tunes.table.results")}
                 value={totalItems}
                 mr={"md"}
             />
@@ -31,20 +31,20 @@ const TuneMapControls: React.FC = () => {
                         color={"dark"}
                         leftSection={<FaLayerGroup size={Size.icon.SM} />}
                     >
-                        {t("view.tunes.controls.mapOptions")}
+                        {t("page.tunes.controls.mapOptions")}
                     </Button>
                 </Menu.Target>
                 <Menu.Dropdown>
                     <Menu.Item>
                         <Switch
-                            label={t(`view.tunes.map.showLabels`)}
+                            label={t(`page.tunes.map.showLabels`)}
                             checked={mapOptions.showLabels}
                             onClick={() => setMapOptions({...mapOptions, showLabels: !mapOptions.showLabels})}
                         />
                     </Menu.Item>
                     <Menu.Item>
                         <Switch
-                            label={t(`view.tunes.map.showCounts`)}
+                            label={t(`page.tunes.map.showCounts`)}
                             checked={mapOptions.showCounts}
                             onClick={() => setMapOptions({...mapOptions, showCounts: !mapOptions.showCounts})}
                         />
@@ -52,7 +52,7 @@ const TuneMapControls: React.FC = () => {
                     <Menu.Item>
                         <Slider
                             w={150}
-                            label={t(`view.tunes.map.textSize`)}
+                            label={t(`page.tunes.map.textSize`)}
                             value={mapOptions.textSize}
                             min={8}
                             max={18}
@@ -63,12 +63,12 @@ const TuneMapControls: React.FC = () => {
             </Menu>
 
             <MenuSelect
-                label={t(`view.tunes.map.groupBy.${groupBy}`)}
+                label={t(`page.tunes.map.groupBy.${groupBy}`)}
                 options={[
                     GroupBy.PARISH,
                     GroupBy.COUNTY,
                 ].map(v => ({
-                    label: t(`view.tunes.map.groupBy.${v}`),
+                    label: t(`page.tunes.map.groupBy.${v}`),
                     value: v
                 }))}
                 onChange={v => setGroupBy(v as GroupBy)}

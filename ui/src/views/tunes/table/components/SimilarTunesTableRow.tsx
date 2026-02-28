@@ -1,17 +1,22 @@
 import React, {useRef} from "react";
-import {Checkbox, Group, Progress, Table, Text} from "@mantine/core";
+import {Badge, Checkbox, Group, Table} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
-import {Link} from "react-router-dom";
-import FilterButtons from "./controls/FilterButtons.tsx";
-import {similarityToColor, distanceToSimilarity, similarityToOpacity} from "../../../../utils/helpers.tsx";
+import {useNavigate} from "react-router-dom";
+import {
+    similarityToColor,
+    distanceToSimilarity,
+    similarityToLabel
+} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {useTuneSelection} from "../../../../hooks/useTuneSelection.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
-import {RiEdit2Fill} from "react-icons/ri";
+import {useTranslation} from "react-i18next";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
+import {AiFillEdit} from "react-icons/ai";
 
 interface Properties {
     tune: Tune;
@@ -19,19 +24,17 @@ interface Properties {
 
 const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
 
+    const {t} = useTranslation();
     const ref = useRef<HTMLTableRowElement | null>(null);
     const {currentUser} = useAuth();
     const {selection, toggleSelection} = useTuneSelection();
     const {state} = useControlState();
-
-    const min = 70;
-    const max = 95;
+    const navigate = useNavigate();
 
     const similarity: number = distanceToSimilarity(tune.distance);
-    const progress = Math.min(Math.max((similarity - min) / (max - min), 0), 1) * 100;
 
     return (
-        <Table.Tr key={tune.id} ref={ref} opacity={similarityToOpacity(similarity)}>
+        <Table.Tr key={tune.id} ref={ref}>
             <Table.Td>
                 <Group justify={"center"}>
                     {state === ControlState.SELECT
@@ -45,70 +48,34 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                         : <TunesTablePlayAudioButton tune={tune}/>}
                 </Group>
             </Table.Td>
-            <Table.Td miw={150}>
-                <Group wrap={"nowrap"}>
-                    <Text size={"xs"}>
-                        <Link to={`/tunes/${tune.id}`}>
-                            {tune.ref}
-                        </Link>
-                    </Text>
-                </Group>
+            <Table.Td>
+                <Badge color={similarityToColor(similarity)}>
+                    {t(`similarity.${similarityToLabel(similarity)}`)}
+                </Badge>
             </Table.Td>
             <Table.Td>{tune.content}</Table.Td>
+            {["ref", "melody", "year", "instrument", "performer", "parish"].map(f => (
+                <Table.Td>
+                    {tune[f as keyof Tune]}
+                </Table.Td>
+            ))}
+
             <Table.Td>
-                <FilterButtons
-                    tune={tune}
-                    field={"melody"}
-                    returnHome
-                />
-            </Table.Td>
-            <Table.Td>
-                <FilterButtons
-                    tune={tune}
-                    field={"year"}
-                    returnHome
-                />
-            </Table.Td>
-            <Table.Td>
-                <FilterButtons
-                    tune={tune}
-                    field={"instrument"}
-                    split={","}
-                    returnHome
-                />
-            </Table.Td>
-            <Table.Td>
-                <FilterButtons
-                    tune={tune}
-                    field={"performer"}
-                    split={","}
-                    returnHome
-                />
-            </Table.Td>
-            <Table.Td>
-                <FilterButtons
-                    tune={tune}
-                    field={"parish"}
-                    split={","}
-                    returnHome
-                />
-            </Table.Td>
-            <Table.Td miw={150} pr={"xl"}>
-                <Group gap={"xs"} wrap={"nowrap"}>
-                    <Progress w={"100%"} title={`${similarity}`} value={progress}
-                              color={similarityToColor(similarity)}/>
+                <Group gap={0} justify={"end"}>
+                    <IconButton
+                        type={"open"}
+                        onClick={() => navigate(`/tunes/${tune.id}`)}
+                    />
+                    {currentUser?.isAdmin && <ModifyTuneButton
+                        variant={"subtle"}
+                        color={"dark"}
+                        size={"compact-xl"}
+                        tune={tune}
+                    >
+                        <AiFillEdit size={Size.icon.SM}/>
+                    </ModifyTuneButton>}
                 </Group>
             </Table.Td>
-            {currentUser?.isAdmin && <Table.Td>
-                <ModifyTuneButton
-                    variant={"light"}
-                    color={"dark"}
-                    size={"compact-xl"}
-                    tune={tune}
-                >
-                    <RiEdit2Fill size={Size.icon.SM}/>
-                </ModifyTuneButton>
-            </Table.Td>}
         </Table.Tr>
     );
 }

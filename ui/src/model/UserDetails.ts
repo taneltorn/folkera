@@ -8,5 +8,6 @@ export interface UserDetails {
     role: UserRole;
     createdAt: Date;
     isUser: boolean;
+    isResearcher: boolean;
     isAdmin: boolean;
 }

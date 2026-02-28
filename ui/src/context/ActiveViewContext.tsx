@@ -2,6 +2,8 @@ import React from 'react';
 
 export enum View {
     TABLE = "table",
+    DETAILS = "details",
+    SIMILAR_TUNES = "similarTunes",
     MAP = "map",
     STATS = "stats",
     CLUSTER = "cluster",

@@ -33,7 +33,7 @@ const UserMenu: React.FC = () => {
                         <Group gap={"xs"}>
                             <MdAdminPanelSettings size={Size.icon.SM}/>
                             <Text size={"sm"} fw={"bold"}>
-                                {t("page.userMenu.admin")}
+                                {t("page.navigation.admin")}
                             </Text>
                         </Group>
                     </Menu.Item>}
@@ -43,7 +43,7 @@ const UserMenu: React.FC = () => {
                         <Group gap={"xs"}>
                             <MdScatterPlot size={Size.icon.SM}/>
                             <Text size={"sm"} fw={"bold"}>
-                                {t("page.userMenu.clusters")}
+                                {t("page.navigation.clusters")}
                             </Text>
                         </Group>
                     </Menu.Item>}
@@ -52,7 +52,7 @@ const UserMenu: React.FC = () => {
                     <Group gap={"xs"}>
                         <FaUser size={Size.icon.XS}/>
                         <Text size={"sm"} fw={"bold"}>
-                            {t("page.userMenu.myProfile")}
+                            {t("page.navigation.profile")}
                         </Text>
                     </Group>
                 </Menu.Item>
@@ -62,7 +62,7 @@ const UserMenu: React.FC = () => {
                     <Group gap={"sm"}>
                         <MdOutlineLogout color={theme.colors.red[9]} size={Size.icon.SM}/>
                         <Text c={"red.9"} size={"sm"} fw={"bold"}>
-                            {t("view.auth.button.logout")}
+                            {t("page.navigation.logout")}
                         </Text>
                     </Group>
                 </Menu.Item>

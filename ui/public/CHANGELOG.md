@@ -1,3 +1,9 @@
+#### [0.7.5] - 28.02.2026
+- Täiendatud detailvaade
+- Lisatud uurija roll
+- Pisitäiendused
+- Ajutiselt eemaldatud ukraina keel (lisatakse hiljem tagasi)
+
 #### [0.7.4] - 27.02.2026
 - Lisatud ukraina keele valik
 - Pisitäiendused

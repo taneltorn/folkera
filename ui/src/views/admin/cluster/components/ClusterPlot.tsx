@@ -1,26 +1,32 @@
-import React, {useEffect, useState} from "react";
-import {LoadingOverlay} from "@mantine/core";
-import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
-import {useTuneService} from "../../../../services/useTuneService.ts";
-import {Tune} from "../../../../model/Tune.ts";
+import React, {useEffect, useMemo, useState} from "react";
+import {LoadingOverlay, useMantineTheme} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
+import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
+import {useTuneService} from "../../../../services/useTuneService.ts";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
+import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
 import {ClusterPlots, ColorSchemes, MarkerSymbols} from "../../../../utils/lists.ts";
+import {Tune} from "../../../../model/Tune.ts";
 import {ClusterData} from "../../../../model/ClusterData.ts";
-import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
-import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
 
 // @ts-ignore
 interface ExtendedPlotlyData extends Plotly.Data {
-    file: string;
+    file: string[];
+    name: string;
 }
 
-const ClusterPlot: React.FC = () => {
+interface Properties {
+    needle?: string;
+}
+
+const ClusterPlot: React.FC<Properties> = ({needle}) => {
 
     const {t} = useTranslation();
+    const theme = useMantineTheme();
     const {track, isPlaying, play, pause} = useAudioPlayer();
     const {fetchTunes, cancelSource} = useTuneService();
     const currentBreakpoint = useCurrentBreakpoint();
@@ -31,48 +37,75 @@ const ClusterPlot: React.FC = () => {
         colorScheme,
         setColorScheme,
         activeWork,
-        setActiveWork
+        setActiveWork,
     } = useClusterContext();
 
-    const [plotData, setPlotData] = useState<ExtendedPlotlyData[]>([]);
-    const [tunes, setTunes] = useState<Tune[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const [tunes, setTunes] = useState<Tune[]>([]);
+    const [clusterData, setClusterData] = useState<ClusterData | null>(null);
+
+    const shouldShowLegend = !["xs", "sm"].includes(currentBreakpoint);
+
+    const numberOfColors = useMemo(() => {
+        if (!clusterData) return 0;
+        return Math.ceil((new Set(clusterData.work_list.filter(w => !!w))).size);
+    }, [clusterData]);
+
+    const identifiedColors = useMemo(() => {
+        if (!numberOfColors) return [];
+        return colorScheme.scale.colors(numberOfColors);
+    }, [colorScheme, numberOfColors]);
+
     const fetchClusterData = (file: string) => {
+        setIsLoading(true);
+
         fetch(file)
             .then((response) => response.json())
-            .then((json: ClusterData) => {
-                const data = convertToPlotlyData(json);
-                // @ts-ignore
-                data.sort((a, b) => a.name.localeCompare(b.name));
-                setPlotData(data);
-            })
+            .then((json: ClusterData) => setClusterData(json))
             .catch((error) => console.error("Error loading cluster data:", error))
             .finally(() => setIsLoading(false));
-    }
+    };
 
     const convertToPlotlyData = (data: ClusterData): ExtendedPlotlyData[] => {
-        const groupedData: { [key: string]: any } = {};
+        const groupedData: Record<string, any> = {};
+        const workMarkers = new Map<string, string>();
 
-        const numberOfColors = Math.ceil((new Set(data.work_list.filter(w => !!w))).size);
-        const identifiedColors = colorScheme.scale.colors(numberOfColors);
-
-        const workMarkers = new Map([]);
+        const highlight = {
+            x: [] as number[],
+            y: [] as number[],
+            text: [] as string[],
+            file: [] as string[],
+        };
 
         data.work_list.forEach((work, i) => {
+            const label = data.label_list[i];
+            const file = data.file_list[i];
 
-            const markerSymbol = work ? (workMarkers.get(work) || MarkerSymbols[i % MarkerSymbols.length]) : "circle";
+            if (needle && label.startsWith(needle)) {
+                highlight.x.push(data.x[i]);
+                highlight.y.push(data.y[i]);
+                highlight.text.push(label);
+                highlight.file.push(file);
+            }
+
+            const markerSymbol = work
+                ? (workMarkers.get(work) || MarkerSymbols[i % MarkerSymbols.length])
+                : "circle";
+
             if (work && !workMarkers.has(work)) {
                 workMarkers.set(work, markerSymbol);
             }
 
-            if (!groupedData[work]) {
-                groupedData[work] = {
+            const key = work || "";
+            if (!groupedData[key]) {
+                groupedData[key] = {
                     x: [],
                     y: [],
                     mode: "markers",
                     type: "scatter",
-                    name: work,
+                    name: work || "",
+                    showlegend: true,
                     visible: true,
                     opacity: 1,
                     marker: {
@@ -80,42 +113,91 @@ const ClusterPlot: React.FC = () => {
                         color: work
                             ? identifiedColors[i % identifiedColors.length]
                             : colorScheme.unidentified,
-                        symbol: markerSymbol
+                        symbol: markerSymbol,
                     },
                     text: [],
                     file: [],
                 };
             }
 
-            groupedData[work].x.push(data.x[i]);
-            groupedData[work].y.push(data.y[i]);
-            groupedData[work].text.push(data.label_list[i]);
-            groupedData[work].file.push(data.file_list[i]);
-
+            groupedData[key].x.push(data.x[i]);
+            groupedData[key].y.push(data.y[i]);
+            groupedData[key].text.push(label);
+            groupedData[key].file.push(file);
         });
 
-        return Object.values(groupedData);
-    }
+        const traces = Object.values(groupedData) as ExtendedPlotlyData[];
+        if (highlight.x.length) {
+            traces.push({
+                x: highlight.x,
+                y: highlight.y,
+                mode: "markers",
+                type: "scatter",
+                name: "indicator",
+                showlegend: false,
+                hoverinfo: "text",
+                text: highlight.text,
+                file: highlight.file,
+                marker: {
+                    size: 33,
+                    color: "transparent",
+                    symbol: "circle",
+                    line: {width: 4, color: theme.colors.red[7]},
+                },
+            } as ExtendedPlotlyData);
+        }
+
+        const highlightTrace = traces.find(tr => tr.name === "indicator");
+        const normalTraces = traces.filter(tr => tr.name !== "indicator");
+        // @ts-ignore
+        normalTraces.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+
+        return highlightTrace ? [...normalTraces, highlightTrace] : normalTraces;
+    };
+
+    const plotData = useMemo(() => {
+        if (!clusterData) return [];
+
+        const data = convertToPlotlyData(clusterData);
+
+        return data.map((trace) => ({
+            ...trace,
+            // @ts-ignore
+            opacity:
+                trace.name === "indicator"
+                    ? 1
+                    : (activeWork === null || trace.name === activeWork ? 1 : 0),
+        }));
+    }, [clusterData, activeWork, identifiedColors, colorScheme, needle]);
 
     const handleClick = (event: any) => {
-        if (event.points.length > 0) {
-            const trace = event.points[0];
+        if (!event?.points?.length) return;
 
+        const point = event.points[0];
+        const idx: number | undefined = point.pointNumber;
+
+        let file: string | undefined;
+        if (typeof idx === "number" && point?.data?.file?.[idx]) {
+            file = point.data.file[idx];
+        } else {
             // @ts-ignore
-            const index = trace.data.text.findIndex(text => text === trace.text);
-            const file = trace.data.file[index];
-
-            const tune = tunes.find(r => r.audio === file);
-            if (tune) {
-                isPlaying && tune === track ? pause() : play(tune)
-            }
+            const index = point.data.text.findIndex((text: string) => text === point.text);
+            file = point.data.file?.[index];
         }
+
+        if (!file) return;
+
+        const tune = tunes.find(r => r.audio === file);
+        if (!tune) return;
+
+        isPlaying && tune === track ? pause() : play(tune);
     };
 
     const handleLegendClick = (event: LegendClickEvent) => {
-        setActiveWork(activeWork === event.node.textContent ? null : event.node.textContent);
+        const clicked = event?.node?.textContent || null;
+        setActiveWork(activeWork === clicked ? null : clicked);
         return false;
-    }
+    };
 
     useEffect(() => {
         fetchTunes()
@@ -123,61 +205,39 @@ const ClusterPlot: React.FC = () => {
             .catch(e => notify(t("toast.error.fetchData"), ToastType.ERROR, e));
 
         return () => {
-            cancelSource.cancel('Operation canceled by the user.');
+            cancelSource.cancel("Operation canceled by the user.");
         };
     }, []);
 
     useEffect(() => {
-        if (tunes.length === 0) {
-            return;
-        }
-        setIsLoading(true);
+        if (!tunes.length) return;
 
         const result = ClusterPlots.find(map => map.file === clusterPlot.file);
-        if (result) {
-            fetchClusterData(result.file);
-            const colorScheme = ColorSchemes.find(cs => cs.type === result.colorSchemeType);
-            if (colorScheme) {
-                setColorScheme(colorScheme);
-            }
-        }
-    }, [colorScheme, clusterPlot, tunes]);
+        if (!result) return;
 
-    useEffect(() => {
-        if (!plotData.length) {
-            return;
-        }
-        setPlotData(plotData.map(trace => ({
-            ...trace,
-            // @ts-ignore
-            opacity: activeWork === null || trace.name === activeWork ? 1 : 0
-        })))
-    }, [activeWork]);
+        const scheme = ColorSchemes.find(cs => cs.type === result.colorSchemeType);
+        if (scheme) setColorScheme(scheme);
 
-    return (
-        <>
+        fetchClusterData(result.file);
+    }, [clusterPlot, tunes]);
+
+    return (<>
             <Plot
-                data={(plotData || []) as Plotly.Data[]}
+                data={plotData as Plotly.Data[]}
                 onClick={handleClick}
-                onLegendClick={(event) => handleLegendClick(event)}
+                onLegendClick={handleLegendClick}
                 onLegendDoubleClick={() => false}
                 layout={{
                     title: "Interactive t-SNE Cluster Plot",
-                    showlegend: !["xs", "sm"].includes(currentBreakpoint),
+                    showlegend: shouldShowLegend,
                     dragmode: "zoom",
                     autosize: true,
-                    xaxis: {
-                        visible: false,
-                        uirevision: 'time',
-                    },
-                    yaxis: {
-                        visible: false,
-                        uirevision: 'time',
-
-                    }
+                    xaxis: {visible: false, uirevision: "time"},
+                    yaxis: {visible: false, uirevision: "time"},
                 }}
                 style={{width: "100%", maxHeight: "900px"}}
             />
+
             <LoadingOverlay visible={isLoading}/>
         </>
     );

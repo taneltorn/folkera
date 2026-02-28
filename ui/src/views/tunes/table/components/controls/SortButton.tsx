@@ -20,7 +20,7 @@ const SortButton: React.FC<Properties> = ({field}) => {
     return (
         <Group>
             <Button
-                title={t("view.tunes.table.sort")}
+                title={t("page.tunes.table.sort")}
                 px={0}
                 size={"compact-xs"}
                 color={field === pagination?.sortField ? theme.primaryColor : theme.colors.dark[1]}

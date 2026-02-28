@@ -18,10 +18,10 @@ const ChangeLog: React.FC = () => {
     }, []);
 
     return (
-        <Page title={t("page.title.changelog")}>
+        <Page title={t("page.navigation.changelog")}>
             <Box px={"md"}>
                 <Title order={2} mb={"md"}>
-                    {t("page.title.changelog")}
+                    {t("page.navigation.changelog")}
                 </Title>
 
                 <Markdown>{changelog}</Markdown>

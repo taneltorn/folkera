@@ -12,9 +12,10 @@ interface Properties {
     color?: string;
     returnHome?: boolean;
     size?: string;
+    plain?: boolean;
 }
 
-const FilterButtons: React.FC<Properties> = ({tune, field, split, size, returnHome}) => {
+const FilterButtons: React.FC<Properties> = ({tune, field, split, size, returnHome, plain}) => {
 
     const navigate = useNavigate();
     const {addFilter} = useDataContext();
@@ -41,7 +42,8 @@ const FilterButtons: React.FC<Properties> = ({tune, field, split, size, returnHo
             {values?.filter(v => !!v).map((v, i) => (
                 <Button key={i}
                         className={"pill-button"}
-                        color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
+                        color={plain ? "dark.1" : `${Color.get(field) || "gray"}.${8 - i % 5}`}
+                        variant={plain ? "filled" : "filled"}
                         size={size || "compact-xs"}
                         onClick={() => handleClick(v)}>
                     <Text size={size || "xs"} className={"pill-button"}>

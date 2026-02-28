@@ -28,7 +28,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune}) => {
             variant={"subtle"}
             title={tune.audio
                 ? t(`button.${isPlaying ? "stop" : "play"}`)
-                : t("view.tunes.table.audioNotFound")}
+                : t("page.tunes.table.audioNotFound")}
             disabled={!tune.audio}
             onClick={() => isPlaying && tune === track ? pause() : play(tune)}
         >

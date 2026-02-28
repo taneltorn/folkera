@@ -17,7 +17,7 @@ const TunesTableControls: React.FC = () => {
     return (
         <Group gap={4}>
             <LabelValue
-                label={t("view.tunes.table.results")}
+                label={t("page.tunes.table.results")}
                 value={totalItems}
                 mr={"md"}
             />

@@ -23,7 +23,7 @@ const ExportStatsCsvButton: React.FC = () => {
                 color={"dark"}
                 leftSection={<FaFileExport size={Size.icon.SM}/>}
                 onClick={() => exportStats(filters)} px={"xs"} mx={0}>
-                {t("view.tunes.controls.exportStats")}
+                {t("page.tunes.controls.exportStats")}
             </Button>}
         </>
 

@@ -35,7 +35,7 @@ const ShowNotationButton: React.FC<Properties> = ({tune}) => {
                         variant={"subtle"}
                         leftSection={<FaEye size={Size.icon.MD} />}
                         onClick={handleNavigation}>
-                        {t("view.tunes.table.showDetails")}
+                        {t("page.tunes.table.showDetails")}
                     </Button>
                 </Group>
             </>
@@ -49,7 +49,7 @@ const ShowNotationButton: React.FC<Properties> = ({tune}) => {
     return (
         <Button
             px={"xs"}
-            title={t(`view.tunes.table.${tune.notation ? "showNotation" : "notationNotFound"}`)}
+            title={t(`page.tunes.table.${tune.notation ? "showNotation" : "notationNotFound"}`)}
             size={"sm"}
             color={theme.colors.dark[9]}
             variant={"subtle"}

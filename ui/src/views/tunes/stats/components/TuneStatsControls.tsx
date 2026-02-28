@@ -17,8 +17,8 @@ const TuneStatsControls: React.FC = () => {
     return (
         <Group gap={4}>
             <LabelValue
-                title={t(`view.tunes.stats.tooltip.${groupBy}`)}
-                label={t("view.tunes.table.results")}
+                title={t(`page.tunes.stats.tooltip.${groupBy}`)}
+                label={t("page.tunes.table.results")}
                 value={`${totalItems} (${groupsCount})`}
                 mr={"md"}
             />
@@ -26,7 +26,7 @@ const TuneStatsControls: React.FC = () => {
             <ExportStatsCsvButton/>
             
             <MenuSelect
-                label={t(`view.tunes.stats.groupBy.${groupBy}`)}
+                label={t(`page.tunes.stats.groupBy.${groupBy}`)}
                 options={[
                     GroupBy.YEAR,
                     GroupBy.INSTRUMENT,
@@ -36,7 +36,7 @@ const TuneStatsControls: React.FC = () => {
                     GroupBy.PERFORMER,
                     GroupBy.COLLECTOR,
                 ].map(v => ({
-                    label: t(`view.tunes.stats.groupBy.${v}`),
+                    label: t(`page.tunes.stats.groupBy.${v}`),
                     value: v
                 }))}
                 onChange={(v) => setGroupBy(v as GroupBy)}

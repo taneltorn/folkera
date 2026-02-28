@@ -114,7 +114,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 <Alert
                     maw={500}
                     color="blue"
-                    title={t("view.tunes.details.notationNotYetAdded")}
+                    title={t("page.tunes.details.notationNotYetAdded")}
                     mb="sm"
                     icon={<FaInfo size={Size.icon.MD}/>}
                 />)}
@@ -123,7 +123,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 <Alert
                     maw={500}
                     color="red"
-                    title={t("view.tunes.details.notationRenderingFailed")}
+                    title={t("page.tunes.details.notationRenderingFailed")}
                     mb="sm"
                     icon={<IoMdAlert size={Size.icon.MD}/>}
                 >

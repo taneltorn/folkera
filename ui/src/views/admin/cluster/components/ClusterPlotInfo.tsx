@@ -12,22 +12,22 @@ const ClusterPlotInfo: React.FC = () => {
     return (
         <Group gap={"xl"}> 
             <LabelValue
-                title={t("view.clusterMap.tooltip.data")}
-                label={t("view.clusterMap.trainingData")}
+                title={t("page.clusterMap.tooltip.data")}
+                label={t("page.clusterMap.trainingData")}
                 value={`${clusterPlot.perfs || "N/A"} (${clusterPlot.works || "N/A"})`}
             />
 
             {clusterPlot.testPerfs && clusterPlot.testWorks &&
                 <LabelValue
-                    title={t("view.clusterMap.tooltip.data")}
-                    label={t("view.clusterMap.testData")}
+                    title={t("page.clusterMap.tooltip.data")}
+                    label={t("page.clusterMap.testData")}
                     value={`${clusterPlot.testPerfs} (${clusterPlot.testWorks})`}
                 />}
                 
             {clusterPlot.mAP &&
                 <LabelValue
-                    title={t("view.clusterMap.tooltip.map")}
-                    label={t("view.clusterMap.precision")}
+                    title={t("page.clusterMap.tooltip.map")}
+                    label={t("page.clusterMap.precision")}
                     value={`${clusterPlot.mAP.toFixed(3)}`}
                 />}
         </Group>

@@ -42,21 +42,24 @@ const router = createBrowserRouter([
             },
             {
                 path: "/identify",
-                element: <SimilarTunesContextProvider>
-                    <IdentifyView/>
-                </SimilarTunesContextProvider>,
+                element:
+                    <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.RESEARCHER]}>
+                        <SimilarTunesContextProvider>
+                            <IdentifyView/>
+                        </SimilarTunesContextProvider>,
+                    </ProtectedRoute>,
             },
             {
                 path: "/clusters",
                 element:
                     <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
-                        <ClusterPlotView/>
+                        <ClusterPlotView showControls/>
                     </ProtectedRoute>,
             },
             {
                 path: "/profile",
                 element:
-                    <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.ADMIN]}>
+                    <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.RESEARCHER, UserRole.ADMIN]}>
                         <MyProfileView/>
                     </ProtectedRoute>,
             },

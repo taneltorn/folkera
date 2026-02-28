@@ -31,8 +31,15 @@ const ClusterPlotControls: React.FC = () => {
 
     return (
         <Group gap={"md"}>
+            {activeWork &&
+                <Button variant={"subtle"} size={"sm"}
+                        leftSection={<FaRegEye size={Size.icon.SM}/>}
+                        onClick={handleReset}>
+                    {t("button.showAll")}
+                </Button>}
+
             <MenuSelect
-                title={t(`view.clusterMap.modelVersion.title`)}
+                title={t(`page.clusterMap.modelVersion.title`)}
                 label={`${clusterPlot.name} (${clusterPlot.version})`}
                 options={ClusterPlots.map(plot => ({
                     value: plot.file,
@@ -40,13 +47,6 @@ const ClusterPlotControls: React.FC = () => {
                 }))}
                 onChange={(value) => handleDataFileChange(value)}
             />
-
-            {activeWork &&
-                <Button variant={"subtle"} size={"sm"}
-                        leftSection={<FaRegEye size={Size.icon.SM}/>}
-                        onClick={handleReset}>
-                    {t("button.showAll")}
-                </Button>}
         </Group>
     );
 };

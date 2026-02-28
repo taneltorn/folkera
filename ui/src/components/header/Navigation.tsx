@@ -20,10 +20,14 @@ import LanguageSelector from "../LanguageSelector.tsx";
 
 const routes = [
     {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},
+];
+
+const protectedRoutes = [
     {id: "identify", icon: <TbZoomQuestion size={Size.icon.MD}/>, link: "/identify"},
 ];
 
 const Navigation: React.FC = () => {
+
     const [t] = useTranslation();
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,7 +35,9 @@ const Navigation: React.FC = () => {
 
     const [drawerOpened, setDrawerOpened] = useState(false);
 
-    const navMenu = routes.map((item, index) => (
+    const visibleRoutes = [...routes, ...(auth.currentUser?.isResearcher ? protectedRoutes : [])];
+
+    const navMenu = visibleRoutes.map((item, index) => (
         <Button
             key={index}
             size={"sm"}

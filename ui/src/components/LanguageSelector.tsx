@@ -44,7 +44,7 @@ const LanguageSelector: React.FC = () => {
             </Menu.Target>
 
             <Menu.Dropdown>
-                {[Language.ET, Language.EN, Language.UK].map((lng) => (
+                {[Language.ET, Language.EN].map((lng) => (
                     <Menu.Item
                         key={lng}
                         leftSection={iconMap.get(lng)}

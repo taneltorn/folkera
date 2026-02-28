@@ -24,7 +24,7 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
                 <Button
                     px={"xs"}
                     size={"sm"}
-                    title={t("view.tunes.details.back")}
+                    title={t("page.tunes.details.back")}
                     variant={"subtle"}
                     color={"dark"}
                     onClick={() => navigate("/")}
@@ -35,8 +35,8 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
             </Group>
 
             <Group gap={4} wrap={"nowrap"}>
-                <PreviousTuneButton tune={tune}/>
-                <NextTuneButton tune={tune}/>
+                <PreviousTuneButton currentId={tune.id}/>
+                <NextTuneButton currentId={tune.id}/>
             </Group>
         </Group>
     );

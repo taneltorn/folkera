@@ -42,7 +42,7 @@ const TuneFilters: React.FC = () => {
 
                     <Button
                         variant={"subtle"}
-                        title={t("view.tunes.controls.clearFilters")}
+                        title={t("page.tunes.controls.clearFilters")}
                         size={"compact-sm"}
                         color={"dark"}
                         onClick={clearFilters}>

@@ -4,7 +4,7 @@ import {Text} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
-import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
@@ -36,7 +36,7 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
         });
 
     return (
-        <TableRowButton type={"remove"} onClick={openModal}/>
+        <IconButton type={"remove"} onClick={openModal}/>
     );
 }
 

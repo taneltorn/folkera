@@ -61,7 +61,7 @@ const TuneInfoTableRow: React.FC<Properties> = ({field, tune}) => {
     const {t} = useTranslation();
 
     return (
-        <Table.Tr key={`row-${field}`}>
+        <Table.Tr key={`row-${field}`}  style={{}}>
             <Table.Td fw={"bold"}>
                 {t(`tune.${field}`)}
             </Table.Td>

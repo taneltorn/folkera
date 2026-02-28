@@ -6,7 +6,7 @@ import useNotifications from "../../../../hooks/useNotifications.tsx";
 import NotificationForm from "./NotificationForm.tsx";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
-import TableRowButton from "../../../../components/buttons/TableRowButton.tsx";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 
 interface Properties {
@@ -44,7 +44,7 @@ const ModifyNotificationButton: React.FC<Properties> = ({notification, onChange}
         });
 
     return (
-        <TableRowButton type={"modify"} onClick={openModal}/>
+        <IconButton type={"modify"} onClick={openModal}/>
     );
 }
 

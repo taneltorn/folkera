@@ -73,10 +73,10 @@ const UserForm: React.FC<Properties> = ({initialValues, onSubmit, isEdit}) => {
                 name={"role"}
                 type={"radio"}
                 label={t("user.role")}
-                options={[
-                    {value: UserRole.USER, label: t(`role.${UserRole.USER}`)},
-                    {value: UserRole.ADMIN, label: t(`role.${UserRole.ADMIN}`)}
-                ]}
+                options={[UserRole.USER, UserRole.RESEARCHER, UserRole.ADMIN].map(role => ({
+                    value: role,
+                    label: t(`role.${role}`)
+                }))}
                 form={form}
             />
 

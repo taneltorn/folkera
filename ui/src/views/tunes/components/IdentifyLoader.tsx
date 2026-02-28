@@ -15,8 +15,8 @@ const IdentifyLoader: React.FC<Properties> = ({externalLoadingState}) => {
 
     return (
         <Loading
-            isLoading={!!externalLoadingState || loadingState !== LoadingState.IDLE }
-            text={t(`view.identify.${externalLoadingState || loadingState}`)}
+            isLoading={!!externalLoadingState || ![LoadingState.IDLE, LoadingState.ERROR].includes(loadingState) }
+            text={t(`page.identify.state.${externalLoadingState || loadingState}`)}
         />
     );
 }

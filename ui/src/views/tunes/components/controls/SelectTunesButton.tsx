@@ -23,7 +23,7 @@ const SelectTunesButton: React.FC = () => {
                     leftSection={<TbCheckbox size={Size.icon.MD}/>}
                     onClick={() => setState(ControlState.SELECT)}
                 >
-                    {t("view.tunes.controls.selection")}
+                    {t("page.tunes.controls.selection")}
                 </Button>}
         </>
 

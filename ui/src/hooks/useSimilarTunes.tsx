@@ -50,7 +50,7 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
                 identifyService.deleteFile(filePath);
             }
         } finally {
-            setLoadingState(LoadingState.IDLE);
+            setLoadingState(LoadingState.ERROR);
         }
     };
 

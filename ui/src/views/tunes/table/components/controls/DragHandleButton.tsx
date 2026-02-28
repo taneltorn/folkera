@@ -11,7 +11,7 @@ const DragHandleButton: React.FC = () => {
     return (
         <Group>
             <Button
-                title={t("view.tunes.table.drag")}
+                title={t("page.tunes.table.drag")}
                 px={0}
                 size={"compact-xs"}
                 color={"dark.1"}

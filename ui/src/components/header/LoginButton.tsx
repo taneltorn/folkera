@@ -14,7 +14,7 @@ const LoginButton: React.FC = () => {
 
     const openModal = () =>
         modals.open({
-            title: <ModalTitle title={t("view.auth.form.header")}/>,
+            title: <ModalTitle title={t("page.auth.form.header")}/>,
             centered: true,
             children: (
                 <LoginForm onSubmit={modals.closeAll}/>
@@ -28,7 +28,7 @@ const LoginButton: React.FC = () => {
             onClick={openModal}
             leftSection={<MdOutlineLogin color={theme.colors.red[9]} size={Size.icon.MD}/>}
         >
-            {t("view.auth.button.login")}
+            {t("page.navigation.login")}
         </Button>
     );
 }

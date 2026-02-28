@@ -77,7 +77,7 @@ const BulkModifyTunesButtons: React.FC = () => {
                     leftSection={<MdAssignment size={Size.icon.MD}/>}
                     onClick={openModal}
                 >
-                    {t("view.tunes.controls.bulkModify")}
+                    {t("page.tunes.controls.bulkModify")}
                 </Button>
                 <Button
                     variant={"subtle"}

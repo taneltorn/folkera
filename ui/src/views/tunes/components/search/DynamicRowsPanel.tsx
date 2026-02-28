@@ -1,12 +1,11 @@
 import React, {useRef} from "react";
-import {Box, Button, Group, Select} from "@mantine/core";
+import {Box, Group, Select} from "@mantine/core";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useTranslation} from "react-i18next";
-import {Size} from "../../../../utils/constants.ts";
-import {IoAddOutline} from "react-icons/io5";
 import {Tune} from "../../../../model/Tune.ts";
-import {FaRegTrashCan} from "react-icons/fa6";
+import AddButton from "../../../../components/buttons/AddButton.tsx";
+import IconButton from "../../../../components/buttons/IconButton.tsx";
 
 const DynamicFieldTypes = [
     "melody",
@@ -98,26 +97,18 @@ const DynamicRowsPanel: React.FC = () => {
                         />
                     </Box>
 
-                    <Button
-                        variant="subtle"
-                        color="dark"
+                    <IconButton
+                        type={"remove"}
                         onClick={() => removeDynamicRow(row.id)}
-                        aria-label={t("button.remove")}
-                    >
-                        <FaRegTrashCan size={Size.icon.SM}/>
-                    </Button>
+                    />
+
                 </Group>
             ))}
 
-            <Button
-                variant="subtle"
-                color="dark"
-                leftSection={<IoAddOutline size={Size.icon.SM}/>}
+            <AddButton
+                label={t("button.addFilter")}
                 onClick={() => addDynamicRow("instrument")}
-            >
-                {t("button.addFilter")}
-            </Button>
-
+            />
         </>
     );
 };

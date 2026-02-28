@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Box, Button, Combobox, FileButton, Group, Stack, Text} from "@mantine/core";
+import {Alert, Box, Button, FileButton, Group, Stack, Text} from "@mantine/core";
 import {useIdentifyService} from "../../services/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
@@ -8,15 +8,16 @@ import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
-import ClearButton = Combobox.ClearButton;
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
 import IdentifyLoader from "../tunes/components/IdentifyLoader.tsx";
 import {LoadingState} from "../../model/LoadingState.ts";
+import Page from "../../Page.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import {CoverHunterDatasets} from "../../utils/lists.ts";
 import MenuSelect from "../../components/MenuSelect.tsx";
+import {CoverHunterDatasets} from "../../utils/lists.ts";
+import IconButton from "../../components/buttons/IconButton.tsx";
 
 const SIMILAR_TUNES_TO_FETCH = 50;
 const MAX_SIZE = 10;
@@ -26,16 +27,12 @@ const IdentifyView: React.FC = () => {
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const identifyService = useIdentifyService();
+    const {findSimilarTunes, setSimilarTunes} = useSimilarTunes();
 
     const [file, setFile] = useState<File | null>(null);
     const [dataset, setDataset] = useState<string>("folkera");
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
-
-    const {
-        findSimilarTunes,
-        setSimilarTunes,
-    } = useSimilarTunes();
 
     const handleFileChange = (file: File | null) => {
         setFile(file);
@@ -74,17 +71,17 @@ const IdentifyView: React.FC = () => {
         setSimilarTunes([]);
     }, []);
 
-    return (<>
-            <Box px={"md"} flex={{base: 1, sm: 0}}>
+    return (
+        <Page title={t("page.identify.title")}>
+            <Box px={"md"} pos={"relative"}>
                 <Alert
                     mb={"md"}
                     variant="light"
                     color="blue"
-                    title={t("view.identify.alertTitle")}
+                    title={t("page.identify.alert")}
                     icon={<FaInfo size={Size.icon.MD}/>}
-                >
+                />
 
-                </Alert>
                 <Stack justify={"center"}>
                     <Dropzone
                         onDrop={handleDrop}
@@ -108,38 +105,36 @@ const IdentifyView: React.FC = () => {
                                 ? <Text size="md">{file.name}</Text>
                                 : <div>
                                     <Text size="xl" inline>
-                                        {t("view.identify.fileUploadPlaceholder")}
+                                        {t("page.identify.fileUploadPlaceholder")}
                                     </Text>
                                     <Text size="sm" c="dimmed" inline mt={7}>
-                                        {t("view.identify.maxFileSize", {size: MAX_SIZE})}
+                                        {t("page.identify.maxFileSize", {size: MAX_SIZE})}
                                     </Text>
                                 </div>}
                         </Group>
                     </Dropzone>
+
                     <Group justify={"center"} flex={1}>
                         {file && audioUrl
-                            ? <>
-                                <Group gap={"xs"}>
-                                    <Group w={{base: 340, sm: 600}} justify={"space-between"} align={"center"}
-                                           wrap={"nowrap"}>
-                                        <AudioPlayer
-                                            className={"transparent"}
-                                            layout={"horizontal-reverse"}
-                                            showJumpControls={false}
-                                            customVolumeControls={[]}
-                                            customAdditionalControls={[]}
-                                            src={audioUrl}
-
-                                        />
-                                        <ClearButton size={"xl"} onClear={handleFileClear}/>
-                                    </Group>
-                                </Group>
-
-                            </>
+                            ? <Group w={{base: 340, sm: 600}} wrap={"nowrap"}>
+                                <AudioPlayer
+                                    className={"transparent"}
+                                    layout={"horizontal-reverse"}
+                                    showJumpControls={false}
+                                    customVolumeControls={[]}
+                                    customAdditionalControls={[]}
+                                    src={audioUrl}
+                                />
+                                <IconButton type={"clear"} onClick={handleFileClear}/>
+                            </Group>
                             : <FileButton accept="audio/*" onChange={handleFileChange}>
                                 {(props) =>
-                                    <Button {...props} variant={"outline"}>
-                                        {t("view.identify.placeholder")}
+                                    <Button
+                                        {...props}
+                                        variant={"outline"}
+                                        leftSection={<LuAudioLines size={Size.icon.SM}/>}
+                                    >
+                                        {t("button.selectFile")}
                                     </Button>}
                             </FileButton>}
                     </Group>
@@ -150,17 +145,17 @@ const IdentifyView: React.FC = () => {
                                 leftSection={<FaMagnifyingGlass/>}
                                 onClick={handleSubmit}
                             >
-                                {t("view.identify.submit")}
+                                {t("page.identify.submit")}
                             </Button>
 
                             {currentUser?.isAdmin &&
                                 <MenuSelect
-                                    value={t(`view.identify.dataset.${dataset}`, {defaultValue: dataset})}
+                                    value={t(`page.identify.dataset.${dataset}`, {defaultValue: dataset})}
                                     variant={"light"}
                                     options={CoverHunterDatasets.map(it => (
                                         {
                                             value: it,
-                                            label: t(`view.identify.dataset.${it}`, {defaultValue: it})
+                                            label: t(`page.identify.dataset.${it}`, {defaultValue: it})
                                         })
                                     )}
                                     label={""}
@@ -170,11 +165,10 @@ const IdentifyView: React.FC = () => {
                         </Group>}
                 </Stack>
 
+                <SimilarTunesTable/>
+                <IdentifyLoader externalLoadingState={isUploading ? LoadingState.UPLOADING_FILE : undefined}/>
             </Box>
-
-            <SimilarTunesTable/>
-            <IdentifyLoader externalLoadingState={isUploading ? LoadingState.UPLOADING_FILE : undefined}/>
-        </>
+        </Page>
     );
 };
 

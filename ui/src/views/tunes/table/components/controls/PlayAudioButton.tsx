@@ -23,11 +23,11 @@ const PlayAudioButton: React.FC<Properties> = ({tune}) => {
                 leftSection={isPlaying && track?.audio === tune.audio
                     ? <MdPauseCircle
                         size={Size.icon.LG}
-                        title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
+                        title={tune.audio ? tune.audio : t(`page.tunes.table.audioNotFound`)}
                     />
                     : <MdPlayCircle
                         size={Size.icon.LG}
-                        title={tune.audio ? tune.audio : t(`view.tunes.table.audioNotFound`)}
+                        title={tune.audio ? tune.audio : t(`page.tunes.table.audioNotFound`)}
                     />}
             >
                 {!(isPlaying && track?.audio === tune.audio) ? t("button.play") : t("button.stop")}

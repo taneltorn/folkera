@@ -26,7 +26,7 @@ const TuneList: React.FC = () => {
     }, [location.state]);
 
     return (
-        <Page title={t("page.title.tunes")}>
+        <Page title={t("page.navigation.tunes")}>
             <Box px={"md"}>
                 <TopControlBar/>
             </Box>

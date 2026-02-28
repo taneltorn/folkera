@@ -21,7 +21,7 @@ const ExportTunesCsvButton: React.FC = () => {
                     color={"dark"}
                     leftSection={<FaFileExport size={Size.icon.SM}/>}
                     onClick={exportData} px={"xs"} mx={0}>
-                    {t("view.tunes.controls.export")}
+                    {t("page.tunes.controls.export")}
                 </Button>}
         </>
     );

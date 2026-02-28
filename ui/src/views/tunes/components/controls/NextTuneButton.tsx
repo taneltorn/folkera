@@ -1,23 +1,22 @@
 import React from "react";
 import {Button} from '@mantine/core';
 import {useTranslation} from "react-i18next";
-import {Tune} from "../../../../model/Tune.ts";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useNavigate} from "react-router-dom";
 import {GrFormNextLink} from "react-icons/gr";
 import {Size} from "../../../../utils/constants.ts";
 
 interface Properties {
-    tune: Tune;
+    currentId: string;
 }
 
-const NextTuneButton: React.FC<Properties> = ({tune}) => {
+const NextTuneButton: React.FC<Properties> = ({currentId}) => {
 
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {tuneIds} = useDataContext();
 
-    const tuneIndex = tuneIds.findIndex(id => id === tune.id);
+    const tuneIndex = tuneIds.findIndex(id => id === currentId);
 
     const handleNext = () => {
         if (tuneIndex >= 0 && tuneIndex <= tuneIds.length) {
@@ -35,7 +34,7 @@ const NextTuneButton: React.FC<Properties> = ({tune}) => {
             size={"sm"}
             color={"red"}
             variant={"subtle"}
-            disabled={tuneIndex < 0 || tune.id === tuneIds[tuneIds.length - 1]}
+            disabled={tuneIndex < 0 || currentId === tuneIds[tuneIds.length - 1]}
             onClick={handleNext}
         >
             <GrFormNextLink size={Size.icon.LG}/>

@@ -1,153 +1,37 @@
 {
   "page": {
-    "title": {
-      "admin": "Admin Panel",
-      "tunes": "Tunes",
-      "clusterMap": "Cluster Map",
-      "profile": "My Profile",
-      "changelog": "Changelog"
-    },
-    "selectLanguage": "Select language",
-    "loading": "Loading data...",
-    "example": "Example",
-    "table": {
-      "items": "Total: {{count}}",
-      "noData": "No data found."
-    },
     "navigation": {
       "title": "Menu",
       "tunes": "Tunes",
       "identify": "Identify",
-      "clusters": "Cluster Map",
-      "changePassword": "Change Password",
-      "stats": "Statistics",
-      "showTable": "Show in Table"
-    },
-    "userMenu": {
       "admin": "Admin Panel",
       "clusters": "Cluster Map",
-      "myProfile": "Profile",
-      "changePassword": "Change Password",
+      "profile": "Profile",
+      "changelog": "Changelog",
+      "login": "Log In",
       "logout": "Log Out"
     },
-    "help": {
-      "title": "FolkERA",
-      "description": "This web application is part of an ongoing doctoral research project aiming to systematize Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century audio recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated during the research process.",
-      "contact": "If you encounter errors in the application or have suggestions, please write to: <strong>{{email}}</strong>.",
-      "version": "Version",
-      "navigateToChangelog": "View changelog"
-    }
-  },
-  "player": {
-    "tempo": "Change Tempo",
-    "loop": {
-      "0": "Mark Start",
-      "1": "Mark End",
-      "2": "Clear"
-    },
-    "insufficientPrivileges": "Log in to listen to the audio recording."
-  },
-  "tune": {
-    "id": "ID",
-    "ref": "Reference",
-    "pid": "PID",
-    "content": "Description",
-    "melody": "Tune Type",
-    "quality": "Quality",
-    "datatype": "Data Type",
-    "trainset": "Training Dataset",
-    "TR": "Training Data",
-    "TE": "Test Data",
-    "dance": "Dance Type",
-    "year": "Year",
-    "instrument": "Instrument",
-    "performer": "Performer",
-    "parish": "Parish",
-    "county": "County",
-    "origin": "Place of Origin (Parish)",
-    "collector": "Collector",
-    "notes": "Notes",
-    "comments": "Comment",
-    "audio": "Audio File",
-    "notation": "Notation File",
-    "musicxml": "MusicXML File",
-    "audioRef": "Audio Reference",
-    "notationRef": "Notation Reference",
-    "duration": "Duration",
-    "order": "No.",
-    "kivike": "Kivike",
-    "search": "Search",
-    "similarity": "Similarity",
-    "from": "Year (from)",
-    "to": "Year (to)"
-  },
-  "user": {
-    "id": "ID",
-    "name": "Name",
-    "password": "Password",
-    "username": "Username",
-    "email": "Email",
-    "role": "Role",
-    "createdAt": "Created"
-  },
-  "notification": {
-    "id": "ID",
-    "title": "Title",
-    "message": "Message",
-    "validFrom": "Valid From",
-    "validTo": "Valid Until"
-  },
-  "role": {
-    "ADMIN": "Administrator",
-    "USER": "User"
-  },
-  "view": {
-    "admin": {
-      "tab": {
-        "users": "Users",
-        "notifications": "Notifications"
-      }
-    },
-    "identify": {
-      "title": "Search for Similar Performances",
-      "alertTitle": "This is a prototype. Results may vary.",
-      "label": "Select audio file",
-      "placeholder": "Select audio file",
-      "submit": "Search similar recordings",
-      "identifyingTunes": "Identifying similar recordings...",
-      "uploadingFile": "Uploading file...",
-      "loadingData": "Loading data...",
-      "uploadUnauthorized": "Log in to upload a file.",
-      "fileUploadPlaceholder": "Select or drag an audio file.",
-      "maxFileSize": "File size must not exceed {{size}} MB.",
-      "dataset": {
-        "folkera": "3859/272 (latest)",
-        "3030": "3030/160"
-      }
-    },
+    "selectLanguage": "Select language",
     "tunes": {
       "exactMatch": " (exact match)",
       "controls": {
         "search": "Search...",
         "export": "Export",
         "exportStats": "Export",
-        "selection": "Bulk Selection",
-        "bulkModify": "Assign Values",
+        "selection": "Bulk selection",
+        "bulkModify": "Assign values",
         "clear": "Clear",
         "save": "Save",
-        "visibleFields": "Visible Fields",
-        "mapOptions": "Map Settings",
-        "clearFilters": "Clear Filters",
-        "tableView": "Table",
-        "mapView": "Map",
-        "statsView": "Statistics"
+        "visibleFields": "Visible fields",
+        "mapOptions": "Map settings",
+        "clearFilters": "Remove filters"
       },
       "details": {
-        "similarTunes": "Find Similar Tunes",
-        "performerTunes": "From the Same Performer",
+        "similarTunes": "Find similar tunes",
+        "performerTunes": "From the same performer",
         "openInKivike": "Open in Kivike",
         "pidMissing": "Open in Kivike (PID missing)",
-        "notationNotYetAdded": "Notation has not been added yet.",
+        "notationNotYetAdded": "Notation has not yet been added.",
         "notationRenderingFailed": "Failed to render notation.",
         "datatype": {
           "select": "Select data type",
@@ -155,39 +39,39 @@
           "audio": "Audio recordings only",
           "notation": "Notations only"
         },
-        "back": "Back to the table view"
+        "back": "Back to table view"
       },
       "table": {
         "results": "Results",
         "play": "Play",
-        "showNotation": "View Notation",
-        "notationNotFound": "Notation not yet added",
+        "showNotation": "View notation",
+        "notationNotFound": "Notation has not yet been added",
         "audioNotFound": "Audio file missing",
         "sort": "Sort",
         "drag": "Drag",
-        "showDetails": "Show Details"
+        "showDetails": "Show details"
       },
       "map": {
-        "showLabels": "Show Labels",
-        "showCounts": "Show Statistics",
-        "textSize": "Text Size",
+        "showLabels": "Show labels",
+        "showCounts": "Show statistics",
+        "textSize": "Text size",
         "groupBy": {
-          "parish": "By Parish",
-          "county": "By County"
+          "parish": "By parish",
+          "county": "By county"
         }
       },
       "stats": {
-        "barChart": "Bar Chart",
-        "pieChart": "Pie Chart",
+        "barChart": "Bar chart",
+        "pieChart": "Pie chart",
         "export": "Export",
         "groupBy": {
-          "year": "By Year",
-          "instrument": "By Instrument",
-          "parish": "By Parish",
-          "melody": "By Tune Type",
-          "performer": "By Performer",
-          "county": "By County",
-          "collector": "By Collector"
+          "year": "By year",
+          "instrument": "By instrument",
+          "parish": "By parish",
+          "melody": "By tune type",
+          "performer": "By performer",
+          "county": "By county",
+          "collector": "By collector"
         },
         "tooltip": {
           "year": "Performances (years)",
@@ -202,46 +86,75 @@
       "viewSelection": {
         "table": "Show table view",
         "map": "Show map",
-        "stats": "Show statistics"
+        "stats": "Show statistics",
+        "cluster": "Show cluster map",
+        "details": "Show data",
+        "similarTunes": "Show similar tunes"
+      }
+    },
+    "identify": {
+      "title": "Find similar performances",
+      "alert": "This is a prototype. Results may vary.",
+      "submit": "Find similar recordings",
+      "uploadUnauthorized": "Log in to upload a file.",
+      "fileUploadPlaceholder": "Select or drag an audio file.",
+      "maxFileSize": "File size must not exceed {{size}} MB.",
+      "state": {
+        "identifyingTunes": "Identifying similar recordings...",
+        "uploadingFile": "Uploading file...",
+        "loadingData": "Loading data..."
+      },
+      "dataset": {
+        "folkera": "3859/272 (latest)",
+        "3030": "3030/160"
+      }
+    },
+    "help": {
+      "title": "FolkERA",
+      "description": "This web application is part of an ongoing doctoral dissertation aimed at systematizing Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century instrumental recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated throughout the research process.",
+      "contact": "If you find errors in the application or have suggestions, write to: <strong>{{email}}</strong>.",
+      "version": "Version",
+      "navigateToChangelog": "View changelog"
+    },
+    "admin": {
+      "tab": {
+        "users": "Users",
+        "notifications": "Notifications"
       }
     },
     "clusterMap": {
       "map": "mAP",
       "rank1": "Rank1",
       "precision": "Precision",
-      "dataset": "Training Dataset",
+      "dataset": "Training dataset",
       "version": "Version",
-      "trainingData": "Training Data",
-      "testData": "Test Data",
+      "trainingData": "Training data",
+      "testData": "Test data",
       "tooltip": {
         "data": "Performances (tunes)",
         "map": "mAP - mean average precision"
       },
       "dataMode": {
         "title": "Display",
-        "all": "All Data",
-        "testOnly": "Test Data Only"
+        "all": "All data",
+        "testOnly": "Test data only"
       },
       "modelVersion": {
         "title": "Model",
         "label": "Trained: {{name}}"
       },
       "colorScheme": {
-        "title": "Color Scheme",
+        "title": "Color scheme",
         "label": "Color scheme: {{name}}",
-        "default": "Colored",
+        "default": "Colorful",
         "alt": "Monochrome + red",
         "alt2": "Monochrome + red/green"
       }
     },
     "auth": {
-      "button": {
-        "login": "Log In",
-        "logout": "Log Out"
-      },
       "form": {
-        "header": "Log In",
-        "usernameOrEmail": "Username or email",
+        "header": "Log in",
+        "usernameOrEmail": "Username or e-mail",
         "password": "Password"
       }
     }
@@ -251,17 +164,17 @@
       "saveData": "Data saved",
       "exportData": "{{count}} rows exported",
       "createUser": "User created",
-      "modifyUser": "User updated",
+      "modifyUser": "User modified",
       "removeUser": "User removed",
       "createNotification": "Notification created",
-      "modifyNotification": "Notification updated",
+      "modifyNotification": "Notification modified",
       "removeNotification": "Notification removed"
     },
     "error": {
       "fetchData": "Failed to load data",
       "fetchUsers": "Failed to load users",
       "createUser": "Failed to create user",
-      "modifyUser": "Failed to update user",
+      "modifyUser": "Failed to modify user",
       "removeUser": "Failed to delete user",
       "fetchOptions": "Failed to load filtering options",
       "identifySimilarTunes": "Failed to identify similar tunes",
@@ -276,50 +189,57 @@
       "exportData": "Failed to export data",
       "verifyToken": "Authentication failed",
       "login": "Login failed",
-      "wrongCredentials": "Incorrect username/password",
+      "wrongCredentials": "Wrong username/password",
       "playbackError": "Failed to play file {{file}}"
     }
   },
+  "similarity": {
+    "veryLow": "Very low",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "veryHigh": "Very high"
+  },
   "export": {
-    "count": "Entries"
+    "count": "Records"
   },
   "modal": {
     "archiveDocuments": {
-      "title": "Handwritten Notation"
+      "title": "Handwritten notation"
     },
     "createNotification": {
-      "title": "Add Notification"
+      "title": "Add notification"
     },
     "modifyNotification": {
-      "title": "Edit Notification"
+      "title": "Edit notification"
     },
     "removeNotification": {
-      "title": "Delete Notification",
+      "title": "Delete notification",
       "content": "Are you sure you want to delete the notification?",
       "confirm": "Delete notification",
-      "cancel": "No, keep notification."
+      "cancel": "No, keep the notification."
     },
     "createUser": {
-      "title": "Add User"
+      "title": "Add user"
     },
     "modifyUser": {
-      "title": "Edit User"
+      "title": "Edit user"
     },
     "modifyTune": {
-      "title": "Edit Tune: {{ref}}"
+      "title": "Edit tune: {{ref}}"
     },
     "bulkModifyTunes": {
       "title": "Assign values to {{count}} tunes"
     },
     "removeUser": {
-      "title": "Delete User",
+      "title": "Delete user",
       "content": "Are you sure you want to delete the user? The user cannot be restored after deletion.",
       "confirm": "Delete user",
-      "cancel": "No, keep user."
+      "cancel": "No, keep the user."
     },
     "changePassword": {
-      "title": "Change Password",
-      "newPassword": "New Password"
+      "title": "Change password",
+      "newPassword": "New password"
     }
   },
   "filtering": {
@@ -333,31 +253,102 @@
     "not_blank": "With value",
     "advanced": {
       "title": "Advanced search",
-      "hint": "To search multiple values, separate them with a semicolon.",
+      "hint": "If you want to search for multiple values, separate them with a semicolon.",
       "open": "Open advanced search",
       "close": "Close advanced search",
       "selectYearRange": "...or define a range"
     }
   },
+  "tune": {
+    "id": "ID",
+    "ref": "Reference",
+    "pid": "PID",
+    "content": "Description",
+    "melody": "Tune type",
+    "quality": "Quality",
+    "datatype": "Data type",
+    "trainset": "Training dataset",
+    "TR": "Training data",
+    "TE": "Test data",
+    "dance": "Dance type",
+    "year": "Year",
+    "instrument": "Instrument",
+    "performer": "Performer",
+    "parish": "Parish",
+    "county": "County",
+    "origin": "Place of origin (parish)",
+    "collector": "Collector",
+    "notes": "Notes",
+    "comments": "Comment",
+    "audio": "Audio file",
+    "notation": "Notation file",
+    "musicxml": "MusicXML file",
+    "audioRef": "Audio reference",
+    "notationRef": "Notation reference",
+    "duration": "Duration",
+    "order": "No.",
+    "kivike": "Kivike",
+    "search": "Search",
+    "similarity": "Similarity",
+    "from": "Year (from)",
+    "to": "Year (to)"
+  },
+  "user": {
+    "id": "ID",
+    "name": "Name",
+    "password": "Password",
+    "username": "Username",
+    "email": "E-mail",
+    "role": "Role",
+    "createdAt": "Created"
+  },
+  "notification": {
+    "id": "ID",
+    "title": "Title",
+    "message": "Message",
+    "validFrom": "From",
+    "validTo": "Until"
+  },
+  "role": {
+    "ADMIN": "Administrator",
+    "RESEARCHER": "Researcher",
+    "USER": "User"
+  },
   "button": {
     "search": "Search",
     "clear": "Clear",
     "save": "Save",
+    "open": "Open",
     "modify": "Edit",
     "close": "Close",
     "cancel": "Cancel",
     "reset": "Reset",
+    "remove": "Remove",
     "next": "Next",
     "previous": "Previous",
-    "addNew": "Add New",
-    "showAll": "Show All",
-    "removeFilter": "Remove Filter",
+    "selectFile": "Select file",
+    "addNew": "Add new",
+    "showAll": "Show all",
+    "removeFilter": "Remove filter",
     "assign": "Assign",
     "play": "Play",
     "stop": "Stop",
     "copyToClipboard": "Copy",
-    "showArchiveItems": "Show Manuscript",
+    "showArchiveItems": "Show manuscript",
     "addFilter": "Add filter"
+  },
+  "alert": {
+    "noResults": "No data found.",
+    "loadFailed": "Failed to load data."
+  },
+  "player": {
+    "tempo": "Change tempo",
+    "loop": {
+      "0": "Mark start",
+      "1": "Mark end",
+      "2": "Clear"
+    },
+    "insufficientPrivileges": "Log in to listen to the recording."
   },
   "validation": {
     "required": "Field is required",

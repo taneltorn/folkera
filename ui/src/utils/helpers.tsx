@@ -78,6 +78,21 @@ export const similarityToColor = (distance: number | undefined): string => {
     }
     return "green";
 }
+export const similarityToLabel = (distance: number | undefined): string => {
+    if (!distance || distance < 75) {
+        return "veryLow";
+    }
+    if (distance < 79.5) {
+        return "low";
+    }
+    if (distance < 89.5) {
+        return "medium";
+    }
+    if (distance < 94.5) {
+        return "high";
+    }
+    return "veryHigh";
+}
 
 export const range = (start: number, end: number): number[] => {
     const range: number[] = [];

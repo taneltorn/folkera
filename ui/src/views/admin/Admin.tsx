@@ -13,18 +13,18 @@ const Admin: React.FC = () => {
     const {t} = useTranslation();
 
     return (
-        <Page title={t("page.title.admin")}>
+        <Page title={t("page.navigation.admin")}>
             <Box mx={"md"}>
                 <Tabs defaultValue="users" radius={"xs"}>
                     <Tabs.List>
                         <Tabs.Tab value="users" leftSection={<FaUser size={Size.icon.XS}/>}>
                             <Text size={"lg"}>
-                                {t("view.admin.tab.users")}
+                                {t("page.admin.tab.users")}
                             </Text>
                         </Tabs.Tab>
                         <Tabs.Tab value="notifications" leftSection={<IoIosNotifications size={Size.icon.SM}/>}>
                             <Text size={"lg"}>
-                                {t("view.admin.tab.notifications")}
+                                {t("page.admin.tab.notifications")}
                             </Text>
                         </Tabs.Tab>
                     </Tabs.List>

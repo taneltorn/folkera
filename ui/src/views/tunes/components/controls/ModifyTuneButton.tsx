@@ -34,7 +34,7 @@ const ModifyTuneButton: React.FC<Properties> = ({tune, onChange, children, ...pr
     const openModal = () =>
         modals.open({
             title: <ModalTitle title={t("modal.modifyTune.title", {ref: tune.ref})}/>,
-            size: "lg",
+            size: "xl",
             children: (
                 <ModifyTuneForm
                     initialValues={tune}

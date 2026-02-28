@@ -24,7 +24,7 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
     const groupsCount = useMemo<number>(() => Object.values(stats || []).filter(x => !!x).length, [stats]);
 
     const exportStats = (filters?: Filter[]) => {
-        const filename = generateFileName(t(`view.tunes.stats.groupBy.${groupBy}`), filters);
+        const filename = generateFileName(t(`page.tunes.stats.groupBy.${groupBy}`), filters);
 
         const transformedData = Object.entries(stats).map(([key, value]) => ({
             [t(`tune.${groupBy}`)]: key,

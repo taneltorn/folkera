@@ -40,7 +40,7 @@ const TuneSearch: React.FC = () => {
             size={"md"}
             value={value}
             leftSection={<IoSearchOutline size={Size.icon.MD}/>}
-            placeholder={t("view.tunes.controls.search")}
+            placeholder={t("page.tunes.controls.search")}
             onChange={e => handleSearch(e.currentTarget.value)}
             rightSectionPointerEvents="all"
             rightSection={

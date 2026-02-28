@@ -1,12 +1,11 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Button} from "@mantine/core";
-import {FaPlus} from "react-icons/fa";
 import {modals} from "@mantine/modals";
 import UserForm from "./UserForm.tsx";
 import {User, UserRole} from "../../../../model/User.ts";
 import useUserService from "../../../../services/useUserService.ts";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
+import AddButton from "../../../../components/buttons/AddButton.tsx";
 
 interface Properties {
     onChange: () => void;
@@ -45,13 +44,10 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
         });
 
     return (
-        <Button
-            mt={"md"}
-            variant={"subtle"}
-            leftSection={<FaPlus/>}
-            onClick={openModal}>
-            {t("button.addNew")}
-        </Button>
+        <AddButton
+            label={t("button.addNew")}
+            onClick={openModal}
+        />
     );
 }
 

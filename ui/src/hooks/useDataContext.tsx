@@ -49,8 +49,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
         setFilters(filtersToUse);
 
-        console.log("all")
-        console.log(filtersToUse)
         dataService.fetchTunes(filtersToUse, pagination)
             .then((result) => {
                 setData(result.data);
@@ -61,8 +59,6 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             });
 
-        console.log("ids only")
-        console.log(filtersToUse)
         dataService.fetchTuneIds(filtersToUse, pagination)
             .then((result) => {
                 setTuneIds(result.data);
@@ -134,7 +130,14 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             ? filters.filter(f => !(f.field === filter.field))
             : filters;
 
-        filterList.push({...filter, type: filter.type || "contains"});
+        const existingFilter = filterList.find(f =>
+            f.type === filter.type &&
+            f.value === filter.value &&
+            f.field === filter.field );
+
+        if (!existingFilter) {
+            filterList.push({...filter, type: filter.type || "contains"});
+        }
 
         setFilters(filterList);
         setPagination({...pagination, page: 1});

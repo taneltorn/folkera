@@ -23,7 +23,7 @@ const UserList: React.FC = () => {
     }, []);
 
     return (<>
-        <Table mt={"md"}>
+        <Table my={"md"}>
             <Table.Thead>
                 <Table.Tr>
                     <Table.Th>{t("user.id")}</Table.Th>

@@ -2,22 +2,23 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box, Grid, LoadingOverlay} from "@mantine/core";
+import {Box, Divider, LoadingOverlay} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import {useTuneService} from "../../services/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
 import {useToasts} from "../../hooks/useToasts.tsx";
-import SimilarTunesTable from "./table/components/SimilarTunesTable.tsx";
-import TuneInfoTable from "./details/components/TuneInfoTable.tsx";
 import TuneHeader from "./TuneHeader.tsx";
 import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 import {useModifications} from "../../hooks/useModifications.tsx";
 import {useTuneSelection} from "../../hooks/useTuneSelection.tsx";
 import {useControlState} from "../../hooks/useControlState.tsx";
 import {ControlState} from "../../model/ControlState.ts";
-import IdentifyLoader from "./components/IdentifyLoader.tsx";
-import MusicXmlViewer from "./details/components/MusicXmlViewer.tsx";
 import TuneDetailsControls from "./TuneDetailsControls.tsx";
+import {View} from "../../context/ActiveViewContext.tsx";
+import {useActiveView} from "../../hooks/useActiveView.tsx";
+import TuneDetailsInfo from "./TuneDetailsInfo.tsx";
+import ClusterPlotView from "../admin/cluster/ClusterPlotView.tsx";
+import TuneSimilarTunes from "./TuneSimilarTunes.tsx";
 
 const TuneDetails: React.FC = () => {
 
@@ -29,8 +30,9 @@ const TuneDetails: React.FC = () => {
     const {clearSelection} = useTuneSelection();
     const {clearModifications} = useModifications();
     const {setState} = useControlState();
-
+    const {activeView, setActiveView} = useActiveView();
     const [tune, setTune] = useState<Tune>();
+
 
     const fetchData = (id: string | undefined) => {
         if (!id) {
@@ -50,6 +52,7 @@ const TuneDetails: React.FC = () => {
         clearSelection();
         setSimilarTunes([]);
         setState(ControlState.IDLE);
+        setActiveView(View.DETAILS);
 
         fetchData(id);
 
@@ -57,30 +60,22 @@ const TuneDetails: React.FC = () => {
     }, [id]);
 
     return (
-        <Page title={t("page.title.tunes")}>
-            <Box px={"md"} mb={"md"} pos={"relative"}>
-                <LoadingOverlay visible={dataService.isLoading}/>
+        <Page title={t("page.navigation.tunes")}>
+            {tune &&
+                <>
+                    <LoadingOverlay visible={dataService.isLoading}/>
 
-                {tune && <>
-                    <TuneHeader tune={tune}/>
+                    <Box px={"md"}>
+                        <TuneHeader tune={tune}/>
+                        <TuneDetailsControls tune={tune} reloadData={() => fetchData(id)}/>
+                    </Box>
 
-                    <TuneDetailsControls
-                        tune={tune}
-                        reloadData={() => fetchData(id)}
-                    />
+                    <Divider mt={"xs"} mb={"md"}/>
 
-                    {tune.datatype === "NOOT" && <Grid mt={"md"}>
-                        <Grid.Col span={{base: 12, xl: 8}}>
-                            <MusicXmlViewer tune={tune}/>
-                        </Grid.Col>
-                    </Grid>}
-
-                    <TuneInfoTable tune={tune}/>
+                    {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
+                    {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
+                    {activeView === View.CLUSTER && <ClusterPlotView needle={tune.ref}/>}
                 </>}
-            </Box>
-
-            <SimilarTunesTable/>
-            <IdentifyLoader/>
         </Page>
     );
 }

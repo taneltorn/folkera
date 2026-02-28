@@ -21,7 +21,7 @@ const VisibleFieldsSelector: React.FC = () => {
                     color={"dark"}
                     leftSection={<BiColumns size={Size.icon.MD}/>}
                 >
-                    {t("view.tunes.controls.visibleFields")}
+                    {t("page.tunes.controls.visibleFields")}
                 </Button>
             </Menu.Target>
             <Menu.Dropdown>

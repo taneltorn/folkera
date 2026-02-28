@@ -23,9 +23,9 @@ const DataTypeSelector: React.FC = () => {
 
     const options = useMemo<MenuSelectOption[]>(
         () => [
-            {value: "all", label: t("view.tunes.details.datatype.all")},
-            {value: "AUDIO", label: t("view.tunes.details.datatype.audio")},
-            {value: "NOOT", label: t("view.tunes.details.datatype.notation")},
+            {value: "all", label: t("page.tunes.details.datatype.all")},
+            {value: "AUDIO", label: t("page.tunes.details.datatype.audio")},
+            {value: "NOOT", label: t("page.tunes.details.datatype.notation")},
         ],
         [t]
     );
@@ -43,7 +43,7 @@ const DataTypeSelector: React.FC = () => {
     return (
         <Menu shadow="md" closeOnClickOutside>
             <Menu.Target>
-                <Button px={"xs"} size="sm" variant="subtle" title={t("view.tunes.details.datatype.select")}>
+                <Button px={"xs"} size="sm" variant="subtle" title={t("page.tunes.details.datatype.select")}>
                     {iconMap.get(selected)}
                 </Button>
             </Menu.Target>

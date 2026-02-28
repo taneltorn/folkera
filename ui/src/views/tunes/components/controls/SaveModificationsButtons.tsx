@@ -39,14 +39,14 @@ const SaveModificationsButtons: React.FC = () => {
                     color={"green"}
                     leftSection={<RxCheck size={Size.icon.MD}/>}
                     onClick={handleSave}>
-                    {t("view.tunes.controls.save")}
+                    {t("page.tunes.controls.save")}
                 </Button>
                 <Button
                     variant={"subtle"}
                     size={"sm"}
                     color={"dark"}
                     onClick={handleClear}>
-                    {t("view.tunes.controls.clear")}
+                    {t("page.tunes.controls.clear")}
                 </Button>
             </>}
         </>

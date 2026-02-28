@@ -1,7 +1,5 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Button} from "@mantine/core";
-import {FaPlus} from "react-icons/fa";
 import {modals} from "@mantine/modals";
 import {Notification} from "../../../../model/Notification.ts";
 import useNotifications from "../../../../hooks/useNotifications.tsx";
@@ -9,6 +7,7 @@ import NotificationForm from "./NotificationForm.tsx";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
+import AddButton from "../../../../components/buttons/AddButton.tsx";
 
 interface Properties {
     onChange: () => void;
@@ -50,13 +49,10 @@ const AddNotificationButton: React.FC<Properties> = ({onChange}) => {
         });
 
     return (
-        <Button
-            mt={"md"}
-            variant={"subtle"}
-            leftSection={<FaPlus/>}
-            onClick={openModal}>
-            {t("button.addNew")}
-        </Button>
+        <AddButton
+            label={t("button.addNew")}
+            onClick={openModal}
+        />
     );
 }
 
