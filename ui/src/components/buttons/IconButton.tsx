@@ -3,9 +3,9 @@ import {Button} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {Size} from "../../utils/constants.ts";
 import {FaRegTrashCan} from "react-icons/fa6";
-import { FaRegEye} from "react-icons/fa";
 import {AiFillEdit} from "react-icons/ai";
 import {MdOutlineClear} from "react-icons/md";
+import {RiArrowRightDoubleFill} from "react-icons/ri";
 
 interface Properties {
     type: "open" | "modify" | "remove" | "clear";
@@ -14,7 +14,7 @@ interface Properties {
 }
 
 const iconMap = new Map<string, ReactNode>([
-    ["open", <FaRegEye size={Size.icon.SM}/>],
+    ["open", <RiArrowRightDoubleFill size={Size.icon.SM}/>],
     ["modify", <AiFillEdit size={Size.icon.SM}/>],
     ["remove", <FaRegTrashCan size={Size.icon.SM}/>],
     ["clear", <MdOutlineClear size={Size.icon.SM}/>],

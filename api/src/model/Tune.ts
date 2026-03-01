@@ -21,6 +21,7 @@ export interface Tune {
     audioRef?: string;
     notationRef?: string;
     duration?: number;
+    distances?: string;
     pid?: string;
     order?: string;
 }

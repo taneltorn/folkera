@@ -145,33 +145,39 @@ class CsvTuneService implements TuneService {
             }
         }
     }
-
     public async save(data: Tune[]): Promise<Result<Tune[]>> {
         this.logger.info(`Updating ${data.length} tunes`);
 
         try {
-            const csvFileContent = fs.readFileSync(this.csvFile, 'utf-8');
+            const csvFileContent = fs.readFileSync(this.csvFile, "utf-8");
 
-            const tunes = Papa.parse(csvFileContent, {
+            const parsed = Papa.parse<Tune>(csvFileContent, {
                 header: true,
-                dynamicTyping: true
-            }).data as Tune[];
+                dynamicTyping: true,
+                skipEmptyLines: "greedy", // important
+            });
 
-            data.forEach(tune => {
-                const index = tunes.findIndex(r => r.ref === tune.ref);
+            const tunes = (parsed.data ?? []).filter((t) => t && typeof t.id === "string" && t.id.trim().length > 0);
+
+            for (const tune of data) {
+                if (!tune?.id) continue;
+
+                const index = tunes.findIndex((r) => r.id === tune.id);
                 if (index !== -1) {
                     tunes[index] = tune;
                 }
+            }
+
+            const updatedCsvData = Papa.unparse(tunes, {
+                skipEmptyLines: "greedy",
             });
 
-            const updatedCsvData = Papa.unparse(tunes);
+            fs.writeFileSync(this.csvFile, updatedCsvData, "utf-8");
 
-            fs.writeFileSync(this.csvFile, updatedCsvData, 'utf-8');
-
-            return {success: true, data: data};
-        } catch (err) {
+            return { success: true, data };
+        } catch (err: any) {
             this.logger.error(err);
-            return {success: false, error: `Error updating the tune`, detail: err.message};
+            return { success: false, error: "Error updating the tune", detail: err?.message };
         }
     }
 

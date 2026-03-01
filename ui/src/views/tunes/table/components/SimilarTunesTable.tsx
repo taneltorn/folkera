@@ -32,9 +32,9 @@ const SimilarTunesTable: React.FC<Properties> = () => {
                                 </Group>
                             </Table.Th>
                             <Table.Th>{t("tune.similarity")}</Table.Th>
-                            <Table.Th>{t("tune.content")}</Table.Th>
-                            <Table.Th>{t("tune.ref")}</Table.Th>
                             <Table.Th>{t("tune.melody")}</Table.Th>
+                            <Table.Th>{t("tune.ref")}</Table.Th>
+                            <Table.Th>{t("tune.content")}</Table.Th>
                             <Table.Th>{t("tune.year")}</Table.Th>
                             <Table.Th>{t("tune.instrument")}</Table.Th>
                             <Table.Th>{t("tune.performer")}</Table.Th>

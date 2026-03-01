@@ -22,6 +22,7 @@ export interface Tune {
     notationRef?: string;
     duration?: number;
     pid?: string;
+    distances?: string;
     order?: string;
     distance?: number;
 }

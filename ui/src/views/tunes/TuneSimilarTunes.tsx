@@ -6,21 +6,27 @@ import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
 import IdentifyLoader from "./components/IdentifyLoader.tsx";
 import InfoMessage from "../../components/InfoMessage.tsx";
 import {useTranslation} from "react-i18next";
+import {SIMILAR_TUNES_TO_FETCH} from "../../utils/constants.ts";
 
 interface Properties {
     tune: Tune;
 }
 
-const SIMILAR_TUNES_TO_FETCH = 50;
-
 const TuneDetails: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
-    const {similarTunes, findSimilarTunes} = useSimilarTunes();
+    const {similarTunes, loadSimilarTunes} = useSimilarTunes();
 
     useEffect(() => {
         if (!similarTunes.length && tune.audio) {
-            findSimilarTunes(tune?.audio, SIMILAR_TUNES_TO_FETCH, tune.id, "folkera", false);
+            loadSimilarTunes({
+                    filePath: tune.audio,
+                    top: SIMILAR_TUNES_TO_FETCH,
+                    selfRef: tune.id,
+                    dataset: "folkera",
+                },
+                tune.distances,
+                tune);
         }
     }, []);
 

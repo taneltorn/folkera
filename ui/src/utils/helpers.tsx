@@ -1,6 +1,7 @@
 import {Filter} from "../model/Filter.ts";
 import {Tune} from "../model/Tune.ts";
 import {TFunction} from "i18next";
+import {DistanceBreakpoint} from "../model/DistanceBreakpoint.ts";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;
@@ -46,58 +47,51 @@ export const generateFilterName = (filter: Filter, t: TFunction): string => {
     return `${field}${matchType}: ${filter.value}`;
 }
 
-export const distanceToSimilarity = (distance: number | undefined): number => {
-    if (!distance) {
-        return 0;
-    }
-
-    return Number((1 - distance) * 100);
-}
-
-export const similarityToOpacity = (similarity: number): number => {
-    if (similarity > 90) return 1;
-    if (similarity > 85) return 0.75;
-    if (similarity > 80) return 0.6;
-    if (similarity > 75) return 0.5;
-    if (similarity > 70) return 0.4;
-    return 0.3;
-}
-
-export const similarityToColor = (distance: number | undefined): string => {
-    if (!distance || distance < 75) {
+export const distanceToColor = (distance: number | undefined): string => {
+    if (!distance || distance >= DistanceBreakpoint.VERY_HIGH) {
         return "red";
     }
-    if (distance < 79.5) {
+    if (distance >= DistanceBreakpoint.HIGH) {
         return "orange.7";
     }
-    if (distance < 89.5) {
+    if (distance >= DistanceBreakpoint.MEDIUM) {
         return "yellow";
     }
-    if (distance < 94.5) {
+    if (distance >= DistanceBreakpoint.LOW) {
         return "green.8";
     }
     return "green";
 }
-export const similarityToLabel = (distance: number | undefined): string => {
-    if (!distance || distance < 75) {
+
+export const distanceToLabel = (distance: number | undefined): string => {
+    if (!distance || distance >= DistanceBreakpoint.VERY_HIGH) {
         return "veryLow";
     }
-    if (distance < 79.5) {
+    if (distance >= DistanceBreakpoint.HIGH) {
         return "low";
     }
-    if (distance < 89.5) {
+    if (distance >= DistanceBreakpoint.MEDIUM) {
         return "medium";
     }
-    if (distance < 94.5) {
+    if (distance >= DistanceBreakpoint.LOW) {
         return "high";
     }
     return "veryHigh";
 }
 
-export const range = (start: number, end: number): number[] => {
-    const range: number[] = [];
-    for (let i = start; i <= end; i++) {
-        range.push(i);
-    }
-    return range;
-} 
+export const parseDistances = (raw: string): Record<string, number> => {
+    return raw
+        .split(";")
+        .filter(Boolean)
+        .reduce<Record<string, number>>((acc, pair) => {
+            const [id, value] = pair.split(":");
+            acc[id] = Number(value);
+            return acc;
+        }, {});
+};
+
+export const stringifyDistances = (distances: Record<string, number>): string => {
+    return Object.entries(distances)
+        .map(([id, value]) => `${id}:${value}`)
+        .join(";");
+};

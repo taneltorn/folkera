@@ -204,6 +204,16 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
                 />
             </SimpleGrid>
 
+            <SimpleGrid cols={1}>
+                <FormInput
+                    name={"distances"}
+                    type={"textarea"}
+                    label={t("tune.distances")}
+                    placeholder={t("tune.distances")}
+                    form={form}
+                />
+            </SimpleGrid>
+
             <Group justify={"end"} gap={4} mt={"md"}>
                 <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
                     {t("button.cancel")}

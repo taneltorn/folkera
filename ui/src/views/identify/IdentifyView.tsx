@@ -9,7 +9,7 @@ import {Dropzone, FileWithPath} from "@mantine/dropzone";
 import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
 import {FaMagnifyingGlass} from "react-icons/fa6";
-import {Size} from "../../utils/constants.ts";
+import {SIMILAR_TUNES_TO_FETCH, Size} from "../../utils/constants.ts";
 import {FaInfo} from "react-icons/fa";
 import IdentifyLoader from "../tunes/components/IdentifyLoader.tsx";
 import {LoadingState} from "../../model/LoadingState.ts";
@@ -19,7 +19,6 @@ import MenuSelect from "../../components/MenuSelect.tsx";
 import {CoverHunterDatasets} from "../../utils/lists.ts";
 import IconButton from "../../components/buttons/IconButton.tsx";
 
-const SIMILAR_TUNES_TO_FETCH = 50;
 const MAX_SIZE = 10;
 
 const IdentifyView: React.FC = () => {
@@ -27,7 +26,7 @@ const IdentifyView: React.FC = () => {
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const identifyService = useIdentifyService();
-    const {findSimilarTunes, setSimilarTunes} = useSimilarTunes();
+    const {loadSimilarTunes, setSimilarTunes} = useSimilarTunes();
 
     const [file, setFile] = useState<File | null>(null);
     const [dataset, setDataset] = useState<string>("folkera");
@@ -62,7 +61,12 @@ const IdentifyView: React.FC = () => {
         setIsUploading(true);
         identifyService.upload(file)
             .then(file => {
-                findSimilarTunes(file, SIMILAR_TUNES_TO_FETCH, "", dataset, true)
+                loadSimilarTunes({
+                    filePath: file,
+                    top: SIMILAR_TUNES_TO_FETCH,
+                    selfRef: "",
+                    dataset: "folkera",
+                })
             })
             .finally(() => setIsUploading(false));
     };

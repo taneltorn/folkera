@@ -14,7 +14,7 @@ export const useIdentifyService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const identify = async (file: string, top: number = 10, selfRef: string, dataset?: string): Promise<any> => {
+    const identify = async (file: string, top: number = 10, selfRef: string, dataset?: string, removeFile?: boolean): Promise<any> => {
         setIsLoading(true);
 
         return axios.get(`${API_URL}/identify`, {
@@ -23,6 +23,7 @@ export const useIdentifyService = () => {
                 top: top,
                 selfRef: selfRef,
                 dataset: dataset,
+                newFile: removeFile,
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -62,26 +63,11 @@ export const useIdentifyService = () => {
             });
     };
 
-    const deleteFile = async (filePath: string): Promise<void> => {
-        try {
-            await axios.delete(`${API_URL}/identify/delete`, {
-                data: {filePath},
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        } catch (error) {
-            notify(t("toast.error.deleteRecording"), ToastType.ERROR, error);
-            throw error;
-        }
-    };
-
 
     return {
         isLoading,
         cancelSource,
         identify,
         upload,
-        deleteFile
     };
 }

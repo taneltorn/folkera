@@ -1,6 +1,7 @@
 import React from 'react';
 import {Tune} from "../model/Tune.ts";
 import {LoadingState} from "../model/LoadingState.ts";
+import {IdentifyOptions} from "../model/IdentifyOptions.ts";
 
 export interface Properties {
 
@@ -11,13 +12,7 @@ export interface Properties {
     loadingState: LoadingState;
     setLoadingState: (state: LoadingState) => void;
 
-    findSimilarTunes: (
-        filePath: string | undefined,
-        top: number,
-        selfRef: string,
-        dataset: string,
-        removeFile: boolean
-    ) => void;
+    loadSimilarTunes: (options: IdentifyOptions, initialDistances?: string, ref?: Tune) => void;
 }
 
 export const SimilarTunesContext = React.createContext<Properties>({} as Properties);

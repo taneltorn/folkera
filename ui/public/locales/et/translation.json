@@ -295,7 +295,8 @@
     "search": "Otsing",
     "similarity": "Sarnasus",
     "from": "Aasta (alates)",
-    "to": "Aasta (kuni)"
+    "to": "Aasta (kuni)",
+    "distances": "Kaugused"
   },
   "user": {
     "id": "ID",
@@ -339,6 +340,7 @@
     "stop": "Peata",
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
+    "loadSimilarTunes": "Käivita helianalüüs",
     "addFilter": "Lisa filter"
   },
   "data": {

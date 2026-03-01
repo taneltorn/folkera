@@ -5,8 +5,6 @@ import ModifyTuneButton from "./components/controls/ModifyTuneButton.tsx";
 import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
 import {Size} from "../../utils/constants.ts";
-import SaveModificationsButtons from "./components/controls/SaveModificationsButtons.tsx";
-import BulkModifyTunesButtons from "./components/controls/BulkModifyTunesButtons.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import ShowArchiveDocumentsButton from "./components/controls/ShowArchiveDocumentsButton.tsx";
 import PlayAudioButton from "./table/components/controls/PlayAudioButton.tsx";
@@ -16,6 +14,7 @@ import {FaTableList} from "react-icons/fa6";
 import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
 import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
+import LoadSimilarTunesButton from "./components/controls/LoadSimilarTunesButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -39,24 +38,29 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                     </ShowArchiveDocumentsButton>}
 
                 {currentUser?.isAdmin && <>
-                    <SaveModificationsButtons/>
-                    <BulkModifyTunesButtons/>
-
-                    <ModifyTuneButton
-                        size={"sm"}
-                        tune={tune}
-                        leftSection={<AiFillEdit size={Size.icon.MD}/>}
-                        onChange={reloadData}>
-                        {t("button.modify")}
-                    </ModifyTuneButton>
+                <ModifyTuneButton
+                    size={"sm"}
+                    tune={tune}
+                    leftSection={<AiFillEdit size={Size.icon.MD}/>}
+                    onChange={reloadData}>
+                    {t("button.modify")}
+                </ModifyTuneButton>
+                    <LoadSimilarTunesButton tune={tune}/>
                 </>}
             </Group>
             <Group gap={4}>
                 <ActiveViewButton view={View.DETAILS} icon={<FaTableList size={Size.icon.SM}/>}/>
 
-                {currentUser?.isResearcher && <>
-                    <ActiveViewButton view={View.SIMILAR_TUNES} loading={isBusy} icon={<RiNodeTree size={Size.icon.SM}/>}/>
-                    <ActiveViewButton view={View.CLUSTER} icon={<MdScatterPlot size={Size.icon.SM}/>}/>
+                {currentUser?.isUser && <>
+                    <ActiveViewButton
+                        view={View.SIMILAR_TUNES}
+                        loading={isBusy}
+                        icon={<RiNodeTree size={Size.icon.SM}/>}
+                    />
+                    <ActiveViewButton
+                        view={View.CLUSTER}
+                        icon={<MdScatterPlot size={Size.icon.SM}/>}
+                    />
                 </>}
             </Group>
         </Group>

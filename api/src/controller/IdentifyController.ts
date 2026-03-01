@@ -41,12 +41,11 @@ class IdentifyController {
             this.upload.single("file"),
             this.uploadFile.bind(this)
         );
-        this.router.delete("/delete", logRequest, this.deleteFile.bind(this));
     }
 
     async identify(req: ApiRequest, res: Response): Promise<any> {
+        const {file, top, selfRef, dataset} = req.query;
         try {
-            const {file, top, selfRef, dataset} = req.query;
 
             // @ts-ignore
             const result = await this.identifyService.identify(file, top, selfRef, dataset);
@@ -59,6 +58,11 @@ class IdentifyController {
         } catch (err) {
             this.logger.error(err);
             res.status(500).json({error: "An unexpected error occurred."});
+        } finally {
+            const filePath = file as string;
+            if (!selfRef && filePath?.includes("_uploaded")) {
+                this.removeFile(filePath);
+            }
         }
     }
 
@@ -80,30 +84,21 @@ class IdentifyController {
         }
     }
 
-    async deleteFile(req: Request, res: Response): Promise<any> {
+    private removeFile(filePath: string) {
+        this.logger.info(`Deleting file: ${filePath}`);
         try {
-
-            // @ts-ignore
-            const filePath = req.body.filePath;
-
             if (!filePath) {
-                return res.status(400).json({error: "Missing filePath in request body"});
+                this.logger.error("Missing filePath in request body");
             }
 
             if (!fs.existsSync(filePath)) {
-                return res.status(404).json({error: "File not found"});
+                this.logger.error(`File not found`);
             }
-
-            this.logger.info(`Deleting file: ${filePath}`);
-
 
             fs.unlinkSync(filePath);
             this.logger.info(`Deleted file: ${filePath}`);
-            return res.status(200).json({message: "File deleted successfully"});
-
         } catch (err) {
             this.logger.error("Delete file error:", err);
-            return res.status(500).json({error: "Failed to delete file"});
         }
     }
 }

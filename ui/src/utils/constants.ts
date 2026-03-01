@@ -20,3 +20,5 @@ export const Color = new Map([
     ["origin", "yellow"],
     ["county", "purple"],
 ]);
+
+export const SIMILAR_TUNES_TO_FETCH = 50;

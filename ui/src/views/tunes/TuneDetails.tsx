@@ -19,6 +19,7 @@ import {useActiveView} from "../../hooks/useActiveView.tsx";
 import TuneDetailsInfo from "./TuneDetailsInfo.tsx";
 import ClusterPlotView from "../admin/cluster/ClusterPlotView.tsx";
 import TuneSimilarTunes from "./TuneSimilarTunes.tsx";
+import InfoMessage from "../../components/InfoMessage.tsx";
 
 const TuneDetails: React.FC = () => {
 
@@ -74,7 +75,12 @@ const TuneDetails: React.FC = () => {
 
                     {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
                     {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
-                    {activeView === View.CLUSTER && <ClusterPlotView needle={tune.ref}/>}
+
+                    {activeView === View.CLUSTER && <>
+                        {tune.audio
+                            ? <ClusterPlotView needle={tune.ref}/>
+                            : <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
+                    </>}
                 </>}
         </Page>
     );

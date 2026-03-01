@@ -1,3 +1,7 @@
+#### [0.7.6] - 01.03.2026
+- Detailvaate täiendused
+- Tehnilised täiendused
+
 #### [0.7.5] - 28.02.2026
 - Täiendatud detailvaade
 - Lisatud uurija roll

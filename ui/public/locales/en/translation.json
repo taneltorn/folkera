@@ -295,7 +295,8 @@
     "search": "Search",
     "similarity": "Similarity",
     "from": "Year (from)",
-    "to": "Year (to)"
+    "to": "Year (to)",
+    "distances": "Distances"
   },
   "user": {
     "id": "ID",
@@ -339,6 +340,7 @@
     "stop": "Stop",
     "copyToClipboard": "Copy",
     "showArchiveItems": "Show manuscript",
+    "loadSimilarTunes": "Start audio analysis",
     "addFilter": "Add filter"
   },
   "data": {

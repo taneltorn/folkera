@@ -3,11 +3,7 @@ import {Badge, Checkbox, Group, Table} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
 import {useNavigate} from "react-router-dom";
-import {
-    similarityToColor,
-    distanceToSimilarity,
-    similarityToLabel
-} from "../../../../utils/helpers.tsx";
+import {distanceToColor, distanceToLabel} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
@@ -31,8 +27,6 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
     const {state} = useControlState();
     const navigate = useNavigate();
 
-    const similarity: number = distanceToSimilarity(tune.distance);
-
     return (
         <Table.Tr key={tune.id} ref={ref}>
             <Table.Td>
@@ -49,12 +43,16 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                 </Group>
             </Table.Td>
             <Table.Td>
-                <Badge w={120} color={similarityToColor(similarity)} title={`${Math.round(similarity)}%`}>
-                    {t(`similarity.${similarityToLabel(similarity)}`)}
+                <Badge
+                    w={120}
+                    color={distanceToColor(tune.distance)}
+                    title={`${tune.distance || "N/a"}`}
+                    // title={`${Math.round(similarity)}%`}
+                >
+                    {t(`similarity.${distanceToLabel(tune.distance)}`)}
                 </Badge>
             </Table.Td>
-            <Table.Td>{tune.content}</Table.Td>
-            {["ref", "melody", "year", "instrument", "performer", "parish"].map(f => (
+            {["melody", "ref", "content", "year", "instrument", "performer", "parish"].map(f => (
                 <Table.Td>
                     {tune[f as keyof Tune]}
                 </Table.Td>

@@ -3,13 +3,14 @@ import {Button, Group, useMantineTheme} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {Tune} from "../../../../model/Tune.ts";
 import MusicXmlViewer from "../../details/components/MusicXmlViewer.tsx";
-import {FaEye, FaItunesNote} from "react-icons/fa";
+import {FaItunesNote} from "react-icons/fa";
 import {IconSize} from "../../../../utils/mappers.ts";
 import {useTranslation} from "react-i18next";
 import PlayAudioButton from "../../table/components/controls/PlayAudioButton.tsx";
 import {useNavigate} from "react-router-dom";
 import ModalTitle from "./ModalTitle.tsx";
 import {Size} from "../../../../utils/constants.ts";
+import {RiArrowRightDoubleFill} from "react-icons/ri";
 
 interface Properties {
     tune: Tune;
@@ -33,7 +34,7 @@ const ShowNotationButton: React.FC<Properties> = ({tune}) => {
                     <Button
                         color={"dark"}
                         variant={"subtle"}
-                        leftSection={<FaEye size={Size.icon.MD} />}
+                        leftSection={<RiArrowRightDoubleFill size={Size.icon.MD}/>}
                         onClick={handleNavigation}>
                         {t("page.tunes.table.showDetails")}
                     </Button>
