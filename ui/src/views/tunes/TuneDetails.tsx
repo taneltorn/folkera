@@ -73,13 +73,14 @@ const TuneDetails: React.FC = () => {
 
                     <Divider mt={"xs"} mb={"md"}/>
 
-                    {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
-                    {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
+                {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
+                {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
 
                     {activeView === View.CLUSTER && <>
                         {tune.audio
                             ? <ClusterPlotView needle={tune.ref}/>
-                            : <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
+                            : <InfoMessage mx={"md"} color={"blue"}
+                                           title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
                 </>}
         </Page>

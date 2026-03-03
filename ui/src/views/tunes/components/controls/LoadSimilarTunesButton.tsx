@@ -1,16 +1,16 @@
 import React from "react";
-import {Button} from '@mantine/core';
+import {Button, ButtonProps} from '@mantine/core';
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../model/Tune.ts";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 import {SIMILAR_TUNES_TO_FETCH, Size} from "../../../../utils/constants.ts";
 import {TbZoomQuestion} from "react-icons/tb";
 
-interface Properties {
+interface Properties extends ButtonProps{
     tune: Tune;
 }
 
-const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
+const LoadSimilarTunesButton: React.FC<Properties> = ({tune, ...props}) => {
 
     const {t} = useTranslation();
     const {loadSimilarTunes, isBusy} = useSimilarTunes();
@@ -24,18 +24,17 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
                     selfRef: tune.id,
                     dataset: "folkera",
                 },
-                undefined,
-                tune)
+                undefined)
             ;
         }
     }
 
     return (
         <Button
-            size={"sm"}
-            color={"dark"}
-            disabled={isBusy}
-            variant={"subtle"}
+            size={props.size || "sm"}
+            color={props.color || "dark"}
+            disabled={isBusy || !tune.audio}
+            variant={props.variant || "subtle"}
             leftSection={<TbZoomQuestion size={Size.icon.SM} />}
             onClick={handleSubmit}
         >

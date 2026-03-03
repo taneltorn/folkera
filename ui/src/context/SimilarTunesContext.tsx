@@ -12,7 +12,7 @@ export interface Properties {
     loadingState: LoadingState;
     setLoadingState: (state: LoadingState) => void;
 
-    loadSimilarTunes: (options: IdentifyOptions, initialDistances?: string, ref?: Tune) => void;
+    loadSimilarTunes: (options: IdentifyOptions, initialDistances?: string) => void;
 }
 
 export const SimilarTunesContext = React.createContext<Properties>({} as Properties);

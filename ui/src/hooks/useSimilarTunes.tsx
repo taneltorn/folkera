@@ -1,5 +1,5 @@
 import React, {useContext, useMemo, useState} from 'react';
-import {isEmpty, parseDistances, stringifyDistances} from "../utils/helpers.tsx";
+import {isEmpty, parseDistances} from "../utils/helpers.tsx";
 import {Tune} from "../model/Tune.ts";
 import {SimilarTunesContext} from "../context/SimilarTunesContext.tsx";
 import {useIdentifyService} from "../services/useIdentifyService.ts";
@@ -7,9 +7,6 @@ import {useTuneService} from "../services/useTuneService.ts";
 import {LoadingState} from "../model/LoadingState.ts";
 import {DistanceBreakpoint} from "../model/DistanceBreakpoint.ts";
 import {IdentifyOptions} from "../model/IdentifyOptions.ts";
-import {ToastType} from "../context/ToastContext.tsx";
-import {useTranslation} from "react-i18next";
-import {useToasts} from "./useToasts.tsx";
 
 interface Properties {
     children: React.ReactNode;
@@ -17,8 +14,6 @@ interface Properties {
 
 export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) => {
 
-    const {t} = useTranslation();
-    const {notify} = useToasts();
     const identifyService = useIdentifyService();
     const dataService = useTuneService();
 
@@ -48,7 +43,7 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
     const loadSimilarTunes = async (
         options: IdentifyOptions,
         initialDistances?: string,
-        ref?: Tune,
+        reloadData?: () => void
     ): Promise<void> => {
         try {
             const distances = initialDistances
@@ -61,14 +56,9 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
             setSimilarTunes(tunes);
             setLoadingState(LoadingState.IDLE);
 
-            if (ref && !initialDistances) {
-                ref.distances = stringifyDistances(distances);
-                dataService.saveTunes([ref])
-                    .catch(error => {
-                        notify(t("toast.error.saveData"), ToastType.ERROR, error);
-                    });
+            if (reloadData) {
+                reloadData();
             }
-
         } catch (e) {
             console.log(e);
             setLoadingState(LoadingState.ERROR);

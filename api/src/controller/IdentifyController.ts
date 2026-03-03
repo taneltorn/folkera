@@ -6,6 +6,8 @@ import {ApiRequest} from "../model/ApiRequest";
 import CoverHunterIdentifyService from "../service/identify/CoverHunterIdentifyService";
 import multer from "multer";
 import fs from "fs";
+import TuneService from "../service/tunes/TuneService";
+import CsvTuneService from "../service/tunes/CsvTuneService";
 
 class IdentifyController {
 
@@ -13,6 +15,7 @@ class IdentifyController {
     logger = log4js.getLogger("IdentifyController");
 
     identifyService = new CoverHunterIdentifyService();
+    tuneService = new CsvTuneService();
 
     uploadDir = `${process.env.VITE_RECORDINGS_DIR}/_uploaded`;
     storage = multer.diskStorage({
@@ -46,14 +49,17 @@ class IdentifyController {
     async identify(req: ApiRequest, res: Response): Promise<any> {
         const {file, top, selfRef, dataset} = req.query;
         try {
-
             // @ts-ignore
             const result = await this.identifyService.identify(file, top, selfRef, dataset);
+            this.logger.info("data")
+            this.logger.info(JSON.stringify(result.data))
 
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;
             }
+            this.saveDistances(selfRef as string, result.data);
+
             res.status(200).json(result);
         } catch (err) {
             this.logger.error(err);
@@ -84,6 +90,17 @@ class IdentifyController {
         }
     }
 
+    private async saveDistances(id: string, distances: Record<string, number>) {
+        if (!id) {
+            this.logger.warn("No id present, will skip saving distances.")
+            return;
+        }
+        const r = await this.tuneService.findById(id as string);
+        const tune = {...r.data, distances: this.stringifyDistances(distances)}
+        this.tuneService.save([tune])
+            .catch(e => this.logger.error(`Error on saving tune: ${e}`));
+    }
+
     private removeFile(filePath: string) {
         this.logger.info(`Deleting file: ${filePath}`);
         try {
@@ -101,6 +118,12 @@ class IdentifyController {
             this.logger.error("Delete file error:", err);
         }
     }
+
+    private stringifyDistances = (distances: Record<string, number>): string => {
+        return Object.entries(distances)
+            .map(([id, value]) => `${id}:${value}`)
+            .join(";");
+    };
 }
 
 export default IdentifyController;

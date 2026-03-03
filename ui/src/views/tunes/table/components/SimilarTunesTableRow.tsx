@@ -60,10 +60,6 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
 
             <Table.Td>
                 <Group gap={0} justify={"end"} wrap={"nowrap"}>
-                    <IconButton
-                        type={"open"}
-                        onClick={() => navigate(`/tunes/${tune.id}`)}
-                    />
                     {currentUser?.isAdmin && <ModifyTuneButton
                         variant={"subtle"}
                         color={"dark"}
@@ -72,6 +68,10 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                     >
                         <AiFillEdit size={Size.icon.SM}/>
                     </ModifyTuneButton>}
+                    <IconButton
+                        type={"open"}
+                        onClick={() => navigate(`/tunes/${tune.id}`)}
+                    />
                 </Group>
             </Table.Td>
         </Table.Tr>

@@ -96,12 +96,12 @@
     "identify": {
       "title": "Otsi sarnaseid esitusi",
       "alert": "Tegemist on prototüübiga. Tulemused võivad varieeruda.",
-      "submit": "Otsi sarnaseid salvestusi",
+      "submit": "Otsi sama viisitüübi salvestusi",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
       "fileUploadPlaceholder": "Vali või lohista helifail.",
       "maxFileSize": "Faili suurus ei tohi ületada {{size}} MB.",
       "state": {
-        "identifyingTunes": "Tuvastan sarnaseid salvestusi...",
+        "identifyingTunes": "Otsin sama viisitüübi salvestusi...",
         "uploadingFile": "Laen faili üles...",
         "loadingData": "Laen andmeid..."
       },

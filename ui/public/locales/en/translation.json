@@ -96,12 +96,12 @@
     "identify": {
       "title": "Find similar performances",
       "alert": "This is a prototype. Results may vary.",
-      "submit": "Find similar recordings",
+      "submit": "Find same tune type recordings",
       "uploadUnauthorized": "Log in to upload a file.",
       "fileUploadPlaceholder": "Select or drag an audio file.",
       "maxFileSize": "File size must not exceed {{size}} MB.",
       "state": {
-        "identifyingTunes": "Identifying similar recordings...",
+        "identifyingTunes": "Identifying same tune type recordings...",
         "uploadingFile": "Uploading file...",
         "loadingData": "Loading data..."
       },

@@ -38,13 +38,13 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                     </ShowArchiveDocumentsButton>}
 
                 {currentUser?.isAdmin && <>
-                <ModifyTuneButton
-                    size={"sm"}
-                    tune={tune}
-                    leftSection={<AiFillEdit size={Size.icon.MD}/>}
-                    onChange={reloadData}>
-                    {t("button.modify")}
-                </ModifyTuneButton>
+                    <ModifyTuneButton
+                        size={"sm"}
+                        tune={tune}
+                        leftSection={<AiFillEdit size={Size.icon.MD}/>}
+                        onChange={reloadData}>
+                        {t("button.modify")}
+                    </ModifyTuneButton>
                     <LoadSimilarTunesButton tune={tune}/>
                 </>}
             </Group>

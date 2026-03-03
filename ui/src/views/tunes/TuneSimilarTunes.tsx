@@ -25,8 +25,7 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
                     selfRef: tune.id,
                     dataset: "folkera",
                 },
-                tune.distances,
-                tune);
+                tune.distances);
         }
     }, []);
 
