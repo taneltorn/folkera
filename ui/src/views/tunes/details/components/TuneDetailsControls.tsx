@@ -1,20 +1,19 @@
 import React from "react";
-import {Tune} from "../../model/Tune.ts";
+import {Tune} from "../../../../model/Tune.ts";
 import {Group} from "@mantine/core";
-import ModifyTuneButton from "./components/controls/ModifyTuneButton.tsx";
+import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
-import {Size} from "../../utils/constants.ts";
-import {useAuth} from "../../hooks/useAuth.tsx";
-import ShowArchiveDocumentsButton from "./components/controls/ShowArchiveDocumentsButton.tsx";
-import PlayAudioButton from "./table/components/controls/PlayAudioButton.tsx";
-import ActiveViewButton from "../../components/buttons/ActiveViewButton.tsx";
-import {View} from "../../context/ActiveViewContext.tsx";
+import {Size} from "../../../../utils/constants.ts";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
+import ShowArchiveDocumentsButton from "../../components/controls/ShowArchiveDocumentsButton.tsx";
+import PlayAudioButton from "../../table/components/controls/PlayAudioButton.tsx";
+import ActiveViewButton from "../../../../components/buttons/ActiveViewButton.tsx";
+import {View} from "../../../../context/ActiveViewContext.tsx";
 import {FaTableList} from "react-icons/fa6";
 import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
-import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
-import LoadSimilarTunesButton from "./components/controls/LoadSimilarTunesButton.tsx";
+import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 
 interface Properties {
     tune: Tune;
@@ -45,7 +44,6 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                         onChange={reloadData}>
                         {t("button.modify")}
                     </ModifyTuneButton>
-                    <LoadSimilarTunesButton tune={tune}/>
                 </>}
             </Group>
             <Group gap={4}>

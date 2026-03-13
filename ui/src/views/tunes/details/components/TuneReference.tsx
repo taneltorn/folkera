@@ -1,7 +1,7 @@
 import React from "react";
 import {Text} from "@mantine/core";
-import {Tune} from "../../model/Tune.ts";
-import {fullRef} from "../../utils/helpers.tsx";
+import {Tune} from "../../../../model/Tune.ts";
+import {fullRef} from "../../../../utils/helpers.tsx";
 
 interface Properties {
     tune: Tune;

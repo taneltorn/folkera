@@ -64,6 +64,7 @@ const AdvancedFilteringPanel: React.FC = () => {
 
                 <AdvancedFilterInput filterKey={"melody"} field={"melody"} autocomplete/>
                 <AdvancedFilterInput filterKey={"performer"} field={"performer"} autocomplete/>
+                <AdvancedFilterInput filterKey={"instrument"} field={"instrument"} autocomplete/>
                 <AdvancedFilterInput filterKey={"collector"} field={"collector"} autocomplete/>
                 <AdvancedFilterInput filterKey={"parish"} field={"parish"} autocomplete/>
                 <AdvancedFilterInput filterKey={"county"} field={"county"} autocomplete/>

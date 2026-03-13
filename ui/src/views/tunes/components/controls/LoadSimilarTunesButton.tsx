@@ -24,7 +24,7 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune, ...props}) => {
                     selfRef: tune.id,
                     dataset: "folkera",
                 },
-                undefined)
+                tune.distances)
             ;
         }
     }
@@ -32,9 +32,9 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune, ...props}) => {
     return (
         <Button
             size={props.size || "sm"}
-            color={props.color || "dark"}
+            color={props.color || "red"}
             disabled={isBusy || !tune.audio}
-            variant={props.variant || "subtle"}
+            variant={props.variant || "filled"}
             leftSection={<TbZoomQuestion size={Size.icon.SM} />}
             onClick={handleSubmit}
         >

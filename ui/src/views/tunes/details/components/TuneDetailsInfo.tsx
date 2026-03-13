@@ -1,8 +1,8 @@
 import React from "react";
 import {Box, Grid, Table} from "@mantine/core";
-import {Tune} from "../../model/Tune.ts";
-import MusicXmlViewer from "./details/components/MusicXmlViewer.tsx";
-import TuneInfoTableRow from "./details/components/TuneInfoTableRow.tsx";
+import {Tune} from "../../../../model/Tune.ts";
+import MusicXmlViewer from "./MusicXmlViewer.tsx";
+import TuneInfoTableRow from "./TuneInfoTableRow.tsx";
 
 interface Properties {
     tune: Tune;

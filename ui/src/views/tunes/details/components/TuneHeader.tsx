@@ -1,12 +1,12 @@
 import React from "react";
-import {Tune} from "../../model/Tune.ts";
+import {Tune} from "../../../../model/Tune.ts";
 import {Button, Group} from "@mantine/core";
 import TuneReference from "./TuneReference.tsx";
-import NextTuneButton from "./components/controls/NextTuneButton.tsx";
-import PreviousTuneButton from "./components/controls/PreviousTuneButton.tsx";
+import NextTuneButton from "../../components/controls/NextTuneButton.tsx";
+import PreviousTuneButton from "../../components/controls/PreviousTuneButton.tsx";
 import {useTranslation} from "react-i18next";
 import {PiCaretLeftBold} from "react-icons/pi";
-import {Size} from "../../utils/constants.ts";
+import {Size} from "../../../../utils/constants.ts";
 import {useNavigate} from "react-router-dom";
 
 interface Properties {
