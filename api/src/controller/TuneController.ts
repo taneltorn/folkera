@@ -26,7 +26,7 @@ class TuneController {
         this.router.get("/audio", verifyToken, logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getTuneByIds.bind(this));
         this.router.get("/ids-only", logRequest, useQueryParams, this.getTuneIds.bind(this));
-        this.router.get("/:id", verifyToken, logRequest, this.getTune.bind(this));
+        this.router.get("/:id", logRequest, this.getTune.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getTunes.bind(this));
         this.router.put("/", verifyToken, logRequestWithBody, this.saveTune.bind(this));
     }
