@@ -19,6 +19,7 @@ export const useTuneService = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);
@@ -39,7 +40,8 @@ export const useTuneService = () => {
             params: {
                 ...pagination,
                 ...urlify(filters)
-            }
+            },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);
@@ -60,7 +62,8 @@ export const useTuneService = () => {
             params: {
                 ...pagination,
                 ...urlify(filters)
-            }
+            },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);
@@ -81,7 +84,8 @@ export const useTuneService = () => {
             params: {
                 ...pagination,
                 ...urlify(filters)
-            }
+            },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);
@@ -102,6 +106,7 @@ export const useTuneService = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
         })
             .then(response => {
                 setIsLoading(false);

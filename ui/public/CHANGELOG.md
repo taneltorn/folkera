@@ -1,3 +1,6 @@
+#### [0.7.9] - 05.04.2026
+- Tehnilised täiendused
+
 #### [0.7.8] - 13.03.2026
 - Helianalüüs tuleb nüüd käivitada käsitsi
 - Detailotsingusse lisatud pilli valik
