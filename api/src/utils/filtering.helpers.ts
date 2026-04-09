@@ -60,6 +60,7 @@ export const filter = (data: Tune[], filters?: Filter[]) => {
         isIn(r.comments, filters.filter(f => f.field === "comments")) &&
         isIn(r.datatype, filters.filter(f => f.field === "datatype")) &&
         isIn(r.trainset, filters.filter(f => f.field === "trainset")) &&
+        isIn(r.pid, filters.filter(f => f.field === "pid")) &&
 
         (contains(r.ref, search)
             || contains(r.pid, search)

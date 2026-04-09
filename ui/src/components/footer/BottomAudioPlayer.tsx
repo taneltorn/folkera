@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Group, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
@@ -9,6 +9,7 @@ import useCurrentBreakpoint from "../../hooks/useCurrentBreakPoint.tsx";
 import LargeScreenAudioPlayer from "./LargeScreenAudioPlayer.tsx";
 import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
+import {useActiveVariant} from "../../hooks/useActiveVariant.tsx";
 
 const audioUrl = `${import.meta.env.VITE_API_URL}/tunes/audio`;
 
@@ -18,13 +19,32 @@ const BottomAudioPlayer: React.FC = () => {
     const {currentUser} = useAuth();
     const {notify} = useToasts();
     const breakpoint = useCurrentBreakpoint();
-    const {track, playerRef, setIsPlaying, loopStage} = useAudioPlayer();
+    const {track, isPlaying, playerRef, setIsPlaying, loopStage} = useAudioPlayer();
+    const {index} = useActiveVariant();
 
+    const audios = track?.audio?.split(";") || [];
+    const audio = audios[index] || audios[0];
+
+    const src = `${audioUrl}?filename=${encodeURIComponent(audio || "")}`;
 
     const handlePlaybackError = () => {
-        notify(t("toast.error.playbackError", {file: track?.audio || ""}), ToastType.ERROR)
+        notify(t("toast.error.playbackError", {file: audio || ""}), ToastType.ERROR)
         setIsPlaying(false);
     }
+
+    useEffect(() => {
+        const audio = playerRef.current?.audio.current;
+        if (!audio || !track) return;
+
+        if (isPlaying) {
+            audio.play().catch(() => {
+                console.log("Playback error");
+                setIsPlaying(false);
+            });
+        } else {
+            audio.pause();
+        }
+    }, [track,  isPlaying]);
 
     return (
         <Box py={4} px={"xs"}>
@@ -44,7 +64,7 @@ const BottomAudioPlayer: React.FC = () => {
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
                                 loopStage={loopStage}
-                                src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
+                                src={src}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
@@ -54,7 +74,7 @@ const BottomAudioPlayer: React.FC = () => {
                                 playerRef={playerRef}
                                 loopStage={loopStage}
                                 track={track}
-                                src={`${audioUrl}?filename=${encodeURIComponent(track.audio || "")}`}
+                                src={src}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}

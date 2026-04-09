@@ -28,6 +28,7 @@ const filterableKeys = [
     "order",
     "from",
     "to",
+    "pid",
 ];
 
 export const useQueryParams = (req: ApiRequest, res: Response, next: NextFunction) => {

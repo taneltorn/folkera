@@ -31,7 +31,8 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
                 <AudioPlayer
                     // @ts-ignore
                     ref={playerRef}
-                    autoPlay={true}
+                    autoPlayAfterSrcChange={false}
+                    autoPlay={false}
                     layout={"horizontal-reverse"}
                     customVolumeControls={[]}
                     customControlsSection={[

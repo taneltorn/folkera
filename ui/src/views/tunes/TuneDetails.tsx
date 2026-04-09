@@ -73,8 +73,8 @@ const TuneDetails: React.FC = () => {
 
                     <Divider mt={"xs"} mb={"md"}/>
 
-                {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
-                {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
+                    {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
+                    {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
 
                     {activeView === View.CLUSTER && <>
                         {tune.audio

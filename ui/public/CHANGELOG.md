@@ -1,3 +1,8 @@
+#### [0.7.10] - 09.04.2026
+- Lisatud noodistuste variatsioonide kuvamise tugi
+- Otsingu parandused
+- Lisatud favicon
+
 #### [0.7.9] - 05.04.2026
 - Tehnilised täiendused
 

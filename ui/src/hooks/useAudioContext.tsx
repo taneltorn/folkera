@@ -1,4 +1,4 @@
-import React, {createRef, useContext, useMemo, useState} from 'react';
+import React, {useContext, useMemo, useRef, useState} from 'react';
 import {AudioContext} from "../context/AudioContext.tsx";
 import {isEmpty} from "../utils/helpers.tsx";
 import {Tune} from "../model/Tune.ts";
@@ -9,7 +9,7 @@ interface Properties {
 
 export const AudioContextProvider: React.FC<Properties> = ({children}) => {
 
-    const playerRef = createRef();
+    const playerRef = useRef(null);
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [loopStage, setLoopStage] = useState<number>(0);
@@ -17,21 +17,16 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
     const [loopEnd, setLoopEnd] = useState<number | null>(null);
     const [track, setTrack] = useState<Tune>();
 
-    const play = (track: Tune) => {
-        setTrack(track);
-
-        if (playerRef.current) {
-            // @ts-ignore
-            playerRef.current.audio.current?.play();
-        }
-    }
+    const play = (nextTrack: Tune) => {
+        setTrack(nextTrack);
+        setIsPlaying(true);
+    };
 
     const pause = () => {
-        if (playerRef.current) {
-            // @ts-ignore
-            playerRef.current.audio.current?.pause();
-        }
-    }
+        // @ts-ignore
+        playerRef.current?.audio.current?.pause();
+        setIsPlaying(false);
+    };
 
     const clearLoop = () => {
         setLoopStart(null);

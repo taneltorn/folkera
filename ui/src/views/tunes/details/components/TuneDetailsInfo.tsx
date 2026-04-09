@@ -3,12 +3,15 @@ import {Box, Grid, Table} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import MusicXmlViewer from "./MusicXmlViewer.tsx";
 import TuneInfoTableRow from "./TuneInfoTableRow.tsx";
+import VariantSelection from "./VariantSelection.tsx";
 
 interface Properties {
     tune: Tune;
 }
 
 const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
+
+    const xmls = tune.musicxml?.split(";") || [];
 
     return (
         <Box px={"md"}>
@@ -18,6 +21,10 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
                         <MusicXmlViewer tune={tune}/>
                     </Grid.Col>
                 </Grid>}
+
+            {xmls.length > 1 && <Box mt={"md"} mb={"xl"}>
+                <VariantSelection count={xmls.length}/>
+            </Box>}
 
             <Grid mt={"md"}>
                 <Grid.Col span={{baseline: 12, md: 8, xl: 6}}>

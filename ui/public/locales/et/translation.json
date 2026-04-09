@@ -9,7 +9,8 @@
       "profile": "Profiil",
       "changelog": "Muutelugu",
       "login": "Logi sisse",
-      "logout": "Logi välja"
+      "logout": "Logi välja",
+      "showTable": "Kuva tabelivaates"
     },
     "selectLanguage": "Vali keel",
     "tunes": {
@@ -341,7 +342,8 @@
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
     "loadSimilarTunes": "Käivita helianalüüs",
-    "addFilter": "Lisa filter"
+    "addFilter": "Lisa filter",
+    "variant": "Variant {{index}}"
   },
   "data": {
     "noResults": "Andmeid ei leitud.",

@@ -1,30 +1,50 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Box, Group, Loader} from "@mantine/core";
+import {Box, Loader} from "@mantine/core";
 import {OpenSheetMusicDisplay} from "opensheetmusicdisplay";
 import {Tune} from "../../../../model/Tune.ts";
 import {useTranslation} from "react-i18next";
 import InfoMessage from "../../../../components/InfoMessage.tsx";
+import {useActiveVariant} from "../../../../hooks/useActiveVariant.tsx";
 
 interface Props {
     tune: Tune;
 }
 
 const MusicXmlViewer: React.FC<Props> = ({tune}) => {
-
     const {t} = useTranslation();
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const osmdRef = useRef<OpenSheetMusicDisplay | null>(null);
+
+    const xmls = tune.musicxml?.split(";") || [];
+
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const visibleContainerRef = useRef<HTMLDivElement | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState<string | null>(null);
 
-    const initOrGetOsmd = () => {
-        if (!containerRef.current) return null;
+    const {index, setIndex} = useActiveVariant();
 
-        if (!osmdRef.current) {
-            osmdRef.current = new OpenSheetMusicDisplay(containerRef.current, {
+    const loadAndRender = async () => {
+        setErr(null);
+
+        if (!wrapperRef.current || !xmls[index]) return;
+
+        const nextContainer = document.createElement("div");
+        nextContainer.style.overflow = "hidden";
+        nextContainer.style.padding = "0";
+
+        try {
+            setLoading(true);
+
+            const resp = await fetch(`${import.meta.env.VITE_API_URL}/musicxml/${xmls[index]}`);
+            if (!resp.ok) {
+                throw new Error(`Failed to fetch MusicXML (${resp.status} ${resp.statusText})`);
+            }
+
+            const musicXmlText = await resp.text();
+            if (!musicXmlText) return;
+
+            const osmd = new OpenSheetMusicDisplay(nextContainer, {
                 autoResize: true,
-
                 drawTitle: false,
                 drawSubtitle: false,
                 drawComposer: false,
@@ -32,37 +52,9 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 drawCredits: false,
                 drawPartNames: false,
                 drawMeasureNumbers: false,
-            });
-
-            osmdRef.current.setOptions({
                 backend: "svg",
                 drawingParameters: "compacttight",
             });
-        }
-
-        return osmdRef.current;
-    };
-
-    const loadAndRender = async () => {
-        setErr(null);
-
-        const osmd = initOrGetOsmd();
-        if (!osmd) return;
-
-        try {
-            setLoading(true);
-
-            if (containerRef.current) containerRef.current.innerHTML = "";
-
-            let musicXmlText: string | undefined;
-
-            if (tune.musicxml) {
-                const resp = await fetch(`${import.meta.env.VITE_API_URL}/musicxml/${tune.musicxml}`);
-                if (!resp.ok) throw new Error(`Failed to fetch MusicXML (${resp.status} ${resp.statusText})`);
-                musicXmlText = await resp.text();
-            }
-
-            if (!musicXmlText) return;
 
             await osmd.load(musicXmlText);
 
@@ -79,17 +71,23 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 osmd.EngravingRules.PageRightMargin = 0;
                 osmd.EngravingRules.PageTopMargin = 0;
                 osmd.EngravingRules.PageBottomMargin = 0;
-
                 osmd.EngravingRules.SystemLeftMargin = 0;
-
                 osmd.EngravingRules.StaffDistance = 5;
             }
 
             osmd.zoom = 1;
             osmd.render();
 
-            const svg = containerRef.current?.querySelector("svg");
+            const svg = nextContainer.querySelector("svg");
             if (svg) svg.style.background = "transparent";
+
+            if (visibleContainerRef.current && wrapperRef.current.contains(visibleContainerRef.current)) {
+                wrapperRef.current.replaceChild(nextContainer, visibleContainerRef.current);
+            } else {
+                wrapperRef.current.appendChild(nextContainer);
+            }
+
+            visibleContainerRef.current = nextContainer;
         } catch (e: any) {
             setErr(e?.message ?? "Failed to render MusicXML");
         } finally {
@@ -98,29 +96,31 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
     };
 
     useEffect(() => {
-        if (!tune.musicxml) return;
+        setIndex(0);
+    }, [tune]);
+
+    useEffect(() => {
+        if (!xmls[index]) return;
         void loadAndRender();
 
         return () => {
-            if (containerRef.current) containerRef.current.innerHTML = "";
+            if (wrapperRef.current) wrapperRef.current.innerHTML = "";
         };
-    }, [tune]);
+    }, [tune, index]);
 
     return (
         <Box>
-            {!tune.musicxml && <InfoMessage color={"blue"} title={t("page.tunes.details.notationNotYetAdded")}/>}
+            {!xmls[index] && <InfoMessage color={"blue"} title={t("page.tunes.details.notationNotYetAdded")}/>}
 
-            {err && <InfoMessage color={"red"} title={t("page.tunes.details.notationRenderingFailed")}>
-                {err}
-            </InfoMessage>}
+            {err &&
+                <InfoMessage color={"red"} title={t("page.tunes.details.notationRenderingFailed")}>
+                    {err}
+                </InfoMessage>}
 
-            {loading && (
-                <Group mb="sm" gap="xs">
-                    <Loader size="sm"/>
-                </Group>)}
+            {loading && <Loader size="sm"/>}
 
             <Box
-                ref={containerRef}
+                ref={wrapperRef}
                 style={{
                     overflowX: "hidden",
                     overflowY: "hidden",

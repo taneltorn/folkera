@@ -50,7 +50,8 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                     <AudioPlayer
                         // @ts-ignore
                         ref={playerRef}
-                        autoPlay={true}
+                        autoPlayAfterSrcChange={false}
+                        autoPlay={false}
                         layout={"stacked-reverse"}
                         customControlsSection={[
                             RHAP_UI.ADDITIONAL_CONTROLS

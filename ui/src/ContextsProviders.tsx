@@ -10,6 +10,7 @@ import {ControlStateContextProvider} from "./hooks/useControlState.tsx";
 import {AdvancedFilteringContextProvider} from "./hooks/useAdvancedFilteringContext.tsx";
 import {StatsContextProvider} from "./hooks/useStatsContext.tsx";
 import {ExportContextProvider} from "./hooks/useDataExport.tsx";
+import {ActiveVariantContextProvider} from "./hooks/useActiveVariant.tsx";
 
 interface Properties {
     children: React.ReactNode;
@@ -22,6 +23,7 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
         <ToastContextProvider>
             <AuthContextProvider>
                 <AudioContextProvider>
+                    <ActiveVariantContextProvider>
                     <ModalsProvider>
                         <ControlStateContextProvider>
                             <TuneSelectionContextProvider>
@@ -39,6 +41,7 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
                             </TuneSelectionContextProvider>
                         </ControlStateContextProvider>
                     </ModalsProvider>
+                    </ActiveVariantContextProvider>
                 </AudioContextProvider>
             </AuthContextProvider>
         </ToastContextProvider>

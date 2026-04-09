@@ -22,14 +22,14 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
         return value.split(",")
             .map((v, index) =>
                 <Text key={`table-cell-${index}-${field}`}>
-                    <TableLink value={v} field={field}>
+                    <TableLink value={v} field={field} replace>
                         {v.trim()}
                     </TableLink>
                     {index < value?.split(",").length - 1 && <span>, </span>}
                 </Text>)
     }
 
-    if (["audioRef", "notationRef"].includes(field)) {
+    if (["audioRef", "notationRef", "ref"].includes(field)) {
         return <>
             <TableLink field={"ref"} value={value} replace>
                 {value}
@@ -39,7 +39,7 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
 
     if (["pid"].includes(field)) {
         return <>
-            <TableLink field={field} value={value}>
+            <TableLink field={field} value={value} replace>
                 {value}
             </TableLink>
             <KivikeLink tune={tune}/>

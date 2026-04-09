@@ -9,7 +9,8 @@
       "profile": "Profile",
       "changelog": "Changelog",
       "login": "Log In",
-      "logout": "Log Out"
+      "logout": "Log Out",
+      "showTable": "Show in table view"
     },
     "selectLanguage": "Select language",
     "tunes": {
@@ -341,7 +342,8 @@
     "copyToClipboard": "Copy",
     "showArchiveItems": "Show manuscript",
     "loadSimilarTunes": "Start audio analysis",
-    "addFilter": "Add filter"
+    "addFilter": "Add filter",
+    "variant": "Variant {{index}}"
   },
   "data": {
     "noResults": "No data found.",
