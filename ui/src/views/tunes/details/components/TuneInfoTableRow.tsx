@@ -13,6 +13,8 @@ interface Properties {
 
 const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
 
+    const {t} = useTranslation();
+
     const value = tune[field]?.toString();
     if (!value) {
         return "";
@@ -50,7 +52,13 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
         return <Text>{value}</Text>;
     }
 
-    return <TableLink field={field} value={value}>
+    if (["datatype", "access", "trainset"].includes(field)) {
+        return <TableLink field={field} value={value} replace>
+            {t(`${field}.${value}`)}
+        </TableLink>;
+    }
+
+    return <TableLink field={field} value={value} replace>
         {value}
     </TableLink>;
 

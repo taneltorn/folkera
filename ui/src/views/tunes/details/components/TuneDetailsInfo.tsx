@@ -15,7 +15,7 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
 
     return (
         <Box px={"md"}>
-            {tune.datatype === "NOOT" &&
+            {tune.datatype === "NOTATION" &&
                 <Grid mt={"md"}>
                     <Grid.Col span={{base: 12}}>
                         <MusicXmlViewer tune={tune}/>
@@ -47,6 +47,7 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
                                 "datatype",
                                 "trainset",
                                 "notes",
+                                "access",
                                 "comments"]
                                 .map((field, index) => (
                                     <React.Fragment key={`row-div-${index}-${field}`}>

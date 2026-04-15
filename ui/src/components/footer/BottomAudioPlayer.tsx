@@ -44,22 +44,13 @@ const BottomAudioPlayer: React.FC = () => {
         } else {
             audio.pause();
         }
-    }, [track,  isPlaying]);
+    }, [track, isPlaying]);
 
     return (
         <Box py={4} px={"xs"}>
-            {!currentUser?.isUser ? <Group justify={"space-between"}>
-                    <Group>
-                        <Trans
-                            i18nKey={"player.insufficientPrivileges"}
-                            values={{ref: track?.ref || ""}}
-                            components={{b: <Text fw={"bold"}/>}}
-                        />
-                    </Group>
-                    <PlayerCloseButton/>
-                </Group>
-                : <>
-                    {track && <>
+            {track && <>
+                {currentUser?.isUser || track.access === "OPEN"
+                    ? <>
                         {["xs"].includes(breakpoint) ?
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
@@ -79,13 +70,22 @@ const BottomAudioPlayer: React.FC = () => {
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
                             />}
+                    </>
+                    : <Group justify={"space-between"}>
+                        <Group>
+                            <Trans
+                                i18nKey={"player.insufficientPrivileges"}
+                                values={{ref: track.ref}}
+                                components={{b: <Text fw={"bold"}/>}}
+                            />
+                        </Group>
+                        <PlayerCloseButton/>
+                    </Group>
+                }
 
-                    </>}
-                </>
-            }
+            </>}
         </Box>
-    )
-        ;
+    );
 }
 
 export default BottomAudioPlayer;

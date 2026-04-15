@@ -23,7 +23,7 @@ class TuneController {
     }
 
     initializeRoutes() {
-        this.router.get("/audio", verifyToken, logRequest, this.serveAudio.bind(this));
+        this.router.get("/audio", logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getTuneByIds.bind(this));
         this.router.get("/ids-only", logRequest, useQueryParams, this.getTuneIds.bind(this));
         this.router.get("/:id", logRequest, this.getTune.bind(this));

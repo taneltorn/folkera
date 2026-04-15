@@ -36,7 +36,7 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                         />
                         : <Group wrap={"nowrap"} gap={0}>
                             {tune.datatype === "AUDIO" && <TunesTablePlayAudioButton tune={tune}/>}
-                            {tune.datatype === "NOOT" && <ShowNotationButton tune={tune}/>}
+                            {tune.datatype === "NOTATION" && <ShowNotationButton tune={tune}/>}
                         </Group>}
                 </Group>
             </Table.Td>

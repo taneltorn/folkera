@@ -8,12 +8,12 @@ import {Size} from "../../../../../utils/constants.ts";
 import {MenuSelectOption} from "../../../../../model/MenuSelectOption.ts";
 import {IoMusicalNotes} from "react-icons/io5";
 
-type DataType = "all" | "AUDIO" | "NOOT";
+type DataType = "all" | "AUDIO" | "NOTATION";
 
 const iconMap = new Map<DataType, ReactNode>([
     ["all", <BsMusicNoteList size={Size.icon.MD}/>],
     ["AUDIO", <LuAudioLines size={Size.icon.MD}/>],
-    ["NOOT", <IoMusicalNotes size={Size.icon.MD}/>],
+    ["NOTATION", <IoMusicalNotes size={Size.icon.MD}/>],
 ]);
 
 const DataTypeSelector: React.FC = () => {
@@ -25,7 +25,7 @@ const DataTypeSelector: React.FC = () => {
         () => [
             {value: "all", label: t("page.tunes.details.datatype.all")},
             {value: "AUDIO", label: t("page.tunes.details.datatype.audio")},
-            {value: "NOOT", label: t("page.tunes.details.datatype.notation")},
+            {value: "NOTATION", label: t("page.tunes.details.datatype.notation")},
         ],
         [t]
     );

@@ -25,6 +25,7 @@ const filterableKeys = [
     "notation",
     "musicxml",
     "datatype",
+    "access",
     "order",
     "from",
     "to",

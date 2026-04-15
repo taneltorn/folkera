@@ -1,3 +1,7 @@
+#### [0.7.11] - 16.04.2026
+- Juurdepääsu: avalik / piiratud
+- Pisiparandused
+
 #### [0.7.10] - 09.04.2026
 - Lisatud noodistuste variatsioonide kuvamise tugi
 - Otsingu parandused

@@ -49,6 +49,7 @@
         "showNotation": "Vaata noodistust",
         "notationNotFound": "Noodistust ei ole veel lisatud",
         "audioNotFound": "Helifail puudub",
+        "accessDenied": "See helifail on piiratud ligipääsuga",
         "sort": "Sorteeri",
         "drag": "Nihuta",
         "showDetails": "Kuva detailvaade"
@@ -272,9 +273,9 @@
     "melody": "Viisitüüp",
     "quality": "Kvaliteet",
     "datatype": "Andmetüüp",
+    "access": "Juurdepääs",
     "trainset": "Treeningandmestik",
-    "TR": "Treeningandmed",
-    "TE": "Testandmed",
+
     "dance": "Tantsutüüp",
     "year": "Aasta",
     "instrument": "Pill",
@@ -298,6 +299,18 @@
     "from": "Aasta (alates)",
     "to": "Aasta (kuni)",
     "distances": "Kaugused"
+  },
+  "access": {
+    "OPEN": "Avalik",
+    "RESTRICTED": "Piiratud"
+  },
+  "datatype": {
+    "AUDIO": "Helisalvestus",
+    "NOTATION": "Noodistus"
+  },
+  "trainset": {
+    "TR": "Treeningandmed",
+    "TE": "Testandmed"
   },
   "user": {
     "id": "ID",

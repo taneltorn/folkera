@@ -4,6 +4,7 @@ import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import {Tune} from "../../../../../model/Tune.ts";
 import {Color} from "../../../../../utils/constants.ts";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
     tune: Tune;
@@ -17,6 +18,7 @@ interface Properties {
 
 const FilterButtons: React.FC<Properties> = ({tune, field, split, size, returnHome, plain}) => {
 
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const {addFilter} = useDataContext();
 
@@ -47,7 +49,9 @@ const FilterButtons: React.FC<Properties> = ({tune, field, split, size, returnHo
                         size={size || "compact-xs"}
                         onClick={() => handleClick(v)}>
                     <Text size={size || "xs"} className={"pill-button"}>
-                        {v}
+                        {["access", "datatype"].includes(field)
+                            ? t(`${field}.${v}`)
+                            : v}
                     </Text>
                 </Button>
             ))}

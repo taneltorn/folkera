@@ -28,13 +28,14 @@ export const fields: TunesTableField[] = [
 ];
 
 export const technicalFields: TunesTableField[] = [
-    {field: "datatype", type: "input"},
+    {field: "datatype", type: "select"},
     {field: "audio", type: "select"},
     {field: "notation", type: "select"},
     {field: "musicxml", type: "select"},
     {field: "duration", type: "select"},
     {field: "trainset", type: "select", split: ","},
     {field: "comments", type: "select"},
+    {field: "access", type: "select"},
     {field: "order", type: "input"},
 ];
 

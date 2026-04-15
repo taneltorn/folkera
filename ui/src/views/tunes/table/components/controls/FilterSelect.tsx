@@ -35,8 +35,10 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
         if (!raw) return [];
 
         const toLabel = (v: string) => {
-            if (v === "blank") return t("filtering.blank");
-            if (v === "not_blank") return t("filtering.not_blank");
+            if (["blank", "not_blank"].includes(v)) return t(`filtering.${v}`);
+            if (["OPEN", "RESTRICTED"].includes(v)) return t(`access.${v}`);
+            if (["AUDIO", "NOTATION"].includes(v)) return t(`datatype.${v}`);
+
             return v;
         };
 

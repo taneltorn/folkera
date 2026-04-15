@@ -38,6 +38,8 @@ class OptionsController {
                 performer: withBlankOptions(extractAndSort(data, "performer", ",")),
                 collector: withBlankOptions(extractAndSort(data, "collector", ",")),
                 comments: withBlankOptions([]),
+                access: withBlankOptions(extractAndSort(data, "access")),
+                datatype: withBlankOptions(extractAndSort(data, "datatype")),
                 audio: withBlankOptions([]),
                 musicxml: withBlankOptions([]),
                 notation: withBlankOptions([]),

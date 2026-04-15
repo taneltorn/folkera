@@ -23,6 +23,7 @@ export interface Tune {
     duration?: number;
     distances?: string;
     pid?: string;
+    access?: string;
     order?: string;
 }
 
