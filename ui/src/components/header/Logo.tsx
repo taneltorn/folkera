@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Image} from "@mantine/core";
+import {Button} from "@mantine/core";
 
 const Logo: React.FC = () => {
 
@@ -8,7 +8,7 @@ const Logo: React.FC = () => {
             px={0}
             variant={"transparent"}
         >
-            <Image src={"/logo.png"} h={110}/>
+            <img src={"/logo.png"} alt={"logo"} height={38}/>
         </Button>);
 }
 
