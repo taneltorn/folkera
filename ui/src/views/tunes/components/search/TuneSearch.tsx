@@ -38,7 +38,7 @@ const TuneSearch: React.FC = () => {
         <Input
             ref={ref}
             radius={"lg"}
-            w={focused || value ? 350 : 250}
+            w={focused || value ? 320 : 220}
             size={"md"}
             value={value}
             id={focused ? "search-input-focused" : ""}
