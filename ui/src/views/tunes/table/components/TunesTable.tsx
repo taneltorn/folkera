@@ -1,15 +1,14 @@
 import React from "react";
-import {Group, ScrollArea, Table} from "@mantine/core";
+import {Divider, Group, ScrollArea, Table,} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import TunesTablePagination from "./TunesTablePagination.tsx";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {Tune} from "../../../../model/Tune.ts";
-import {useTableOrder} from "../../../../hooks/useTableOrder.ts";
-import DraggableHeaderWrapper from "./DraggableHeaderWrapper.tsx";
-import {closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
-import {arrayMove, horizontalListSortingStrategy, SortableContext} from "@dnd-kit/sortable";
 import TunesTableRow from "./TunesTableRow.tsx";
 import DataTypeSelector from "./controls/DataTypeSelector.tsx";
+import TunesTableHeaderCell from "./TunesTableHeaderCell.tsx";
+import {useTableColumnOrderContext} from "../../../../hooks/useTableColumnOrderContext.tsx";
+import NoData from "./NoData.tsx";
 
 interface Properties {
     data: Tune[];
@@ -19,50 +18,33 @@ const TunesTable: React.FC<Properties> = ({data}) => {
 
     const {isLoading} = useDataContext();
     const {modifications} = useModifications();
-    const {sortedFields, order, setOrder} = useTableOrder();
+    const {sortedFields} = useTableColumnOrderContext();
 
     return (
         <>
             <ScrollArea pb={"xs"}>
                 <Table
                     highlightOnHover
+                    withColumnBorders={false}
+                    withRowBorders={false}
                     stickyHeader={true}
                     opacity={(modifications.length || isLoading) ? 0.8 : 1}
                 >
                     <Table.Thead>
-                        <Table.Tr>
+                        <Table.Tr className={"hover-parent"}>
                             <Table.Th>
                                 <Group justify={"center"}>
                                     <DataTypeSelector/>
                                 </Group>
                             </Table.Th>
 
-                            <DndContext
-                                sensors={useSensors(useSensor(PointerSensor))}
-                                collisionDetection={closestCenter}
-                                onDragEnd={(event: DragEndEvent) => {
-                                    const {active, over} = event;
-                                    if (over && active.id !== over.id) {
-                                        const oldIndex = order.indexOf(active.id as keyof Tune);
-                                        const newIndex = order.indexOf(over.id as keyof Tune);
-                                        setOrder(arrayMove(order, oldIndex, newIndex));
-                                    }
-                                }}
-                            >
-                                <SortableContext
-                                    items={sortedFields.map(f => f.field)}
-                                    strategy={horizontalListSortingStrategy}
-                                >
-                                    {sortedFields.map((tf, i) => (
-                                        <DraggableHeaderWrapper
-                                            key={`header-${tf.field}-${i}`}
-                                            field={tf.field}
-                                            type={tf.type}
-                                            sortField={tf.sortField}
-                                        />
-                                    ))}
-                                </SortableContext>
-                            </DndContext>
+                            {sortedFields.map((tf, i) =>
+                                <TunesTableHeaderCell
+                                    key={`header-${tf.field}-${i}`}
+                                    field={tf.field}
+                                    sortField={tf.sortField}
+                                    type={tf.type}
+                                />)}
                         </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>
@@ -76,7 +58,12 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                 </Table>
             </ScrollArea>
 
-            <TunesTablePagination/>
+            {data.length > 0 && <>
+                <Divider color={"gray.1"}/>
+                <TunesTablePagination/>
+            </>}
+
+            <NoData show={!data.length}/>
         </>
     );
 }

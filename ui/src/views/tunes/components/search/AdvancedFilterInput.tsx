@@ -1,23 +1,20 @@
 import React, {useEffect} from "react";
-import {Autocomplete, Button, Grid, Group, Input} from "@mantine/core";
+import {Autocomplete} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
-import {LuFilterX} from "react-icons/lu";
-import {Size} from "../../../../utils/constants.ts";
 import {Tune} from "../../../../model/Tune.ts";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
 import {Filter} from "../../../../model/Filter.ts";
+import ClearIcon from "../../../../components/buttons/ClearIcon.tsx";
 
 interface Properties {
     filterKey: string;
     field: keyof Tune;
-    autocomplete?: boolean;
     options?: string[];
 }
 
-const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, autocomplete, options}) => {
+const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, options}) => {
 
     const {t} = useTranslation();
 
@@ -26,15 +23,12 @@ const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, autocomple
 
     const [value, setValue] = React.useState<string>();
 
-    const filter: Filter = filters.find(f => f.filterKey === filterKey) || {filterKey: filterKey, field: field, value: "", type: "contains"};
-
-    const handleTypeChange = (type: string) => {
-        updateFilter(filterKey, {
-            ...filter,
-            value: ["blank", "not_blank"].includes(type) ? type : filter.value,
-            type: type
-        });
-    }
+    const filter: Filter = filters.find(f => f.filterKey === filterKey) || {
+        filterKey: filterKey,
+        field: field,
+        value: "",
+        type: "contains"
+    };
 
     const handleChange = (value: string) => {
         setValue(value);
@@ -57,61 +51,18 @@ const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, autocomple
     }, [filters.find(f => f.field === field)]);
 
     return (
-        <Grid>
-            <Grid.Col span={{base: 6, lg: 4}}>
-                {autocomplete
-                    ? <Autocomplete
-                        size={"sm"}
-                        variant={"filled"}
-                        className={value ? "active-input" : ""}
-                        value={value}
-                        disabled={["blank", "not_blank"].includes(filter.type as string)}
-                        placeholder={t(`tune.${field}`)}
-                        onChange={handleChange}
-                        rightSectionPointerEvents="all"
-                        data={options || ctx.filteringOptions[field]?.[1]?.items || []}
-                    />
-                    : <Input
-                        size={"sm"}
-                        variant={"filled"}
-                        className={value ? "active-input" : ""}
-                        value={value}
-                        disabled={["blank", "not_blank"].includes(filter.type as string)}
-                        placeholder={t(`tune.${field}`)}
-                        onChange={(e) => handleChange(e.currentTarget.value)}
-                        rightSectionPointerEvents="all"
-                    />}
-            </Grid.Col>
-
-            <Grid.Col span={{base: 6, lg: 3}}>
-                <Group wrap={"nowrap"}>
-                    <MenuSelect
-                        color={"dark.9"}
-                        variant={"light"}
-                        size={"sm"}
-                        label={t(`filtering.${filter.type}`)}
-                        options={[
-                            {value: "contains", label: t("filtering.contains")},
-                            {value: "contains_all", label: t("filtering.contains_all")},
-                            {value: "not_contains", label: t("filtering.not_contains")},
-                            {value: "exact", label: t("filtering.exact")},
-                            {value: "not_blank", label: t("filtering.not_blank")},
-                            {value: "blank", label: t("filtering.blank")},
-                        ]}
-                        onChange={v => handleTypeChange(v)}
-                    />
-                    <Button
-                        px={"xs"}
-                        visibleFrom={"xs"}
-                        variant={"subtle"}
-                        onClick={handleClear}
-                        style={{display: filters.find(f => f.filterKey === filter.filterKey && !!filter.value) ? undefined : 'none'}}
-                    >
-                        <LuFilterX size={Size.icon.SM}/>
-                    </Button>
-                </Group>
-            </Grid.Col>
-        </Grid>
+        <Autocomplete
+            size={"sm"}
+            variant={"filled"}
+            className={value ? "active-input" : ""}
+            value={value}
+            disabled={["blank", "not_blank"].includes(filter.type as string)}
+            placeholder={t(`tune.${field}`)}
+            onChange={handleChange}
+            rightSectionPointerEvents="all"
+            rightSection={<ClearIcon show={!!value} onClick={handleClear}/>}
+            data={options || ctx.filteringOptions[field]?.[1]?.items || []}
+        />
     );
 }
 

@@ -1,13 +1,15 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useMapContext} from "../../../../hooks/useMapContext.tsx";
-import {Button, Group, Menu, Slider, Switch} from "@mantine/core";
+import {Button, Group} from "@mantine/core";
 import LabelValue from "../../../../components/LabelValue.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
+import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import {GroupBy} from "../../../../model/GroupBy.ts";
 import {Size} from "../../../../utils/constants.ts";
 import {FaLayerGroup} from "react-icons/fa";
+import AdvancedMenu from "../../../../components/AdvancedMenu.tsx";
+import CheckMark from "../../../../components/CheckMark.tsx";
 
 const TuneMapControls: React.FC = () => {
 
@@ -23,47 +25,35 @@ const TuneMapControls: React.FC = () => {
                 mr={"md"}
             />
 
-            <Menu shadow="md" closeOnClickOutside={true} closeOnItemClick={false}>
-                <Menu.Target>
+            <AdvancedMenu
+                target={
                     <Button
                         variant={"subtle"}
                         size={"sm"}
-                        color={"dark"}
-                        leftSection={<FaLayerGroup size={Size.icon.SM} />}
+                        color={"dark.9"}
+                        leftSection={<FaLayerGroup size={Size.icon.SM}/>}
                     >
                         {t("page.tunes.controls.mapOptions")}
-                    </Button>
-                </Menu.Target>
-                <Menu.Dropdown>
-                    <Menu.Item>
-                        <Switch
-                            label={t(`page.tunes.map.showLabels`)}
-                            checked={mapOptions.showLabels}
-                            onClick={() => setMapOptions({...mapOptions, showLabels: !mapOptions.showLabels})}
-                        />
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Switch
-                            label={t(`page.tunes.map.showCounts`)}
-                            checked={mapOptions.showCounts}
-                            onClick={() => setMapOptions({...mapOptions, showCounts: !mapOptions.showCounts})}
-                        />
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Slider
-                            w={150}
-                            label={t(`page.tunes.map.textSize`)}
-                            value={mapOptions.textSize}
-                            min={8}
-                            max={18}
-                            onChange={v => setMapOptions({...mapOptions, textSize: v})}
-                        />
-                    </Menu.Item>
-                </Menu.Dropdown>
-            </Menu>
+                    </Button>}
+                closeOnItemClick={false}
+                items={[
+                    {
+                        label: t(`page.tunes.map.showLabels`),
+                        value: "showLabels",
+                        rightSection: <CheckMark show={mapOptions.showLabels}/>,
+                        onClick: () => setMapOptions({...mapOptions, showLabels: !mapOptions.showLabels})
+                    }, {
+                        label: t(`page.tunes.map.showCounts`),
+                        value: "showCounts",
+                        rightSection: <CheckMark show={mapOptions.showCounts}/>,
+                        onClick: () => setMapOptions({...mapOptions, showCounts: !mapOptions.showCounts})
+                    },
+                ]}
+            />
 
-            <MenuSelect
+            <SimpleMenu
                 label={t(`page.tunes.map.groupBy.${groupBy}`)}
+                value={groupBy}
                 options={[
                     GroupBy.PARISH,
                     GroupBy.COUNTY,

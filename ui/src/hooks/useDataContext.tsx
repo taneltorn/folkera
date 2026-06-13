@@ -133,7 +133,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         const existingFilter = filterList.find(f =>
             f.type === filter.type &&
             f.value === filter.value &&
-            f.field === filter.field );
+            f.field === filter.field);
 
         if (!existingFilter) {
             filterList.push({...filter, type: filter.type || "contains"});
@@ -171,6 +171,20 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         setFilters([]);
         setPagination({...pagination, page: 1});
         window.history.replaceState({}, "");
+    }
+
+    const sortBy = (field: string, sortDirection?: SortDirection) => {
+        setPagination({
+            ...pagination,
+            sortField: field,
+            sortDirection: sortDirection
+                ? sortDirection
+                : pagination.sortField === field
+                    ? pagination.sortDirection === SortDirection.ASC
+                        ? SortDirection.DESC
+                        : SortDirection.ASC
+                    : SortDirection.ASC
+        });
     }
 
     const toggleField = (field: keyof Tune) => {
@@ -217,7 +231,9 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         visibleFields, setVisibleFields,
         toggleField,
 
-        filteringOptions
+        filteringOptions,
+
+        sortBy,
     }), [data, dataService.isLoading, tuneIds, filters, visibleFields, filteringOptions, pagination]);
 
     return (

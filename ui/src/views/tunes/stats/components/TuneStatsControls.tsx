@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
+import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import LabelValue from "../../../../components/LabelValue.tsx";
 import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
@@ -25,8 +25,10 @@ const TuneStatsControls: React.FC = () => {
 
             <ExportStatsCsvButton/>
             
-            <MenuSelect
+            <SimpleMenu
                 label={t(`page.tunes.stats.groupBy.${groupBy}`)}
+                value={groupBy}
+
                 options={[
                     GroupBy.YEAR,
                     GroupBy.INSTRUMENT,

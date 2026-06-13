@@ -15,7 +15,7 @@ import IdentifyLoader from "../tunes/components/IdentifyLoader.tsx";
 import {LoadingState} from "../../model/LoadingState.ts";
 import Page from "../../Page.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import MenuSelect from "../../components/MenuSelect.tsx";
+import SimpleMenu from "../../components/SimpleMenu.tsx";
 import {CoverHunterDatasets} from "../../utils/lists.ts";
 import IconButton from "../../components/buttons/IconButton.tsx";
 
@@ -99,10 +99,10 @@ const IdentifyView: React.FC = () => {
                                 <IoIosCloudUpload size={52} color="var(--mantine-color-blue-6)"/>
                             </Dropzone.Accept>
                             <Dropzone.Reject>
-                                <IoIosClose size={52} color="var(--mantine-color-red-6)"/>
+                                <IoIosClose size={52} color="var(--mantine-primary-color-9)"/>
                             </Dropzone.Reject>
                             <Dropzone.Idle>
-                                <LuAudioLines size={52} color={"var(--mantine-color-red-9)"}/>
+                                <LuAudioLines size={52} color={"var(--mantine-primary-color-9)"}/>
                             </Dropzone.Idle>
 
                             {file
@@ -135,6 +135,7 @@ const IdentifyView: React.FC = () => {
                                 {(props) =>
                                     <Button
                                         {...props}
+                                        radius={"xl"}
                                         variant={"outline"}
                                         leftSection={<LuAudioLines size={Size.icon.SM}/>}
                                     >
@@ -146,6 +147,7 @@ const IdentifyView: React.FC = () => {
                     {file &&
                         <Group justify={"center"} mb={"xl"}>
                             <Button
+                                radius={"xl"}
                                 leftSection={<FaMagnifyingGlass/>}
                                 onClick={handleSubmit}
                             >
@@ -153,16 +155,15 @@ const IdentifyView: React.FC = () => {
                             </Button>
 
                             {currentUser?.isAdmin &&
-                                <MenuSelect
+                                <SimpleMenu
                                     value={t(`page.identify.dataset.${dataset}`, {defaultValue: dataset})}
-                                    variant={"light"}
                                     options={CoverHunterDatasets.map(it => (
                                         {
                                             value: it,
                                             label: t(`page.identify.dataset.${it}`, {defaultValue: it})
                                         })
                                     )}
-                                    label={""}
+                                    label={dataset}
                                     onChange={setDataset}
                                 />
                             }

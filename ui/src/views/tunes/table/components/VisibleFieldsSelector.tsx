@@ -1,54 +1,59 @@
 import React from "react";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Button, Divider, Menu, Switch} from "@mantine/core";
 import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../model/Tune.ts";
 import {BiColumns} from "react-icons/bi";
-import {fields, technicalFields} from "../../../../hooks/useTableOrder.ts";
+import {fields, technicalFields} from "../../../../utils/fields.ts";
+import AdvancedMenu, {SelectMenuItem} from "../../../../components/AdvancedMenu.tsx";
+import {Button} from "@mantine/core";
+import CheckMark from "../../../../components/CheckMark.tsx";
 
 const VisibleFieldsSelector: React.FC = () => {
 
     const {t} = useTranslation();
     const {visibleFields, toggleField} = useDataContext();
 
+    const getOptions = () => {
+        const items: SelectMenuItem[] = fields
+            .map(f => f.field)
+            .map(it => ({
+                label: t(`tune.${it}`),
+                value: it,
+                rightSection: <CheckMark show={visibleFields.includes(it as keyof Tune)}/>,
+                onClick: () => toggleField(it as keyof Tune)
+            }));
+
+        items.push({});
+
+        const technical: SelectMenuItem[] = technicalFields
+            .map(f => f.field)
+            .map(it => ({
+                label: t(`tune.${it}`),
+                value: it,
+                rightSection: <CheckMark show={visibleFields.includes(it as keyof Tune)}/>,
+                onClick: () => toggleField(it as keyof Tune)
+            }));
+
+        return [...items, ...technical];
+    }
+
+    const items = getOptions();
+
     return (
-        <Menu shadow="md" closeOnClickOutside={true} closeOnItemClick={false}>
-            <Menu.Target>
+        <AdvancedMenu
+            target={
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={"dark.9"}
                     leftSection={<BiColumns size={Size.icon.MD}/>}
                 >
                     {t("page.tunes.controls.visibleFields")}
-                </Button>
-            </Menu.Target>
-            <Menu.Dropdown>
-                {fields
-                    .map(f => f.field)
-                    .map((it, index) =>
-                        <Menu.Item key={index}>
-                            <Switch
-                                label={t(`tune.${it}`)}
-                                checked={visibleFields.includes(it as keyof Tune)}
-                                onClick={() => toggleField(it as keyof Tune)}
-                            />
-                        </Menu.Item>)}
-
-                <Menu.Item><Divider/></Menu.Item>
-                {technicalFields
-                    .map(f => f.field)
-                    .map((it, index) =>
-                        <Menu.Item key={index}>
-                            <Switch
-                                label={t(`tune.${it}`)}
-                                checked={visibleFields.includes(it as keyof Tune)}
-                                onClick={() => toggleField(it as keyof Tune)}
-                            />
-                        </Menu.Item>)}
-            </Menu.Dropdown>
-        </Menu>
+                </Button>}
+            closeOnItemClick={false}
+            items={items}
+        />
     );
 }
 

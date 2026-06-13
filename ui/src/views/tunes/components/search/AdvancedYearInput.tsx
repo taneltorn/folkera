@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, Grid, Group, Input, RangeSlider, Text} from "@mantine/core";
+import {Grid, Group, Input, RangeSlider, Text} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
-import {LuFilterX} from "react-icons/lu";
-import {Size} from "../../../../utils/constants.ts";
+import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import useDebounce from "../../../../hooks/useDebounce.ts";
+import ClearIcon from "../../../../components/buttons/ClearIcon.tsx";
 
 interface Properties {
     filterKey: string;
@@ -84,15 +83,19 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
                         placeholder={yearRange !== DefaultRange ? `${yearRange[0]} - ${yearRange[1]}` : t(`tune.year`)}
                         onChange={(e) => handleInputChange(e.currentTarget.value)}
                         rightSectionPointerEvents="all"
+                        rightSection={
+                            <ClearIcon
+                                show={!!filters.find(f => ["year", "from", "to"].includes(f.field))}
+                                onClick={handleClear}
+                            />}
                     />
                 </Grid.Col>
 
                 <Grid.Col span={{base: 6, lg: 3}}>
                     <Group wrap={"nowrap"}>
-                        <MenuSelect
-                            color={"dark.9"}
-                            variant={"light"}
+                        <SimpleMenu
                             size={"sm"}
+                            variant={"transparent"}
                             label={t(`filtering.${yearFilter.type}`)}
                             options={[
                                 {value: "contains", label: t("filtering.contains")},
@@ -104,20 +107,11 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
                             ]}
                             onChange={v => handleTypeChange(v)}
                         />
-                        <Button
-                            px={"xs"}
-                            visibleFrom={"xs"}
-                            variant={"subtle"}
-                            onClick={handleClear}
-                            style={{display: filters.find(f => ["year", "from", "to"].includes(f.field)) ? undefined : 'none'}}
-                        >
-                            <LuFilterX size={Size.icon.SM}/>
-                        </Button>
                     </Group>
                 </Grid.Col>
             </Grid>
 
-            <Text>
+            <Text size={"sm"} fw={600}>
                 {t("filtering.advanced.selectYearRange")}
             </Text>
 

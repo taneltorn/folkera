@@ -24,6 +24,7 @@ const LoginButton: React.FC = () => {
     return (
         <Button
             size={"sm"}
+            radius={"xl"}
             variant="subtle"
             onClick={openModal}
             leftSection={<MdOutlineLogin color={theme.colors.red[9]} size={Size.icon.MD}/>}

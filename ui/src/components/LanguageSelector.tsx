@@ -25,8 +25,7 @@ const LanguageSelector: React.FC = () => {
     const current = normalizeLng(i18n.resolvedLanguage ?? i18n.language);
 
     const changeLanguage = (lng: Language) => {
-        i18n.changeLanguage(lng);
-        localStorage.setItem("lang", lng);
+        i18n.changeLanguage(lng).then(() => localStorage.setItem("lang", lng));
     };
 
     return (
@@ -35,8 +34,8 @@ const LanguageSelector: React.FC = () => {
                 <Button
                     px="xs"
                     size="sm"
-                    color="dark"
-                    variant="subtle"
+                    color="gray"
+                    variant="transparent"
                     title={t("page.selectLanguage")}
                 >
                     {iconMap.get(current)}

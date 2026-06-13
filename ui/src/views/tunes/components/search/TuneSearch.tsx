@@ -10,7 +10,7 @@ import {useFocusWithin} from "@mantine/hooks";
 const TuneSearch: React.FC = () => {
 
     const {t} = useTranslation();
-    const {ref} = useFocusWithin();
+    const {ref, focused} = useFocusWithin();
     const {useFilter, removeFilter, filters} = useDataContext();
 
     const [value, setValue] = useState<string>("");
@@ -37,16 +37,19 @@ const TuneSearch: React.FC = () => {
     return (
         <Input
             ref={ref}
+            radius={"lg"}
+            w={focused || value ? 350 : 250}
             size={"md"}
             value={value}
+            id={focused ? "search-input-focused" : ""}
+            className={"search-input"}
             leftSection={<IoSearchOutline size={Size.icon.MD}/>}
             placeholder={t("page.tunes.controls.search")}
             onChange={e => handleSearch(e.currentTarget.value)}
             rightSectionPointerEvents="all"
             rightSection={
                 <CloseButton
-                    size={"md"}
-                    className={"hover-pointer"}
+                    variant={"transparent"}
                     onClick={() => handleSearch("")}
                     style={{display: value ? undefined : 'none'}}
                 />

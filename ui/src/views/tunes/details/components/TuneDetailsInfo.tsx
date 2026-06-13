@@ -28,7 +28,7 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
 
             <Grid mt={"md"}>
                 <Grid.Col span={{baseline: 12, md: 8, xl: 6}}>
-                    <Table>
+                    <Table withColumnBorders={false} withRowBorders={false}>
                         <Table.Tbody>
                             {[
                                 "content",

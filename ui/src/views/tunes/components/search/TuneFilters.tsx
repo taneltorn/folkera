@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {Button, Group, Pill} from "@mantine/core";
-import {Color, Size} from "../../../../utils/constants.ts";
+import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {LuFilterX} from "react-icons/lu";
 import {generateFilterName} from "../../../../utils/helpers.tsx";
 
 const MAX_NUMBER_OF_FILTERS_TO_DISPLAY = 6;
+const MIN_NUMBER_OF_FILTERS_FOR_CLOSE_ALL = 1;
 
 const TuneFilters: React.FC = () => {
 
@@ -24,7 +25,8 @@ const TuneFilters: React.FC = () => {
                             <Pill
                                 key={index}
                                 size={"md"}
-                                bg={`${Color.get(filter.field) || "gray"}.8`}
+                                bg={"dark.9"}
+                                // bg={`${Color.get(filter.field) || "gray"}.8`}
                                 c={"white"}
                                 withRemoveButton
                                 removeButtonProps={{title: t("button.removeFilter")}}
@@ -34,20 +36,23 @@ const TuneFilters: React.FC = () => {
                                     type: filter.type
                                 })}
                             >
+                                {/*{filter.value}*/}
                                 {generateFilterName(filter, t)}
                             </Pill>)}
 
                     {!showAllFilters && filters.length > MAX_NUMBER_OF_FILTERS_TO_DISPLAY &&
                         <Pill onClick={() => setShowAllFilters(true)}>...</Pill>}
 
-                    <Button
-                        variant={"subtle"}
-                        title={t("page.tunes.controls.clearFilters")}
-                        size={"compact-sm"}
-                        color={"dark"}
-                        onClick={clearFilters}>
-                        <LuFilterX size={Size.icon.SM}/>
-                    </Button>
+                    {filters.length >= MIN_NUMBER_OF_FILTERS_FOR_CLOSE_ALL &&
+                        <Button
+                            variant={"subtle"}
+                            title={t("page.tunes.controls.clearFilters")}
+                            size={"compact-sm"}
+                            radius={"xl"}
+                            color={"dark.9"}
+                            onClick={clearFilters}>
+                            <LuFilterX size={Size.icon.SM}/>
+                        </Button>}
                 </Group>}
         </>
     );

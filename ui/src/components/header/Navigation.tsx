@@ -17,12 +17,14 @@ import Help from "./Help.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 import LoginButton from "./LoginButton.tsx";
 import LanguageSelector from "../LanguageSelector.tsx";
+import {MdAdminPanelSettings} from "react-icons/md";
 
 const routes = [
     {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},
 ];
 
 const protectedRoutes = [
+    {id: "admin", icon: <MdAdminPanelSettings size={Size.icon.MD}/>, link: "/admin"},
     {id: "identify", icon: <TbZoomQuestion size={Size.icon.MD}/>, link: "/identify"},
 ];
 
@@ -41,8 +43,12 @@ const Navigation: React.FC = () => {
         <Button
             key={index}
             size={"sm"}
+            // color={"gray.2"}
+            color={location.pathname.startsWith(item.link.split("?")[0]) ? "gray.2" : "gray"}
+
+            radius={"xl"}
             leftSection={item.icon}
-            variant={location.pathname.startsWith(item.link.split("?")[0]) ? "filled" : "subtle"}
+            variant={location.pathname.startsWith(item.link.split("?")[0]) ? "light" : "subtle"}
             onClick={() => {
                 navigate(item.link);
                 setDrawerOpened(false);

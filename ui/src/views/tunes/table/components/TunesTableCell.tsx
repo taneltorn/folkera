@@ -70,8 +70,7 @@ const TunesTableCell: React.FC<Properties> = ({tune, field, unmodifiable, always
 
     return (
         <Table.Td
-            py={"xs"}
-            className={"hover-pointer"}
+            py={"lg"}
             hidden={!alwaysVisible && !visibleFields.includes(field)}
             onClick={handleEditClick}
             style={{borderLeft: "1px solid #efefef"}}

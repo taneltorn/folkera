@@ -36,6 +36,7 @@ const SaveModificationsButtons: React.FC = () => {
                 <Button
                     variant={"filled"}
                     size={"sm"}
+                    radius={"xl"}
                     color={"green"}
                     leftSection={<RxCheck size={Size.icon.MD}/>}
                     onClick={handleSave}>
@@ -44,7 +45,8 @@ const SaveModificationsButtons: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    radius={"xl"}
+                    color={"dark.9"}
                     onClick={handleClear}>
                     {t("page.tunes.controls.clear")}
                 </Button>

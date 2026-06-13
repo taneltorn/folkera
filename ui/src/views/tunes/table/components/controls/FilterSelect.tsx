@@ -1,10 +1,9 @@
 import React, {useMemo} from "react";
-import {MultiSelect, useMantineTheme} from "@mantine/core";
+import {MultiSelect} from "@mantine/core";
 import {useTranslation} from "react-i18next";
-import {LuFilterX} from "react-icons/lu";
-
 import {useDataContext} from "../../../../../hooks/useDataContext";
 import {Tune} from "../../../../../model/Tune";
+import ClearIcon from "../../../../../components/buttons/ClearIcon.tsx";
 
 export interface GroupedOption {
     group: string;
@@ -12,6 +11,7 @@ export interface GroupedOption {
 }
 
 interface Properties {
+    autoFocus?: boolean;
     field: keyof Tune;
     placeholder?: string;
 }
@@ -19,10 +19,9 @@ interface Properties {
 type MantineOption = { value: string; label: string };
 type MantineGroupedOption = { group: string; items: MantineOption[] };
 
-const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
+const FilterSelect: React.FC<Properties> = ({autoFocus, field, placeholder}) => {
 
     const {t} = useTranslation();
-    const theme = useMantineTheme();
 
     const {filters, useFilter, addFilter, removeFilter, filteringOptions} = useDataContext();
 
@@ -85,10 +84,7 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
 
     return (
         <MultiSelect
-            size="xs"
-            miw={100}
-            w="100%"
-            maw={150}
+            autoFocus={autoFocus}
             className={filters.some((f) => f.field === field) ? "active-input" : ""}
             placeholder={placeholderText}
             searchable
@@ -97,10 +93,11 @@ const FilterSelect: React.FC<Properties> = ({field, placeholder}) => {
             onChange={handleChange}
             onClear={handleClear}
             data={data}
-            clearButtonProps={{
-                // @ts-ignore Mantine typing here is sometimes strict about icon type
-                icon: <LuFilterX color={theme.colors.red[9]}/>,
-            }}
+            clearSectionMode="clear"
+            rightSection={<ClearIcon
+                show={true}
+                onClick={handleClear}
+            />}
         />
     );
 };

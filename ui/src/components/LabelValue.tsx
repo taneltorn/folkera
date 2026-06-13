@@ -1,5 +1,5 @@
 import React from "react";
-import {Group, GroupProps, Text, Tooltip} from "@mantine/core";
+import {Group, GroupProps, Text, Tooltip, useMantineTheme} from "@mantine/core";
 
 interface Properties extends GroupProps {
     title?: string;
@@ -9,6 +9,8 @@ interface Properties extends GroupProps {
 
 const LabelValue: React.FC<Properties> = ({title, label, value, ...props}) => {
 
+    const theme = useMantineTheme();
+
     return (
         <Group {...props} gap={"xs"}>
             <Text size={"sm"} fw={"bold"}>
@@ -17,11 +19,11 @@ const LabelValue: React.FC<Properties> = ({title, label, value, ...props}) => {
 
             {title
                 ? <Tooltip label={title}>
-                    <Text size={"md"} fw={"bold"} c={"red"}>
+                    <Text size={"md"} fw={"bold"} c={theme.primaryColor}>
                         {value}
                     </Text>
                 </Tooltip>
-                : <Text size={"md"} fw={"bold"} c={"red"}>
+                : <Text size={"md"} fw={"bold"} c={theme.primaryColor}>
                     {value}
                 </Text>}
         </Group>

@@ -4,6 +4,7 @@ import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 import LoopControls from "./LoopControls.tsx";
 import TempoControls from "./TempoControls.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
+import Play from "./Play.tsx";
 
 interface Properties {
     playerRef: any;
@@ -43,7 +44,7 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
                     }
                     customAdditionalControls={[
                         <LoopControls/>,
-                        RHAP_UI.MAIN_CONTROLS,
+                        <Play/>,
                         <TempoControls playerRef={playerRef}/>
                     ]}
                     src={src}

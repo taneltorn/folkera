@@ -4,7 +4,7 @@ import {useAuth} from "../../hooks/useAuth.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {FaUser, FaUserCircle} from "react-icons/fa";
-import {MdAdminPanelSettings, MdOutlineLogout, MdScatterPlot} from "react-icons/md";
+import {MdOutlineLogout, MdScatterPlot} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import {UserRole} from "../../model/User.ts";
 
@@ -21,23 +21,13 @@ const UserMenu: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={"dark.9"}
                     leftSection={<FaUserCircle size={Size.icon.MD}/>}
                 >
                     {auth.currentUser?.name?.split(' ')[0]}
                 </Button>
             </Menu.Target>
             <Menu.Dropdown>
-                {auth.currentUser?.role === UserRole.ADMIN &&
-                    <Menu.Item onClick={() => navigate("/admin")} py={"xs"}>
-                        <Group gap={"xs"}>
-                            <MdAdminPanelSettings size={Size.icon.SM}/>
-                            <Text size={"sm"} fw={"bold"}>
-                                {t("page.navigation.admin")}
-                            </Text>
-                        </Group>
-                    </Menu.Item>}
-
                 {auth.currentUser?.role === UserRole.ADMIN &&
                     <Menu.Item onClick={() => navigate("/clusters")} py={"xs"}>
                         <Group gap={"xs"}>
@@ -47,7 +37,7 @@ const UserMenu: React.FC = () => {
                             </Text>
                         </Group>
                     </Menu.Item>}
-                
+
                 <Menu.Item onClick={() => navigate("/profile")} py={"xs"}>
                     <Group gap={"xs"}>
                         <FaUser size={Size.icon.XS}/>

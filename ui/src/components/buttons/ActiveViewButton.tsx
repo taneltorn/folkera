@@ -21,7 +21,7 @@ const ActiveViewButton: React.FC<Properties> = ({view, loading, icon, disabled})
             title={t(`page.tunes.viewSelection.${view}`)}
             px={"sm"}
             variant={view === activeView ? "light" : "subtle"}
-            color={"dark"}
+            color={"gray"}
             disabled={disabled}
             size={"sm"}
             onClick={() => setActiveView(view)}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tune} from "../model/Tune.ts";
-import {Pagination} from "../model/Pagination.ts";
+import {Pagination, SortDirection} from "../model/Pagination.ts";
 import {FilteringOptions} from '../model/FilteringOptions.ts';
 import {Filter} from "../model/Filter.ts";
 
@@ -33,6 +33,8 @@ export interface Properties {
 
     pagination: Pagination;
     setPagination: (value: Pagination) => void;
+
+    sortBy: (field: string, sortDirection?: SortDirection) => void;
 }
 
 export const DataContext = React.createContext<Properties>({} as Properties);

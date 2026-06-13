@@ -18,7 +18,7 @@ const SelectTunesButton: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={"dark.9"}
                     disabled={state !== ControlState.IDLE || modifications.length > 0}
                     leftSection={<TbCheckbox size={Size.icon.MD}/>}
                     onClick={() => setState(ControlState.SELECT)}

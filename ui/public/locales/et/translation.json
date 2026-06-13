@@ -37,9 +37,9 @@
         "notationRenderingFailed": "Noodistust ei õnnestunud kuvada.",
         "datatype": {
           "select": "Vali andmetüüp",
-          "all": "Kõik pillilood",
-          "audio":  "Ainult helisalvestused",
-          "notation": "Ainult noodistused"
+          "all": "Kuva kõik pillilood",
+          "audio":  "Kuva ainult helisalvestused",
+          "notation": "Kuva ainult noodistused"
         },
         "back": "Tagasi tabelivaatesse"
       },
@@ -52,7 +52,14 @@
         "accessDenied": "See helifail on piiratud ligipääsuga",
         "sort": "Sorteeri",
         "drag": "Nihuta",
-        "showDetails": "Kuva detailvaade"
+        "hideColumn": "Peida veerg",
+        "showFilter": "Filtreeri",
+        "sortAsc": "Järjesta kasvavalt",
+        "sortDesc": "Järjesta kahanevalt",
+        "shiftLeft": "Nihuta vasakule",
+        "shiftRight": "Nihuta paremale",
+        "shiftToStart": "Nihuta algusesse",
+        "shiftToEnd": "Nihuta lõppu"
       },
       "map": {
         "showLabels": "Kuva nimetused",
@@ -349,6 +356,7 @@
     "addNew": "Lisa uus",
     "showAll": "Kuva kõik",
     "removeFilter": "Eemalda filter",
+    "settings": "Seaded",
     "assign": "Määra",
     "play": "Esita",
     "stop": "Peata",
@@ -363,6 +371,10 @@
     "fetchFailed": "Andmeid ei õnnestunud laadida."
   },
   "player": {
+    "play": "Esita",
+    "pause": "Peata",
+    "next": "Esita järgmine",
+    "previous": "Esite eelmine",
     "tempo": "Muuda tempot",
     "loop": {
       "0": "Märgi algus",

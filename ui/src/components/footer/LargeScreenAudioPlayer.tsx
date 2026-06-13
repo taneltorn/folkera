@@ -7,6 +7,9 @@ import TempoControls from "./TempoControls.tsx";
 import {Tune} from "../../model/Tune.ts";
 import {contentRef, truncate} from "../../utils/helpers.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
+import PlayNext from "./PlayNext.tsx";
+import PlayPrevious from "./PlayPrevious.tsx";
+import Play from "./Play.tsx";
 
 interface Properties {
     playerRef: any;
@@ -46,15 +49,17 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
             </Grid.Col>
 
             <Grid.Col span={6}>
-                <Group align="center" h="100%" className={loopStage ? "looping-player" : ""}>
+                <Group align="center" h={80} className={loopStage ? "looping-player" : ""}>
                     <AudioPlayer
                         // @ts-ignore
                         ref={playerRef}
                         autoPlayAfterSrcChange={false}
                         autoPlay={false}
+                        showSkipControls={false}
                         layout={"stacked-reverse"}
                         customControlsSection={[
-                            RHAP_UI.ADDITIONAL_CONTROLS
+                            RHAP_UI.ADDITIONAL_CONTROLS,
+
                         ]}
                         customProgressBarSection={
                             [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]
@@ -62,7 +67,9 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                         customVolumeControls={[]}
                         customAdditionalControls={[
                             <LoopControls/>,
-                            RHAP_UI.MAIN_CONTROLS,
+                            <PlayPrevious/>,
+                            <Play/>,
+                            <PlayNext/>,
                             <TempoControls playerRef={playerRef}/>
                         ]}
                         src={src}

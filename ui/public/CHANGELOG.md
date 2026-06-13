@@ -1,3 +1,7 @@
+#### [0.8.0] -
+- Disainiuuendused
+- Esita järgmine/eelmine funktsionaalsus
+
 #### [0.7.11] - 16.04.2026
 - Juurdepääsu: avalik / piiratud
 - Pisiparandused

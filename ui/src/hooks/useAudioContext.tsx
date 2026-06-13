@@ -34,6 +34,15 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         setLoopStage(0);
     }
 
+    const reset = () => {
+        // @ts-ignore
+        const audio = playerRef.current?.audio.current;
+
+        if (audio) {
+            audio.currentTime = 0;
+        }
+    };
+
     const context = useMemo(() => ({
         playerRef,
         isPlaying, setIsPlaying,
@@ -44,6 +53,7 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         play,
         pause,
         clearLoop,
+        reset,
 
     }), [isPlaying, loopStart, loopEnd, loopStage, track]);
 

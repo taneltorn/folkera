@@ -72,7 +72,7 @@ const BulkModifyTunesButtons: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={"dark.9"}
                     disabled={selection.length === 0}
                     leftSection={<MdAssignment size={Size.icon.MD}/>}
                     onClick={openModal}
@@ -82,7 +82,7 @@ const BulkModifyTunesButtons: React.FC = () => {
                 <Button
                     variant={"subtle"}
                     size={"sm"}
-                    color={"dark"}
+                    color={"dark.9"}
                     onClick={handleSelectionCancel}>
                     {t("button.cancel")}
                 </Button>

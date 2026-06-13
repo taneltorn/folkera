@@ -1,15 +1,17 @@
 import React, {useRef} from "react";
-import {Box, Button, Divider, Group, Stack, Text, Title} from "@mantine/core";
-import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
+import {Box, Button, Divider, Group, Stack, Text} from "@mantine/core";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useTranslation} from "react-i18next";
-import {RxReset} from "react-icons/rx";
 import {Size} from "../../../../utils/constants.ts";
-import {IoSearchOutline} from "react-icons/io5";
+import {IoAddOutline, IoSearchOutline} from "react-icons/io5";
 import AdvancedYearInput from "./AdvancedYearInput.tsx";
 import {Filter} from "../../../../model/Filter.ts";
-import DynamicRowsPanel from "./DynamicRowsPanel.tsx";
+import AdvancedFilter from "./AdvancedFilter.tsx";
+import AdvancedFilterDynamic from "./AdvancedFilterDynamic.tsx";
+import {Tune} from "../../../../model/Tune.ts";
+import {AutocompleteFields} from "../../../../utils/fields.ts";
+import { RiResetLeftLine } from "react-icons/ri";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -18,6 +20,22 @@ const AdvancedFilteringPanel: React.FC = () => {
     const ctx = useDataContext();
 
     const seq = useRef(0);
+
+    const addDynamicRow = (field: keyof Tune = "instrument") => {
+        seq.current += 1;
+        const id = `row_${seq.current}`;
+        const filterKey = `dyn_${seq.current}`;
+
+        const rows = [...dynamicRows];
+        rows.push({
+            id,
+            filterKey,
+            field,
+            autocomplete: AutocompleteFields.includes(field),
+        });
+
+        setDynamicRows(rows);
+    };
 
     const handleSubmit = () => {
         const filterList: Filter[] = [];
@@ -42,67 +60,61 @@ const AdvancedFilteringPanel: React.FC = () => {
         seq.current = 0;
     };
 
-    const handleClose = () => {
-        setVisible(false);
-        handleClear();
-    };
-
     return (
-        <Box mb={"xl"}>
-            <Title order={5} mb={"sm"}>
-                {t("filtering.advanced.title")}
-            </Title>
-
-            <Text fs={"italic"} mb={"md"} size={"sm"}>
+        <Box mt={"md"} mb={"xl"}>
+            <Text mb={"md"} fw={600} size={"sm"}>
                 {t("filtering.advanced.hint")}
             </Text>
 
             <Stack gap={"xs"}>
-                <AdvancedFilterInput filterKey={"ref"} field={"ref"}/>
-                <AdvancedFilterInput filterKey={"content"} field={"content"}/>
+                <AdvancedFilter filterKey={"ref"} field={"ref"}/>
+                <AdvancedFilter filterKey={"content"} field={"content"}/>
                 <AdvancedYearInput filterKey={"year"}/>
+                <AdvancedFilter filterKey={"melody"} field={"melody"}/>
+                <AdvancedFilter filterKey={"performer"} field={"performer"}/>
+                <AdvancedFilter filterKey={"instrument"} field={"instrument"}/>
+                <AdvancedFilter filterKey={"collector"} field={"collector"}/>
+                <AdvancedFilter filterKey={"parish"} field={"parish"}/>
+                <AdvancedFilter filterKey={"county"} field={"county"}/>
+                <AdvancedFilter filterKey={"origin"} field={"origin"}/>
 
-                <AdvancedFilterInput filterKey={"melody"} field={"melody"} autocomplete/>
-                <AdvancedFilterInput filterKey={"performer"} field={"performer"} autocomplete/>
-                <AdvancedFilterInput filterKey={"instrument"} field={"instrument"} autocomplete/>
-                <AdvancedFilterInput filterKey={"collector"} field={"collector"} autocomplete/>
-                <AdvancedFilterInput filterKey={"parish"} field={"parish"} autocomplete/>
-                <AdvancedFilterInput filterKey={"county"} field={"county"} autocomplete/>
-                <AdvancedFilterInput filterKey={"origin"} field={"origin"} autocomplete/>
+                {dynamicRows.length > 0 && <Divider my={"md"} color={"gray.1"}/>}
 
-                <Divider my="xs"/>
-                <DynamicRowsPanel/>
+                {dynamicRows.map(row => (
+                    <AdvancedFilterDynamic field={row.field} filterKey={row.filterKey} id={row.id}/>
+                ))}
             </Stack>
 
-            <Group mt={"md"} gap={4}>
+            <Group mt={"lg"} gap={4}>
                 <Button
+                    radius={"xl"}
                     onClick={handleSubmit}
                     leftSection={<IoSearchOutline size={Size.icon.MD}/>}
                 >
                     {t("button.search")}
                 </Button>
 
-                {(!!filters.length || dynamicRows.length > 0) && (
                     <Button
-                        color={"dark"}
-                        variant={"light"}
-                        leftSection={<RxReset size={Size.icon.SM}/>}
+                        radius={"xl"}
+                        color={"gray"}
+                        variant={"subtle"}
+                        leftSection={<RiResetLeftLine size={Size.icon.SM}/>}
                         onClick={handleClear}
                     >
                         {t("button.reset")}
                     </Button>
-                )}
 
                 <Button
-                    color={"dark"}
-                    variant={"subtle"}
-                    onClick={handleClose}
+                    radius={"xl"}
+                    variant="subtle"
+                    color={"gray"}
+                    aria-label={"add"}
+                    leftSection={<IoAddOutline size={Size.icon.SM}/>}
+                    onClick={() => addDynamicRow("instrument")}
                 >
-                    {t("button.close")}
+                    {t("button.addFilter")}
                 </Button>
             </Group>
-
-            <Divider my={"md"}/>
         </Box>
     );
 };

@@ -30,7 +30,6 @@ const RemoveNotificationButton: React.FC<Properties> = ({notification, onChange}
                 confirm: t("modal.removeNotification.confirm"),
                 cancel: t("modal.removeNotification.cancel")
             },
-            confirmProps: {color: 'red'},
             onCancel: () => console.log('Cancel'),
             onConfirm: () => notification.id && removeNotification(notification.id).then(onChange),
         });

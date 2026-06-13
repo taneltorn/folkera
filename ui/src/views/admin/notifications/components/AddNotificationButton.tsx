@@ -8,6 +8,7 @@ import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {ToastType} from "../../../../context/ToastContext.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 import AddButton from "../../../../components/buttons/AddButton.tsx";
+import {Flex} from "@mantine/core";
 
 interface Properties {
     onChange: () => void;
@@ -49,10 +50,12 @@ const AddNotificationButton: React.FC<Properties> = ({onChange}) => {
         });
 
     return (
-        <AddButton
-            label={t("button.addNew")}
-            onClick={openModal}
-        />
+        <Flex justify={"center"}>
+            <AddButton
+                label={t("button.addNew")}
+                onClick={openModal}
+            />
+        </Flex>
     );
 }
 

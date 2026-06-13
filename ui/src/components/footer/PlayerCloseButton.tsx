@@ -12,7 +12,7 @@ const PlayerCloseButton: React.FC = () => {
         <Button
             px={0}
             variant={"transparent"}
-            color={"dark"}
+            color={"gray"}
             onClick={() => setTrack(undefined)}
         >
             <IoIosClose size={Size.icon.LG}/>

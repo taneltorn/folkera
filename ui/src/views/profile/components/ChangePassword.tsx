@@ -1,14 +1,14 @@
 import React from 'react';
 import {Button, Group} from "@mantine/core";
-import {useAuth} from "../../hooks/useAuth.tsx";
-import {Size} from "../../utils/constants.ts";
+import {useAuth} from "../../../hooks/useAuth.tsx";
+import {Size} from "../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {PiPassword} from 'react-icons/pi';
 import {modals} from "@mantine/modals";
 import {isNotEmpty, useForm} from "@mantine/form";
-import useUserService from "../../services/useUserService.ts";
-import FormInput from "../form/FormInput.tsx";
-import ModalTitle from "../../views/tunes/components/controls/ModalTitle.tsx";
+import useUserService from "../../../services/useUserService.ts";
+import FormInput from "../../../components/form/FormInput.tsx";
+import ModalTitle from "../../tunes/components/controls/ModalTitle.tsx";
 
 const ChangePassword: React.FC = () => {
 
@@ -53,11 +53,17 @@ const ChangePassword: React.FC = () => {
                     />
 
                     <Group justify={"end"} gap={4} mt={"md"}>
-                        <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
+                        <Button
+                            radius={"xl"}
+                            type={"button"}
+                            color={"gray"}
+                            variant={"subtle"}
+                            onClick={modals.closeAll}
+                        >
                             {t("button.cancel")}
 
                         </Button>
-                        <Button type={"submit"}>
+                        <Button type={"submit"} radius={"xl"}>
                             {t("button.save")}
                         </Button>
                     </Group>
@@ -67,6 +73,7 @@ const ChangePassword: React.FC = () => {
 
     return (
         <Button
+            radius={"xl"}
             leftSection={<PiPassword size={Size.icon.XS}/>}
             onClick={() => openModal()}>
             {t("page.profile.changePassword")}

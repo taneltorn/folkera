@@ -1,11 +1,10 @@
 import React from "react";
-import {Group} from "@mantine/core";
-import {Button} from '@mantine/core';
-import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {isNotEmpty, useForm} from "@mantine/form";
 import FormInput from "../../../../components/form/FormInput.tsx";
 import {Notification} from "../../../../model/Notification.ts";
+import StandardFormControls from "./StandardFormControls.tsx";
+import {modals} from "@mantine/modals";
 
 interface Properties {
     initialValues: Notification;
@@ -19,7 +18,8 @@ const NotificationForm: React.FC<Properties> = ({initialValues, onSubmit, resetO
 
     const form = useForm<Notification>({
         mode: 'uncontrolled',
-        initialValues: {...initialValues,
+        initialValues: {
+            ...initialValues,
             validFrom: initialValues.validFrom ? new Date(initialValues.validFrom) : null,
             validTo: initialValues.validTo ? new Date(initialValues.validTo) : null,
         },
@@ -71,14 +71,7 @@ const NotificationForm: React.FC<Properties> = ({initialValues, onSubmit, resetO
                 form={form}
             />
 
-            <Group justify={"end"} gap={4}>
-                <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
-                    {t("button.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                    {t("button.save")}
-                </Button>
-            </Group>
+            <StandardFormControls onCancel={modals.closeAll}/>
         </form>
     );
 }

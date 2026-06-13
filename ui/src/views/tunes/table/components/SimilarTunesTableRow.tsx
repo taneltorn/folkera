@@ -1,5 +1,5 @@
-import React, {useRef} from "react";
-import {Badge, Checkbox, Group, Table} from "@mantine/core";
+import React from "react";
+import {Badge, Group, Table} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
 import {useNavigate} from "react-router-dom";
@@ -7,12 +7,10 @@ import {distanceToColor, distanceToLabel} from "../../../../utils/helpers.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {Size} from "../../../../utils/constants.ts";
-import {useTuneSelection} from "../../../../hooks/useTuneSelection.tsx";
-import {useControlState} from "../../../../hooks/useControlState.tsx";
-import {ControlState} from "../../../../model/ControlState.ts";
 import {useTranslation} from "react-i18next";
 import IconButton from "../../../../components/buttons/IconButton.tsx";
 import {AiFillEdit} from "react-icons/ai";
+import {useHover} from "@mantine/hooks";
 
 interface Properties {
     tune: Tune;
@@ -21,33 +19,23 @@ interface Properties {
 const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
-    const ref = useRef<HTMLTableRowElement | null>(null);
     const {currentUser} = useAuth();
-    const {selection, toggleSelection} = useTuneSelection();
-    const {state} = useControlState();
     const navigate = useNavigate();
+    const {hovered, ref} = useHover();
 
     return (
         <Table.Tr key={tune.id} ref={ref}>
             <Table.Td>
                 <Group justify={"center"}>
-                    {state === ControlState.SELECT
-                        ? <Checkbox
-                            p={"xs"}
-                            size={"sm"}
-                            radius={"sm"}
-                            checked={!!selection.find(r => r.id === tune.id)}
-                            onChange={() => toggleSelection(tune)}
-                        />
-                        : <TunesTablePlayAudioButton tune={tune}/>}
+                    <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
                 </Group>
             </Table.Td>
             <Table.Td>
                 <Badge
                     w={120}
+                    radius={"md"}
                     color={distanceToColor(tune.distance)}
                     title={`${tune.distance || "N/a"}`}
-                    // title={`${Math.round(similarity)}%`}
                 >
                     {t(`similarity.${distanceToLabel(tune.distance)}`)}
                 </Badge>
@@ -60,14 +48,15 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
 
             <Table.Td>
                 <Group gap={0} justify={"end"} wrap={"nowrap"}>
-                    {currentUser?.isAdmin && <ModifyTuneButton
-                        variant={"subtle"}
-                        color={"dark"}
-                        size={"compact-xl"}
-                        tune={tune}
-                    >
-                        <AiFillEdit size={Size.icon.SM}/>
-                    </ModifyTuneButton>}
+                    {currentUser?.isAdmin &&
+                        <ModifyTuneButton
+                            variant={"transparent"}
+                            color={"dark.9"}
+                            size={"compact-xl"}
+                            tune={tune}
+                        >
+                            <AiFillEdit size={Size.icon.SM}/>
+                        </ModifyTuneButton>}
                     <IconButton
                         type={"open"}
                         onClick={() => navigate(`/tunes/${tune.id}`)}

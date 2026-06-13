@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Group, Pagination as MantinePagination, ScrollArea, Table} from "@mantine/core";
+import {Group, Pagination, ScrollArea, Table} from "@mantine/core";
 import SimilarTunesTableRow from "./SimilarTunesTableRow.tsx";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import {Pagination} from "../../../../model/Pagination.ts";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 import {LuAudioLines} from "react-icons/lu";
 import {LoadingState} from "../../../../model/LoadingState.ts";
@@ -18,17 +17,22 @@ const SimilarTunesTable: React.FC<Properties> = () => {
     const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {similarTunes, loadingState} = useSimilarTunes();
-    const [pagination, setPagination] = useState<Pagination>({size: 10, page: 1});
+    const [pagination, setPagination] = useState({size: 10, page: 1});
 
     return (<>
         {similarTunes.length > 0 && <>
             <ScrollArea pb={"xs"}>
-                <Table highlightOnHover stickyHeader={true}>
+                <Table
+                    highlightOnHover
+                    withColumnBorders={false}
+                    withRowBorders={false}
+                    stickyHeader={true}
+                >
                     <Table.Thead>
                         <Table.Tr>
                             <Table.Th>
                                 <Group justify={"center"}>
-                                    <LuAudioLines size={Size.icon.MD}/>
+                                    <LuAudioLines size={Size.icon.SM}/>
                                 </Group>
                             </Table.Th>
                             <Table.Th>{t("tune.similarity")}</Table.Th>
@@ -57,10 +61,18 @@ const SimilarTunesTable: React.FC<Properties> = () => {
                 </Table>
             </ScrollArea>
             <Group mt={"md"} mb={85} px={"md"} justify={"end"}>
-                <MantinePagination
+                <Pagination
+                    color={"dark.9"}
+                    size={"md"}
+                    variant={"subtle"}
                     value={pagination.page}
                     total={pagination.size ? Math.ceil(similarTunes.length / pagination.size) : similarTunes.length}
                     onChange={(value) => setPagination({...pagination, page: value})}
+                    styles={{
+                        control: {
+                            border: 'none',
+                        },
+                    }}
                 />
             </Group>
         </>}

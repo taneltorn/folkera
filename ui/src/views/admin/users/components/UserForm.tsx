@@ -1,10 +1,10 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Button, Group} from "@mantine/core";
 import {User, UserRole} from "../../../../model/User.ts";
-import {modals} from "@mantine/modals";
 import {isEmail, isNotEmpty, useForm} from "@mantine/form";
 import FormInput from "../../../../components/form/FormInput.tsx";
+import StandardFormControls from "../../notifications/components/StandardFormControls.tsx";
+import {modals} from "@mantine/modals";
 
 interface Properties {
     initialValues: User;
@@ -80,14 +80,7 @@ const UserForm: React.FC<Properties> = ({initialValues, onSubmit, isEdit}) => {
                 form={form}
             />
 
-            <Group justify={"end"} gap={4}>
-                <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
-                    {t("button.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                    {t("button.save")}
-                </Button>
-            </Group>
+            <StandardFormControls onCancel={modals.closeAll}/>
         </form>
     );
 }

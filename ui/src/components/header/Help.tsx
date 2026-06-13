@@ -59,8 +59,8 @@ const Help: React.FC = () => {
             <Button
                 px={4}
                 size={"sm"}
-                color={"blue"}
-                variant={"subtle"}
+                color={"dark"}
+                variant={"transparent"}
                 onClick={open}
             >
                 <RiQuestionFill size={Size.icon.LG}/>

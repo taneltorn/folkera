@@ -1,11 +1,10 @@
 import React from "react";
-import {Group} from "@mantine/core";
-import {Button} from '@mantine/core';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Tune} from "../../../../model/Tune.ts";
 import {BulkModifyFields} from "../../../../model/BulkModifyFields.ts";
 import FormInput from "../../../../components/form/FormInput.tsx";
+import StandardFormControls from "../../../admin/notifications/components/StandardFormControls.tsx";
 
 interface Properties {
     selection: Tune[];
@@ -51,14 +50,7 @@ const BulkModifyTunesForm: React.FC<Properties> = ({onSubmit, onCancel}) => {
                 form={form}
             />
 
-            <Group justify={"end"} gap={4} mt={"md"}>
-                <Button type={"button"} onClick={onCancel} variant={"subtle"}>
-                    {t("button.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                    {t("button.assign")}
-                </Button>
-            </Group>
+            <StandardFormControls onCancel={onCancel}/>
         </form>
     );
 }

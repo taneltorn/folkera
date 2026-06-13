@@ -27,9 +27,9 @@ const IconButton: React.FC<Properties> = ({type, children, onClick}) => {
     return (
         <Button
             size={"compact-xl"}
-            color={"dark"}
+            color={"dark.9"}
             title={t(`button.${type}`)}
-            variant={"subtle"}
+            variant={"transparent"}
             onClick={onClick}
         >
             {children || iconMap.get(type)}

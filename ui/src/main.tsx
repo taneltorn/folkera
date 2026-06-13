@@ -16,7 +16,7 @@ import ContextProviders from "./ContextsProviders.tsx";
 const colors = {
     red: chroma.scale("Reds").colors(10),
     blue: chroma.scale("Blues").colors(10),
-    green: chroma.scale("PuBuGn").colors(10),
+    green: chroma.scale("Greens").colors(10),
     orange: chroma.scale("YlOrBr").colors(10),
     pink: chroma.scale("PuRd").colors(10),
     purple: chroma.scale("Purples").colors(10),
@@ -26,11 +26,14 @@ const colors = {
 
 const theme = createTheme({
     fontFamily: 'Verdana, Montserrat, sans-serif',
-    defaultRadius: 'xl',
-    primaryColor: 'red',
+    defaultRadius: 'md',
+    primaryColor: 'orange',
     primaryShade: 9,
     // @ts-ignore
     colors: colors,
+    // colors: {
+    //     "orange": ["#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826",]
+    // },
     breakpoints: {
         xs: '30em',
         sm: '48em',

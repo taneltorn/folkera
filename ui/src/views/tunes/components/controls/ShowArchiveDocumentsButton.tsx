@@ -23,7 +23,8 @@ const ShowArchiveDocumentsButton: React.FC<Properties> = ({tune, children}) => {
     return (
         <Button
             size={"sm"}
-            color={"dark"}
+            color={"dark.9"}
+            radius={"xl"}
             variant={"subtle"}
             leftSection={<RiArchiveStackLine size={Size.icon.MD}/>}
             onClick={open}

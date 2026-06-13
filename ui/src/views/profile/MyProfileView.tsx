@@ -3,7 +3,7 @@ import Page from "../../Page.tsx";
 import {useTranslation} from "react-i18next";
 import {Box, Group, Text, Title} from "@mantine/core";
 import {useAuth} from "../../hooks/useAuth.tsx";
-import ChangePassword from "../../components/header/ChangePassword.tsx";
+import ChangePassword from "./components/ChangePassword.tsx";
 import moment from "moment";
 
 const MyProfileView: React.FC = () => {

@@ -13,15 +13,15 @@ export const transform = (value: any, field: keyof Tune): any => {
 }
 
 export const isPlaybackEnabled = (tune: Tune, isUser: boolean | undefined) => {
-    return !!(tune.access === "OPEN" || isUser);
+    return !!(tune.access === "OPEN" || isUser) && tune.audio;
 }
 
-export const getPlayButtonTitle = (tune: Tune, isUser: boolean | undefined, isPlaying: boolean, t: any) => {
+export const getPlayButtonTitle = (tune: Tune, isUser: boolean | undefined, t: any) => {
     if (!tune.audio) {
         return t("page.tunes.table.audioNotFound");
     }
     if (!isPlaybackEnabled(tune, isUser)) {
         return t("page.tunes.table.accessDenied");
     }
-    return t(`button.${isPlaying ? "stop" : "play"}`)
+    return t(`button.play`)
 }

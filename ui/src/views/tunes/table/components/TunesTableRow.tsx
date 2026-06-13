@@ -1,15 +1,15 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Checkbox, Group, Table, Text} from "@mantine/core";
 import TunesTableCell from "./TunesTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Tune} from "../../../../model/Tune.ts";
 import {Link} from "react-router-dom";
-import {TunesTableField} from "../../../../hooks/useTableOrder.ts";
+import {TunesTableField} from "../../../../utils/fields.ts";
 import {useTuneSelection} from "../../../../hooks/useTuneSelection.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
-import ShowNotationButton from "../../components/controls/ShowNotationButton.tsx";
+import {useHover} from "@mantine/hooks";
 
 interface Properties {
     tune: Tune;
@@ -18,9 +18,10 @@ interface Properties {
 
 const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
 
-    const ref = useRef<HTMLTableRowElement | null>(null);
     const {selection, toggleSelection} = useTuneSelection();
     const {state} = useControlState();
+
+    const {hovered, ref} = useHover();
 
     return (
         <Table.Tr ref={ref}>
@@ -35,8 +36,7 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                             onChange={() => toggleSelection(tune)}
                         />
                         : <Group wrap={"nowrap"} gap={0}>
-                            {tune.datatype === "AUDIO" && <TunesTablePlayAudioButton tune={tune}/>}
-                            {tune.datatype === "NOTATION" && <ShowNotationButton tune={tune}/>}
+                            <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
                         </Group>}
                 </Group>
             </Table.Td>
@@ -50,14 +50,14 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                                 return (
                                     <Group wrap={"nowrap"}>
                                         <Link to={`/tunes/${tune.id}`}>
-                                            <Text size="xs" fw="bolder">
+                                            <Text size="sm" fw={700}>
                                                 {tune.ref}
                                             </Text>
                                         </Link>
                                     </Group>
                                 );
                             case "content":
-                                return <Text size="xs">{tune.content}</Text>;
+                                return <Text size="sm" fw={500} c={"dark.4"}>{tune.content}</Text>;
                             case "notes":
                             case "duration":
                             case "comments":

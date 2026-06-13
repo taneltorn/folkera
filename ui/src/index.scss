@@ -1,8 +1,12 @@
-body,
-#header {
-  //margin-left: auto;
-  //margin-right: auto;
-  //max-width: 1400px;
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 button[disabled] {
@@ -20,22 +24,37 @@ a {
   }
 }
 
+table {
+  thead {
+    border-bottom: 1px solid var(--mantine-color-gray-1);
+  }
+
+  td {
+    border-left: none !important;
+  }
+}
+
 .hover-pointer:hover {
   cursor: pointer;
 }
 
-.rhap_container {
-  box-shadow: none !important;
-  padding: 0 !important;
-
-  .rhap_controls-section {
-    //max-width: 50px !important;
-  }
-
-  .rhap_footer {
-    //text-align: end;
-  }
+.hidden {
+  visibility: hidden;
 }
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.hover-child, {
+  visibility: hidden;
+}
+
+.hover-parent:hover .hover-child {
+  visibility: visible;
+}
+
+
 
 .parish-label {
   font-size: 14px;
@@ -47,42 +66,38 @@ a {
   opacity: 0.7;
 }
 
-.leaflet-tooltip.parish-label {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
-  padding: 0;
-  opacity: 1; /* Make the text fully opaque */
+.search-input {
+  width: 150px;
+  transition: width 200ms ease;
 }
+
+#search-input-focused {
+  border: 2px solid var(--mantine-primary-color-9) !important;
+}
+
 
 .mantine-MultiSelect-pill {
   display: none;
 }
 
-.active-input {
-  .mantine-Input-input,
-  .mantine-MultiSelect-input {
-    border-color: var(--mantine-color-red-9) !important;
-  }
+.mantine-MultiSelect-input {
+  background: var(--mantine-color-gray-1);
+  box-shadow: none;
+  font-weight: 500;
 
-  ::placeholder {
-    color: var(--mantine-color-red-9) !important;
-    opacity: 1;
-  }
+}
 
-  ::-ms-input-placeholder {
-    color: var(--mantine-color-red-9) !important;
-  }
+.mantine-MultiSelect-input,
+.mantine-PasswordInput-input:focus,
+.mantine-Input-input:focus {
+  border-color: var(--mantine-color-gray-1) !important;
 }
 
 
 .notation-gallery {
   .image-gallery-bullets-container .image-gallery-bullet:hover {
-    background: var(--mantine-color-red-9) !important;
-    border-color: var(--mantine-color-red-9) !important;
+    background: var(--mantine-primary-color-9) !important;
+    border-color: var(--mantine-primary-color-9) !important;
   }
 
   .image-gallery-fullscreen-button:active .image-gallery-svg {
@@ -100,7 +115,7 @@ a {
   .image-gallery-right-nav:hover .image-gallery-svg,
   .image-gallery-fullscreen-button:hover .image-gallery-svg,
   .image-gallery-bullets-inner .image-gallery-svg {
-    color: var(--mantine-color-red-9) !important;
+    color: var(--mantine-primary-color-9) !important;
   }
 
   .image-gallery-left-nav:focus .image-gallery-svg,
@@ -113,7 +128,11 @@ a {
   }
 }
 
-/* AudioPlayerStyles.css */
+
+.rhap_container {
+  box-shadow: none !important;
+  padding: 0 !important;
+}
 
 .rhap_controls-section {
   margin: 0 !important;
@@ -123,36 +142,43 @@ a {
   justify-content: center !important;
 }
 
-.rhap_time {
-  //font-size: 10px !important;
-}
-
-.rhap_progress-section {
-}
-
 .rhap_container:not(.transparent) .rhap_main {
   background-color: var(--mantine-color-gray-1) !important;
 }
 
 .rhap_main-controls-button svg {
-  color: var(--mantine-color-red-9) !important;
+  color: var(--mantine-primary-color-9) !important;
 }
 
 .looping-player {
   .rhap_progress-filled {
     background-color: var(--mantine-color-gray-2) !important;
   }
+
   .rhap_download-progress {
     background-color: var(--mantine-color-gray-2) !important;
 
   }
+
   .rhap_progress-indicator {
     background-color: var(--mantine-color-yellow-9) !important;
   }
 }
 
-
 .rhap_progress-filled,
 .rhap_progress-indicator {
-  background-color: var(--mantine-color-red-9) !important;
+  background-color: var(--mantine-primary-color-9) !important;
 }
+
+
+.leaflet-tooltip.parish-label {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  padding: 0;
+  opacity: 1;
+}
+

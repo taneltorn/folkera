@@ -22,6 +22,7 @@ export interface Properties {
     play: (track: Tune) => void;
     pause: () => void;
     clearLoop: () => void;
+    reset: () => void;
 }
 
 export const AudioContext = React.createContext<Properties>({} as Properties);

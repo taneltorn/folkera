@@ -38,9 +38,9 @@
         "notationRenderingFailed": "Failed to render notation.",
         "datatype": {
           "select": "Select data type",
-          "all": "All tunes",
-          "audio": "Audio recordings only",
-          "notation": "Notations only"
+          "all": "Show all tunes",
+          "audio": "Show audio recordings only",
+          "notation": "Show notations only"
         },
         "back": "Back to table view"
       },
@@ -52,6 +52,14 @@
         "audioNotFound": "Audio file missing",
         "sort": "Sort",
         "drag": "Drag",
+        "hideColumn": "Hide column",
+        "showFilter": "Show filter",
+        "sortAsc": "Sort ascending",
+        "sortDesc": "Sort descending",
+        "shiftLeft": "Shift left",
+        "shiftRight": "Shift right",
+        "shiftToStart": "Shift to start",
+        "shiftToEnd": "Shift to end",
         "showDetails": "Show details"
       },
       "map": {
@@ -348,6 +356,7 @@
     "addNew": "Add new",
     "showAll": "Show all",
     "removeFilter": "Remove filter",
+    "settings": "Settings",
     "assign": "Assign",
     "play": "Play",
     "stop": "Stop",
@@ -362,6 +371,10 @@
     "fetchFeiled": "Failed to load data."
   },
   "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "next": "Play next",
+    "previous": "Play previous",
     "tempo": "Change tempo",
     "loop": {
       "0": "Mark start",

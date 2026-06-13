@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {ClusterPlots} from "../../../../utils/lists.ts";
-import MenuSelect from "../../../../components/MenuSelect.tsx";
+import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import {FaRegEye} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
@@ -38,7 +38,7 @@ const ClusterPlotControls: React.FC = () => {
                     {t("button.showAll")}
                 </Button>}
 
-            <MenuSelect
+            <SimpleMenu
                 title={t(`page.clusterMap.modelVersion.title`)}
                 label={`${clusterPlot.name} (${clusterPlot.version})`}
                 options={ClusterPlots.map(plot => ({

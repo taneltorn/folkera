@@ -1,9 +1,9 @@
 import React from "react";
 import {Button} from "@mantine/core";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
-import {Size} from "../../../../utils/constants.ts";
 import {LiaSlidersHSolid} from "react-icons/lia";
 import {useTranslation} from "react-i18next";
+import {FaCaretDown, FaCaretUp} from "react-icons/fa";
 
 const AdvancedSearchToggle: React.FC = () => {
 
@@ -13,12 +13,14 @@ const AdvancedSearchToggle: React.FC = () => {
     return (
         <Button
             px={"xs"}
-            size={"md"}
+            color={"dark.9"}
             title={t(`filtering.advanced.${visible ? "close" : "open"}`)}
             onClick={() => setVisible(!visible)}
-            variant={visible ? "filled" : "subtle"}
+            variant={"transparent"}
         >
-            <LiaSlidersHSolid size={Size.icon.XL}/>
+
+            {t(`filtering.advanced.${visible ? "close" : "open"}`)}
+            {visible ? <FaCaretUp/> :<FaCaretDown/>}
         </Button>
     );
 }

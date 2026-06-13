@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import {Group, SimpleGrid} from "@mantine/core";
-import {Button} from '@mantine/core';
+import {SimpleGrid} from "@mantine/core";
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Tune} from "../../../../model/Tune.ts";
 import {useTuneService} from "../../../../services/useTuneService.ts";
 import FormInput from "../../../../components/form/FormInput.tsx";
+import StandardFormControls from "../../../admin/notifications/components/StandardFormControls.tsx";
 
 interface Properties {
     initialValues: Tune;
@@ -214,14 +214,7 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
                 />
             </SimpleGrid>
 
-            <Group justify={"end"} gap={4} mt={"md"}>
-                <Button type={"button"} onClick={modals.closeAll} variant={"subtle"}>
-                    {t("button.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                    {t("button.save")}
-                </Button>
-            </Group>
+            <StandardFormControls onCancel={modals.closeAll}/>
         </form>
     );
 }

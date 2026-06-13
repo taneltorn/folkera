@@ -25,7 +25,11 @@ const NotificationList: React.FC = () => {
     }, []);
 
     return (<>
-        <Table my={"md"}>
+        <Table
+            my={"md"}
+            withColumnBorders={false}
+            withRowBorders={false}
+        >
             <Table.Thead>
                 <Table.Tr>
                     <Table.Th>{t("notification.id")}</Table.Th>

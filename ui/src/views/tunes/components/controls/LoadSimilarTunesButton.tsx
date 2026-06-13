@@ -31,8 +31,9 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune, ...props}) => {
 
     return (
         <Button
+            radius={"xl"}
             size={props.size || "sm"}
-            color={props.color || "red"}
+            color={props.color || undefined}
             disabled={isBusy || !tune.audio}
             variant={props.variant || "filled"}
             leftSection={<TbZoomQuestion size={Size.icon.SM} />}

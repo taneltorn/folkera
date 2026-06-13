@@ -22,7 +22,7 @@ const KivikeLink: React.FC<Properties> = ({tune}) => {
                 href={tune.pid ? `${KIVIKE_PID_URL}${tune.pid}` : undefined}
                 target="blank"
                 variant="subtle"
-                color={"dark"}
+                color={"dark.9"}
                 size={"compact-md"}
                 disabled={!tune.pid}
             >

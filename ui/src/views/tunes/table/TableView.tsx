@@ -5,6 +5,7 @@ import TunesTable from "./components/TunesTable.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
 import {Box} from "@mantine/core";
 import Loading from "../../../components/Loading.tsx";
+import {TableColumnOrderContextProvider} from "../../../hooks/useTableColumnOrderContext.tsx";
 
 const TableView: React.FC = () => {
 
@@ -13,11 +14,14 @@ const TableView: React.FC = () => {
     return (
         <Box pos={"relative"}>
             <Loading isLoading={isLoading}/>
+
             <BottomControlBar>
                 <TunesTableControls/>
             </BottomControlBar>
 
-            <TunesTable data={data}/>
+            <TableColumnOrderContextProvider>
+                <TunesTable data={data}/>
+            </TableColumnOrderContextProvider>
         </Box>
     );
 }

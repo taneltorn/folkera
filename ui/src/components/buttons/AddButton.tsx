@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Stack} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {Size} from "../../utils/constants.ts";
 import {IoAddOutline} from "react-icons/io5";
 
@@ -10,17 +10,16 @@ interface Properties {
 
 const AddButton: React.FC<Properties> = ({label, onClick}) => {
     return (
-        <Stack gap={"xs"}>
-            <Button
-                variant="subtle"
-                aria-label={label}
-                color="dark"
-                leftSection={<IoAddOutline size={Size.icon.SM}/>}
-                onClick={onClick}
-            >
-                {label}
-            </Button>
-        </Stack>
+        <Button
+            radius={"xl"}
+            variant="subtle"
+            color={"gray"}
+            aria-label={label}
+            leftSection={<IoAddOutline size={Size.icon.SM}/>}
+            onClick={onClick}
+        >
+            {label}
+        </Button>
     );
 };
 

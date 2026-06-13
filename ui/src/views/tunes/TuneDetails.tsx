@@ -71,7 +71,7 @@ const TuneDetails: React.FC = () => {
                         <TuneDetailsControls tune={tune} reloadData={() => fetchData(id)}/>
                     </Box>
 
-                    <Divider mt={"xs"} mb={"md"}/>
+                    <Divider my={"md"} color={"gray.1"}/>
 
                     {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
                     {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}

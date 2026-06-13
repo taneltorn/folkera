@@ -31,8 +31,9 @@ const NextTuneButton: React.FC<Properties> = ({currentId}) => {
         <Button
             px={"xs"}
             title={t("button.next")}
+            radius={"xl"}
             size={"sm"}
-            color={"red"}
+            color={"gray"}
             variant={"subtle"}
             disabled={tuneIndex < 0 || currentId === tuneIds[tuneIds.length - 1]}
             onClick={handleNext}

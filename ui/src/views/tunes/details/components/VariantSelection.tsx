@@ -18,9 +18,9 @@ const VariantSelection: React.FC<Props> = ({count}) => {
             {range(0, count).map((_, i) => (
                 <Button
                     key={`variant-${i}`}
-                    color={"dark"}
-                    size={"compact-xs"}
-                    variant={index === i ? "filled" : "subtle"}
+                    color={"gray"}
+                    size={"xs"}
+                    variant={index === i ? "light" : "subtle"}
                     onClick={() => setIndex(i)}
                 >
                     {t(`button.variant`, {index: i + 1})}

@@ -47,7 +47,6 @@ const Login: React.FC<Properties> = ({onSubmit}) => {
                 variant={"filled"}
                 placeholder={t("page.auth.form.usernameOrEmail")}
                 key={form.key('usernameOrEmail')}
-                size={"lg"}
                 {...form.getInputProps('usernameOrEmail')}
             />
 
@@ -56,12 +55,13 @@ const Login: React.FC<Properties> = ({onSubmit}) => {
                 type={"password"}
                 placeholder={t("page.auth.form.password")}
                 key={form.key('password')}
-                size={"lg"}
                 {...form.getInputProps('password')}
             />
 
             <Group justify="flex-end" mt="md">
-                <Button type="submit">
+                <Button
+                    radius={"xl"}
+                    type="submit">
                     {t("page.navigation.login")}
                 </Button>
             </Group>

@@ -47,7 +47,8 @@ const ModifyTuneButton: React.FC<Properties> = ({tune, onChange, children, ...pr
             {state === ControlState.IDLE &&
                 <Button
                     size={props.size || "md"}
-                    color={props.color || "dark"}
+                    radius={"xl"}
+                    color={props.color || "gray"}
                     variant={props.variant || "subtle"}
                     leftSection={props.leftSection}
                     onClick={openModal}

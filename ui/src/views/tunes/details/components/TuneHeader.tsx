@@ -23,10 +23,11 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
             <Group wrap={"nowrap"}>
                 <Button
                     px={"xs"}
+                    radius={"xl"}
                     size={"sm"}
                     title={t("page.tunes.details.back")}
                     variant={"subtle"}
-                    color={"dark"}
+                    color={"dark.9"}
                     onClick={() => navigate("/")}
                 >
                     <PiCaretLeftBold size={Size.icon.LG}/>

@@ -32,7 +32,7 @@ const ShowNotationButton: React.FC<Properties> = ({tune}) => {
                 <Group gap={"xs"} mt={"md"}>
                     <PlayAudioButton tune={tune}/>
                     <Button
-                        color={"dark"}
+                        color={"dark.9"}
                         variant={"subtle"}
                         leftSection={<RiArrowRightDoubleFill size={Size.icon.MD}/>}
                         onClick={handleNavigation}>

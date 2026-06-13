@@ -18,7 +18,7 @@ const PreviousTuneButton: React.FC<Properties> = ({currentId}) => {
 
     const tuneIndex = tuneIds.findIndex(id => id === currentId);
 
-    const handleNext = () => {
+    const handlePrevious = () => {
         if (tuneIndex > 0) {
             const previousId = tuneIds[tuneIndex - 1];
             if (previousId) {
@@ -31,11 +31,12 @@ const PreviousTuneButton: React.FC<Properties> = ({currentId}) => {
         <Button
             px={"xs"}
             title={t("button.previous")}
+            radius={"xl"}
             size={"sm"}
-            color={"red"}
+            color={"gray"}
             variant={"subtle"}
             disabled={tuneIndex < 0 || currentId === tuneIds[0]}
-            onClick={handleNext}
+            onClick={handlePrevious}
         >
             <GrFormPreviousLink size={Size.icon.LG}/>
         </Button>

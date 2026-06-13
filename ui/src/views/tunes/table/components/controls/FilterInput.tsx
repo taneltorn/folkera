@@ -1,25 +1,39 @@
 import React, {useEffect, useState} from "react";
-import {Input, useMantineTheme} from "@mantine/core";
+import {Autocomplete} from "@mantine/core";
 import {useDataContext} from "../../../../../hooks/useDataContext.tsx";
 import useDebounce from "../../../../../hooks/useDebounce.ts";
 import {Tune} from "../../../../../model/Tune.ts";
-import {LuFilterX} from "react-icons/lu";
+import ClearIcon from "../../../../../components/buttons/ClearIcon.tsx";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
+    autoFocus?: boolean;
     field: keyof Tune;
-    placeholder?: string; 
+    placeholder?: string;
 }
 
-const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
+const FilterInput: React.FC<Properties> = ({autoFocus, field}) => {
 
-    const theme = useMantineTheme();
-    const {filters, useFilter, removeFilter} = useDataContext();
+    const {t} = useTranslation();
+
+    const {filters, useFilter, removeFilter, filteringOptions} = useDataContext();
 
     const [value, setValue] = useState<string>("");
 
     const handleSearch = (value: string) => {
-        setValue(value);
-        searchRequest();
+        if (value) {
+            setValue(value);
+            searchRequest();
+        } else {
+            handleClear();
+        }
+    };
+
+    const handleSelect = (value: string) => {
+        if (value) {
+            useFilter({field: field, value: value});
+            setValue(value);
+        }
     };
 
     const handleClear = () => {
@@ -37,25 +51,19 @@ const FilterInput: React.FC<Properties> = ({field, placeholder}) => {
     }, [filters.find(f => f.field === field)]);
 
     return (
-        <Input
-            miw={150}
-            w={"100%"}
-            maw={200}
-            size={"xs"}
-            className={filters.find(f => f.field === field) ? "active-input" : ""}
+        <Autocomplete
+            autoFocus={autoFocus}
+            size={"sm"}
+            radius={"md"}
+            variant={"filled"}
+            className={"filter-input"}
             value={value}
-            placeholder={placeholder}
-            onChange={e => handleSearch(e.currentTarget.value)}
+            placeholder={t(`tune.${field}`)}
+            onChange={handleSearch}
+            onOptionSubmit={handleSelect}
             rightSectionPointerEvents="all"
-            rightSection={
-                <LuFilterX
-                    size={16}
-                    color={theme.colors.red[9]}
-                    className={"hover-pointer"}
-                    onClick={handleClear}
-                    style={{display: value ? undefined : 'none'}}
-                />
-            }
+            rightSection={<ClearIcon show={!!value} onClick={handleClear}/>}
+            data={filteringOptions[field]?.[1]?.items || []}
         />
     );
 }
