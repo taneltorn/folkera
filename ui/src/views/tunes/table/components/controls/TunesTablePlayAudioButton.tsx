@@ -29,7 +29,6 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
     const disabled = !isPlaybackEnabled(tune, isUser);
     const isCurrentTrack = track?.audio === tune.audio;
     const isCurrentTrackPlaying = isCurrentTrack && isPlaying;
-    const isAudio = tune.datatype === "AUDIO";
 
     const mutedColor = theme.colors.gray[3];
     const activeColor = theme.colors[theme.primaryColor][9];
@@ -57,7 +56,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
             return <FaPlay color={activeColor} size={iconSize}/>;
         }
 
-        const Icon = isAudio ? LuAudioLines : IoMusicalNotes;
+        const Icon = tune.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
         const color = disabled ? mutedColor : undefined;
 
         return <Icon size={iconSize} color={color}/>;

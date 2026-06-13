@@ -61,6 +61,9 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                             case "notes":
                             case "duration":
                             case "comments":
+                            case "musicxml":
+                            case "audio":
+                            case "notation":
                                 return tune[tf.field];
                             default:
                                 return (

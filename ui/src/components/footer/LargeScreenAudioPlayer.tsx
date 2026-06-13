@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Group, Stack, Text} from "@mantine/core";
+import {Grid, Group, Stack, Text, useMantineTheme} from "@mantine/core";
 import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 import {Link} from "react-router-dom";
 import LoopControls from "./LoopControls.tsx";
@@ -10,6 +10,8 @@ import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import PlayNext from "./PlayNext.tsx";
 import PlayPrevious from "./PlayPrevious.tsx";
 import Play from "./Play.tsx";
+import {LuAudioLines} from "react-icons/lu";
+import {IoMusicalNotes} from "react-icons/io5";
 
 interface Properties {
     playerRef: any;
@@ -33,13 +35,17 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         loopStage,
     } = {...props};
 
+    const theme = useMantineTheme()
+    const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
+
     return (
         <Grid>
             <Grid.Col span={3}>
                 <Group align="center" h="100%">
+                    {track.datatype && <Icon color={theme.colors[theme.primaryColor][9]} size={42}/>}
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>
-                            <Text size={"sm"} fw={"bold"}>
+                            <Text size={"md"} fw={"bold"}>
                                 {track.ref}
                             </Text>
                         </Link>

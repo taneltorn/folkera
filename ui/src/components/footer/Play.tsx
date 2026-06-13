@@ -26,7 +26,7 @@ const Play: React.FC = () => {
 
     return (
         <Button
-            px={"xs"}
+            px={4}
             title={t(`player.${isPlaying ? "pause" : "play"}`)}
             size={"md"}
             radius={"xl"}
