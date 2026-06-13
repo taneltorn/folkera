@@ -12,7 +12,7 @@ const TopControlBar: React.FC = () => {
 
     return (<>
             <Group gap={"xl"} align={"center"}>
-                <Group gap={"xs"} justify={"start"}  wrap={"nowrap"}>
+                <Group gap={"xs"} justify={"start"}>
                     <TuneSearch/>
                     <AdvancedSearchToggle/>
                     <TuneFilters/>
