@@ -1,7 +1,6 @@
 import React from "react";
 import {Button} from "@mantine/core";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
-import {LiaSlidersHSolid} from "react-icons/lia";
 import {useTranslation} from "react-i18next";
 import {FaCaretDown, FaCaretUp} from "react-icons/fa";
 
