@@ -1,4 +1,7 @@
-#### [0.8.0] -
+#### [0.8.1] - 15.06.2026
+- Pisiparandused
+
+#### [0.8.0] - 13.06.2026
 - Disainiuuendused
 - Esita järgmine/eelmine funktsionaalsus
 

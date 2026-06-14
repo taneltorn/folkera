@@ -2,7 +2,7 @@ import React from "react";
 import {Text, TextProps} from "@mantine/core";
 
 interface Properties extends TextProps {
-    text: string;
+    text: string | undefined;
     limit?: number;
 }
 
@@ -12,7 +12,7 @@ const LimitText: React.FC<Properties> = ({text, limit, ...props}) => {
 
     return (
         <Text {...props}>
-            {(text.length + overfill.length) < text.length
+            { text && (text.length + overfill.length) < text.length
                 ? `${text.slice(0, limit)}${overfill}`
                 : text}
         </Text>

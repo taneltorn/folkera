@@ -4,9 +4,8 @@ import {useAuth} from "../../hooks/useAuth.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {FaUser, FaUserCircle} from "react-icons/fa";
-import {MdOutlineLogout, MdScatterPlot} from "react-icons/md";
+import {MdOutlineLogout} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
-import {UserRole} from "../../model/User.ts";
 
 const UserMenu: React.FC = () => {
 
@@ -28,16 +27,6 @@ const UserMenu: React.FC = () => {
                 </Button>
             </Menu.Target>
             <Menu.Dropdown>
-                {auth.currentUser?.role === UserRole.ADMIN &&
-                    <Menu.Item onClick={() => navigate("/clusters")} py={"xs"}>
-                        <Group gap={"xs"}>
-                            <MdScatterPlot size={Size.icon.SM}/>
-                            <Text size={"sm"} fw={"bold"}>
-                                {t("page.navigation.clusters")}
-                            </Text>
-                        </Group>
-                    </Menu.Item>}
-
                 <Menu.Item onClick={() => navigate("/profile")} py={"xs"}>
                     <Group gap={"xs"}>
                         <FaUser size={Size.icon.XS}/>

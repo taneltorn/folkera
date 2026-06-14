@@ -17,15 +17,19 @@ import Help from "./Help.tsx";
 import {TbZoomQuestion} from "react-icons/tb";
 import LoginButton from "./LoginButton.tsx";
 import LanguageSelector from "../LanguageSelector.tsx";
-import {MdAdminPanelSettings} from "react-icons/md";
+import {MdAdminPanelSettings, MdScatterPlot} from "react-icons/md";
 
 const routes = [
     {id: "tunes", icon: <FaDatabase size={Size.icon.XS}/>, link: "/tunes?view=table"},
 ];
 
 const protectedRoutes = [
-    {id: "admin", icon: <MdAdminPanelSettings size={Size.icon.MD}/>, link: "/admin"},
     {id: "identify", icon: <TbZoomQuestion size={Size.icon.MD}/>, link: "/identify"},
+    {id: "clusters", icon: <MdScatterPlot size={Size.icon.MD}/>, link: "/clusters"},
+];
+
+const adminRoutes = [
+    {id: "admin", icon: <MdAdminPanelSettings size={Size.icon.MD}/>, link: "/admin"},
 ];
 
 const Navigation: React.FC = () => {
@@ -37,18 +41,18 @@ const Navigation: React.FC = () => {
 
     const [drawerOpened, setDrawerOpened] = useState(false);
 
-    const visibleRoutes = [...routes, ...(auth.currentUser?.isResearcher ? protectedRoutes : [])];
+    const visibleRoutes = [...routes,
+        ...(auth.currentUser?.isResearcher ? protectedRoutes : []),
+        ...(auth.currentUser?.isAdmin ? adminRoutes : [])];
 
     const navMenu = visibleRoutes.map((item, index) => (
         <Button
             key={index}
             size={"sm"}
-            // color={"gray.2"}
             color={location.pathname.startsWith(item.link.split("?")[0]) ? "gray.2" : "gray"}
-
             radius={"xl"}
             leftSection={item.icon}
-            variant={location.pathname.startsWith(item.link.split("?")[0]) ? "light" : "subtle"}
+            variant={location.pathname.startsWith(item.link.split("?")[0]) ? "filled" : "subtle"}
             onClick={() => {
                 navigate(item.link);
                 setDrawerOpened(false);
