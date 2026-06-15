@@ -49,7 +49,7 @@ const Navigation: React.FC = () => {
         <Button
             key={index}
             size={"sm"}
-            color={location.pathname.startsWith(item.link.split("?")[0]) ? "gray.2" : "gray"}
+            color={location.pathname.startsWith(item.link.split("?")[0]) ? "dark" : "gray"}
             radius={"xl"}
             leftSection={item.icon}
             variant={location.pathname.startsWith(item.link.split("?")[0]) ? "filled" : "subtle"}

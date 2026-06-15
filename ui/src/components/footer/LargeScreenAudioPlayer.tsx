@@ -42,7 +42,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         <Grid>
             <Grid.Col span={3}>
                 <Group align="center" h="100%">
-                    {track.datatype && <Icon color={theme.colors[theme.primaryColor][9]} size={42}/>}
+                    {track.datatype && <Icon color={theme.colors[theme.primaryColor][9]} size={30}/>}
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>
                             <Text size={"md"} fw={"bold"}>
