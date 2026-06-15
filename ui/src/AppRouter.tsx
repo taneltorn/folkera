@@ -52,7 +52,7 @@ const router = createBrowserRouter([
             {
                 path: "/clusters",
                 element:
-                    <ProtectedRoute allowedRoles={[UserRole.RESEARCHER]}>
+                    <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.RESEARCHER]}>
                         <ClusterPlotView showControls/>
                     </ProtectedRoute>,
             },
