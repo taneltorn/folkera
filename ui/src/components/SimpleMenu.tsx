@@ -4,6 +4,7 @@ import {Size} from "../utils/constants.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
 import {MenuSelectOption} from "../model/MenuSelectOption.ts";
 import CheckMark from "./CheckMark.tsx";
+import useCurrentBreakpoint from "../hooks/useCurrentBreakPoint.tsx";
 
 interface Properties {
     title?: string;
@@ -12,12 +13,14 @@ interface Properties {
     variant?: string;
     label: string;
     value?: string;
-    leftSection?: ReactNode;
+    icon?: ReactNode;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
 }
 
 const SimpleMenu: React.FC<Properties> = (props) => {
+
+    const bp = useCurrentBreakpoint();
 
     return (
         <Menu shadow="md" closeOnClickOutside={true}>
@@ -27,9 +30,9 @@ const SimpleMenu: React.FC<Properties> = (props) => {
                     variant={props.variant || "subtle"}
                     size={props.size || "sm"}
                     color={props.color || "dark.9"}
-                    rightSection={<RiArrowDropDownLine size={Size.icon.LG}/>}
+                    rightSection={(bp !== "xxs" || !props.icon) && <RiArrowDropDownLine size={Size.icon.LG}/>}
                 >
-                    {props.label}
+                    {props.icon && bp === "xxs" ? props.icon:  props.label}
                 </Button>
             </Menu.Target>
             <Menu.Dropdown p={0}>

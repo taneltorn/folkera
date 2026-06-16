@@ -33,7 +33,7 @@ const TunesTablePagination: React.FC = () => {
             <Pagination
                 color={"dark.9"}
                 size={"md"}
-                withPages={!["xs"].includes(bp)}
+                withPages={!["xxs", "xs"].includes(bp)}
                 variant={"subtle"}
                 value={pagination.page}
                 total={totalPages}

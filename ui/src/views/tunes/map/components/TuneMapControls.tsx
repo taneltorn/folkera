@@ -7,7 +7,7 @@ import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import {GroupBy} from "../../../../model/GroupBy.ts";
 import {Size} from "../../../../utils/constants.ts";
-import {FaLayerGroup} from "react-icons/fa";
+import {FaLayerGroup, FaMap} from "react-icons/fa";
 import AdvancedMenu from "../../../../components/AdvancedMenu.tsx";
 import CheckMark from "../../../../components/CheckMark.tsx";
 import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
@@ -59,6 +59,7 @@ const TuneMapControls: React.FC = () => {
             <SimpleMenu
                 label={t(`page.tunes.map.groupBy.${groupBy}`)}
                 value={groupBy}
+                icon={<FaMap size={Size.icon.SM}/>}
                 options={[
                     GroupBy.PARISH,
                     GroupBy.COUNTY,

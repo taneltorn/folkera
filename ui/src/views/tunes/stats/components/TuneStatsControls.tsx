@@ -7,6 +7,8 @@ import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {Group} from "@mantine/core";
 import ExportStatsCsvButton from "../../components/controls/ExportStatsCsvButton.tsx";
+import {FaRegChartBar} from "react-icons/fa";
+import {Size} from "../../../../utils/constants.ts";
 
 const TuneStatsControls: React.FC = () => {
 
@@ -28,6 +30,7 @@ const TuneStatsControls: React.FC = () => {
             <SimpleMenu
                 label={t(`page.tunes.stats.groupBy.${groupBy}`)}
                 value={groupBy}
+                icon={<FaRegChartBar size={Size.icon.SM} />}
                 options={[
                     GroupBy.YEAR,
                     GroupBy.INSTRUMENT,
