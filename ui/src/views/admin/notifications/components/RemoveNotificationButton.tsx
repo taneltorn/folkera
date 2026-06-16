@@ -26,6 +26,9 @@ const RemoveNotificationButton: React.FC<Properties> = ({notification, onChange}
                     {t("modal.removeNotification.content")}
                 </Text>
             ),
+            groupProps: {gap: 4},
+            cancelProps: {radius: "xl", variant: "subtle", color: "gray"},
+            confirmProps: {radius: "xl"},
             labels: {
                 confirm: t("modal.removeNotification.confirm"),
                 cancel: t("modal.removeNotification.cancel")

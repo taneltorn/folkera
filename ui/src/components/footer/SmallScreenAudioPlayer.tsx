@@ -5,6 +5,7 @@ import LoopControls from "./LoopControls.tsx";
 import TempoControls from "./TempoControls.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import Play from "./Play.tsx";
+import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 
 interface Properties {
     playerRef: any;
@@ -23,17 +24,26 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
         onPlaying,
         onPause,
         onError,
-        loopStage,
     } = {...props};
+
+    const {isPlaying, loopLeft, loopWidth, isLooping} = useAudioPlayer();
 
     return (
         <Flex>
-            <Group flex={1} className={loopStage ? "looping-player" : ""}>
+            <Group
+                flex={1}
+                className={isLooping ? "looping-player" : ""}
+                style={{
+                    "--loop-left": loopLeft,
+                    "--loop-width": loopWidth,
+                } as React.CSSProperties}
+            >
                 <AudioPlayer
                     // @ts-ignore
                     ref={playerRef}
                     autoPlayAfterSrcChange={false}
-                    autoPlay={false}
+                    autoPlay={isPlaying}
+                    showSkipControls={false}
                     layout={"horizontal-reverse"}
                     customVolumeControls={[]}
                     customControlsSection={[

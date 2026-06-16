@@ -33,6 +33,7 @@
         "openInKivike": "Ava Kivikes",
         "pidMissing": "Ava Kivikes (PID puudub)",
         "audioNotYetAdded": "Helisalvestust ei ole veel lisatud.",
+        "noAnalysis": "Antud helifailile ei ole analüüsi veel tehtud.",
         "notationNotYetAdded": "Noodistust ei ole veel lisatud.",
         "notationRenderingFailed": "Noodistust ei õnnestunud kuvada.",
         "datatype": {
@@ -226,6 +227,12 @@
     "modifyNotification": {
       "title": "Muuda teavitust"
     },
+    "reAnalyse": {
+      "title": "Helianalüüs",
+      "content": "Antud helifailile on sarnased salvestused juba leitud. Kas soovid helianalüüsi uuesti käivitada?",
+      "confirm": "Jah, käivita uuesti",
+      "cancel": "Tühista"
+    },
     "removeNotification": {
       "title": "Kustuta teavitus",
       "content": "Kas oled kindel, et soovid teavituse kustutada?",
@@ -362,7 +369,7 @@
     "stop": "Peata",
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
-    "loadSimilarTunes": "Käivita helianalüüs",
+    "loadSimilarTunes": "Helianalüüs",
     "addFilter": "Lisa filter",
     "variant": "Variant {{index}}"
   },

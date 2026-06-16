@@ -54,8 +54,8 @@ const SimilarTunesTable: React.FC<Properties> = () => {
                                 pagination.page && pagination.size ?
                                     pagination.page * pagination.size
                                     : 100)
-                            .map((tune) => (
-                                <SimilarTunesTableRow key={tune.id} tune={tune}/>
+                            .map((tune, index) => (
+                                <SimilarTunesTableRow key={`similar-tunes-row-${index}-${tune.id}`} tune={tune}/>
                             ))}
                     </Table.Tbody>
                 </Table>

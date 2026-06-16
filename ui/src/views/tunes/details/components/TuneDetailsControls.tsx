@@ -14,6 +14,7 @@ import {FaTableList} from "react-icons/fa6";
 import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
+import LoadSimilarTunesButton from "../../components/controls/LoadSimilarTunesButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -36,6 +37,8 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                         {t("button.showArchiveItems")}
                     </ShowArchiveDocumentsButton>}
 
+                {tune.audio && currentUser?.isUser && <LoadSimilarTunesButton tune={tune}/>}
+
                 {currentUser?.isAdmin && <>
                     <ModifyTuneButton
                         size={"sm"}
@@ -49,17 +52,15 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
             <Group gap={4}>
                 <ActiveViewButton view={View.DETAILS} icon={<FaTableList size={Size.icon.SM}/>}/>
 
-                {currentUser?.isUser && <>
-                    <ActiveViewButton
-                        view={View.SIMILAR_TUNES}
-                        loading={isBusy}
-                        icon={<RiNodeTree size={Size.icon.SM}/>}
-                    />
-                    <ActiveViewButton
-                        view={View.CLUSTER}
-                        icon={<MdScatterPlot size={Size.icon.SM}/>}
-                    />
-                </>}
+                <ActiveViewButton
+                    view={View.SIMILAR_TUNES}
+                    loading={isBusy}
+                    icon={<RiNodeTree size={Size.icon.SM}/>}
+                />
+                <ActiveViewButton
+                    view={View.CLUSTER}
+                    icon={<MdScatterPlot size={Size.icon.SM}/>}
+                />
             </Group>
         </Group>
     );

@@ -43,12 +43,30 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         }
     };
 
+    // @ts-ignore
+    const duration = playerRef.current?.audio?.current?.duration || 0;
+
+    const loopLeft =
+        duration && loopStart !== null
+            ? `${(loopStart / duration) * 100}%`
+            : "0%";
+
+    const loopWidth =
+        duration && loopStart !== null && loopEnd !== null
+            ? `${((loopEnd - loopStart) / duration) * 100}%`
+            : "0%";
+
+    const isLooping = loopStage === 2 && loopStart !== null && loopEnd !== null;
+
     const context = useMemo(() => ({
         playerRef,
         isPlaying, setIsPlaying,
         loopStage, setLoopStage,
         loopStart, setLoopStart,
         loopEnd, setLoopEnd,
+        loopLeft,
+        loopWidth,
+        isLooping,
         track, setTrack,
         play,
         pause,

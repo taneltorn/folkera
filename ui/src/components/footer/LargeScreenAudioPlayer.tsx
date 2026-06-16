@@ -12,6 +12,7 @@ import PlayPrevious from "./PlayPrevious.tsx";
 import Play from "./Play.tsx";
 import {LuAudioLines} from "react-icons/lu";
 import {IoMusicalNotes} from "react-icons/io5";
+import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 
 interface Properties {
     playerRef: any;
@@ -32,8 +33,9 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         onPlaying,
         onPause,
         onError,
-        loopStage,
     } = {...props};
+
+    const {isPlaying, loopLeft, loopWidth, isLooping} = useAudioPlayer();
 
     const theme = useMantineTheme()
     const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
@@ -55,17 +57,24 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
             </Grid.Col>
 
             <Grid.Col span={6}>
-                <Group align="center" h={80} className={loopStage ? "looping-player" : ""}>
+                <Group
+                    align="center"
+                    h={80}
+                    className={isLooping ? "looping-player" : ""}
+                    style={{
+                        "--loop-left": loopLeft,
+                        "--loop-width": loopWidth,
+                    } as React.CSSProperties}
+                >
                     <AudioPlayer
                         // @ts-ignore
                         ref={playerRef}
                         autoPlayAfterSrcChange={false}
-                        autoPlay={false}
+                        autoPlay={isPlaying}
                         showSkipControls={false}
                         layout={"stacked-reverse"}
                         customControlsSection={[
                             RHAP_UI.ADDITIONAL_CONTROLS,
-
                         ]}
                         customProgressBarSection={
                             [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]

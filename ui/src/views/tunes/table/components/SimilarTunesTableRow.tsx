@@ -41,7 +41,7 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune}) => {
                 </Badge>
             </Table.Td>
             {["melody", "ref", "content", "year", "instrument", "performer", "parish"].map(f => (
-                <Table.Td>
+                <Table.Td key={f}>
                     {tune[f as keyof Tune]}
                 </Table.Td>
             ))}

@@ -129,6 +129,19 @@ table {
 }
 
 
+.leaflet-tooltip.parish-label {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  padding: 0;
+  opacity: 1;
+}
+
+
+
 .rhap_container {
   box-shadow: none !important;
   padding: 0 !important;
@@ -170,15 +183,33 @@ table {
   background-color: var(--mantine-primary-color-9) !important;
 }
 
+.looping-player {
+  .rhap_progress-container,
+  .rhap_progress-bar {
+    position: relative;
+  }
 
-.leaflet-tooltip.parish-label {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
-  padding: 0;
-  opacity: 1;
+  .rhap_progress-filled,
+  .rhap_download-progress {
+    background-color: var(--mantine-color-gray-2) !important;
+  }
+
+  .rhap_progress-bar::after {
+    content: "";
+    position: absolute;
+    left: var(--loop-left);
+    width: var(--loop-width);
+    top: 0;
+    height: 100%;
+    background-color: var(--mantine-color-yellow-9);
+    border-radius: inherit;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .rhap_progress-indicator {
+    background-color: var(--mantine-color-yellow-9) !important;
+    z-index: 20;
+  }
 }
 

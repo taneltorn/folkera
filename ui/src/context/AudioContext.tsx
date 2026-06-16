@@ -23,6 +23,10 @@ export interface Properties {
     pause: () => void;
     clearLoop: () => void;
     reset: () => void;
+
+    loopLeft: string;
+    loopWidth: string;
+    isLooping: boolean;
 }
 
 export const AudioContext = React.createContext<Properties>({} as Properties);

@@ -33,18 +33,24 @@ const BottomAudioPlayer: React.FC = () => {
     }
 
     useEffect(() => {
-        const audio = playerRef.current?.audio.current;
-        if (!audio || !track) return;
+        if (!track) return;
 
-        if (isPlaying) {
-            audio.play().catch(() => {
-                console.log("Playback error");
-                setIsPlaying(false);
-            });
-        } else {
-            audio.pause();
-        }
-    }, [track, isPlaying]);
+        const timeout = window.setTimeout(() => {
+            const audio = playerRef.current?.audio.current;
+            if (!audio) return;
+
+            if (isPlaying) {
+                audio.play().catch(() => {
+                    console.log("Playback error");
+                    setIsPlaying(false);
+                });
+            } else {
+                audio.pause();
+            }
+        }, 0);
+
+        return () => window.clearTimeout(timeout);
+    }, [track, src, isPlaying, playerRef, setIsPlaying]);
 
     return (
         <Box py={4} px={"xs"}>

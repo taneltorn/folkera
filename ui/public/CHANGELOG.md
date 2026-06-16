@@ -1,3 +1,6 @@
+#### [0.8.2] - 16.06.2026
+- Pisiparandused ja -täiendused
+
 #### [0.8.1] - 15.06.2026
 - Pisiparandused
 

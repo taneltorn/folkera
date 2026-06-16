@@ -27,7 +27,11 @@ const PlayAudioButton: React.FC<Properties> = ({tune}) => {
             color={isPlaying && track?.audio === tune.audio ? "gray" : theme.primaryColor}
             variant={isPlaying && track?.audio === tune.audio ? "light" : "filled"}
             disabled={disabled}
-            onClick={() => isPlaying && tune === track ? pause() : play(tune)}
+            onClick={() =>
+                isPlaying && track?.audio === tune.audio
+                    ? pause()
+                    : play(tune)
+            }
             leftSection={isPlaying && track?.audio === tune.audio
                 ? <MdPauseCircle
                     size={Size.icon.LG}

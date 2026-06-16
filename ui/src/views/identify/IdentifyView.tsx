@@ -170,9 +170,9 @@ const IdentifyView: React.FC = () => {
                         </Group>}
                 </Stack>
 
-                <SimilarTunesTable/>
                 <IdentifyLoader externalLoadingState={isUploading ? LoadingState.UPLOADING_FILE : undefined}/>
             </Box>
+            <SimilarTunesTable/>
         </Page>
     );
 };

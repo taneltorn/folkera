@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Box, Center} from "@mantine/core";
+import {Box} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import SimilarTunesTable from "./table/components/SimilarTunesTable.tsx";
 import {useSimilarTunes} from "../../hooks/useSimilarTunes.tsx";
@@ -7,7 +7,6 @@ import IdentifyLoader from "./components/IdentifyLoader.tsx";
 import InfoMessage from "../../components/InfoMessage.tsx";
 import {useTranslation} from "react-i18next";
 import {SIMILAR_TUNES_TO_FETCH} from "../../utils/constants.ts";
-import LoadSimilarTunesButton from "./components/controls/LoadSimilarTunesButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -16,7 +15,7 @@ interface Properties {
 const TuneDetails: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
-    const {similarTunes, loadSimilarTunes} = useSimilarTunes();
+    const {similarTunes, isBusy, loadSimilarTunes} = useSimilarTunes();
 
     useEffect(() => {
         if (tune.distances && tune.audio) {
@@ -36,11 +35,8 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
 
             <SimilarTunesTable/>
 
-            {!tune.distances && !similarTunes.length &&
-                <Center>
-                    <LoadSimilarTunesButton tune={tune}/>
-                </Center>}
-
+            {tune.audio && !isBusy && !similarTunes.length &&
+                <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.noAnalysis")}/>}
             <IdentifyLoader/>
         </Box>
     );

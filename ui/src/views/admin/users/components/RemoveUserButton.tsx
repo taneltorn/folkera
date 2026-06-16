@@ -26,11 +26,13 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
                     {t("modal.removeUser.content")}
                 </Text>
             ),
+            groupProps: {gap: 4},
+            cancelProps: {radius: "xl", variant: "subtle", color: "gray"},
+            confirmProps: {radius: "xl"},
             labels: {
                 confirm: t("modal.removeUser.confirm"),
                 cancel: t("modal.removeUser.cancel")
             },
-            confirmProps: {color: 'red'},
             onCancel: () => console.log('Cancel'),
             onConfirm: () => user.id && removeUser(user.id).then(onChange),
         });

@@ -46,9 +46,12 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
         reloadData?: () => void
     ): Promise<void> => {
         try {
+            console.log("loading")
+            console.log("initialDistances", initialDistances)
             const distances = initialDistances
                 ? parseDistances(initialDistances)
                 : await fetchDistances(options);
+            console.log("distances", distances)
 
             const ids: string[] = Object.keys(distances);
             const tunes = await fetchTunes(ids, distances);
