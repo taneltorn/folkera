@@ -3,7 +3,7 @@ import React from 'react';
 export enum View {
     TABLE = "table",
     DETAILS = "details",
-    SIMILAR_TUNES = "similarTunes",
+    SIMILAR_TUNES = "similar",
     MAP = "map",
     STATS = "stats",
     CLUSTER = "cluster",
