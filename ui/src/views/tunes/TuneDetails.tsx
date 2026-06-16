@@ -61,7 +61,7 @@ const TuneDetails: React.FC = () => {
     }, [id]);
 
     return (
-        <Page title={t("page.navigation.tunes")}>
+        <Page title={tune?.ref}>
             {tune &&
                 <>
                     <LoadingOverlay visible={dataService.isLoading}/>

@@ -31,6 +31,7 @@
         "similarTunes": "Find similar tunes",
         "performerTunes": "From the same performer",
         "openInKivike": "Open in Kivike",
+        "noAnalysis": "No sound analysis has yet been triggered for this file.",
         "pidMissing": "Open in Kivike (PID missing)",
         "audioNotYetAdded": "Audio file has not yet been added.",
         "accessDenied": "This audio file has restricted access",
@@ -100,7 +101,7 @@
         "stats": "Show statistics",
         "cluster": "Show cluster map",
         "details": "Show data",
-        "similarTunes": "Show similar tunes"
+        "similar": "Show similar tunes"
       }
     },
     "identify": {
@@ -121,7 +122,7 @@
       }
     },
     "help": {
-      "title": "FolkERA",
+      "title": "Folkera",
       "description": "This web application is part of an ongoing doctoral dissertation aimed at systematizing Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century instrumental recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated throughout the research process.",
       "contact": "If you find errors in the application or have suggestions, write to: <strong>{{email}}</strong>.",
       "version": "Version",
@@ -226,6 +227,12 @@
     },
     "modifyNotification": {
       "title": "Edit notification"
+    },
+    "reAnalyse": {
+      "title": "Sound analysis",
+      "content": "Similar recordings have already been found for this audio file. Do you want to run the audio analysis again?",
+      "confirm": "Yes, run again",
+      "cancel": "Cancel"
     },
     "removeNotification": {
       "title": "Delete notification",
@@ -369,6 +376,9 @@
   "data": {
     "noResults": "No data found.",
     "fetchFeiled": "Failed to load data."
+  },
+  "pagination": {
+    "itemsPerPage": "Show {{n}} results"
   },
   "player": {
     "play": "Play",

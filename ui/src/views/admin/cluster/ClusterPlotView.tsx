@@ -17,7 +17,7 @@ const ClusterPlotView: React.FC<Properties> = ({showControls, needle}) => {
     const {t} = useTranslation();
 
     return (
-        <Page title={t("page.navigation.clusters")}>
+        <Page title={needle || t("page.navigation.clusters")}>
             <ClusterContextProvider>
                 <Box pos={"relative"}>
 

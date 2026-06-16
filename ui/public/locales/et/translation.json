@@ -10,7 +10,8 @@
       "changelog": "Muutelugu",
       "login": "Logi sisse",
       "logout": "Logi välja",
-      "showTable": "Kuva tabelivaates"
+      "showTable": "Kuva tabelivaates",
+      "details": ""
     },
     "selectLanguage": "Vali keel",
     "tunes": {
@@ -100,11 +101,11 @@
         "stats": "Kuva statistika",
         "cluster": "Kuva klasterkaart",
         "details": "Kuva andmed",
-        "similarTunes": "Kuva sarnased viisid"
+        "similar": "Kuva sarnased viisid"
       }
     },
     "identify": {
-      "title": "Otsi sarnaseid esitusi",
+      "title": "Tuvasta",
       "alert": "Tegemist on prototüübiga. Tulemused võivad varieeruda.",
       "submit": "Otsi sama viisitüübi salvestusi",
       "uploadUnauthorized": "Faili üleslaadimiseks logi sisse.",
@@ -121,7 +122,7 @@
       }
     },
     "help": {
-      "title": "FolkERA",
+      "title": "Folkera",
       "description": "Käesolev veebirakendus on osa valmivast doktoritööst, mille eesmärk on Eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
       "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
       "version": "Versioon",
@@ -376,6 +377,9 @@
   "data": {
     "noResults": "Andmeid ei leitud.",
     "fetchFailed": "Andmeid ei õnnestunud laadida."
+  },
+  "pagination": {
+    "itemsPerPage": "Kuva korraga {{n}} tulemust"
   },
   "player": {
     "play": "Esita",

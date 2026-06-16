@@ -12,7 +12,7 @@ const Page: React.FC<Properties> = ({children, title}) => {
     const {track} = useAudioPlayer();
     
     useEffect(() => {
-        document.title = `${title} - FolkERA`;
+        document.title = `${title} - Folkera`;
     }, [title]);
 
     return (
