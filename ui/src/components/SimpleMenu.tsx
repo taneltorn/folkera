@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Button, Divider, Menu} from "@mantine/core";
 import {Size} from "../utils/constants.ts";
 import {RiArrowDropDownLine} from "react-icons/ri";
@@ -12,6 +12,7 @@ interface Properties {
     variant?: string;
     label: string;
     value?: string;
+    leftSection?: ReactNode;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
 }

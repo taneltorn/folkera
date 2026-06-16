@@ -6,22 +6,27 @@ import {Size} from "../../../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {ControlState} from "../../../../model/ControlState.ts";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 const ExportTunesCsvButton: React.FC = () => {
 
     const {t} = useTranslation();
     const {exportData} = useDataContext();
     const {state} = useControlState();
+    const bp = useCurrentBreakpoint();
+
+    const icon = <FaFileExport size={Size.icon.SM}/>;
 
     return (<>
             {state === ControlState.IDLE &&
                 <Button
                     variant={"subtle"}
+                    title={t("page.tunes.controls.export")}
                     size={"sm"}
                     color={"dark.9"}
-                    leftSection={<FaFileExport size={Size.icon.SM}/>}
+                    leftSection={bp !== "xxs" && icon}
                     onClick={exportData} px={"xs"} mx={0}>
-                    {t("page.tunes.controls.export")}
+                    {bp === "xxs" ? icon : t("page.tunes.controls.export")}
                 </Button>}
         </>
     );

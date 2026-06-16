@@ -10,12 +10,16 @@ import {Size} from "../../../../utils/constants.ts";
 import {FaLayerGroup} from "react-icons/fa";
 import AdvancedMenu from "../../../../components/AdvancedMenu.tsx";
 import CheckMark from "../../../../components/CheckMark.tsx";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 const TuneMapControls: React.FC = () => {
 
     const {t} = useTranslation();
     const {mapOptions, setMapOptions, groupBy, setGroupBy} = useMapContext();
     const {totalItems} = useDataContext();
+    const bp = useCurrentBreakpoint();
+
+    const icon = <FaLayerGroup size={Size.icon.SM}/>;
 
     return (
         <Group gap={4}>
@@ -28,12 +32,13 @@ const TuneMapControls: React.FC = () => {
             <AdvancedMenu
                 target={
                     <Button
+                        title={t("page.tunes.controls.mapOptions")}
                         variant={"subtle"}
                         size={"sm"}
                         color={"dark.9"}
-                        leftSection={<FaLayerGroup size={Size.icon.SM}/>}
+                        leftSection={bp !== "xxs" && icon}
                     >
-                        {t("page.tunes.controls.mapOptions")}
+                        {bp === "xxs" ? icon : t("page.tunes.controls.mapOptions")}
                     </Button>}
                 closeOnItemClick={false}
                 items={[

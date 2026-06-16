@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {ControlState} from "../../../../model/ControlState.ts";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {useStatsContext} from "../../../../hooks/useStatsContext.tsx";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 const ExportStatsCsvButton: React.FC = () => {
 
@@ -14,17 +15,22 @@ const ExportStatsCsvButton: React.FC = () => {
     const {filters} = useDataContext();
     const {exportStats} = useStatsContext();
     const {state} = useControlState();
+    const bp = useCurrentBreakpoint();
+
+    const icon = <FaFileExport size={Size.icon.SM}/>;
 
     return (<>
-        {state === ControlState.IDLE &&
-            <Button
-                variant={"subtle"}
-                size={"sm"}
-                color={"dark.9"}
-                leftSection={<FaFileExport size={Size.icon.SM}/>}
-                onClick={() => exportStats(filters)} px={"xs"} mx={0}>
-                {t("page.tunes.controls.exportStats")}
-            </Button>}
+            {state === ControlState.IDLE &&
+                <Button
+                    variant={"subtle"}
+                    title={t("page.tunes.controls.exportStats")}
+                    size={"sm"}
+                    color={"dark.9"}
+                    leftSection={bp !== "xxs" && icon}
+                    onClick={() => exportStats(filters)} px={"xs"} mx={0}>
+                    {bp === "xxs" ? icon : t("page.tunes.controls.exportStats")}
+
+                </Button>}
         </>
 
     );

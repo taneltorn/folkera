@@ -28,7 +28,6 @@ const TuneStatsControls: React.FC = () => {
             <SimpleMenu
                 label={t(`page.tunes.stats.groupBy.${groupBy}`)}
                 value={groupBy}
-
                 options={[
                     GroupBy.YEAR,
                     GroupBy.INSTRUMENT,

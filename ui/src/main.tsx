@@ -35,6 +35,7 @@ const theme = createTheme({
     //     "orange": ["#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826","#9D3826",]
     // },
     breakpoints: {
+        xxs: ' 15em',
         xs: '30em',
         sm: '48em',
         md: '64em',

@@ -11,7 +11,7 @@ import AdvancedFilter from "./AdvancedFilter.tsx";
 import AdvancedFilterDynamic from "./AdvancedFilterDynamic.tsx";
 import {Tune} from "../../../../model/Tune.ts";
 import {AutocompleteFields} from "../../../../utils/fields.ts";
-import { RiResetLeftLine } from "react-icons/ri";
+import {RiResetLeftLine} from "react-icons/ri";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -85,6 +85,18 @@ const AdvancedFilteringPanel: React.FC = () => {
                 ))}
             </Stack>
 
+            <Group mt={"md"}>
+                <Button
+                    radius={"xl"}
+                    className={"hover-underline"}
+                    variant="transparent"
+                    aria-label={"add"}
+                    leftSection={<IoAddOutline size={Size.icon.SM}/>}
+                    onClick={() => addDynamicRow("instrument")}
+                >
+                    {t("button.addFilter")}
+                </Button>
+            </Group>
             <Group mt={"lg"} gap={4}>
                 <Button
                     radius={"xl"}
@@ -94,26 +106,16 @@ const AdvancedFilteringPanel: React.FC = () => {
                     {t("button.search")}
                 </Button>
 
-                    <Button
-                        radius={"xl"}
-                        color={"gray"}
-                        variant={"subtle"}
-                        leftSection={<RiResetLeftLine size={Size.icon.SM}/>}
-                        onClick={handleClear}
-                    >
-                        {t("button.reset")}
-                    </Button>
-
                 <Button
                     radius={"xl"}
-                    variant="subtle"
                     color={"gray"}
-                    aria-label={"add"}
-                    leftSection={<IoAddOutline size={Size.icon.SM}/>}
-                    onClick={() => addDynamicRow("instrument")}
+                    variant={"subtle"}
+                    leftSection={<RiResetLeftLine size={Size.icon.SM}/>}
+                    onClick={handleClear}
                 >
-                    {t("button.addFilter")}
+                    {t("button.reset")}
                 </Button>
+
             </Group>
         </Box>
     );
