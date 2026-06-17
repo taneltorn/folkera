@@ -43,7 +43,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
     return (
         <Grid>
             <Grid.Col span={3}>
-                <Group align="center" h="100%">
+                <Group align="center" h="100%" wrap={"nowrap"}>
                     {track.datatype && <Icon color={theme.colors[theme.primaryColor][9]} size={30}/>}
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>

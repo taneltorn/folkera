@@ -6,12 +6,14 @@ import {useTranslation} from "react-i18next";
 import {IoSearchOutline} from "react-icons/io5";
 import useDebounce from "../../../../hooks/useDebounce.ts";
 import {useFocusWithin} from "@mantine/hooks";
+import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 const TuneSearch: React.FC = () => {
 
     const {t} = useTranslation();
     const {ref, focused} = useFocusWithin();
     const {useFilter, removeFilter, filters} = useDataContext();
+    const bp = useCurrentBreakpoint();
 
     const [value, setValue] = useState<string>("");
 
@@ -38,7 +40,7 @@ const TuneSearch: React.FC = () => {
         <Input
             ref={ref}
             radius={"lg"}
-            w={focused || value ? 320 : 220}
+            w={focused || value ? (bp === "xxs" ? 275 : 320) : 220}
             size={"md"}
             value={value}
             id={focused ? "search-input-focused" : ""}

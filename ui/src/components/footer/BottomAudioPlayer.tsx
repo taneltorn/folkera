@@ -57,7 +57,7 @@ const BottomAudioPlayer: React.FC = () => {
             {track && <>
                 {currentUser?.isUser || track.access === "OPEN"
                     ? <>
-                        {["xs"].includes(breakpoint) ?
+                        {["xxs", "xs"].includes(breakpoint) ?
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
                                 loopStage={loopStage}
