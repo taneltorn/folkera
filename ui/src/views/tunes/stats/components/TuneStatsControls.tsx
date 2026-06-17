@@ -26,11 +26,11 @@ const TuneStatsControls: React.FC = () => {
             />
 
             <ExportStatsCsvButton/>
-            
+
             <SimpleMenu
                 label={t(`page.tunes.stats.groupBy.${groupBy}`)}
                 value={groupBy}
-                icon={<FaRegChartBar size={Size.icon.SM} />}
+                leftSection={<FaRegChartBar size={Size.icon.SM}/>}
                 options={[
                     GroupBy.YEAR,
                     GroupBy.INSTRUMENT,

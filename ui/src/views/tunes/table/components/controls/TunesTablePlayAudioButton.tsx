@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, useMantineTheme} from "@mantine/core";
+import {useMediaQuery} from "@mantine/hooks";
 import {Audio} from "react-loader-spinner";
 import {useAudioPlayer} from "../../../../../hooks/useAudioContext.tsx";
 import {useTranslation} from "react-i18next";
@@ -22,6 +23,9 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
     const {currentUser} = useAuth();
     const theme = useMantineTheme();
     const {track, isPlaying, play, pause} = useAudioPlayer();
+
+    const canHover = useMediaQuery("(hover: hover) and (pointer: fine)");
+    const showHoverState = canHover && hovered;
 
     const iconSize = IconSize.get("sm");
 
@@ -52,7 +56,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
             );
         }
 
-        if (!disabled && hovered) {
+        if (!disabled && showHoverState) {
             return <FaPlay color={activeColor} size={iconSize}/>;
         }
 

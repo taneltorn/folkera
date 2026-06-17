@@ -6,15 +6,12 @@ import {Tune} from "../../../../model/Tune.ts";
 import {BiColumns} from "react-icons/bi";
 import {fields, technicalFields} from "../../../../utils/fields.ts";
 import AdvancedMenu, {SelectMenuItem} from "../../../../components/AdvancedMenu.tsx";
-import {Button} from "@mantine/core";
 import CheckMark from "../../../../components/CheckMark.tsx";
-import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 
 const VisibleFieldsSelector: React.FC = () => {
 
     const {t} = useTranslation();
     const {visibleFields, toggleField} = useDataContext();
-    const bp = useCurrentBreakpoint();
 
     const getOptions = () => {
         const items: SelectMenuItem[] = fields
@@ -41,20 +38,12 @@ const VisibleFieldsSelector: React.FC = () => {
     }
 
     const items = getOptions();
-    const icon = <BiColumns size={Size.icon.MD}/>;
 
     return (
         <AdvancedMenu
-            target={
-                <Button
-                    variant={"subtle"}
-                    title={t("page.tunes.controls.visibleFields")}
-                    size={"sm"}
-                    color={"dark.9"}
-                    leftSection={bp !== "xxs" && icon}
-                >
-                    {bp === "xxs" ? icon : t("page.tunes.controls.visibleFields")}
-                </Button>}
+            target={t("page.tunes.controls.visibleFields")}
+            leftSection={<BiColumns size={Size.icon.MD}/>}
+
             closeOnItemClick={false}
             items={items}
         />
