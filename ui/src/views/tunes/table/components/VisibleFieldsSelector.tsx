@@ -43,7 +43,6 @@ const VisibleFieldsSelector: React.FC = () => {
         <AdvancedMenu
             target={t("page.tunes.controls.visibleFields")}
             leftSection={<BiColumns size={Size.icon.MD}/>}
-
             closeOnItemClick={false}
             items={items}
         />

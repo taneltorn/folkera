@@ -21,8 +21,8 @@ interface ChartProps {
 
 const TuneStatsChart: React.FC<ChartProps> = ({onElementClick}) => {
 
-    const chartRef = useRef(null);
     const theme = useMantineTheme();
+    const chartRef = useRef(null);
     const {stats} = useStatsContext();
 
     const labels = Object.keys(stats);
@@ -33,7 +33,7 @@ const TuneStatsChart: React.FC<ChartProps> = ({onElementClick}) => {
         datasets: [
             {
                 data: values,
-                backgroundColor: theme.colors.orange[9],
+                backgroundColor: theme.colors[theme.primaryColor][9],
                 borderWidth: 1,
             },
         ],

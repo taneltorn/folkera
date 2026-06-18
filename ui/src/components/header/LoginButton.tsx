@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, useMantineTheme} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {Size} from "../../utils/constants.ts";
 import {MdOutlineLogin} from "react-icons/md";
@@ -10,7 +10,6 @@ import LoginForm from "./LoginForm.tsx";
 const LoginButton: React.FC = () => {
 
     const {t} = useTranslation();
-    const theme = useMantineTheme();
 
     const openModal = () =>
         modals.open({
@@ -27,7 +26,7 @@ const LoginButton: React.FC = () => {
             radius={"xl"}
             variant="subtle"
             onClick={openModal}
-            leftSection={<MdOutlineLogin color={theme.colors.red[9]} size={Size.icon.MD}/>}
+            leftSection={<MdOutlineLogin size={Size.icon.MD}/>}
         >
             {t("page.navigation.login")}
         </Button>
