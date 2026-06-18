@@ -1,10 +1,9 @@
 import React from "react";
-import {Button, Text} from '@mantine/core';
-import {modals} from '@mantine/modals';
+import {Button} from '@mantine/core';
 import {Tune} from "../../../../model/Tune.ts";
-import NotationViewer from "../../details/components/NotationViewer.tsx";
 import {RiArchiveStackLine} from "react-icons/ri";
 import {Size} from "../../../../utils/constants.ts";
+import NotationViewer from "../../details/components/NotationViewer.tsx";
 
 interface Properties {
     tune: Tune;
@@ -12,26 +11,22 @@ interface Properties {
 }
 
 const ShowArchiveDocumentsButton: React.FC<Properties> = ({tune, children}) => {
-
-    const open = () =>
-        modals.open({
-            title:   <Text size={"xl"} fw={"bold"}>{tune.notation}</Text>,
-            size: "70%",
-            children: <NotationViewer tune={tune}/>,
-        });
-
     return (
-        <Button
-            size={"sm"}
-            color={"dark.9"}
-            radius={"xl"}
-            variant={"subtle"}
-            leftSection={<RiArchiveStackLine size={Size.icon.MD}/>}
-            onClick={open}
-        >
-            {children}
-        </Button>
+        <NotationViewer tune={tune}>
+            {(open) => (
+                <Button
+                    size="sm"
+                    color="dark.9"
+                    radius="xl"
+                    variant="subtle"
+                    leftSection={<RiArchiveStackLine size={Size.icon.MD}/>}
+                    onClick={open}
+                >
+                    {children}
+                </Button>
+            )}
+        </NotationViewer>
     );
-}
+};
 
 export default ShowArchiveDocumentsButton;
