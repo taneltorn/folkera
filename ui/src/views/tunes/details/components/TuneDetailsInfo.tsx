@@ -45,10 +45,8 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
                                 "audioRef",
                                 "notationRef",
                                 "datatype",
-                                "trainset",
                                 "notes",
-                                "access",
-                                "comments"]
+                                "access"]
                                 .map((field, index) => (
                                     <React.Fragment key={`row-div-${index}-${field}`}>
                                         {tune[field as keyof Tune] &&

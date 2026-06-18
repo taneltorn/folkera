@@ -5,14 +5,14 @@ import {TableColumnOrderContext} from "../context/TableColumnOrderContext.tsx";
 import {useDataContext} from "./useDataContext.tsx";
 import {Tune} from "../model/Tune.ts";
 import {arrayMove} from "@dnd-kit/sortable";
-import {fields, technicalFields, TunesTableField} from "../utils/fields.ts";
+import {fields, TunesTableField} from "../utils/fields.ts";
+import {useAuth} from "./useAuth.tsx";
 
 interface Properties {
     children: React.ReactNode;
 }
 
-const fieldList = [...fields, ...technicalFields];
-const defaultOrder: Array<keyof Tune> = fieldList.map(f => f.field) as Array<keyof Tune>;
+const defaultOrder: Array<keyof Tune> = fields.map(f => f.field) as Array<keyof Tune>;
 
 function normalizeOrder(
     order: Array<keyof Tune>,
@@ -25,17 +25,19 @@ function normalizeOrder(
 
 export const TableColumnOrderContextProvider: React.FC<Properties> = ({children}) => {
 
+    const {currentUser} = useAuth();
     const {visibleFields} = useDataContext();
     const [order, setOrder] = useLocalStorage<Array<keyof Tune>>("table.columnOrder",
         defaultOrder.filter(f => visibleFields.includes(f)));
 
     const handleSetOrder = (newOrder: Array<keyof Tune>) => {
-        const normalized = normalizeOrder(newOrder, fieldList, visibleFields);
+        const normalized = normalizeOrder(newOrder, fields, visibleFields);
         setOrder(normalized);
     };
 
     const sortedFields = useMemo(() => {
-        return fieldList
+        return fields
+            .filter(f => currentUser?.isAdmin || !f.technical)
             .filter(f => visibleFields.includes(f.field))
             .sort((a, b) => {
                 const ai = order.indexOf(a.field);

@@ -5,6 +5,7 @@ export interface TunesTableField {
     sortField?: keyof Tune;
     type: "input" | "select";
     split?: string;
+    technical?: boolean;
 }
 
 export const fields: TunesTableField[] = [
@@ -22,20 +23,17 @@ export const fields: TunesTableField[] = [
     {field: "dance", type: "select", split: ","},
     {field: "notationRef", type: "input"},
     {field: "audioRef", type: "input"},
-];
-
-export const technicalFields: TunesTableField[] = [
-    {field: "datatype", type: "select"},
-    {field: "audio", type: "select"},
-    {field: "notation", type: "select"},
-    {field: "musicxml", type: "select"},
-    {field: "duration", type: "select"},
-    {field: "trainset", type: "select", split: ","},
-    {field: "comments", type: "select"},
-    {field: "access", type: "select"},
-    {field: "order", type: "input"},
-    {field: "flatLink", type: "input"},
-    {field: "hideTimeSignature", type: "input"},
+    {field: "datatype", type: "select", technical: true},
+    {field: "audio", type: "select", technical: true},
+    {field: "notation", type: "select", technical: true},
+    {field: "musicxml", type: "select", technical: true},
+    {field: "duration", type: "select", technical: true},
+    {field: "trainset", type: "select", split: ",", technical: true},
+    {field: "comments", type: "select", technical: true},
+    {field: "access", type: "select", technical: true},
+    {field: "order", type: "input", technical: true},
+    {field: "flatLink", type: "input", technical: true},
+    {field: "hideTimeSignature", type: "input", technical: true},
 ];
 
 export const AutocompleteFields = ["melody", "dance", "instrument", "performer", "collector", "parish", "county", "origin"];
