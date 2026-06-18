@@ -26,5 +26,6 @@ export interface Tune {
     access?: string;
     order?: string;
     distance?: number;
+    hideTimeSignature?: boolean;
 }
 

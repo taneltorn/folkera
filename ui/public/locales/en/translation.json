@@ -312,7 +312,9 @@
     "similarity": "Similarity",
     "from": "Year (from)",
     "to": "Year (to)",
-    "distances": "Distances"
+    "distances": "Distances",
+    "settings": "Settings",
+    "hideTimeSignature": "Hide time signature"
   },
   "access": {
     "OPEN": "Public",

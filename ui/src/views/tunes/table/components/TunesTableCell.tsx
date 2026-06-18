@@ -30,7 +30,7 @@ const TunesTableCell: React.FC<Properties> = ({tune, field, unmodifiable, always
     const {currentUser} = useAuth();
     const {setState} = useControlState();
 
-    const handleChange = (value: string | number | undefined) => {
+    const handleChange = (value: string | number | boolean | undefined) => {
         if (tune[field] !== value) {
             // @ts-ignore
             tune[field] = transform(value, field);
@@ -80,6 +80,7 @@ const TunesTableCell: React.FC<Properties> = ({tune, field, unmodifiable, always
                     ? <Group wrap={"nowrap"} gap={4} ref={ref} display={"flex"}>
                         <TextInput
                             ref={focusTrapRef}
+                            // @ts-ignore
                             value={value}
                             w={"100%"}
                             size={"xs"}

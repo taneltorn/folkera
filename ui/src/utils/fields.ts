@@ -34,6 +34,7 @@ export const technicalFields: TunesTableField[] = [
     {field: "comments", type: "select"},
     {field: "access", type: "select"},
     {field: "order", type: "input"},
+    {field: "hideTimeSignature", type: "input"},
 ];
 
 export const AutocompleteFields = ["melody", "dance", "instrument", "performer", "collector", "parish", "county", "origin"];

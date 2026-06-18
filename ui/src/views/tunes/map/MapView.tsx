@@ -18,13 +18,13 @@ const MapView: React.FC = () => {
     }, [filters, groupBy]);
 
     return (
-        <Box pos={"relative"}>
-            <LoadingOverlay visible={isLoading}/>
+        <Box>
             <BottomControlBar>
                 <TuneMapControls/>
             </BottomControlBar>
 
-            <Box px={"md"}>
+            <Box px={"md"} pos={"relative"}>
+                <LoadingOverlay visible={isLoading}/>
                 <TuneMap/>
             </Box>
         </Box>

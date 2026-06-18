@@ -123,7 +123,7 @@
     },
     "help": {
       "title": "Folkera",
-      "description": "Käesolev veebirakendus on osa valmivast doktoritööst, mille eesmärk on Eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
+      "description": "Käesolev veebirakendus on osa projektist, mille eesmärk on eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
       "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
       "version": "Versioon",
       "navigateToChangelog": "Vaata muutelugu"
@@ -290,7 +290,6 @@
     "datatype": "Andmetüüp",
     "access": "Juurdepääs",
     "trainset": "Treeningandmestik",
-
     "dance": "Tantsutüüp",
     "year": "Aasta",
     "instrument": "Pill",
@@ -313,7 +312,9 @@
     "similarity": "Sarnasus",
     "from": "Aasta (alates)",
     "to": "Aasta (kuni)",
-    "distances": "Kaugused"
+    "distances": "Kaugused",
+    "settings": "Seaded",
+    "hideTimeSignature": "Peida taktimõõt"
   },
   "access": {
     "OPEN": "Avalik",

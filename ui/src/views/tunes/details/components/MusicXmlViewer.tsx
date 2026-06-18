@@ -23,12 +23,17 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
 
     const {index, setIndex} = useActiveVariant();
 
+    const waitForFrame = () =>
+        new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
     const loadAndRender = async () => {
         setErr(null);
 
         if (!wrapperRef.current || !xmls[index]) return;
 
         const nextContainer = document.createElement("div");
+        nextContainer.style.width = "100%";
+        nextContainer.style.minWidth = "0";
         nextContainer.style.overflow = "hidden";
         nextContainer.style.padding = "0";
 
@@ -36,12 +41,23 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
             setLoading(true);
 
             const resp = await fetch(`${import.meta.env.VITE_API_URL}/musicxml/${xmls[index]}`);
+
             if (!resp.ok) {
                 throw new Error(`Failed to fetch MusicXML (${resp.status} ${resp.statusText})`);
             }
 
             const musicXmlText = await resp.text();
             if (!musicXmlText) return;
+
+            if (visibleContainerRef.current && wrapperRef.current.contains(visibleContainerRef.current)) {
+                wrapperRef.current.replaceChild(nextContainer, visibleContainerRef.current);
+            } else {
+                wrapperRef.current.appendChild(nextContainer);
+            }
+
+            visibleContainerRef.current = nextContainer;
+
+            await waitForFrame();
 
             const osmd = new OpenSheetMusicDisplay(nextContainer, {
                 autoResize: true,
@@ -52,6 +68,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 drawCredits: false,
                 drawPartNames: false,
                 drawMeasureNumbers: false,
+                drawTimeSignatures: !tune?.hideTimeSignature,
                 backend: "svg",
                 drawingParameters: "compacttight",
             });
@@ -76,18 +93,17 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
             }
 
             osmd.zoom = 1;
+
+            await waitForFrame();
             osmd.render();
 
             const svg = nextContainer.querySelector("svg");
-            if (svg) svg.style.background = "transparent";
-
-            if (visibleContainerRef.current && wrapperRef.current.contains(visibleContainerRef.current)) {
-                wrapperRef.current.replaceChild(nextContainer, visibleContainerRef.current);
-            } else {
-                wrapperRef.current.appendChild(nextContainer);
+            if (svg) {
+                svg.style.background = "transparent";
+                svg.style.display = "block";
+                svg.style.width = "100%";
+                svg.style.height = "auto";
             }
-
-            visibleContainerRef.current = nextContainer;
         } catch (e: any) {
             setErr(e?.message ?? "Failed to render MusicXML");
         } finally {
@@ -97,31 +113,41 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
 
     useEffect(() => {
         setIndex(0);
-    }, [tune]);
+    }, [tune, setIndex]);
 
     useEffect(() => {
         if (!xmls[index]) return;
+
         void loadAndRender();
 
         return () => {
-            if (wrapperRef.current) wrapperRef.current.innerHTML = "";
+            if (wrapperRef.current) {
+                wrapperRef.current.innerHTML = "";
+            }
+
+            visibleContainerRef.current = null;
         };
     }, [tune, index]);
 
     return (
         <Box>
-            {!xmls[index] && <InfoMessage color={"blue"} title={t("page.tunes.details.notationNotYetAdded")}/>}
+            {!xmls[index] && (
+                <InfoMessage color="blue" title={t("page.tunes.details.notationNotYetAdded")}/>
+            )}
 
-            {err &&
-                <InfoMessage color={"red"} title={t("page.tunes.details.notationRenderingFailed")}>
+            {err && (
+                <InfoMessage color="red" title={t("page.tunes.details.notationRenderingFailed")}>
                     {err}
-                </InfoMessage>}
+                </InfoMessage>
+            )}
 
             {loading && <Loader size="sm"/>}
 
             <Box
                 ref={wrapperRef}
                 style={{
+                    width: "100%",
+                    minWidth: 0,
                     overflowX: "hidden",
                     overflowY: "hidden",
                     padding: 0,

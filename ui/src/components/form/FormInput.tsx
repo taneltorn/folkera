@@ -1,12 +1,12 @@
 import React from "react";
 import {UseFormReturnType} from "@mantine/form";
-import {Input, PasswordInput, Radio, Select, Textarea, TextInput} from "@mantine/core";
+import {Input, PasswordInput, Radio, Select, Switch, Textarea, TextInput} from "@mantine/core";
 import {DateTimePicker} from "@mantine/dates";
 
 interface Properties {
     name: string;
     label: string;
-    type: "text" | "textarea" | "datetime" | "select" | "password" | "radio";
+    type: "text" | "textarea" | "datetime" | "select" | "password" | "radio" | "switch";
     placeholder?: string;
     options?: Array<{ value: string; label: string }>;
     form: UseFormReturnType<any>;
@@ -28,7 +28,11 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
                     size={"md"}
                     {...form.getInputProps(name)}
                 />}
-            
+            {type === "switch" &&
+                <Switch
+                    key={form.key(name)}
+                    {...form.getInputProps(name, {type: "checkbox"})}
+                />}
             {type === "radio" &&
                 <Radio.Group
                     key={form.key(name)}

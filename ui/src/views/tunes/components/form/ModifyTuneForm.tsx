@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {SimpleGrid} from "@mantine/core";
+import {Input, SimpleGrid, Switch} from "@mantine/core";
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
@@ -213,6 +213,24 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
                     form={form}
                 />
             </SimpleGrid>
+
+            <SimpleGrid cols={1}>
+                <Input.Wrapper
+                    mb={"md"}
+                    label={t("tune.settings")}
+                    labelProps={{mb: 4, fw: "bold"}}
+                >
+                    <Switch
+                        size={"md"}
+                        key={"hideTimeSignature"}
+                        type={"switch"}
+                        label={t("tune.hideTimeSignature")}
+                        placeholder={t("tune.hideTimeSignature")}
+                        {...form.getInputProps("hideTimeSignature", {type: "checkbox"})}
+                    />
+                </Input.Wrapper>
+            </SimpleGrid>
+
 
             <StandardFormControls onCancel={modals.closeAll}/>
         </form>

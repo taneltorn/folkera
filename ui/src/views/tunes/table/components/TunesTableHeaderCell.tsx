@@ -51,7 +51,6 @@ const TunesTableHeaderCell: React.FC<Properties> = ({field, sortField, colSpan, 
                     <div ref={ref}>
                         <Group justify={"space-between"} wrap={"nowrap"}>
                             <Group gap={"xs"} wrap={"nowrap"} className="header-left">
-
                                 <Text
                                     className={"hover-pointer"}
                                     fw={600}
