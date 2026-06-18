@@ -215,6 +215,17 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
             </SimpleGrid>
 
             <SimpleGrid cols={1}>
+                <FormInput
+                    name={"flatLink"}
+                    type={"text"}
+                    label={t("tune.flatLink")}
+                    placeholder={t("tune.flatLink")}
+                    form={form}
+                />
+            </SimpleGrid>
+
+
+            <SimpleGrid cols={1}>
                 <Input.Wrapper
                     mb={"md"}
                     label={t("tune.settings")}

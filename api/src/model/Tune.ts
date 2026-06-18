@@ -25,6 +25,7 @@ export interface Tune {
     pid?: string;
     access?: string;
     order?: string;
+    flatLink?: string;
     hideTimeSignature?: boolean;
 }
 

@@ -314,6 +314,7 @@
     "to": "Aasta (kuni)",
     "distances": "Kaugused",
     "settings": "Seaded",
+    "flatLink": "Flat.io link",
     "hideTimeSignature": "Peida taktimõõt"
   },
   "access": {
@@ -372,6 +373,7 @@
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
     "loadSimilarTunes": "Helianalüüs",
+    "openInFlat": "Ava Flat.io",
     "addFilter": "Lisa filter",
     "variant": "Variant {{index}}"
   },

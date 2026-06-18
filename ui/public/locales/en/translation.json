@@ -314,6 +314,7 @@
     "to": "Year (to)",
     "distances": "Distances",
     "settings": "Settings",
+    "flatLink": "Flat.io link",
     "hideTimeSignature": "Hide time signature"
   },
   "access": {
@@ -372,6 +373,7 @@
     "copyToClipboard": "Copy",
     "showArchiveItems": "Show manuscript",
     "loadSimilarTunes": "Start audio analysis",
+    "openInFlat": "Open in Flat.io",
     "addFilter": "Add filter",
     "variant": "Variant {{index}}"
   },

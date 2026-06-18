@@ -15,6 +15,7 @@ import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 import LoadSimilarTunesButton from "../../components/controls/LoadSimilarTunesButton.tsx";
+import FlatLinkButton from "../../components/controls/FlatLinkButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -36,6 +37,8 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                     <ShowArchiveDocumentsButton tune={tune}>
                         {t("button.showArchiveItems")}
                     </ShowArchiveDocumentsButton>}
+
+                {tune.flatLink && <FlatLinkButton tune={tune}/>}
 
                 {tune.audio && currentUser?.isUser && <LoadSimilarTunesButton tune={tune}/>}
 
