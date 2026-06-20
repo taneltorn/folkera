@@ -94,6 +94,7 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
                 <Grid.Col span={{base: 6, lg: 3}}>
                     <Group wrap={"nowrap"}>
                         <SimpleMenu
+                            alwaysShowLabel
                             size={"sm"}
                             variant={"transparent"}
                             label={t(`filtering.${yearFilter.type}`)}

@@ -7,11 +7,13 @@ type ResponsiveButtonProps = ButtonProps &
     leftSection?: React.ReactNode;
     rightSection?: React.ReactNode;
     label: string;
+    alwaysShowLabel?: boolean;
 };
 
 const ResponsiveButton: React.FC<ResponsiveButtonProps> = ({
                                                                leftSection,
                                                                label,
+                                                               alwaysShowLabel,
                                                                children,
                                                                ...props
                                                            }) => {
@@ -28,7 +30,7 @@ const ResponsiveButton: React.FC<ResponsiveButtonProps> = ({
             leftSection={!isIconOnly ? leftSection : undefined}
             {...props}
         >
-            {isIconOnly ? leftSection : children ?? label}
+            {isIconOnly && !alwaysShowLabel ? leftSection : children ?? label}
         </Button>
     );
 };

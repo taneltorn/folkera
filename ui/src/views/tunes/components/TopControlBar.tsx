@@ -11,15 +11,14 @@ const TopControlBar: React.FC = () => {
     const {visible} = useAdvancedFilteringContext();
 
     return (<>
-            <Group gap={"xl"} align={"center"}>
-                <Group gap={"xs"} justify={"start"}>
-                    <TuneSearch/>
-                    <AdvancedSearchToggle/>
-                    <TuneFilters/>
-                </Group>
-
+            <Group gap={"xs"} justify={"start"}  wrap={"nowrap"}>
+                <TuneSearch/>
+                <AdvancedSearchToggle/>
             </Group>
 
+            <Group mt={"md"}>
+                <TuneFilters/>
+            </Group>
             {visible && <AdvancedFilteringPanel/>}
         </>
     );

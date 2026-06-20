@@ -1,3 +1,6 @@
+#### [0.8.6] - 20.06.2026
+- Pisiparandused
+
 #### [0.8.5] - 19.06.2026
 - Parem pildigalerii
 

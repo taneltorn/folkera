@@ -14,6 +14,7 @@ interface Properties {
     label: string;
     value?: string;
     leftSection?: React.ReactNode;
+    alwaysShowLabel?: boolean;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
 }
@@ -25,6 +26,7 @@ const SimpleMenu: React.FC<Properties> = ({
                                               variant = "subtle",
                                               label,
                                               value,
+                                              alwaysShowLabel,
                                               leftSection,
                                               options,
                                               onChange,
@@ -36,6 +38,7 @@ const SimpleMenu: React.FC<Properties> = ({
         <Menu opened={opened} onChange={setOpened} shadow="md" closeOnClickOutside>
             <Menu.Target>
                 <ResponsiveButton
+                    alwaysShowLabel={alwaysShowLabel}
                     title={title || label}
                     label={label}
                     leftSection={leftSection}

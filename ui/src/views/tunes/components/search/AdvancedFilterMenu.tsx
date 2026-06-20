@@ -33,6 +33,7 @@ const AdvancedFilterMenu: React.FC<Properties> = ({filterKey, field}) => {
 
     return (
         <SimpleMenu
+            alwaysShowLabel
             variant={"transparent"}
             size={"sm"}
             label={t(`filtering.${filter.type}`)}
