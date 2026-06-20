@@ -113,7 +113,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
 
     useEffect(() => {
         setIndex(0);
-    }, [tune, setIndex]);
+    }, [tune]);
 
     useEffect(() => {
         if (!xmls[index]) return;

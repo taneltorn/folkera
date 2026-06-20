@@ -43,6 +43,11 @@ const NotationViewer: React.FC<Properties> = ({tune, children}) => {
                 dynamicEl={images}
                 plugins={[lgZoom, lgFullscreen, lgThumbnail]}
                 download={true}
+                mobileSettings={{
+                    controls: true,
+                    showCloseIcon: true,
+                    download: true,
+                }}
                 thumbnail={images.length > 1}
                 animateThumb
                 speed={0}
