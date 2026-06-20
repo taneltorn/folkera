@@ -96,6 +96,7 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
                         <SimpleMenu
                             alwaysShowLabel
                             size={"sm"}
+                            disabled={yearRange[0] !== DefaultRange[0] || yearRange[1] !== DefaultRange[1]}
                             variant={"transparent"}
                             label={t(`filtering.${yearFilter.type}`)}
                             options={[

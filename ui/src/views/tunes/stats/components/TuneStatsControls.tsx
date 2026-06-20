@@ -39,6 +39,8 @@ const TuneStatsControls: React.FC = () => {
                     GroupBy.MELODY,
                     GroupBy.PERFORMER,
                     GroupBy.COLLECTOR,
+                    GroupBy.DANCE,
+                    GroupBy.DATATYPE,
                 ].map(v => ({
                     label: t(`page.tunes.stats.groupBy.${v}`),
                     value: v

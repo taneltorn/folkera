@@ -4,7 +4,7 @@ import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilterin
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useTranslation} from "react-i18next";
 import {Size} from "../../../../utils/constants.ts";
-import {IoAddOutline, IoSearchOutline} from "react-icons/io5";
+import {IoSearchOutline} from "react-icons/io5";
 import AdvancedYearInput from "./AdvancedYearInput.tsx";
 import {Filter} from "../../../../model/Filter.ts";
 import AdvancedFilter from "./AdvancedFilter.tsx";
@@ -12,6 +12,7 @@ import AdvancedFilterDynamic from "./AdvancedFilterDynamic.tsx";
 import {Tune} from "../../../../model/Tune.ts";
 import {AutocompleteFields} from "../../../../utils/fields.ts";
 import {RiResetLeftLine} from "react-icons/ri";
+import AddButton from "../../../../components/buttons/AddButton.tsx";
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -86,16 +87,10 @@ const AdvancedFilteringPanel: React.FC = () => {
             </Stack>
 
             <Group mt={"md"}>
-                <Button
-                    radius={"xl"}
-                    className={"hover-underline"}
-                    variant="transparent"
-                    aria-label={"add"}
-                    leftSection={<IoAddOutline size={Size.icon.SM}/>}
+                <AddButton
+                    label={t("button.addFilter")}
                     onClick={() => addDynamicRow("instrument")}
-                >
-                    {t("button.addFilter")}
-                </Button>
+                />
             </Group>
             <Group mt={"lg"} gap={4}>
                 <Button
@@ -115,7 +110,6 @@ const AdvancedFilteringPanel: React.FC = () => {
                 >
                     {t("button.reset")}
                 </Button>
-
             </Group>
         </Box>
     );

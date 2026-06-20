@@ -34,7 +34,6 @@ const AdvancedTypeFieldSelector: React.FC<Properties> = ({id, field}) => {
 
     return (
         <Select
-            w={150}
             variant={"filled"}
             title={t(`tune.${field}`)}
             data={fieldOptions as any}

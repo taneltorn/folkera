@@ -38,7 +38,7 @@
         "notationNotYetAdded": "Noodistust ei ole veel lisatud.",
         "notationRenderingFailed": "Noodistust ei õnnestunud kuvada.",
         "datatype": {
-          "select": "Vali andmetüüp",
+          "select": "Vali allikatüüp",
           "all": "Kuva kõik pillilood",
           "audio":  "Kuva ainult helisalvestused",
           "notation": "Kuva ainult noodistused"
@@ -83,7 +83,9 @@
           "melody": "Viiside lõikes",
           "performer": "Esitajate lõikes",
           "county": "Maakondade lõikes",
-          "collector": "Kogujate lõikes"
+          "collector": "Kogujate lõikes",
+          "dance": "Tantsutüübi lõikes",
+          "datatype": "Allikatüübi lõikes"
         },
         "tooltip": {
           "year": "Esitusi (aastaid)",
@@ -92,7 +94,9 @@
           "tune": "Esitusi (viise)",
           "performer": "Esitusi (esitajaid)",
           "county": "Esitusi (maakondi)",
-          "collector": "Esitusi (kogujaid)"
+          "collector": "Esitusi (kogujaid)",
+          "dance": "Esitusi (tantsutüüpe)",
+          "datatype": "Esitusi (allikatüüpe)"
         }
       },
       "viewSelection": {
@@ -287,7 +291,7 @@
     "content": "Sisukirjeldus",
     "melody": "Viisitüüp",
     "quality": "Kvaliteet",
-    "datatype": "Andmetüüp",
+    "datatype": "Allikatüüp",
     "access": "Juurdepääs",
     "trainset": "Treeningandmestik",
     "dance": "Tantsutüüp",

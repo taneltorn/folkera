@@ -92,7 +92,9 @@
           "tune": "Performances (tunes)",
           "performer": "Performances (performers)",
           "county": "Performances (counties)",
-          "collector": "Performances (collectors)"
+          "collector": "Performances (collectors)",
+          "dance": "Performances (dances)",
+          "datatype": "Performances (datatypes)"
         }
       },
       "viewSelection": {

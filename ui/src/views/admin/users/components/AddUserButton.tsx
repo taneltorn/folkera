@@ -6,7 +6,6 @@ import {User, UserRole} from "../../../../model/User.ts";
 import useUserService from "../../../../services/useUserService.ts";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 import AddButton from "../../../../components/buttons/AddButton.tsx";
-import {Flex} from "@mantine/core";
 
 interface Properties {
     onChange: () => void;
@@ -45,12 +44,10 @@ const AddUserButton: React.FC<Properties> = ({onChange}) => {
         });
 
     return (
-        <Flex justify={"center"}>
-            <AddButton
-                label={t("button.addNew")}
-                onClick={openModal}
-            />
-        </Flex>
+        <AddButton
+            label={t("button.addNew")}
+            onClick={openModal}
+        />
     );
 }
 

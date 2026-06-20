@@ -15,6 +15,7 @@ interface Properties {
     value?: string;
     leftSection?: React.ReactNode;
     alwaysShowLabel?: boolean;
+    disabled?: boolean;
     options: MenuSelectOption[];
     onChange: (value: string) => void;
 }
@@ -26,6 +27,7 @@ const SimpleMenu: React.FC<Properties> = ({
                                               variant = "subtle",
                                               label,
                                               value,
+                                              disabled,
                                               alwaysShowLabel,
                                               leftSection,
                                               options,
@@ -41,6 +43,7 @@ const SimpleMenu: React.FC<Properties> = ({
                     alwaysShowLabel={alwaysShowLabel}
                     title={title || label}
                     label={label}
+                    disabled={disabled}
                     leftSection={leftSection}
                     rightSection={opened
                         ? <RiArrowDropUpLine size={Size.icon.LG}/>

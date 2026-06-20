@@ -7,4 +7,5 @@ export enum GroupBy {
     COUNTY = "county",
     COLLECTOR = "collector",
     DANCE = "dance",
+    DATATYPE = "datatype",
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid} from "@mantine/core";
+import {Grid, Group} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import AdvancedFilterMenu from "./AdvancedFilterMenu.tsx";
 import AdvancedFilterInput from "./AdvancedFilterInput.tsx";
@@ -21,16 +21,15 @@ const AdvancedFilterDynamic: React.FC<Properties> = ({id, filterKey, field, opti
                 <AdvancedFilterFieldSelector field={field} id={id}/>
             </Grid.Col>
 
-            <Grid.Col span={{base: 6, lg: 3}}>
+            <Grid.Col span={"content"}>
                 <AdvancedFilterInput filterKey={filterKey} field={field} options={options}/>
             </Grid.Col>
 
             <Grid.Col span={"content"}>
-                <AdvancedFilterMenu filterKey={filterKey} field={field}/>
-            </Grid.Col>
-
-            <Grid.Col span={"content"}>
-                <RemoveAdvancedFilterButton id={id}/>
+                <Group wrap={"nowrap"} gap={"xs"}>
+                    <AdvancedFilterMenu filterKey={filterKey} field={field}/>
+                    <RemoveAdvancedFilterButton id={id}/>
+                </Group>
             </Grid.Col>
         </Grid>
     );

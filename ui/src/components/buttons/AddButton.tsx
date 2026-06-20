@@ -12,8 +12,8 @@ const AddButton: React.FC<Properties> = ({label, onClick}) => {
     return (
         <Button
             radius={"xl"}
-            variant="subtle"
-            color={"gray"}
+            className={"hover-underline"}
+            variant="transparent"
             aria-label={label}
             leftSection={<IoAddOutline size={Size.icon.SM}/>}
             onClick={onClick}
