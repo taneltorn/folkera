@@ -21,6 +21,16 @@ import IconButton from "../../components/buttons/IconButton.tsx";
 
 const MAX_SIZE = 10;
 
+const ACCEPTED_AUDIO_TYPES = [
+    "audio/*",
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/mp4",
+    "audio/x-m4a",
+    ".mp3",
+    ".m4a",
+];
+
 const IdentifyView: React.FC = () => {
 
     const {t} = useTranslation();
@@ -91,7 +101,7 @@ const IdentifyView: React.FC = () => {
                         onDrop={handleDrop}
                         onReject={(files) => console.log('rejected files', files)}
                         maxSize={MAX_SIZE * 1024 ** 2}
-                        accept={['audio/*']}
+                        accept={ACCEPTED_AUDIO_TYPES}
                         multiple={false}
                     >
                         <Group justify="center" gap="xl" mih={220} style={{pointerEvents: 'none'}}>
