@@ -12,7 +12,6 @@ import {UserRole} from "./model/User.ts";
 import MyProfileView from "./views/profile/MyProfileView.tsx";
 import TuneDetails from "./views/tunes/TuneDetails.tsx";
 import IdentifyView from "./views/identify/IdentifyView.tsx";
-import ExampleMap from "./views/tunes/map/components/ExampleMap.tsx";
 import ClusterPlotView from "./views/admin/cluster/ClusterPlotView.tsx";
 import {SimilarTunesContextProvider} from "./hooks/useSimilarTunes.tsx";
 import ChangeLog from "./ChangeLog.tsx";
@@ -69,10 +68,6 @@ const router = createBrowserRouter([
                     <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
                         <Admin/>
                     </ProtectedRoute>,
-            },
-            {
-                path: "/map",
-                element: <ExampleMap/>,
             },
             {
                 path: "*",

@@ -46,7 +46,7 @@ const NotationViewer: React.FC<Properties> = ({tune, children}) => {
                 mobileSettings={{
                     controls: true,
                     showCloseIcon: true,
-                    download: true,
+                    download: false,
                 }}
                 thumbnail={images.length > 1}
                 animateThumb
