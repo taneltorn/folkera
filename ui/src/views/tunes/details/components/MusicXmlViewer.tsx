@@ -26,6 +26,18 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
     const waitForFrame = () =>
         new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 
+    const hideTempoMarks = (osmd: OpenSheetMusicDisplay) => {
+        const sheet: any = (osmd as any).Sheet;
+
+        sheet?.SourceMeasures?.forEach((measure: any) => {
+            measure?.TempoExpressions?.splice?.(0);
+        });
+
+        if (osmd.EngravingRules) {
+            (osmd.EngravingRules as any).RenderMetronomeMarks = false;
+        }
+    };
+
     const loadAndRender = async () => {
         setErr(null);
 
@@ -68,12 +80,16 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 drawCredits: false,
                 drawPartNames: false,
                 drawMeasureNumbers: false,
-                drawTimeSignatures: !tune?.hideTimeSignature,
+                drawTimeSignatures: !tune.hideTimeSignature,
                 backend: "svg",
                 drawingParameters: "compacttight",
             });
 
             await osmd.load(musicXmlText);
+
+            if (tune.hideTempo) {
+                hideTempoMarks(osmd);
+            }
 
             if ((osmd as any).Sheet?.Instruments) {
                 (osmd as any).Sheet.Instruments.forEach((inst: any) => {

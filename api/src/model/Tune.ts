@@ -27,5 +27,6 @@ export interface Tune {
     order?: string;
     flatLink?: string;
     hideTimeSignature?: boolean;
+    hideTempo?: boolean;
 }
 

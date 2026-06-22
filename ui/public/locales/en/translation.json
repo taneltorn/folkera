@@ -317,7 +317,8 @@
     "distances": "Distances",
     "settings": "Settings",
     "flatLink": "Flat.io link",
-    "hideTimeSignature": "Hide time signature"
+    "hideTimeSignature": "Hide time signature",
+    "hideTempo": "Hide tempo"
   },
   "access": {
     "OPEN": "Public",

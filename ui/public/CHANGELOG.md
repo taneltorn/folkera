@@ -1,3 +1,7 @@
+#### [0.8.7] - 21.06.2026
+- Lisatud võimalus peita noodistustel tempo
+- Pisiparandused
+
 #### [0.8.6] - 20.06.2026
 - Pisiparandused
 
@@ -5,7 +9,7 @@
 - Parem pildigalerii
 
 #### [0.8.4] - 17.06.2026
-- Lisatud võimalus peita noodistustel taktimõõtu
+- Lisatud võimalus peita noodistustel taktimõõt
 - Lisatud Flat.io link (funktsionaalsus)
 - Pisiparandused ja -täiendused
 

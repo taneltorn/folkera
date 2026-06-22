@@ -319,7 +319,8 @@
     "distances": "Kaugused",
     "settings": "Seaded",
     "flatLink": "Flat.io link",
-    "hideTimeSignature": "Peida taktimõõt"
+    "hideTimeSignature": "Peida taktimõõt",
+    "hideTempo": "Peida tempo"
   },
   "access": {
     "OPEN": "Avalik",

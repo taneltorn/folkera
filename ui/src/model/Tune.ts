@@ -28,5 +28,6 @@ export interface Tune {
     distance?: number;
     flatLink?: string;
     hideTimeSignature?: boolean;
+    hideTempo?: boolean;
 }
 

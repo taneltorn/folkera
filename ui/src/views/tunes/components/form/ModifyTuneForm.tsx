@@ -239,6 +239,15 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
                         placeholder={t("tune.hideTimeSignature")}
                         {...form.getInputProps("hideTimeSignature", {type: "checkbox"})}
                     />
+                    <Switch
+                        mt={"md"}
+                        size={"md"}
+                        key={"hideTempo"}
+                        type={"switch"}
+                        label={t("tune.hideTempo")}
+                        placeholder={t("tune.hideTempo")}
+                        {...form.getInputProps("hideTempo", {type: "checkbox"})}
+                    />
                 </Input.Wrapper>
             </SimpleGrid>
 
