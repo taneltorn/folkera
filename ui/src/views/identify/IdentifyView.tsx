@@ -23,12 +23,6 @@ const MAX_SIZE = 10;
 
 const ACCEPTED_AUDIO_TYPES = [
     "audio/*",
-    "audio/mpeg",
-    "audio/mp3",
-    "audio/mp4",
-    "audio/x-m4a",
-    ".mp3",
-    ".m4a",
 ];
 
 const IdentifyView: React.FC = () => {
