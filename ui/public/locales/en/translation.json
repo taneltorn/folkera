@@ -207,7 +207,8 @@
       "verifyToken": "Authentication failed",
       "login": "Login failed",
       "wrongCredentials": "Wrong username/password",
-      "playbackError": "Failed to play file {{file}}"
+      "playbackError": "Failed to play file {{file}}",
+      "unsupportedFile": "Unsupported file type: {{type}}"
     }
   },
   "similarity": {

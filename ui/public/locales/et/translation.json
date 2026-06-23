@@ -209,7 +209,8 @@
       "verifyToken": "Autentimine ebaõnnestus",
       "login": "Sisselogimine ebaõnnestus",
       "wrongCredentials": "Vale kasutajanimi/parool",
-      "playbackError": "Faili {{file}} ei õnnestunud mängida"
+      "playbackError": "Faili {{file}} ei õnnestunud mängida",
+      "unsupportedFile": "Antud failitüüp ei ole lubatud: {{type}}"
     }
   },
   "similarity": {

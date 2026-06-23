@@ -18,23 +18,18 @@ import {useAuth} from "../../hooks/useAuth.tsx";
 import SimpleMenu from "../../components/SimpleMenu.tsx";
 import {CoverHunterDatasets} from "../../utils/lists.ts";
 import IconButton from "../../components/buttons/IconButton.tsx";
+import {useToasts} from "../../hooks/useToasts.tsx";
+import {ToastType} from "../../context/ToastContext.tsx";
 
 const MAX_SIZE = 10;
 
-const ACCEPTED_AUDIO_TYPES = [
-    "audio/*",
-    "audio/mpeg",
-    "audio/mp3",
-    "audio/mp4",
-    "audio/x-m4a",
-    ".mp3",
-    ".m4a",
-];
+const ALLOWED_EXTENSIONS = [".mp3", ".m4a", ".aac"];
 
 const IdentifyView: React.FC = () => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
+    const {notify} = useToasts();
     const identifyService = useIdentifyService();
     const {loadSimilarTunes, setSimilarTunes} = useSimilarTunes();
 
@@ -44,19 +39,30 @@ const IdentifyView: React.FC = () => {
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     const handleFileChange = (file: File | null) => {
+        if (!file) {
+            setFile(null);
+            setAudioUrl(null);
+            setSimilarTunes([]);
+            return;
+        }
+
+        if (!isAllowedAudioFile(file)) {
+            notify(t("toast.error.unsupportedFile", {type: file.type}), ToastType.ERROR);
+            return;
+        }
+
         setFile(file);
         setSimilarTunes([]);
-        if (file) {
-            const url = URL.createObjectURL(file);
-            setAudioUrl(url);
-        } else {
-            setAudioUrl(null);
-        }
+
+        const url = URL.createObjectURL(file);
+        setAudioUrl(url);
     };
 
     const handleDrop = (files: FileWithPath[]) => {
-        if (files.length > 0) {
-            handleFileChange(files[0]);
+        const firstFile = files[0];
+
+        if (firstFile) {
+            handleFileChange(firstFile);
         }
     };
 
@@ -81,6 +87,13 @@ const IdentifyView: React.FC = () => {
             .finally(() => setIsUploading(false));
     };
 
+    // need to handle manually as there seems to be native issues with accept parameter on iphone
+    const isAllowedAudioFile = (file: File) => {
+        const name = file.name.toLowerCase();
+
+        return ALLOWED_EXTENSIONS.some(ext => name.endsWith(ext));
+    };
+
     useEffect(() => {
         setSimilarTunes([]);
     }, []);
@@ -101,7 +114,6 @@ const IdentifyView: React.FC = () => {
                         onDrop={handleDrop}
                         onReject={(files) => console.log('rejected files', files)}
                         maxSize={MAX_SIZE * 1024 ** 2}
-                        accept={ACCEPTED_AUDIO_TYPES}
                         multiple={false}
                     >
                         <Group justify="center" gap="xl" mih={220} style={{pointerEvents: 'none'}}>
