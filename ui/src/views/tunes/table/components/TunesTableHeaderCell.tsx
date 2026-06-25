@@ -54,12 +54,12 @@ const TunesTableHeaderCell: React.FC<Properties> = ({field, sortField, colSpan, 
                                 <Text
                                     className={"hover-pointer"}
                                     fw={600}
-                                    onClick={() => sortBy(field)}
+                                    onClick={() => sortBy(sortField || field)}
                                 >
                                     {t(`tune.${field}`)}
                                 </Text>
 
-                                {pagination.sortField === sortField || pagination.sortField === field && <>
+                                {(pagination.sortField === sortField || pagination.sortField === field) && <>
                                     {pagination.sortDirection === SortDirection.ASC
                                         ? <FaCaretDown size={Size.icon.SM}/>
                                         : <FaCaretUp size={Size.icon.SM}/>
