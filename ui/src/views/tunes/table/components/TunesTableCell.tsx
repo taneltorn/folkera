@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useState} from "react";
-import {CloseButton, Group, Table, TextInput} from "@mantine/core";
+import {CloseButton, Group, Switch, Table, TextInput} from "@mantine/core";
 import {useClickOutside, useFocusTrap} from "@mantine/hooks";
 import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
@@ -76,27 +76,41 @@ const TunesTableCell: React.FC<Properties> = ({tune, field, unmodifiable, always
             style={{borderLeft: "1px solid #efefef"}}
         >
             {visibleFields.includes(field) && <>
-                {isEdit
-                    ? <Group wrap={"nowrap"} gap={4} ref={ref} display={"flex"}>
-                        <TextInput
-                            ref={focusTrapRef}
-                            // @ts-ignore
-                            value={value}
-                            w={"100%"}
-                            size={"xs"}
-                            onKeyDown={handleKeyDown}
-                            onChange={e => setValue(e.target.value)}
-                            rightSection={<CloseButton
-                                size={"md"}
-                                className={"hover-pointer"}
-                                onClick={() => setValue("")}
-                                style={{display: value ? undefined : 'none'}}
-                            />}
+                {isEdit ? (
+                    ["hideTempo", "hideTimeSignature"].includes(field) ? (
+                        <Switch
+                            checked={!!value}
+                            onChange={(e) => {
+                                const checked = e.currentTarget.checked;
+                                setValue(checked);
+                                handleChange(checked);
+                            }}
                         />
-                    </Group>
-                    : <Group gap={4}>
+                    ) : (
+                        <Group wrap="nowrap" gap={4} ref={ref}>
+                            <TextInput
+                                ref={focusTrapRef}
+                                value={value as string | number | undefined}
+                                w="100%"
+                                size="xs"
+                                onKeyDown={handleKeyDown}
+                                onChange={(e) => setValue(e.target.value)}
+                                rightSection={
+                                    <CloseButton
+                                        size="md"
+                                        className="hover-pointer"
+                                        onClick={() => setValue("")}
+                                        style={{ display: value ? undefined : "none" }}
+                                    />
+                                }
+                            />
+                        </Group>
+                    )
+                ) : (
+                    <Group gap={4}>
                         {children}
-                    </Group>}
+                    </Group>
+                )}
             </>}
         </Table.Td>
     );

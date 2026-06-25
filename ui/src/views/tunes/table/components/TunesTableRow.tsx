@@ -1,5 +1,5 @@
 import React from "react";
-import {Checkbox, Group, Table, Text} from "@mantine/core";
+import {Checkbox, Group, Switch, Table, Text} from "@mantine/core";
 import TunesTableCell from "./TunesTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Tune} from "../../../../model/Tune.ts";
@@ -65,6 +65,9 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                             case "audio":
                             case "notation":
                                 return tune[tf.field];
+                            case "hideTempo":
+                            case "hideTimeSignature":
+                                return <Switch checked={tune[tf.field]}/>;
                             default:
                                 return (
                                     <FilterButtons
