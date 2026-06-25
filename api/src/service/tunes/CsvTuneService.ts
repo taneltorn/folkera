@@ -184,16 +184,25 @@ class CsvTuneService implements TuneService {
     private readFromCsvFile = (): Tune[] => {
         this.logger.info(`Reading data from file '${this.csvFile}'`);
 
-        const csvData = fs.readFileSync(this.csvFile, 'utf-8');
+        const csvData = fs.readFileSync(this.csvFile, "utf-8");
 
         const parsedData = Papa.parse<Tune>(csvData, {
             header: true,
             skipEmptyLines: true,
-            dynamicTyping: true,
         });
 
-        return parsedData.data;
+        return parsedData.data.map(tune => ({
+            ...tune,
+            hideTimeSignature: this.toBoolean(tune.hideTimeSignature),
+            hideTempo: this.toBoolean(tune.hideTempo),
+        }));
     }
+
+    private toBoolean = (value: unknown): boolean | undefined => {
+        if (value === true || value === "true") return true;
+        if (value === false || value === "false") return false;
+        return undefined;
+    };
 }
 
 export default CsvTuneService;
