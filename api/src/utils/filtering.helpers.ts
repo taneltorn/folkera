@@ -85,13 +85,17 @@ export const filter = (data: Tune[], filters?: Filter[]) => {
     );
 }
 
-const contains = (value: string | undefined, search: string | undefined) => {
+const contains = (value: unknown, search: string | undefined) => {
     if (!search) {
         return true;
     }
 
-    return value?.toLowerCase().includes(search);
-}
+    if (value == null) {
+        return false;
+    }
+
+    return String(value).toLowerCase().includes(search);
+};
 
 const isBetween = (value: string, from?: string, to?: string): boolean => {
     if (!from && !to) return true;
@@ -140,13 +144,6 @@ export const sortByField = (
         if (fieldA === undefined || fieldB === undefined) {
             return 0;
         }
-        //
-        // if (field === "order") {
-        //     const a = parseInt(`${fieldA}`);
-        //     const b = parseInt(`${fieldB}`);
-        //
-        //     return direction === SortDirection.ASC ? a - b : b - a;
-        // }
 
         if (typeof fieldA === "string" && typeof fieldB === "string") {
             return direction === SortDirection.ASC ? fieldA.localeCompare(fieldB, "et") : fieldB.localeCompare(fieldA, "et");
