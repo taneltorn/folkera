@@ -17,13 +17,13 @@ const FilterButtons: React.FC<Properties> = ({tune, field, split}) => {
     const {t} = useTranslation();
     const {addFilter} = useDataContext();
 
-    const values = split
-        ? tune[field]
-            // @ts-ignore
-            ?.split(split)
-            // @ts-ignore
-            ?.map(it => it.trim())
-        : [tune[field]];
+    const rawValue = tune[field];
+    const values =
+        typeof rawValue === "string"
+            ? split
+                ? rawValue.split(split).map(it => it.trim())
+                : [rawValue]
+            : [];
 
     const handleClick = (value: string) => {
         addFilter({field, value, type: "contains"});
