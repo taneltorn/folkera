@@ -20,11 +20,13 @@ import TuneDetailsInfo from "./details/components/TuneDetailsInfo.tsx";
 import ClusterPlotView from "../admin/cluster/ClusterPlotView.tsx";
 import TuneSimilarTunes from "./TuneSimilarTunes.tsx";
 import InfoMessage from "../../components/InfoMessage.tsx";
+import {useAuth} from "../../hooks/useAuth.tsx";
 
 const TuneDetails: React.FC = () => {
 
     const {t} = useTranslation();
     const {id} = useParams();
+    const {currentUser} = useAuth();
     const {notify} = useToasts();
     const dataService = useTuneService();
     const {setSimilarTunes} = useSimilarTunes();
@@ -72,6 +74,9 @@ const TuneDetails: React.FC = () => {
                     </Box>
 
                     <Divider my={"md"} color={"gray.1"}/>
+                    {currentUser?.isAdmin && tune.notation && <>
+                        <img width={"70%"} src={`${import.meta.env.VITE_API_URL}/notations/${tune.notation.split(";")[0]}`}/>
+                    </>}
 
                     {activeView === View.DETAILS && <TuneDetailsInfo tune={tune}/>}
                     {activeView === View.SIMILAR_TUNES && <TuneSimilarTunes tune={tune}/>}
