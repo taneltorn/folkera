@@ -1,6 +1,6 @@
 import React, {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {Group, Table, Text} from "@mantine/core";
+import {Group, Stack, Table, Text} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import TableLink from "../../../../components/footer/TableLink.tsx";
 import KivikeLink from "./KivikeLink.tsx";
@@ -32,11 +32,9 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
     }
 
     if (["audioRef", "notationRef", "ref"].includes(field)) {
-        return <>
-            <TableLink field={"ref"} value={value} replace>
-                {value}
-            </TableLink>
-        </>
+        return <TableLink field={"ref"} value={value} replace>
+            {value}
+        </TableLink>
     }
 
     if (["pid"].includes(field)) {
@@ -48,8 +46,17 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
         </>
     }
 
-    if (["content", "notes", "comments"].includes(field)) {
+    if (["content", "comments"].includes(field)) {
         return <Text>{value}</Text>;
+    }
+
+    if (["notes"].includes(field)) {
+        return <Stack gap={0}>
+            {value.split(";").map((v, i) =>
+                <Text key={i}>
+                    {v}
+                </Text>)}
+        </Stack>;
     }
 
     if (["datatype", "access", "trainset"].includes(field)) {

@@ -1,3 +1,6 @@
+#### [0.8.8] - 25.06.2026
+- Erinevad veaparandused
+
 #### [0.8.7] - 21.06.2026
 - Lisatud võimalus peita noodistustel tempo
 - Pisiparandused

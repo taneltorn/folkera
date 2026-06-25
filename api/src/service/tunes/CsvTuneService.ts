@@ -189,6 +189,7 @@ class CsvTuneService implements TuneService {
         const parsedData = Papa.parse<Tune>(csvData, {
             header: true,
             skipEmptyLines: true,
+            dynamicTyping: true,
         });
 
         return parsedData.data;

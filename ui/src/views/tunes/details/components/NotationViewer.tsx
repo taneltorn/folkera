@@ -42,7 +42,7 @@ const NotationViewer: React.FC<Properties> = ({tune, children}) => {
                 dynamic
                 dynamicEl={images}
                 plugins={[lgZoom, lgFullscreen, lgThumbnail]}
-                download={true}
+                download={false}
                 mobileSettings={{
                     controls: true,
                     showCloseIcon: true,

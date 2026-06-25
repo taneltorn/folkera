@@ -80,7 +80,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 drawCredits: false,
                 drawPartNames: false,
                 drawMeasureNumbers: false,
-                drawTimeSignatures: !tune.hideTimeSignature,
+                drawTimeSignatures: true,
                 backend: "svg",
                 drawingParameters: "compacttight",
             });
@@ -112,6 +112,12 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
 
             await waitForFrame();
             osmd.render();
+
+            if (tune.hideTimeSignature) {
+                nextContainer
+                    .querySelectorAll('[id*="timesignature"], [class*="timesignature"]')
+                    .forEach((el) => el.remove());
+            }
 
             const svg = nextContainer.querySelector("svg");
             if (svg) {
