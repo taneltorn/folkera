@@ -37,6 +37,10 @@ class TuneController {
             const result = await this.tuneService.findById(id);
 
             if (!result.success) {
+                if (result.error === "Tune not found") {
+                    res.status(404).json({error: result.error});
+                    return;
+                }
                 res.status(500).json({error: result.error});
                 return;
             }

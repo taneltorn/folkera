@@ -34,7 +34,7 @@ const FilterSelect: React.FC<Properties> = ({autoFocus, field, placeholder}) => 
         if (!raw) return [];
 
         const toLabel = (v: string) => {
-            if (["blank", "not_blank"].includes(v)) return t(`filtering.${v}`);
+            if (["blank", "not_blank", "true", "false"].includes(v)) return t(`filtering.${v}`);
             if (["OPEN", "RESTRICTED"].includes(v)) return t(`access.${v}`);
             if (["AUDIO", "NOTATION"].includes(v)) return t(`datatype.${v}`);
 
@@ -66,14 +66,24 @@ const FilterSelect: React.FC<Properties> = ({autoFocus, field, placeholder}) => 
         values.forEach((v) => {
             if (!filters.find((f) => f.field === field && f.value === v)) {
                 if (v === "blank") {
-                    useFilter({field, value: v, type: "blank"});
+                    addFilter({field, value: v, type: "blank"}, true);
                     return;
                 }
                 if (v === "not_blank") {
-                    useFilter({field, value: v, type: "not_blank"});
+                    addFilter({field, value: v, type: "not_blank"}, true);
                     return;
                 }
-                addFilter({field, value: v, type: "contains"});
+                if (v === "true") {
+                    useFilter({field, value: v, type: "boolean"});
+                    return;
+                }
+                if (v === "false") {
+                    useFilter({field, value: v, type: "boolean"});
+                    return;
+                }
+
+                const hasBlankOrNotBlank = !!filters.find(f => f.field === field && ["blank", "not_blank"].includes(f.value as string));
+                addFilter({field, value: v, type: "contains"}, hasBlankOrNotBlank);
             }
         });
     };
@@ -90,6 +100,7 @@ const FilterSelect: React.FC<Properties> = ({autoFocus, field, placeholder}) => 
             searchable
             clearable
             value={value}
+            nothingFoundMessage={t("data.noOptions")}
             onChange={handleChange}
             onClear={handleClear}
             data={data}

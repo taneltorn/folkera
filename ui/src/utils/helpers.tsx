@@ -19,6 +19,14 @@ export const truncate = (text: string | undefined, limit: number = 25): string =
     return text && text.length > limit ? text.slice(0, limit) + "..." : text || "";
 }
 
+export const refToId = (ref: string | undefined): string => {
+    return ref?.replaceAll(",", "")
+        .replaceAll(".", "")
+        .replaceAll(" ", "_")
+        .replaceAll("/", "-")
+        .toLowerCase() || "";
+}
+
 export const urlify = (filters?: Filter[]): Record<string, string> => {
     if (!filters) {
         return {};

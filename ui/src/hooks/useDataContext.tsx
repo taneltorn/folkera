@@ -127,13 +127,14 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
     const addFilter = (filter: Filter, replace?: boolean) => {
         const filterList: Filter[] = replace
-            ? filters.filter(f => !(f.field === filter.field))
-            : filters;
+            ? filters.filter(f => f.field !== filter.field)
+            : [...filters];
 
         const existingFilter = filterList.find(f =>
             f.type === filter.type &&
             f.value === filter.value &&
-            f.field === filter.field);
+            f.field === filter.field
+        );
 
         if (!existingFilter) {
             filterList.push({...filter, type: filter.type || "contains"});
@@ -141,7 +142,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
         setFilters(filterList);
         setPagination({...pagination, page: 1});
-    }
+    };
 
     const useFilter = (filter: Filter) => {
         const filterList: Filter[] = filters.filter(f => !(f.field === filter.field && (!filter.type || f.type === filter.type)));

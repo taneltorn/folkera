@@ -4,7 +4,7 @@ import CsvTuneService from "../service/tunes/CsvTuneService";
 import {logRequest} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {Counties, Parishes, Years} from "../utils/common.lists";
-import {extractAndSort, withBlankOptions} from "../utils/filtering.helpers";
+import {extractAndSort, withBlankOptions, withBooleanOptions} from "../utils/filtering.helpers";
 import {FilteringOptions} from "../model/FilteringOptions";
 
 class OptionsController {
@@ -38,6 +38,7 @@ class OptionsController {
                 performer: withBlankOptions(extractAndSort(data, "performer", ",")),
                 collector: withBlankOptions(extractAndSort(data, "collector", ",")),
                 comments: withBlankOptions([]),
+                notes: withBlankOptions([]),
                 access: withBlankOptions(extractAndSort(data, "access")),
                 datatype: withBlankOptions(extractAndSort(data, "datatype")),
                 audio: withBlankOptions([]),
@@ -46,6 +47,10 @@ class OptionsController {
                 audioRef: withBlankOptions([]),
                 notationRef: withBlankOptions([]),
                 duration: withBlankOptions([]),
+                order: withBlankOptions([]),
+                flatLink: withBlankOptions([]),
+                hideTempo: withBooleanOptions([]),
+                hideTimeSignature: withBooleanOptions([]),
                 parish: withBlankOptions([{group: "\n", items: Parishes}]),
                 county: withBlankOptions([{group: "\n", items: Counties}]),
                 origin: withBlankOptions([{group: "\n", items: Parishes}]),

@@ -43,7 +43,9 @@
           "audio":  "Kuva ainult helisalvestused",
           "notation": "Kuva ainult noodistused"
         },
-        "back": "Tagasi tabelivaatesse"
+        "back": "Tagasi tabelivaatesse",
+        "allTunes": "Kõik pillilood",
+        "tuneNotFound": "Kirjet viitega <strong>{{ref}}</strong> ei leitud."
       },
       "table": {
         "results": "Tulemusi",
@@ -274,6 +276,8 @@
     "not_contains": "Ei sisalda",
     "from": "Alates",
     "to": "Kuni",
+    "true": "Jah",
+    "false": "Ei",
     "blank": "Ilma väärtuseta",
     "not_blank": "Väärtusega",
     "advanced": {
@@ -323,16 +327,16 @@
     "hideTempo": "Peida tempo"
   },
   "access": {
-    "OPEN": "Avalik",
-    "RESTRICTED": "Piiratud"
+    "OPEN": "avalik",
+    "RESTRICTED": "piiratud"
   },
   "datatype": {
-    "AUDIO": "Helisalvestus",
-    "NOTATION": "Noodistus"
+    "AUDIO": "helisalvestus",
+    "NOTATION": "noodistus"
   },
   "trainset": {
-    "TR": "Treeningandmed",
-    "TE": "Testandmed"
+    "TR": "treeningandmed",
+    "TE": "testandmed"
   },
   "user": {
     "id": "ID",
@@ -383,6 +387,7 @@
     "variant": "Variant {{index}}"
   },
   "data": {
+    "noOptions": "Valikuid ei leitud.",
     "noResults": "Andmeid ei leitud.",
     "fetchFailed": "Andmeid ei õnnestunud laadida."
   },

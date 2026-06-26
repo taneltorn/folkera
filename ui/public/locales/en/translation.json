@@ -43,7 +43,9 @@
           "audio": "Show audio recordings only",
           "notation": "Show notations only"
         },
-        "back": "Back to table view"
+        "back": "Back to table view",
+        "allTunes": "All tunes",
+        "tuneNotFound": "Tune with ref <strong>{{ref}}</strong> not found."
       },
       "table": {
         "results": "Results",
@@ -272,6 +274,8 @@
     "not_contains": "Does not contain",
     "from": "From",
     "to": "To",
+    "true": "Yes",
+    "false": "No",
     "blank": "Without value",
     "not_blank": "With value",
     "advanced": {
@@ -321,12 +325,12 @@
     "hideTempo": "Hide tempo"
   },
   "access": {
-    "OPEN": "Public",
-    "RESTRICTED": "Restricted"
+    "OPEN": "public",
+    "RESTRICTED": "restricted"
   },
   "datatype": {
-    "AUDIO": "Audio",
-    "NOTATION": "Notation"
+    "AUDIO": "audio",
+    "NOTATION": "notation"
   },
   "trainset": {
     "TR": "Training data",
@@ -381,6 +385,7 @@
     "variant": "Variant {{index}}"
   },
   "data": {
+    "noOptions": "No options found.",
     "noResults": "No data found.",
     "fetchFeiled": "Failed to load data."
   },

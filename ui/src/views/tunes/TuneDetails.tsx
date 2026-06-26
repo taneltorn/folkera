@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Box, Divider, LoadingOverlay} from "@mantine/core";
+import {Alert, Box, Divider, Group, LoadingOverlay, Stack, Text} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import {useTuneService} from "../../services/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
@@ -20,6 +20,10 @@ import TuneDetailsInfo from "./details/components/TuneDetailsInfo.tsx";
 import ClusterPlotView from "../admin/cluster/ClusterPlotView.tsx";
 import TuneSimilarTunes from "./TuneSimilarTunes.tsx";
 import InfoMessage from "../../components/InfoMessage.tsx";
+import {IoMdAlert} from "react-icons/io";
+import {Size} from "../../utils/constants.ts";
+import {Link} from "react-router-dom";
+import {PiCaretLeft} from "react-icons/pi";
 
 const TuneDetails: React.FC = () => {
 
@@ -33,17 +37,25 @@ const TuneDetails: React.FC = () => {
     const {setState} = useControlState();
     const {activeView, setActiveView} = useActiveView();
     const [tune, setTune] = useState<Tune>();
-
+    const [notFound, setNotFound] = useState(false);
 
     const fetchData = (id: string | undefined) => {
         if (!id) {
             return;
         }
+
+        setNotFound(false);
+        setTune(undefined);
+
         dataService.fetchTune(id)
             .then(data => {
                 setTune(data);
             })
             .catch(error => {
+                if (error?.response?.status === 404) {
+                    setNotFound(true);
+                    return;
+                }
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             });
     }
@@ -61,7 +73,20 @@ const TuneDetails: React.FC = () => {
     }, [id]);
 
     return (
-        <Page title={tune?.ref}>
+        <Page title={id}>
+            {notFound && <Stack mx={"md"}>
+                <Alert color={"blue"} icon={<IoMdAlert size={Size.icon.MD}/>}>
+                    <Text size={"md"}><Trans i18nKey={"page.tunes.details.tuneNotFound"} values={{ref: id}}/></Text>
+                </Alert>
+
+                <Link to={"/tunes?view=table"}>
+                    <Group wrap={"nowrap"} gap={"xs"}>
+                        <PiCaretLeft size={Size.icon.MD}/>
+                        <Text fw={"bold"}>{t("page.tunes.details.allTunes")}</Text>
+                    </Group>
+                </Link>
+            </Stack>}
+
             {tune &&
                 <>
                     <LoadingOverlay visible={dataService.isLoading}/>

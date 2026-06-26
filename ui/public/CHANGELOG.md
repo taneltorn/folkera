@@ -1,3 +1,6 @@
+#### [0.8.9] - 25.06.2026
+- Otsingu täiendused
+
 #### [0.8.8] - 25.06.2026
 - Erinevad veaparandused
 

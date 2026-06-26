@@ -145,6 +145,7 @@ class CsvTuneService implements TuneService {
             }
         }
     }
+
     public async save(data: Tune[]): Promise<Result<Tune[]>> {
         this.logger.info(`Updating ${data.length} tunes`);
 
@@ -174,10 +175,10 @@ class CsvTuneService implements TuneService {
 
             fs.writeFileSync(this.csvFile, updatedCsvData, "utf-8");
 
-            return { success: true, data };
+            return {success: true, data};
         } catch (err: any) {
             this.logger.error(err);
-            return { success: false, error: "Error updating the tune", detail: err?.message };
+            return {success: false, error: "Error updating the tune", detail: err?.message};
         }
     }
 
@@ -193,15 +194,13 @@ class CsvTuneService implements TuneService {
 
         return parsedData.data.map(tune => ({
             ...tune,
-            hideTimeSignature: this.toBoolean(tune.hideTimeSignature),
-            hideTempo: this.toBoolean(tune.hideTempo),
+            hideTimeSignature: this.toBoolean(`${tune.hideTimeSignature}`),
+            hideTempo: this.toBoolean(`${tune.hideTempo}`),
         }));
     }
 
-    private toBoolean = (value: unknown): boolean | undefined => {
-        if (value === true || value === "true") return true;
-        if (value === false || value === "false") return false;
-        return undefined;
+    private toBoolean = (value?: string): boolean => {
+        return value?.toLowerCase() === "true";
     };
 }
 

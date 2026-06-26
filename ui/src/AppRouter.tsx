@@ -35,6 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/tunes/:id",
+                errorElement: <h1>Not found</h1>,
                 element: <SimilarTunesContextProvider>
                     <TuneDetails/>
                 </SimilarTunesContextProvider>,

@@ -5,6 +5,27 @@ import {SortDirection} from "../model/Pagination";
 import {Tune} from "../model/Tune";
 import {Operation} from "../model/Operation";
 
+const searchableFields: (keyof Tune)[] = [
+    "ref",
+    "pid",
+    "content",
+    "melody",
+    "dance",
+    "year",
+    "instrument",
+    "performer",
+    "collector",
+    "parish",
+    "county",
+    "origin",
+    "notes",
+    "audio",
+    "notation",
+    "notationRef",
+    "audioRef",
+    "comments",
+];
+
 export const extractAndSort = (tunes: Tune[], field: keyof Tune, split?: string): GroupedOption[] => {
     const values = extractByField(tunes, field, split);
     return [{
@@ -28,72 +49,64 @@ export const withBlankOptions = (options: GroupedOption[]): GroupedOption[] => {
     return [{group: "", items: [FieldState.BLANK, FieldState.NOT_BLANK]}, ...options];
 };
 
+export const withBooleanOptions = (options: GroupedOption[]): GroupedOption[] => {
+    return [{group: "", items: [FieldState.TRUE, FieldState.FALSE]}, ...options];
+};
+
 export const filter = (data: Tune[], filters?: Filter[]) => {
-    if (!filters) {
+    if (!filters?.length) {
         return data;
     }
 
-    const search = filters.find(f => f.field === "search")?.value?.toLowerCase().trim();
-    const from = filters.find(f => f.field === "from")?.value?.trim();
-    const to = filters.find(f => f.field === "to")?.value?.trim();
+    const filtersByField = filters.reduce<Record<string, Filter[]>>((acc, filter) => {
+        acc[filter.field] = acc[filter.field] || [];
+        acc[filter.field].push(filter);
+        return acc;
+    }, {});
 
-    return data.filter(r =>
-        isIn(r.ref, filters.filter(f => f.field === "ref")) &&
-        isIn(r.notes, filters.filter(f => f.field === "notes")) &&
-        isIn(r.content, filters.filter(f => f.field === "content")) &&
-        isIn(r.year, filters.filter(f => f.field === "year")) &&
-        isBetween(r.year, from, to) &&
-        isIn(r.melody, filters.filter(f => f.field === "melody")) &&
-        isIn(r.instrument, filters.filter(f => f.field === "instrument")) &&
-        isIn(r.dance, filters.filter(f => f.field === "dance")) &&
-        isIn(r.performer, filters.filter(f => f.field === "performer")) &&
-        isIn(r.collector, filters.filter(f => f.field === "collector")) &&
-        isIn(r.parish, filters.filter(f => f.field === "parish")) &&
-        isIn(r.county, filters.filter(f => f.field === "county")) &&
-        isIn(r.origin, filters.filter(f => f.field === "origin")) &&
-        isIn(r.audio, filters.filter(f => f.field === "audio")) &&
-        isIn(r.audioRef, filters.filter(f => f.field === "audioRef")) &&
-        isIn(r.notationRef, filters.filter(f => f.field === "notationRef")) &&
-        isIn(r.musicxml, filters.filter(f => f.field === "musicxml")) &&
-        isIn(r.notation, filters.filter(f => f.field === "notation")) &&
-        isIn(r.origin, filters.filter(f => f.field === "origin")) &&
-        isIn(r.comments, filters.filter(f => f.field === "comments")) &&
-        isIn(r.datatype, filters.filter(f => f.field === "datatype")) &&
-        isIn(r.trainset, filters.filter(f => f.field === "trainset")) &&
-        isIn(r.access, filters.filter(f => f.field === "access")) &&
-        isIn(r.pid, filters.filter(f => f.field === "pid")) &&
+    const search = filtersByField.search?.[0]?.value?.toLowerCase().trim();
+    const from = filtersByField.from?.[0]?.value?.trim();
+    const to = filtersByField.to?.[0]?.value?.trim();
 
-        (contains(r.ref, search)
-            || contains(r.pid, search)
-            || contains(r.content, search)
-            || contains(r.melody, search)
-            || contains(r.dance, search)
-            || contains(r.year, search)
-            || contains(r.instrument, search)
-            || contains(r.performer, search)
-            || contains(r.collector, search)
-            || contains(r.parish, search)
-            || contains(r.county, search)
-            || contains(r.origin, search)
-            || contains(r.notes, search)
-            || contains(r.audio, search)
-            || contains(r.notation, search)
-            || contains(r.notationRef, search)
-            || contains(r.audioRef, search)
-            || contains(r.comments, search)
-        )
+    const getFilters = (field: keyof Tune) => filtersByField[field] || [];
+
+    return data.filter(tune =>
+        isIn(tune.ref, getFilters("ref")) &&
+        isIn(tune.notes, getFilters("notes")) &&
+        isIn(tune.content, getFilters("content")) &&
+        isIn(tune.year, getFilters("year")) &&
+        isBetween(tune.year, from, to) &&
+        isIn(tune.melody, getFilters("melody")) &&
+        isIn(tune.instrument, getFilters("instrument")) &&
+        isIn(tune.dance, getFilters("dance")) &&
+        isIn(tune.performer, getFilters("performer")) &&
+        isIn(tune.collector, getFilters("collector")) &&
+        isIn(tune.parish, getFilters("parish")) &&
+        isIn(tune.county, getFilters("county")) &&
+        isIn(tune.origin, getFilters("origin")) &&
+        isIn(tune.audio, getFilters("audio")) &&
+        isIn(tune.audioRef, getFilters("audioRef")) &&
+        isIn(tune.notationRef, getFilters("notationRef")) &&
+        isIn(tune.musicxml, getFilters("musicxml")) &&
+        isIn(tune.notation, getFilters("notation")) &&
+        isIn(tune.comments, getFilters("comments")) &&
+        isIn(tune.datatype, getFilters("datatype")) &&
+        isIn(tune.trainset, getFilters("trainset")) &&
+        isIn(tune.access, getFilters("access")) &&
+        isBoolean(tune.hideTimeSignature, getFilters("hideTimeSignature")) &&
+        isBoolean(tune.hideTempo, getFilters("hideTempo")) &&
+        isIn(tune.pid, getFilters("pid")) &&
+        searchableFields.some(field => contains(tune[field], search))
     );
-}
+};
 
 const contains = (value: unknown, search: string | undefined) => {
     if (!search) {
         return true;
     }
-
     if (value == null) {
         return false;
     }
-
     return String(value).toLowerCase().includes(search);
 };
 
@@ -102,12 +115,27 @@ const isBetween = (value: string, from?: string, to?: string): boolean => {
     return isWithinRange(value, Number.parseInt(from) || Number.MIN_SAFE_INTEGER, Number.parseInt(to) || Number.MAX_SAFE_INTEGER);
 };
 
-const isWithinRange = (value: string, from: number, to: number): boolean => {
-    const [min, max] = value.includes("-")
-        ? value.split("-").map(it => Number.parseInt(it.trim()))
-        : [Number.parseInt(value.trim()), Number.parseInt(value.trim())];
-    return max >= from && max <= to || min >= from && min <= to;
+const isWithinRange = (value: string | undefined, from: number, to: number): boolean => {
+    if (!value) return false;
+
+    const [minRaw, maxRaw] = value.includes("-")
+        ? value.split("-").map(it => Number.parseInt(it.trim(), 10))
+        : [Number.parseInt(value.trim(), 10), Number.parseInt(value.trim(), 10)];
+
+    if (Number.isNaN(minRaw) || Number.isNaN(maxRaw)) {
+        return false;
+    }
+
+    return maxRaw >= from && minRaw <= to;
 };
+
+const isBoolean = (value: boolean, filters: Filter[]): boolean => {
+    if (filters.length === 0) return true;
+
+    const filterValue = filters[0].value === "true";
+
+    return filterValue === !!value;
+}
 
 export const isIn = (value: string | undefined, filters: Filter[]): boolean => {
     if (filters.length === 0) return true;

@@ -82,7 +82,6 @@ const TunesTableHeaderCell: React.FC<Properties> = ({field, sortField, colSpan, 
                                         <RxDragHandleDots2
                                             title={t("button.settings")}
                                             className={"hover-pointer"}
-                                            // color={theme.colors.gray[3]}
                                             size={Size.icon.MD}
                                         />}
                                     items={[

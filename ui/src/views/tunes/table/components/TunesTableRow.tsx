@@ -3,13 +3,14 @@ import {Checkbox, Group, Switch, Table, Text} from "@mantine/core";
 import TunesTableCell from "./TunesTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Tune} from "../../../../model/Tune.ts";
-import {Link} from "react-router-dom";
 import {TunesTableField} from "../../../../utils/fields.ts";
 import {useTuneSelection} from "../../../../hooks/useTuneSelection.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
 import {useHover} from "@mantine/hooks";
+import TuneLink from "../../../../components/TuneLink.tsx";
+import {refToId} from "../../../../utils/helpers.tsx";
 
 interface Properties {
     tune: Tune;
@@ -47,15 +48,11 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                     {(() => {
                         switch (tf.field) {
                             case "ref":
-                                return (
-                                    <Group wrap={"nowrap"}>
-                                        <Link to={`/tunes/${tune.id}`}>
-                                            <Text size="sm" fw={700}>
-                                                {tune.ref}
-                                            </Text>
-                                        </Link>
-                                    </Group>
-                                );
+                                return <TuneLink to={`/tunes/${tune.id}`} label={tune.ref}/>
+                            case "audioRef":
+                                return <TuneLink to={`/tunes/${refToId(tune.audioRef)}`} label={tune.audioRef}/>
+                            case "notationRef":
+                                return <TuneLink to={`/tunes/${refToId(tune.notationRef)}`} label={tune.notationRef}/>
                             case "content":
                                 return <Text size="sm" fw={500} c={"dark.4"}>{tune.content}</Text>;
                             case "notes":
@@ -64,6 +61,8 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                             case "musicxml":
                             case "audio":
                             case "notation":
+                            case "flatLink":
+                            case "order":
                                 return tune[tf.field];
                             case "hideTempo":
                             case "hideTimeSignature":
