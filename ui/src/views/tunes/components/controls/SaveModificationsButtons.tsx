@@ -32,7 +32,7 @@ const SaveModificationsButtons: React.FC = () => {
     };
 
     return (<>
-            {state === ControlState.SAVE && <>
+            {state === ControlState.EDIT && <>
                 <Button
                     variant={"filled"}
                     size={"sm"}

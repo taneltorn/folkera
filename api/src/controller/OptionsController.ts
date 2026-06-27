@@ -49,6 +49,8 @@ class OptionsController {
                 duration: withBlankOptions([]),
                 order: withBlankOptions([]),
                 flatLink: withBlankOptions([]),
+                pid: withBlankOptions([]),
+                id: withBlankOptions([]),
                 hideTempo: withBooleanOptions([]),
                 hideTimeSignature: withBooleanOptions([]),
                 parish: withBlankOptions([{group: "\n", items: Parishes}]),

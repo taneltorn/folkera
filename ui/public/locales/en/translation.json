@@ -25,7 +25,8 @@
         "save": "Save",
         "visibleFields": "Visible fields",
         "mapOptions": "Map settings",
-        "clearFilters": "Remove filters"
+        "clearFilters": "Remove filters",
+        "edit": "Edit mode"
       },
       "details": {
         "similarTunes": "Find similar tunes",

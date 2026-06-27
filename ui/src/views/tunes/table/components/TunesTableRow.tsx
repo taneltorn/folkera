@@ -1,16 +1,17 @@
 import React from "react";
-import {Checkbox, Group, Switch, Table, Text} from "@mantine/core";
+import {Group, Switch, Table, Text} from "@mantine/core";
 import TunesTableCell from "./TunesTableCell.tsx";
 import FilterButtons from "./controls/FilterButtons.tsx";
 import {Tune} from "../../../../model/Tune.ts";
 import {TunesTableField} from "../../../../utils/fields.ts";
-import {useTuneSelection} from "../../../../hooks/useTuneSelection.tsx";
-import {useControlState} from "../../../../hooks/useControlState.tsx";
-import {ControlState} from "../../../../model/ControlState.ts";
 import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx";
 import {useHover} from "@mantine/hooks";
 import TuneLink from "../../../../components/TuneLink.tsx";
 import {refToId} from "../../../../utils/helpers.tsx";
+import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
+import {AiFillEdit} from "react-icons/ai";
+import {Size} from "../../../../utils/constants.ts";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 interface Properties {
     tune: Tune;
@@ -19,26 +20,16 @@ interface Properties {
 
 const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
 
-    const {selection, toggleSelection} = useTuneSelection();
-    const {state} = useControlState();
-
+    const {currentUser} = useAuth();
     const {hovered, ref} = useHover();
 
     return (
         <Table.Tr ref={ref}>
             <Table.Td>
                 <Group justify={"center"}>
-                    {state === ControlState.SELECT
-                        ? <Checkbox
-                            p={"xs"}
-                            size={"sm"}
-                            radius={"sm"}
-                            checked={!!selection.find(r => r.id === tune.id)}
-                            onChange={() => toggleSelection(tune)}
-                        />
-                        : <Group wrap={"nowrap"} gap={0}>
-                            <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
-                        </Group>}
+                    <Group wrap={"nowrap"} gap={0}>
+                        <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
+                    </Group>
                 </Group>
             </Table.Td>
 
@@ -62,6 +53,8 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                             case "audio":
                             case "notation":
                             case "flatLink":
+                            case "pid":
+                            case "id":
                             case "order":
                                 return tune[tf.field];
                             case "hideTempo":
@@ -79,6 +72,19 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                     })()}
                 </TunesTableCell>
             ))}
+
+            {currentUser?.isAdmin &&
+                <Table.Td>
+                    <ModifyTuneButton
+                        variant={"transparent"}
+                        color={hovered ? "dark" : "white"}
+                        size={"compact-xl"}
+                        tune={tune}
+                    >
+                        <AiFillEdit size={Size.icon.SM}/>
+                    </ModifyTuneButton>
+                </Table.Td>
+               }
         </Table.Tr>
     );
 }

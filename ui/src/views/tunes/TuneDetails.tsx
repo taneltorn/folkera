@@ -73,7 +73,7 @@ const TuneDetails: React.FC = () => {
     }, [id]);
 
     return (
-        <Page title={id}>
+        <Page title={tune?.ref || id}>
             {notFound && <Stack mx={"md"}>
                 <Alert color={"blue"} icon={<IoMdAlert size={Size.icon.MD}/>}>
                     <Text size={"md"}><Trans i18nKey={"page.tunes.details.tuneNotFound"} values={{ref: id}}/></Text>

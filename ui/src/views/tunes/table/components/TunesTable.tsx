@@ -9,6 +9,7 @@ import DataTypeSelector from "./controls/DataTypeSelector.tsx";
 import TunesTableHeaderCell from "./TunesTableHeaderCell.tsx";
 import {useTableColumnOrderContext} from "../../../../hooks/useTableColumnOrderContext.tsx";
 import NoData from "./NoData.tsx";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 interface Properties {
     data: Tune[];
@@ -16,6 +17,7 @@ interface Properties {
 
 const TunesTable: React.FC<Properties> = ({data}) => {
 
+    const {currentUser} = useAuth();
     const {isLoading} = useDataContext();
     const {modifications} = useModifications();
     const {sortedFields} = useTableColumnOrderContext();
@@ -45,6 +47,8 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                                     sortField={tf.sortField}
                                     type={tf.type}
                                 />)}
+
+                            {currentUser?.isAdmin && <Table.Th/>}
                         </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>

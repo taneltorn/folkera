@@ -34,7 +34,6 @@ const FilterButtons: React.FC<Properties> = ({tune, field, split}) => {
             {/* @ts-ignore*/}
             {values?.filter(v => !!v).map((v, i) => (
                 <Button key={i}
-                        className={"pill-button"}
                         radius={"md"}
                         variant={"filled"}
                         color={`${Color.get(field) || "gray"}.${8 - i % 5}`}
@@ -42,7 +41,6 @@ const FilterButtons: React.FC<Properties> = ({tune, field, split}) => {
                         onClick={() => handleClick(v)}>
                     <LimitText
                         textWrap={"nowrap"}
-                        className={"pill-button"}
                         limit={30}
                         size={"xs"}
                         text={["access", "datatype"].includes(field)

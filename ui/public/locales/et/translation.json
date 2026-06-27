@@ -26,7 +26,8 @@
         "save": "Salvesta",
         "visibleFields": "Kuvatavad väljad",
         "mapOptions": "Kuvasätted",
-        "clearFilters": "Eemalda filtrid"
+        "clearFilters": "Eemalda filtrid",
+        "edit": "Redigeeri"
       },
       "details": {
         "similarTunes": "Otsi sarnaseid viise",
