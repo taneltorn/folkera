@@ -52,7 +52,7 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
             </SimpleGrid>
             <SimpleGrid cols={2}>
                 <FormInput
-                    name={"tune"}
+                    name={"melody"}
                     type={"text"}
                     label={t("tune.melody")}
                     placeholder={t("tune.melody")}
