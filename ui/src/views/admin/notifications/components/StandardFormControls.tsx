@@ -4,15 +4,16 @@ import SubmitButton from "../../../../components/buttons/SubmitButton.tsx";
 import CancelButton from "../../../../components/buttons/CancelButton.tsx";
 
 interface Properties {
+    isLoading?: boolean;
     onCancel: () => void;
 }
 
-const StandardFormControls: React.FC<Properties> = ({onCancel}) => {
+const StandardFormControls: React.FC<Properties> = ({isLoading, onCancel}) => {
 
     return (
         <Group justify={"end"} gap={4}>
             <CancelButton onClick={onCancel}/>
-            <SubmitButton/>
+            <SubmitButton isLoading={isLoading} />
         </Group>
     );
 }

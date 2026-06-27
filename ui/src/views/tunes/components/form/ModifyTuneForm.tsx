@@ -252,7 +252,7 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
             </SimpleGrid>
 
 
-            <StandardFormControls onCancel={modals.closeAll}/>
+            <StandardFormControls isLoading={dataService.isLoading} onCancel={modals.closeAll}/>
         </form>
     );
 }

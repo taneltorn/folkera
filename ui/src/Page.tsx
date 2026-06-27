@@ -16,7 +16,7 @@ const Page: React.FC<Properties> = ({children, title}) => {
     }, [title]);
 
     return (
-        <Box mb={track ? 90 : "md"}>
+        <Box mb={track ? 120 : "xs"}>
             {children}
         </Box>
     )
