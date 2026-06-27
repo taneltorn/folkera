@@ -30,8 +30,8 @@ const TunesTableControls: React.FC = () => {
                     />
 
                     <ExportTunesCsvButton/>
-                    <VisibleFieldsSelector/>
                     {currentUser?.isAdmin && <ToggleEditModeButton/>}
+                    <VisibleFieldsSelector/>
 
                 </>}
         </Group>
