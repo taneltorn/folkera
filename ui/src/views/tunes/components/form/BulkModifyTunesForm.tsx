@@ -30,7 +30,7 @@ const BulkModifyTunesForm: React.FC<Properties> = ({onSubmit, onCancel}) => {
     return (
         <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
             <FormInput
-                name={"tune"}
+                name={"melody"}
                 type={"text"}
                 label={t("tune.melody")}
                 placeholder={t("tune.melody")}
