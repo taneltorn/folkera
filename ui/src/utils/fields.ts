@@ -25,6 +25,7 @@ export const fields: TunesTableField[] = [
     {field: "audioRef", type: "select"},
     {field: "access", type: "select"},
     {field: "datatype", type: "select"},
+    {field: "pid", type: "select"},
     {field: "audio", type: "select", technical: true},
     {field: "notation", type: "select", technical: true},
     {field: "musicxml", type: "select", technical: true},
@@ -35,6 +36,7 @@ export const fields: TunesTableField[] = [
     {field: "flatLink", type: "select", technical: true},
     {field: "hideTimeSignature", type: "select", technical: true},
     {field: "hideTempo", type: "select", technical: true},
+    {field: "id", type: "select", technical: true},
 ];
 
 export const AutocompleteFields = ["melody", "dance", "instrument", "performer", "collector", "parish", "county", "origin"];

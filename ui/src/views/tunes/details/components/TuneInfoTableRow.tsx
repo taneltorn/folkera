@@ -4,6 +4,8 @@ import {Group, Stack, Table, Text} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import TableLink from "../../../../components/footer/TableLink.tsx";
 import KivikeLink from "./KivikeLink.tsx";
+import TuneLink from "../../../../components/TuneLink.tsx";
+import {refToId} from "../../../../utils/helpers.tsx";
 
 interface Properties {
     field: keyof Tune;
@@ -31,10 +33,18 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
                 </Text>)
     }
 
-    if (["audioRef", "notationRef", "ref"].includes(field)) {
-        return <TableLink field={"ref"} value={value} replace>
+    if (["ref"].includes(field)) {
+        return <Text >
             {value}
-        </TableLink>
+        </Text>
+    }
+
+    if (["audioRef"].includes(field)) {
+        return <TuneLink to={`/tunes/${refToId(tune.audioRef)}`} label={tune.audioRef}/>
+    }
+
+    if (["notationRef"].includes(field)) {
+        return <TuneLink to={`/tunes/${refToId(tune.notationRef)}`} label={tune.notationRef}/>
     }
 
     if (["pid"].includes(field)) {
