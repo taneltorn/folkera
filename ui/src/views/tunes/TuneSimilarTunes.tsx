@@ -28,7 +28,7 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
                 selfRef: tune.id,
                 dataset: "folkera",
             },
-            tune.distances);
+            tune);
     }
     useEffect(() => {
         if (tune.distances) {
@@ -38,6 +38,7 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
 
     return (
         <Box pos={"relative"} mih={100}>
+            {tune.distances}
             {!tune.audio && <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
 
             <SimilarTunesTable onSave={loadData}/>

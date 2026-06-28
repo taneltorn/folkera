@@ -1,5 +1,5 @@
 import React, {useContext, useMemo, useState} from 'react';
-import {isEmpty, parseDistances} from "../utils/helpers.tsx";
+import {isEmpty, parseDistances, stringifyDistances} from "../utils/helpers.tsx";
 import {Tune} from "../model/Tune.ts";
 import {SimilarTunesContext} from "../context/SimilarTunesContext.tsx";
 import {useIdentifyService} from "../services/useIdentifyService.ts";
@@ -42,14 +42,17 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
 
     const loadSimilarTunes = async (
         options: IdentifyOptions,
-        initialDistances?: string,
+        tune?: Tune,
         reloadData?: () => void
     ): Promise<void> => {
         try {
-            const distances = initialDistances
-                ? parseDistances(initialDistances)
+            const distances = tune?.distances
+                ? parseDistances(tune.distances)
                 : await fetchDistances(options);
 
+            if (tune) {
+                tune.distances = stringifyDistances(distances);
+            }
             const ids: string[] = Object.keys(distances);
             const tunes = await fetchTunes(ids, distances);
 

@@ -22,17 +22,16 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
     const {setActiveView} = useActiveView()
     const {loadSimilarTunes, isBusy} = useSimilarTunes();
 
-    const handleSubmit = (distances?: string) => {
+    const handleSubmit = () => {
         if (tune.audio && !isBusy) {
 
-            tune.distances = distances;
             loadSimilarTunes({
                     filePath: tune.audio,
                     top: SIMILAR_TUNES_TO_FETCH,
                     selfRef: tune.id,
                     dataset: "folkera",
                 },
-                distances);
+                tune);
 
             setActiveView(View.SIMILAR_TUNES);
             modals.closeAll();
@@ -67,7 +66,7 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
             disabled={isBusy || !currentUser?.isResearcher || !tune.audio}
             variant={"subtle"}
             leftSection={<TbZoomQuestion size={Size.icon.SM}/>}
-            onClick={tune.distances ? openModal : () => handleSubmit(tune.distances)}
+            onClick={tune.distances ? openModal : handleSubmit}
         >
             {t("button.loadSimilarTunes")}
         </Button>
