@@ -27,7 +27,7 @@ const Layout: React.FC = () => {
 
                 <Portal>
                     <AppShell.Footer
-                        zIndex={10000} bg={"gray.1"}
+                        bg={"gray.1"}
                         style={{borderTop: `1px solid ${theme.colors.gray[2]}`}}
                     >
                         {track && <BottomAudioPlayer/>}

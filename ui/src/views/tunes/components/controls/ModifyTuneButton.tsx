@@ -16,11 +16,11 @@ interface Properties {
     size?: string;
     color?: string;
     leftSection?: React.ReactNode;
-    onChange?: () => void;
+    onSubmit?: () => void;
     children?: React.ReactNode;
 }
 
-const ModifyTuneButton: React.FC<Properties> = ({tune, onChange, children, ...props}) => {
+const ModifyTuneButton: React.FC<Properties> = ({tune, onSubmit, children, ...props}) => {
 
     const {t} = useTranslation();
     const {notify} = useToasts();
@@ -28,7 +28,7 @@ const ModifyTuneButton: React.FC<Properties> = ({tune, onChange, children, ...pr
 
     const handleSubmit = () => {
         notify(t("toast.success.saveData"), ToastType.SUCCESS);
-        onChange && onChange();
+        onSubmit && onSubmit();
     }
 
     const openModal = () =>

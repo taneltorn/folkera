@@ -10,9 +10,10 @@ import {LoadingState} from "../../../../model/LoadingState.ts";
 import InfoMessage from "../../../../components/InfoMessage.tsx";
 
 interface Properties {
+    onSave: () => void;
 }
 
-const SimilarTunesTable: React.FC<Properties> = () => {
+const SimilarTunesTable: React.FC<Properties> = ({onSave}) => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
@@ -55,7 +56,7 @@ const SimilarTunesTable: React.FC<Properties> = () => {
                                     pagination.page * pagination.size
                                     : 100)
                             .map((tune, index) => (
-                                <SimilarTunesTableRow key={`similar-tunes-row-${index}-${tune.id}`} tune={tune}/>
+                                <SimilarTunesTableRow key={`similar-tunes-row-${index}-${tune.id}`} tune={tune} onSave={onSave}/>
                             ))}
                     </Table.Tbody>
                 </Table>

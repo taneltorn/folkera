@@ -47,7 +47,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                         size={"sm"}
                         tune={tune}
                         leftSection={<AiFillEdit size={Size.icon.MD}/>}
-                        onChange={reloadData}>
+                        onSubmit={reloadData}>
                         {t("button.modify")}
                     </ModifyTuneButton>
                 </>}

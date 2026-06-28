@@ -83,8 +83,7 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                     >
                         <AiFillEdit size={Size.icon.SM}/>
                     </ModifyTuneButton>
-                </Table.Td>
-               }
+                </Table.Td>}
         </Table.Tr>
     );
 }

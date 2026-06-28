@@ -17,15 +17,22 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
     const {t} = useTranslation();
     const {similarTunes, isBusy, loadSimilarTunes} = useSimilarTunes();
 
+
+    const loadData = () => {
+        if (!tune.audio) {
+            return;
+        }
+        loadSimilarTunes({
+                filePath: tune.audio,
+                top: SIMILAR_TUNES_TO_FETCH,
+                selfRef: tune.id,
+                dataset: "folkera",
+            },
+            tune.distances);
+    }
     useEffect(() => {
-        if (tune.distances && tune.audio) {
-            loadSimilarTunes({
-                    filePath: tune.audio,
-                    top: SIMILAR_TUNES_TO_FETCH,
-                    selfRef: tune.id,
-                    dataset: "folkera",
-                },
-                tune.distances);
+        if (tune.distances) {
+            loadData();
         }
     }, []);
 
@@ -33,7 +40,7 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
         <Box pos={"relative"} mih={100}>
             {!tune.audio && <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
 
-            <SimilarTunesTable/>
+            <SimilarTunesTable onSave={loadData}/>
 
             {tune.audio && !isBusy && !similarTunes.length &&
                 <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.noAnalysis")}/>}

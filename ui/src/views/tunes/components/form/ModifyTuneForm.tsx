@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Input, SimpleGrid, Switch} from "@mantine/core";
+import {Box, Input, SimpleGrid, Switch} from "@mantine/core";
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
@@ -41,218 +41,236 @@ const ModifyTuneForm: React.FC<Properties> = ({initialValues, ...props}) => {
 
     return (
         <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"content"}
-                    type={"text"}
-                    label={t("tune.content")}
-                    placeholder={t("tune.content")}
-                    form={form}
-                />
-            </SimpleGrid>
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"melody"}
-                    type={"text"}
-                    label={t("tune.melody")}
-                    placeholder={t("tune.melody")}
-                    form={form}
-                />
-                <FormInput
-                    name={"trainset"}
-                    type={"select"}
-                    label={t("tune.trainset")}
-                    placeholder={t("tune.trainset")}
-                    options={[
-                        {value: "", label: ""},
-                        {value: "TR", label: "TR"},
-                        {value: "TE", label: "TE"},
-                    ]}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"year"}
-                    type={"text"}
-                    label={t("tune.year")}
-                    placeholder={t("tune.year")}
-                    form={form}
-                />
-                <FormInput
-                    name={"collector"}
-                    type={"text"}
-                    label={t("tune.collector")}
-                    placeholder={t("tune.collector")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"performer"}
-                    type={"text"}
-                    label={t("tune.performer")}
-                    placeholder={t("tune.performer")}
-                    form={form}
-                />
-                <FormInput
-                    name={"instrument"}
-                    type={"text"}
-                    label={t("tune.instrument")}
-                    placeholder={t("tune.instrument")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"parish"}
-                    type={"text"}
-                    label={t("tune.parish")}
-                    placeholder={t("tune.parish")}
-                    form={form}
-                />
-                <FormInput
-                    name={"county"}
-                    type={"text"}
-                    label={t("tune.county")}
-                    placeholder={t("tune.county")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"dance"}
-                    type={"text"}
-                    label={t("tune.dance")}
-                    placeholder={t("tune.dance")}
-                    form={form}
-                />
-                <FormInput
-                    name={"origin"}
-                    type={"text"}
-                    label={t("tune.origin")}
-                    placeholder={t("tune.origin")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"notes"}
-                    type={"text"}
-                    label={t("tune.notes")}
-                    placeholder={t("tune.notes")}
-                    form={form}
-                />
-                <FormInput
-                    name={"comments"}
-                    type={"text"}
-                    label={t("tune.comments")}
-                    placeholder={t("tune.comments")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={2}>
-                <FormInput
-                    name={"audioRef"}
-                    type={"text"}
-                    label={t("tune.audioRef")}
-                    placeholder={t("tune.audioRef")}
-                    form={form}
-                />
-                <FormInput
-                    name={"notationRef"}
-                    type={"text"}
-                    label={t("tune.notationRef")}
-                    placeholder={t("tune.notationRef")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"audio"}
-                    type={"text"}
-                    label={t("tune.audio")}
-                    placeholder={t("tune.audio")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"notation"}
-                    type={"text"}
-                    label={t("tune.notation")}
-                    placeholder={t("tune.notation")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"musicxml"}
-                    type={"text"}
-                    label={t("tune.musicxml")}
-                    placeholder={t("tune.musicxml")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"distances"}
-                    type={"textarea"}
-                    label={t("tune.distances")}
-                    placeholder={t("tune.distances")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-            <SimpleGrid cols={1}>
-                <FormInput
-                    name={"flatLink"}
-                    type={"text"}
-                    label={t("tune.flatLink")}
-                    placeholder={t("tune.flatLink")}
-                    form={form}
-                />
-            </SimpleGrid>
-
-
-            <SimpleGrid cols={1}>
-                <Input.Wrapper
-                    mb={"md"}
-                    label={t("tune.settings")}
-                    labelProps={{mb: 4, fw: "bold"}}
-                >
-                    <Switch
-                        size={"md"}
-                        key={"hideTimeSignature"}
-                        type={"switch"}
-                        label={t("tune.hideTimeSignature")}
-                        placeholder={t("tune.hideTimeSignature")}
-                        {...form.getInputProps("hideTimeSignature", {type: "checkbox"})}
+            <Box
+                style={{
+                    maxHeight: "70vh",
+                    overflowY: "auto",
+                    padding: "var(--mantine-spacing-md)",
+                    paddingBottom: 0,
+                }}
+            >
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"content"}
+                        type={"text"}
+                        label={t("tune.content")}
+                        placeholder={t("tune.content")}
+                        form={form}
                     />
-                    <Switch
-                        mt={"md"}
-                        size={"md"}
-                        key={"hideTempo"}
-                        type={"switch"}
-                        label={t("tune.hideTempo")}
-                        placeholder={t("tune.hideTempo")}
-                        {...form.getInputProps("hideTempo", {type: "checkbox"})}
+                </SimpleGrid>
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"melody"}
+                        type={"text"}
+                        label={t("tune.melody")}
+                        placeholder={t("tune.melody")}
+                        form={form}
                     />
-                </Input.Wrapper>
-            </SimpleGrid>
+                    <FormInput
+                        name={"trainset"}
+                        type={"select"}
+                        label={t("tune.trainset")}
+                        placeholder={t("tune.trainset")}
+                        options={[
+                            {value: "TR", label: "TR"},
+                            {value: "TE", label: "TE"},
+                        ]}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"year"}
+                        type={"text"}
+                        label={t("tune.year")}
+                        placeholder={t("tune.year")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"collector"}
+                        type={"text"}
+                        label={t("tune.collector")}
+                        placeholder={t("tune.collector")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"performer"}
+                        type={"text"}
+                        label={t("tune.performer")}
+                        placeholder={t("tune.performer")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"instrument"}
+                        type={"text"}
+                        label={t("tune.instrument")}
+                        placeholder={t("tune.instrument")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"parish"}
+                        type={"text"}
+                        label={t("tune.parish")}
+                        placeholder={t("tune.parish")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"county"}
+                        type={"text"}
+                        label={t("tune.county")}
+                        placeholder={t("tune.county")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"dance"}
+                        type={"text"}
+                        label={t("tune.dance")}
+                        placeholder={t("tune.dance")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"origin"}
+                        type={"text"}
+                        label={t("tune.origin")}
+                        placeholder={t("tune.origin")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"notes"}
+                        type={"text"}
+                        label={t("tune.notes")}
+                        placeholder={t("tune.notes")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"comments"}
+                        type={"text"}
+                        label={t("tune.comments")}
+                        placeholder={t("tune.comments")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={2}>
+                    <FormInput
+                        name={"audioRef"}
+                        type={"text"}
+                        label={t("tune.audioRef")}
+                        placeholder={t("tune.audioRef")}
+                        form={form}
+                    />
+                    <FormInput
+                        name={"notationRef"}
+                        type={"text"}
+                        label={t("tune.notationRef")}
+                        placeholder={t("tune.notationRef")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"audio"}
+                        type={"text"}
+                        label={t("tune.audio")}
+                        placeholder={t("tune.audio")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"notation"}
+                        type={"text"}
+                        label={t("tune.notation")}
+                        placeholder={t("tune.notation")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"musicxml"}
+                        type={"text"}
+                        label={t("tune.musicxml")}
+                        placeholder={t("tune.musicxml")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"distances"}
+                        type={"textarea"}
+                        label={t("tune.distances")}
+                        placeholder={t("tune.distances")}
+                        form={form}
+                    />
+                </SimpleGrid>
+
+                <SimpleGrid cols={1}>
+                    <FormInput
+                        name={"flatLink"}
+                        type={"text"}
+                        label={t("tune.flatLink")}
+                        placeholder={t("tune.flatLink")}
+                        form={form}
+                    />
+                </SimpleGrid>
 
 
-            <StandardFormControls isLoading={dataService.isLoading} onCancel={modals.closeAll}/>
+                <SimpleGrid cols={1}>
+                    <Input.Wrapper
+                        mb={"md"}
+                        label={t("tune.settings")}
+                        labelProps={{mb: 4, fw: "bold"}}
+                    >
+                        <Switch
+                            size={"md"}
+                            key={"hideTimeSignature"}
+                            type={"switch"}
+                            label={t("tune.hideTimeSignature")}
+                            placeholder={t("tune.hideTimeSignature")}
+                            {...form.getInputProps("hideTimeSignature", {type: "checkbox"})}
+                        />
+                        <Switch
+                            mt={"md"}
+                            size={"md"}
+                            key={"hideTempo"}
+                            type={"switch"}
+                            label={t("tune.hideTempo")}
+                            placeholder={t("tune.hideTempo")}
+                            {...form.getInputProps("hideTempo", {type: "checkbox"})}
+                        />
+                    </Input.Wrapper>
+                </SimpleGrid>
+            </Box>
+
+            <Box
+                style={{
+                    position: "sticky",
+                    bottom: 0,
+                    zIndex: 10,
+                    background: "var(--mantine-color-body)",
+                    borderTop: "1px solid var(--mantine-color-gray-2)",
+                    padding: "var(--mantine-spacing-md)",
+                }}
+            >
+                <StandardFormControls isLoading={dataService.isLoading} onCancel={modals.closeAll}/>
+            </Box>
         </form>
     );
 }
