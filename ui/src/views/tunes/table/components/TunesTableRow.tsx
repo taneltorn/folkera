@@ -12,6 +12,7 @@ import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {AiFillEdit} from "react-icons/ai";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
+import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 
 interface Properties {
     tune: Tune;
@@ -22,6 +23,7 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
 
     const {currentUser} = useAuth();
     const {hovered, ref} = useHover();
+    const {loadData} = useDataContext();
 
     return (
         <Table.Tr ref={ref}>
@@ -80,6 +82,7 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                         color={hovered ? "dark" : "white"}
                         size={"compact-xl"}
                         tune={tune}
+                        onSubmit={loadData}
                     >
                         <AiFillEdit size={Size.icon.SM}/>
                     </ModifyTuneButton>
