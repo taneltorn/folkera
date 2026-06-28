@@ -13,7 +13,7 @@ import TuneLink from "../../../../components/TuneLink.tsx";
 
 interface Properties {
     tune: Tune;
-    onSave: () => void;
+    onSave?: () => void;
 }
 
 const SimilarTunesTableRow: React.FC<Properties> = ({tune, onSave}) => {
@@ -22,6 +22,9 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune, onSave}) => {
     const {currentUser} = useAuth();
     const {hovered, ref} = useHover();
 
+    const handleSubmit = () => {
+        onSave && onSave();
+    }
     return (
         <Table.Tr key={tune.id} ref={ref}>
             <Table.Td>
@@ -55,7 +58,7 @@ const SimilarTunesTableRow: React.FC<Properties> = ({tune, onSave}) => {
                                 color={hovered ? "dark" : "white"}
                                 size={"compact-xl"}
                                 tune={tune}
-                                onSubmit={onSave}
+                                onSubmit={handleSubmit}
                             >
                                 <AiFillEdit size={Size.icon.SM}/>
                             </ModifyTuneButton>

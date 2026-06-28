@@ -10,7 +10,7 @@ import {LoadingState} from "../../../../model/LoadingState.ts";
 import InfoMessage from "../../../../components/InfoMessage.tsx";
 
 interface Properties {
-    onSave: () => void;
+    onSave?: () => void;
 }
 
 const SimilarTunesTable: React.FC<Properties> = ({onSave}) => {
