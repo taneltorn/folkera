@@ -13,7 +13,7 @@ const Page: React.FC<Properties> = ({children, title}) => {
     }, [title]);
 
     return (
-        <Box mb={100}>
+        <Box mb={120}>
             {children}
         </Box>
     )

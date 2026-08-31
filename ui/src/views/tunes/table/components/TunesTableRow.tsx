@@ -29,9 +29,9 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
         <Table.Tr ref={ref}>
             <Table.Td>
                 <Group justify={"center"}>
-                    <Group wrap={"nowrap"} gap={0}>
+                    {/*<Group wrap={"nowrap"} gap={0}>*/}
                         <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
-                    </Group>
+                    {/*</Group>*/}
                 </Group>
             </Table.Td>
 

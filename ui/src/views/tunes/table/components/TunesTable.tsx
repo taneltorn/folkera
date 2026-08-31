@@ -34,7 +34,7 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                 >
                     <Table.Thead>
                         <Table.Tr className={"hover-parent"}>
-                            <Table.Th>
+                            <Table.Th w={50}>
                                 <Group justify={"center"}>
                                     <DataTypeSelector/>
                                 </Group>
