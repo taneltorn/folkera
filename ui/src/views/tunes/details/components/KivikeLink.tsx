@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Button, Tooltip} from "@mantine/core";
+import {Button, Group, Tooltip} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import {FaExternalLinkAlt} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
@@ -19,15 +19,17 @@ const KivikeLink: React.FC<Properties> = ({tune}) => {
         <Tooltip label={t(`page.tunes.details.${tune.pid ? "openInKivike" : "pidMissing"}`)} withArrow>
             <Button
                 component="a"
+                px={0}
                 href={tune.pid ? `${KIVIKE_PID_URL}${tune.pid}` : undefined}
                 target="blank"
-                variant="subtle"
-                radius={"xl"}
-                color={"dark.9"}
-                size={"compact-md"}
+                variant={"transparent"}
+                size={"sm"}
                 disabled={!tune.pid}
             >
-                <FaExternalLinkAlt size={Size.icon.XS}/>
+                <Group>
+                    {tune.pid}
+                    <FaExternalLinkAlt size={Size.icon.XS}/>
+                </Group>
             </Button>
 
         </Tooltip>

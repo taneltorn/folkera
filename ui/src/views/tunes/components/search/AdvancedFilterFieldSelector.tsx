@@ -6,21 +6,21 @@ import {Tune} from "../../../../model/Tune.ts";
 import {AutocompleteFields, DynamicFieldTypes} from "../../../../utils/fields.ts";
 
 interface Properties {
-    id: string;
+    filterKey: string;
     field: keyof Tune;
 }
 
-const AdvancedTypeFieldSelector: React.FC<Properties> = ({id, field}) => {
+const AdvancedTypeFieldSelector: React.FC<Properties> = ({filterKey, field}) => {
 
     const {t} = useTranslation();
     const {dynamicRows, setDynamicRows} = useAdvancedFilteringContext();
 
     const fieldOptions = DynamicFieldTypes.map(f => ({value: f, label: t(`tune.${f}`)}));
 
-    const updateDynamicRowField = (id: string, nextField: keyof Tune) => {
+    const updateDynamicRowField = (filterKey: string, nextField: keyof Tune) => {
         const rows = [...dynamicRows];
 
-        const index = rows.findIndex(r => r.id === id);
+        const index = rows.findIndex(r => r.filterKey === filterKey);
         if (index === -1) return;
 
         rows[index] = {
@@ -38,7 +38,7 @@ const AdvancedTypeFieldSelector: React.FC<Properties> = ({id, field}) => {
             title={t(`tune.${field}`)}
             data={fieldOptions as any}
             value={field}
-            onChange={(v) => v && updateDynamicRowField(id, v as keyof Tune)}
+            onChange={(v) => v && updateDynamicRowField(filterKey, v as keyof Tune)}
             searchable
         />
     );

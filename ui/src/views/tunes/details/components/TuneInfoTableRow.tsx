@@ -34,7 +34,7 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
     }
 
     if (["ref"].includes(field)) {
-        return <Text >
+        return <Text>
             {value}
         </Text>
     }
@@ -48,12 +48,7 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
     }
 
     if (["pid"].includes(field)) {
-        return <>
-            <TableLink field={field} value={value} replace>
-                {value}
-            </TableLink>
-            <KivikeLink tune={tune}/>
-        </>
+        return <KivikeLink tune={tune}/>
     }
 
     if (["content", "comments"].includes(field)) {

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Box, Button, Divider, Group, Stack, Text} from "@mantine/core";
 import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilteringContext.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
@@ -13,6 +13,7 @@ import {Tune} from "../../../../model/Tune.ts";
 import {AutocompleteFields} from "../../../../utils/fields.ts";
 import {RiResetLeftLine} from "react-icons/ri";
 import AddButton from "../../../../components/buttons/AddButton.tsx";
+import {v4 as uuidv4} from 'uuid';
 
 const AdvancedFilteringPanel: React.FC = () => {
 
@@ -20,16 +21,12 @@ const AdvancedFilteringPanel: React.FC = () => {
     const {filters, setFilters, setVisible, dynamicRows, setDynamicRows} = useAdvancedFilteringContext();
     const ctx = useDataContext();
 
-    const seq = useRef(0);
-
     const addDynamicRow = (field: keyof Tune = "instrument") => {
-        seq.current += 1;
-        const id = `row_${seq.current}`;
-        const filterKey = `dyn_${seq.current}`;
+        const id = uuidv4();
+        const filterKey = `dyn_${id}`;
 
         const rows = [...dynamicRows];
         rows.push({
-            id,
             filterKey,
             field,
             autocomplete: AutocompleteFields.includes(field),
@@ -51,14 +48,12 @@ const AdvancedFilteringPanel: React.FC = () => {
 
         ctx.loadData(filterList);
 
-        // handleClear();
         setVisible(false);
     };
 
     const handleClear = () => {
         setFilters([]);
         setDynamicRows([]);
-        seq.current = 0;
     };
 
     return (
@@ -82,7 +77,11 @@ const AdvancedFilteringPanel: React.FC = () => {
                 {dynamicRows.length > 0 && <Divider my={"md"} color={"gray.1"}/>}
 
                 {dynamicRows.map(row => (
-                    <AdvancedFilterDynamic field={row.field} filterKey={row.filterKey} id={row.id}/>
+                    <AdvancedFilterDynamic
+                        key={`dynamic-row-${row.filterKey}`}
+                        field={row.field}
+                        filterKey={row.filterKey}
+                    />
                 ))}
             </Stack>
 

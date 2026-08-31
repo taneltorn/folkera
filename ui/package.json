@@ -82,6 +82,7 @@
     "postcss-simple-vars": "^7.0.1",
     "sass": "^1.97.1",
     "typescript": "^5.9.3",
+    "uuid": "^14.0.2",
     "vite": "7.1.11"
   }
 }

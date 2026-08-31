@@ -7,18 +7,17 @@ import AdvancedFilterFieldSelector from "./AdvancedFilterFieldSelector.tsx";
 import RemoveAdvancedFilterButton from "./RemoveAdvancedFilterButton.tsx";
 
 interface Properties {
-    id: string;
     filterKey: string;
     field: keyof Tune;
     options?: string[];
 }
 
-const AdvancedFilterDynamic: React.FC<Properties> = ({id, filterKey, field, options}) => {
+const AdvancedFilterDynamic: React.FC<Properties> = ({filterKey, field, options}) => {
 
     return (
         <Grid>
             <Grid.Col span={"content"}>
-                <AdvancedFilterFieldSelector field={field} id={id}/>
+                <AdvancedFilterFieldSelector field={field} filterKey={filterKey}/>
             </Grid.Col>
 
             <Grid.Col span={"content"}>
@@ -28,7 +27,7 @@ const AdvancedFilterDynamic: React.FC<Properties> = ({id, filterKey, field, opti
             <Grid.Col span={"content"}>
                 <Group wrap={"nowrap"} gap={"xs"}>
                     <AdvancedFilterMenu filterKey={filterKey} field={field}/>
-                    <RemoveAdvancedFilterButton id={id}/>
+                    <RemoveAdvancedFilterButton filterKey={filterKey}/>
                 </Group>
             </Grid.Col>
         </Grid>

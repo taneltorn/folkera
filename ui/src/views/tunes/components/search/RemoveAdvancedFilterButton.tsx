@@ -3,19 +3,20 @@ import {useAdvancedFilteringContext} from "../../../../hooks/useAdvancedFilterin
 import IconButton from "../../../../components/buttons/IconButton.tsx";
 
 interface Properties {
-    id: string;
+    filterKey: string;
 }
 
-const RemoveAdvancedFilterButton: React.FC<Properties> = ({id}) => {
+const RemoveAdvancedFilterButton: React.FC<Properties> = ({filterKey}) => {
 
     const {setFilters, dynamicRows, setDynamicRows} = useAdvancedFilteringContext();
 
-    const removeDynamicRow = (id: string) => {
+    const removeDynamicRow = (filterKey: string) => {
         const rows = [...dynamicRows];
-        const row = rows.find(r => r.id === id);
+
+        const row = rows.find(r => r.filterKey === filterKey);
         if (!row) return;
 
-        const nextRows = rows.filter(r => r.id !== id);
+        const nextRows = rows.filter(r => r.filterKey !== filterKey);
         setDynamicRows(nextRows);
 
         // @ts-ignore
@@ -25,7 +26,7 @@ const RemoveAdvancedFilterButton: React.FC<Properties> = ({id}) => {
     return (
         <IconButton
             type={"remove"}
-            onClick={() => removeDynamicRow(id)}
+            onClick={() => removeDynamicRow(filterKey)}
         />
     );
 };
