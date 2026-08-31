@@ -68,6 +68,19 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
     useEffect(() => {
         if (!filters.length) {
             setYear("");
+            return;
+        }
+        const year = filters.find(f => f.filterKey === filterKey && f.field === "year")?.value;
+        if (year) {
+            setYear(year);
+        }
+        const fromFilter = filters.find(f => f.filterKey === filterKey && f.field === "from");
+        const toFilter = filters.find(f => f.filterKey === filterKey && f.field === "to");
+        if (fromFilter || toFilter) {
+            const from = Number(fromFilter?.value || DefaultRange[0]);
+            const to = Number(toFilter?.value || DefaultRange[10]);
+
+            setYearRange([from, to] as [number, number]);
         }
     }, [filters.find(f => f.field === "year")]);
 
@@ -77,7 +90,7 @@ const AdvancedYearInput: React.FC<Properties> = ({filterKey}) => {
                     <Input
                         size={"sm"}
                         variant={"filled"}
-                        className={year ? "active-input" : ""}
+                        className={year || yearRange !== DefaultRange ? "active-input" : ""}
                         value={year}
                         disabled={["blank", "not_blank"].includes(yearFilter.type as string)}
                         placeholder={yearRange !== DefaultRange ? `${yearRange[0]} - ${yearRange[1]}` : t(`tune.year`)}

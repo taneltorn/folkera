@@ -88,7 +88,7 @@ const TuneDetails: React.FC = () => {
             </Stack>}
 
             {tune &&
-                <>
+                <Box pos={"relative"}>
                     <Box px={"md"}>
                         <TuneHeader tune={tune}/>
                         <TuneDetailsControls tune={tune} reloadData={() => fetchData(id)}/>
@@ -105,9 +105,8 @@ const TuneDetails: React.FC = () => {
                             : <InfoMessage mx={"md"} color={"blue"}
                                            title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
-                </>}
-
-            <LoadingOverlay visible={dataService.isLoading}/>
+                    <LoadingOverlay visible={dataService.isLoading}/>
+                </Box>}
         </Page>
     );
 }

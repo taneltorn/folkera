@@ -19,7 +19,7 @@ export const useIdentifyService = () => {
 
         return axios.get(`${API_URL}/identify`, {
             params: {
-                file: file,
+                file: file.split(";")[0],
                 top: top,
                 selfRef: selfRef,
                 dataset: dataset,

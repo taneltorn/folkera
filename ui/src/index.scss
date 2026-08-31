@@ -54,8 +54,6 @@ table {
   visibility: visible;
 }
 
-
-
 .parish-label {
   font-size: 14px;
   font-weight: bold;
@@ -93,6 +91,11 @@ table {
   border-color: var(--mantine-color-gray-1) !important;
 }
 
+.active-input {
+  .mantine-Input-input {
+    background: var(--mantine-color-gray-2);
+  }
+}
 
 .notation-gallery {
   .image-gallery-bullets-container .image-gallery-bullet:hover {
@@ -139,7 +142,6 @@ table {
   padding: 0;
   opacity: 1;
 }
-
 
 
 .rhap_container {

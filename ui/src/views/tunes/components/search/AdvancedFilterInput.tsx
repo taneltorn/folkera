@@ -47,6 +47,11 @@ const AdvancedFilterInput: React.FC<Properties> = ({filterKey, field, options}) 
     useEffect(() => {
         if (!filters.length) {
             setValue("");
+            return;
+        }
+        const f = filters.find(f => f.filterKey === filterKey);
+        if (f) {
+            setValue(f.value);
         }
     }, [filters.find(f => f.field === field)]);
 

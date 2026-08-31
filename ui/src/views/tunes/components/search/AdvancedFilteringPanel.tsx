@@ -51,7 +51,7 @@ const AdvancedFilteringPanel: React.FC = () => {
 
         ctx.loadData(filterList);
 
-        handleClear();
+        // handleClear();
         setVisible(false);
     };
 
