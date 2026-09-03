@@ -1,3 +1,6 @@
+#### [0.8.12] - 03.09.2026
+- Pisiparandused
+
 #### [0.8.11] - 31.08.2026
 - Parandatud helianalüüsi viga mitme helifaili puhul
 - Otsingu täiendused

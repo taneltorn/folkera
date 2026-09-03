@@ -26,13 +26,13 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
         onError,
     } = {...props};
 
-    const {isPlaying, loopLeft, loopWidth, isLooping} = useAudioPlayer();
+    const {isPlaying, loopLeft, loopWidth, loopStage} = useAudioPlayer();
 
     return (
         <Flex>
             <Group
                 flex={1}
-                className={isLooping ? "looping-player" : ""}
+                className={loopStage > 0 ? "looping-player" : ""}
                 style={{
                     "--loop-left": loopLeft,
                     "--loop-width": loopWidth,

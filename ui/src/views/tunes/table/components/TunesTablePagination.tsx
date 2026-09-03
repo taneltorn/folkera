@@ -8,12 +8,12 @@ import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";
 const TunesTablePagination: React.FC = () => {
 
     const {t} = useTranslation();
+
     const {pagination, setPagination, totalPages} = useDataContext();
     const bp = useCurrentBreakpoint();
 
     return (
-        <Group mt={"md"} mb={85} px={"md"} justify={"space-between"}>
-
+        <Group mt={"md"} px={"md"} justify={"space-between"}>
             <Group gap={4}>
                 {ItemsPerPageOptions.map(it => (
                     <Button

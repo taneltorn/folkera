@@ -35,7 +35,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         onError,
     } = {...props};
 
-    const {isPlaying, loopLeft, loopWidth, isLooping} = useAudioPlayer();
+    const {isPlaying, loopLeft, loopWidth, loopStage} = useAudioPlayer();
 
     const theme = useMantineTheme()
     const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
@@ -60,7 +60,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                 <Group
                     align="center"
                     h={80}
-                    className={isLooping ? "looping-player" : ""}
+                    className={loopStage > 0 ? "looping-player" : ""}
                     style={{
                         "--loop-left": loopLeft,
                         "--loop-width": loopWidth,
