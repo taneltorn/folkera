@@ -129,6 +129,7 @@
     "help": {
       "title": "Folkera",
       "description": "This web application is part of an ongoing doctoral dissertation aimed at systematizing Estonian instrumental folk music using audio analysis and computational methods. The dataset is based on 19th and 20th century instrumental recordings and handwritten notations preserved in the Estonian Folklore Archives. The data is continuously expanded and curated throughout the research process.",
+      "registration": "Due to copyright restrictions, a large portion of the audio recordings has restricted access and requires a user account to listen to.",
       "contact": "If you find errors in the application or have suggestions, write to: <strong>{{email}}</strong>.",
       "version": "Version",
       "navigateToChangelog": "View changelog"
@@ -171,6 +172,7 @@
     "auth": {
       "form": {
         "header": "Log in",
+        "body": "User registration is currently restricted. For more information, please contact us at: <strong>{{email}}</strong>.",
         "usernameOrEmail": "Username or e-mail",
         "password": "Password"
       }

@@ -1,8 +1,9 @@
 import React from "react";
-import {Button, Group, TextInput} from "@mantine/core";
+import {Button, Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../../hooks/useAuth.tsx";
 import {useForm, isNotEmpty} from '@mantine/form';
+import FormInput from "../form/FormInput.tsx";
 
 interface LoginFormValues {
     usernameOrEmail: string;
@@ -42,24 +43,29 @@ const Login: React.FC<Properties> = ({onSubmit}) => {
 
     return (
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-            <TextInput
-                mb={"md"}
-                variant={"filled"}
+            <FormInput
+                name={"usernameOrEmail"}
+                type={"text"}
+                size={"lg"}
+                radius={"xl"}
+                label={t("page.auth.form.usernameOrEmail")}
                 placeholder={t("page.auth.form.usernameOrEmail")}
-                key={form.key('usernameOrEmail')}
-                {...form.getInputProps('usernameOrEmail')}
+                form={form}
             />
-
-            <TextInput
-                variant={"filled"}
+            <FormInput
+                name={"password"}
                 type={"password"}
+                size={"lg"}
+                radius={"xl"}
+                label={t("page.auth.form.password")}
                 placeholder={t("page.auth.form.password")}
-                key={form.key('password')}
-                {...form.getInputProps('password')}
+                form={form}
             />
 
-            <Group justify="flex-end" mt="md">
+            <Group justify="center" mt="xl">
                 <Button
+                    size={"lg"}
+                    w={"100%"}
                     radius={"xl"}
                     type="submit">
                     {t("page.navigation.login")}

@@ -5,7 +5,7 @@ import {Size} from "../../utils/constants.ts";
 import {RiQuestionFill} from "react-icons/ri";
 import {useDisclosure} from "@mantine/hooks";
 import packageJson from '../../../package.json';
-import {FaBug, FaInfo} from "react-icons/fa";
+import {FaBug, FaInfo, FaUser} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 
 const Help: React.FC = () => {
@@ -32,6 +32,11 @@ const Help: React.FC = () => {
                     <List.Item icon={<FaInfo size={Size.icon.XL}/>}>
                         <Text ml={"md"}>
                             {t("page.help.description")}
+                        </Text>
+                    </List.Item>
+                    <List.Item icon={<FaUser size={Size.icon.XL}/>}>
+                        <Text ml={"md"}>
+                            {t("page.help.registration")}
                         </Text>
                     </List.Item>
                     <List.Item icon={<FaBug size={Size.icon.XL}/>}>

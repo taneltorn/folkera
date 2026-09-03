@@ -15,8 +15,10 @@ const LoginButton: React.FC = () => {
         modals.open({
             title: <ModalTitle title={t("page.auth.form.header")}/>,
             centered: true,
-            children: (
-                <LoginForm onSubmit={modals.closeAll}/>
+            size: "xs",
+            children: (<>
+                    <LoginForm onSubmit={modals.closeAll}/>
+                </>
             ),
         });
 

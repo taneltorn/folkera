@@ -1,18 +1,30 @@
 import React from "react";
 import {UseFormReturnType} from "@mantine/form";
-import {Input, PasswordInput, Radio, Select, Switch, Textarea, TextInput} from "@mantine/core";
+import {
+    Input,
+    MantineRadius,
+    MantineSize,
+    PasswordInput,
+    Radio,
+    Select,
+    Switch,
+    Textarea,
+    TextInput
+} from "@mantine/core";
 import {DateTimePicker} from "@mantine/dates";
 
 interface Properties {
     name: string;
     label: string;
+    radius?: MantineRadius;
+    size?: MantineSize;
     type: "text" | "textarea" | "datetime" | "select" | "password" | "radio" | "switch";
     placeholder?: string;
     options?: Array<{ value: string; label: string }>;
     form: UseFormReturnType<any>;
 }
 
-const FormInput: React.FC<Properties> = ({form, type, name, label, options, placeholder}) => {
+const FormInput: React.FC<Properties> = ({form, type, size, name, radius, label, options, placeholder}) => {
 
     return (
         <Input.Wrapper
@@ -25,7 +37,8 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
                     placeholder={placeholder}
                     key={form.key(name)}
                     variant={"filled"}
-                    size={"md"}
+                    size={size || "md"}
+                    radius={radius}
                     {...form.getInputProps(name)}
                 />}
             {type === "switch" &&
@@ -36,7 +49,7 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
             {type === "radio" &&
                 <Radio.Group
                     key={form.key(name)}
-                    size={"md"}
+                    size={size || "md"}
                     {...form.getInputProps(name)}
                 >
                     {options?.map((option) => (
@@ -47,10 +60,11 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
             {type === "password" &&
                 <PasswordInput
                     type={"password"}
+                    radius={radius}
                     variant={"filled"}
                     placeholder={placeholder}
                     key={form.key(name)}
-                    size={"md"}
+                    size={size || "md"}
                     {...form.getInputProps(name)}
                 />}
 
@@ -60,7 +74,7 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
                     variant={"filled"}
                     rows={4}
                     key={form.key(name)}
-                    size={"md"}
+                    size={size || "md"}
                     {...form.getInputProps(name)}
                 />}
             
@@ -72,7 +86,7 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
                     clearable
                     placeholder={placeholder}
                     key={form.key(name)}
-                    size={"md"}
+                    size={size || "md"}
                     timePickerProps={{
                         format: '24h',
                     }}
@@ -84,7 +98,7 @@ const FormInput: React.FC<Properties> = ({form, type, name, label, options, plac
                     placeholder={placeholder}
                     variant={"filled"}
                     key={form.key(name)}
-                    size={"md"}
+                    size={size || "md"}
                     clearable
                     data={options || []}
                     {...form.getInputProps('trainset')}

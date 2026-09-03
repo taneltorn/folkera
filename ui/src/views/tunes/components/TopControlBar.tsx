@@ -16,10 +16,11 @@ const TopControlBar: React.FC = () => {
                 <AdvancedSearchToggle/>
             </Group>
 
+            {visible && <AdvancedFilteringPanel/>}
+
             <Group mt={"md"}>
                 <TuneFilters/>
             </Group>
-            {visible && <AdvancedFilteringPanel/>}
         </>
     );
 }

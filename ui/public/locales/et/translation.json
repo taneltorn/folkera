@@ -131,6 +131,7 @@
     "help": {
       "title": "Folkera",
       "description": "Käesolev veebirakendus on osa projektist, mille eesmärk on eesti rahvapillimuusika süstematiseerimine helianalüüsi ja arvutuslike meetodite abil. Andmestik põhineb Eesti Rahvaluule Arhiivis säilitatavatel 19. ja 20. sajandi pillilugude salvestustel ning käsikirjalistel noodistustel. Andmeid täiendatakse ja korrastatakse jooksvalt uurimistöö käigus.",
+      "registration": "Seoses autoriõiguste piirangutega on suur osa helisalvestustest piiratud juurdepääsuga ning nende kuulamiseks on vajalik kasutajakonto.",
       "contact": "Kui leiad rakenduses vigu või sul on muid ettepanekuid, kirjuta aadressil: <strong>{{email}}</strong>.",
       "version": "Versioon",
       "navigateToChangelog": "Vaata muutelugu"
@@ -173,6 +174,7 @@
     "auth": {
       "form": {
         "header": "Logi sisse",
+        "body": "Kasutaja registreerimine on hetkel piiratud. Lisainfo saamiseks kirjuta aadressil: <strong>{{email}}</strong>.",
         "usernameOrEmail": "Kasutajanimi või e-mail",
         "password": "Parool"
       }
