@@ -28,7 +28,7 @@ const UserRow: React.FC<Properties> = ({user, onChange}) => {
                 {moment(user.createdAt).format("DD.MM.YYYY")}
             </Table.Td>
             <Table.Td>
-                <Group gap={4} justify={"end"} wrap={"nowrap"}>
+                <Group gap={0} justify={"end"} wrap={"nowrap"}>
                     <ModifyUserButton user={user} onChange={onChange}/>
                     <RemoveUserButton user={user} onChange={onChange}/>
                 </Group>

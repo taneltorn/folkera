@@ -10,6 +10,7 @@ import "lightgallery/css/lg-thumbnail.css";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-fullscreen.css";
+import {Box} from "@mantine/core";
 
 interface Properties {
     tune: Tune;
@@ -35,9 +36,8 @@ const NotationViewer: React.FC<Properties> = ({tune, children}) => {
     if (!images.length) return null;
 
     return (
-        <>
+        <Box>
             {children(open)}
-
             <LightGallery
                 dynamic
                 dynamicEl={images}
@@ -59,7 +59,7 @@ const NotationViewer: React.FC<Properties> = ({tune, children}) => {
                     galleryRef.current = detail.instance;
                 }}
             />
-        </>
+        </Box>
     );
 };
 

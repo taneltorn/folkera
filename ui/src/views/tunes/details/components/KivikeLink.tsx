@@ -2,8 +2,8 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {Button, Group, Tooltip} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
-import {FaExternalLinkAlt} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
+import {HiOutlineExternalLink} from "react-icons/hi";
 
 interface Properties {
     tune: Tune;
@@ -26,9 +26,9 @@ const KivikeLink: React.FC<Properties> = ({tune}) => {
                 size={"sm"}
                 disabled={!tune.pid}
             >
-                <Group>
+                <Group gap={4}>
                     {tune.pid}
-                    <FaExternalLinkAlt size={Size.icon.XS}/>
+                    <HiOutlineExternalLink size={Size.icon.SM}/>
                 </Group>
             </Button>
 

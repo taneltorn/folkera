@@ -20,7 +20,7 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
 
     return (
         <Group justify={"space-between"} mb={"md"}>
-            <Group wrap={"nowrap"}>
+            <Group wrap={"nowrap"} gap={4}>
                 <Button
                     px={"xs"}
                     radius={"xl"}

@@ -31,17 +31,17 @@ const TuneDetailsInfo: React.FC<Properties> = ({tune}) => {
                     <Table withColumnBorders={false} withRowBorders={false}>
                         <Table.Tbody>
                             {[
-                                "content",
                                 "ref",
-                                "pid",
-                                "year",
+                                "content",
                                 "melody",
+                                "year",
                                 "instrument",
                                 "performer",
-                                "dance",
                                 "parish",
                                 "origin",
                                 "collector",
+                                "dance",
+                                "pid",
                                 "audioRef",
                                 "notationRef",
                                 "datatype",

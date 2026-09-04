@@ -1,5 +1,6 @@
 import React from "react";
 import {Text, TextProps} from "@mantine/core";
+import {truncate} from "../utils/helpers.tsx";
 
 interface Properties extends TextProps {
     text: string | undefined;
@@ -8,13 +9,9 @@ interface Properties extends TextProps {
 
 const LimitText: React.FC<Properties> = ({text, limit, ...props}) => {
 
-    const overfill = "...";
-
     return (
         <Text {...props}>
-            { text && ((limit + overfill.length) < text.length)
-                ? `${text.slice(0, limit)}${overfill}`
-                : text}
+            {truncate(text || "", limit)}
         </Text>
     );
 }

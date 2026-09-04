@@ -34,9 +34,7 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
     }
 
     if (["ref"].includes(field)) {
-        return <Text>
-            {value}
-        </Text>
+        return <Text size={"sm"}>{value}</Text>
     }
 
     if (["audioRef"].includes(field)) {
@@ -52,13 +50,13 @@ const fieldToTableLink = (field: keyof Tune, tune: Tune): ReactNode => {
     }
 
     if (["content", "comments"].includes(field)) {
-        return <Text>{value}</Text>;
+        return <Text size={"sm"}>{value}</Text>;
     }
 
     if (["notes"].includes(field)) {
         return <Stack gap={0}>
             {value.split(";").map((v, i) =>
-                <Text key={i}>
+                <Text key={i} size={"sm"}>
                     {v}
                 </Text>)}
         </Stack>;
