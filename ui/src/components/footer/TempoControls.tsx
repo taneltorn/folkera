@@ -3,12 +3,14 @@ import {Box, Button, Menu, Slider} from "@mantine/core";
 import {IoIosSpeedometer} from "react-icons/io";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
+import {Tune} from "../../model/Tune.ts";
 
 interface Properties {
     playerRef: React.RefObject<any>;
+    track?: Tune;
 }
 
-const TempoControls: React.FC<Properties> = ({playerRef}) => {
+const TempoControls: React.FC<Properties> = ({playerRef, track}) => {
 
     const {t} = useTranslation();
 
@@ -21,6 +23,10 @@ const TempoControls: React.FC<Properties> = ({playerRef}) => {
             playerRef.current.audio.current.playbackRate = tempo;
         }
     }, [tempo, playerRef]);
+
+    useEffect(() => {
+        setTempo(1);
+    }, [track]);
     
     return (
         <Menu>

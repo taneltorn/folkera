@@ -85,7 +85,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                             <PlayPrevious/>,
                             <Play/>,
                             <PlayNext/>,
-                            <TempoControls playerRef={playerRef}/>
+                            <TempoControls playerRef={playerRef} track={track}/>
                         ]}
                         src={src}
                         onPlaying={onPlaying}

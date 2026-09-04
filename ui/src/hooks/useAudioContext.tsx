@@ -72,7 +72,6 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         pause,
         clearLoop,
         reset,
-
     }), [isPlaying, loopStart, loopEnd, loopStage, track]);
 
     return (
