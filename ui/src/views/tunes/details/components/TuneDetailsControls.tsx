@@ -31,7 +31,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
     return (
         <Group justify={"space-between"} mt={"xl"}>
             <Group gap={"xs"}>
-                {tune.audio && <PlayAudioButton tune={tune}/>}
+                <PlayAudioButton tune={tune}/>
 
                 {tune.notation &&
                     <ShowArchiveDocumentsButton tune={tune}>

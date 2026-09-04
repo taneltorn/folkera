@@ -8,7 +8,7 @@ export const isEmpty = (object: any) => {
 }
 
 export const fullRef = (tune: Tune): string => {
-    return `${tune.content ? truncate(tune.content, 50) : tune.ref}  < ${tune.parish} < ${truncate(tune.performer, 30)} (${tune.year})`;
+    return `${tune.content ? truncate(tune.content, 50) : tune.ref} < ${tune.parish} < ${truncate(tune.performer, 30)} (${tune.year})`;
 }
 
 export const contentRef = (tune: Tune): string => {
