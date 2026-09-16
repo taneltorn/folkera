@@ -174,10 +174,6 @@ table {
     background-color: var(--mantine-color-gray-2) !important;
 
   }
-
-  .rhap_progress-indicator {
-    background-color: var(--mantine-color-yellow-9) !important;
-  }
 }
 
 .rhap_progress-filled,
@@ -185,6 +181,9 @@ table {
   background-color: var(--mantine-primary-color-9) !important;
 }
 
+.rhap_time {
+  width: 45px;
+}
 .looping-player {
   .rhap_progress-container,
   .rhap_progress-bar {

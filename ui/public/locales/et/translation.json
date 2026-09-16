@@ -13,6 +13,11 @@
       "showTable": "Kuva tabelivaates",
       "details": ""
     },
+    "player": {
+      "tooltip": {
+        "noSpecificTempo": "Tempo on hinnanguline!"
+      }
+    },
     "selectLanguage": "Vali keel",
     "tunes": {
       "exactMatch": " (täpne vaste)",

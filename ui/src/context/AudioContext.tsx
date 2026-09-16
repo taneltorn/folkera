@@ -4,6 +4,9 @@ import {Tune} from "../model/Tune.ts";
 export interface Properties {
     playerRef: any;
 
+    currentTime: number;
+    setCurrentTime: (value: number) => void;
+
     loopStage: number;
     setLoopStage: (value: number) => void;
 

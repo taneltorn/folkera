@@ -6,21 +6,26 @@ import TempoControls from "./TempoControls.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import Play from "./Play.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
+import {Tune} from "../../model/Tune.ts";
 
 interface Properties {
     playerRef: any;
+    track: Tune;
     loopStage: number | null;
     src: string;
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
+    onListen: (event: React.SyntheticEvent<HTMLAudioElement>) => void;
 }
 
 const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
 
     const {
         src,
+        track,
         playerRef,
+        onListen,
         onPlaying,
         onPause,
         onError,
@@ -55,12 +60,14 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
                     customAdditionalControls={[
                         <LoopControls/>,
                         <Play/>,
-                        <TempoControls playerRef={playerRef}/>
+                        <TempoControls playerRef={playerRef} track={track}/>
                     ]}
                     src={src}
                     onPlaying={onPlaying}
                     onPause={onPause}
                     onError={onError}
+                    // @ts-ignore
+                    onListen={onListen}
                 />
             </Group>
 

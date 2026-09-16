@@ -19,7 +19,7 @@ const BottomAudioPlayer: React.FC = () => {
     const {currentUser} = useAuth();
     const {notify} = useToasts();
     const breakpoint = useCurrentBreakpoint();
-    const {track, isPlaying, playerRef, setIsPlaying, loopStage} = useAudioPlayer();
+    const {track, isPlaying, playerRef, setIsPlaying, loopStage, setCurrentTime} = useAudioPlayer();
     const {index} = useActiveVariant();
 
     const audios = track?.audio?.split(";") || [];
@@ -32,8 +32,14 @@ const BottomAudioPlayer: React.FC = () => {
         setIsPlaying(false);
     }
 
+    const updateCurrentTime = (event: React.SyntheticEvent<HTMLAudioElement>) => {
+        setCurrentTime(event.currentTarget.currentTime);
+    };
+
     useEffect(() => {
         if (!track) return;
+
+        setCurrentTime(playerRef.current?.audio?.current?.duration || 0);
 
         const timeout = window.setTimeout(() => {
             const audio = playerRef.current?.audio.current;
@@ -53,6 +59,7 @@ const BottomAudioPlayer: React.FC = () => {
     }, [track, src, isPlaying, playerRef, setIsPlaying]);
 
     return (
+
         <Box py={4} px={"xs"}>
             {track && <>
                 {currentUser?.isUser || track.access === "OPEN"
@@ -61,7 +68,9 @@ const BottomAudioPlayer: React.FC = () => {
                             <SmallScreenAudioPlayer
                                 playerRef={playerRef}
                                 loopStage={loopStage}
+                                track={track}
                                 src={src}
+                                onListen={updateCurrentTime}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
@@ -72,6 +81,7 @@ const BottomAudioPlayer: React.FC = () => {
                                 loopStage={loopStage}
                                 track={track}
                                 src={src}
+                                onListen={updateCurrentTime}
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}

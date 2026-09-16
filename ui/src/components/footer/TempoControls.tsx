@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Menu, Slider} from "@mantine/core";
-import {IoIosSpeedometer} from "react-icons/io";
-import {Size} from "../../utils/constants.ts";
-import {useTranslation} from "react-i18next";
+import {Box, Group, Indicator, Menu, Slider} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
+import TempoAlert from "./TempoAlert.tsx";
+import PlayerTempoButton from "./PlayerTempoButton.tsx";
 
 interface Properties {
     playerRef: React.RefObject<any>;
@@ -11,8 +10,6 @@ interface Properties {
 }
 
 const TempoControls: React.FC<Properties> = ({playerRef, track}) => {
-
-    const {t} = useTranslation();
 
     const [tempo, setTempo] = useState<number>(1);
 
@@ -27,18 +24,17 @@ const TempoControls: React.FC<Properties> = ({playerRef, track}) => {
     useEffect(() => {
         setTempo(1);
     }, [track]);
-    
+
     return (
         <Menu>
             <Menu.Target>
-                <Button
-                    title={t("player.tempo")}
-                    size={"compact-md"}
-                    color={tempo === 1 ? "dark.1" : "red"}
-                    variant={"transparent"}
-                >
-                    <IoIosSpeedometer size={Size.icon.LG}/>
-                </Button>
+                <Group>
+                {track?.hideTempo
+                    ? <Indicator offset={5} inline size={"compact-xs"} color={"yellow.3"} variant={"transparent"} processing label={<TempoAlert/>}>
+                        <PlayerTempoButton tempo={tempo}/>
+                    </Indicator>
+                    : <PlayerTempoButton tempo={tempo}/>}
+                </Group>
             </Menu.Target>
             <Menu.Dropdown>
                 <Box px={"xl"} py={"xs"} mb={"md"}>

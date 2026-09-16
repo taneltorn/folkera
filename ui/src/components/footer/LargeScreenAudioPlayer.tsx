@@ -22,6 +22,7 @@ interface Properties {
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
+    onListen: (event: React.SyntheticEvent<HTMLAudioElement>) => void;
 }
 
 const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
@@ -31,6 +32,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         src,
         playerRef,
         onPlaying,
+        onListen,
         onPause,
         onError,
     } = {...props};
@@ -40,6 +42,9 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
     const theme = useMantineTheme()
     const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
 
+
+
+    // @ts-ignore
     return (
         <Grid>
             <Grid.Col span={3}>
@@ -85,12 +90,14 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                             <PlayPrevious/>,
                             <Play/>,
                             <PlayNext/>,
-                            <TempoControls playerRef={playerRef} track={track}/>
+                            <TempoControls playerRef={playerRef} track={track}/>,
                         ]}
                         src={src}
                         onPlaying={onPlaying}
                         onPause={onPause}
                         onError={onError}
+                        // @ts-ignore
+                        onListen={onListen}
                     />
                 </Group>
             </Grid.Col>

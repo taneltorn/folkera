@@ -57,7 +57,7 @@ const LoopControls: React.FC = () => {
 
     return (
         <Button
-            color={loopStage === 0 ? "dark.1" : "red"}
+            color={loopStage === 0 ? "dark.1" : "yellow"}
             title={t(`player.loop.${loopStage}`)}
             size={"compact-md"}
             variant={"transparent"}

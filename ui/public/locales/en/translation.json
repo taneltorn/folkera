@@ -12,6 +12,11 @@
       "logout": "Log Out",
       "showTable": "Show in table view"
     },
+    "player": {
+      "tooltip": {
+        "noSpecificTempo": "Default tempo is an estimation!"
+      }
+    },
     "selectLanguage": "Select language",
     "tunes": {
       "exactMatch": " (exact match)",
