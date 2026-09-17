@@ -11,8 +11,6 @@ import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import {useActiveVariant} from "../../hooks/useActiveVariant.tsx";
 
-const audioUrl = `${import.meta.env.VITE_API_URL}/tunes/audio`;
-
 const BottomAudioPlayer: React.FC = () => {
 
     const {t} = useTranslation();
@@ -25,7 +23,9 @@ const BottomAudioPlayer: React.FC = () => {
     const audios = track?.audio?.split(";") || [];
     const audio = audios[index] || audios[0];
 
-    const src = `${audioUrl}?filename=${encodeURIComponent(audio || "")}`;
+    const src = track
+        ? `${import.meta.env.VITE_API_URL}/tunes/${track.id}/audio?variant=${index}`
+        : "";
 
     const handlePlaybackError = () => {
         notify(t("toast.error.playbackError", {file: audio || ""}), ToastType.ERROR)

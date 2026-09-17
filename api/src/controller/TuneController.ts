@@ -5,16 +5,19 @@ import {logRequest, logRequestWithBody} from "../middleware/requestLogger";
 import {useQueryParams} from "../middleware/useQueryParams";
 import {ApiRequest} from "../model/ApiRequest";
 import {Tune} from "../model/Tune";
-import path from "path";
-import fs from "fs";
 import {verifyToken} from "../middleware/verifyToken";
 import {Result} from "../model/Result";
+import AudioService from "../service/audio/AudioService";
+import {optionalVerifyToken} from "../middleware/optionalVerifyToken";
+import TuneAccessService from "../service/tunes/TuneAccessService";
 
 class TuneController {
 
     router = express.Router();
     logger = log4js.getLogger("TuneController");
 
+    audioService = new AudioService();
+    tuneAccessService = new TuneAccessService();
     tuneService = new CsvTuneService();
 
     constructor() {
@@ -23,18 +26,21 @@ class TuneController {
     }
 
     initializeRoutes() {
-        this.router.get("/audio", logRequest, this.serveAudio.bind(this));
         this.router.get("/by-ids", logRequest, this.getTuneByIds.bind(this));
         this.router.get("/ids-only", logRequest, useQueryParams, this.getTuneIds.bind(this));
-        this.router.get("/:id", logRequest, this.getTune.bind(this));
+        this.router.get("/:id", optionalVerifyToken, logRequest, this.getTune.bind(this));
+        this.router.get("/:id/audio", optionalVerifyToken, logRequest, this.playTune.bind(this));
         this.router.get("/", logRequest, useQueryParams, this.getTunes.bind(this));
         this.router.put("/", verifyToken, logRequestWithBody, this.saveTune.bind(this));
     }
 
     async getTune(req: ApiRequest, res: Response): Promise<Tune> {
         try {
+            // @ts-ignore todo use custom type
+            const user = req.user;
+
             const id = req.params.id;
-            const result = await this.tuneService.findById(id);
+            const result = await this.tuneService.findById(id, user);
 
             if (!result.success) {
                 if (result.error === "Tune not found") {
@@ -53,6 +59,9 @@ class TuneController {
 
     async getTuneByIds(req: Request, res: Response): Promise<void> {
         try {
+            // @ts-ignore todo use custom type
+            const user = req.user;
+
             const idsParam = req.query.ids as string;
 
             if (!idsParam) {
@@ -67,7 +76,7 @@ class TuneController {
                 return;
             }
 
-            const result = await this.tuneService.findByIds(ids);
+            const result = await this.tuneService.findByIds(ids, user);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});
@@ -83,7 +92,10 @@ class TuneController {
 
     async getTunes(req: ApiRequest, res: Response): Promise<Result<Tune[]>> {
         try {
-            const result = await this.tuneService.find(req.filters, req.pagination);
+            // @ts-ignore todo use custom type
+            const user = req.user;
+
+            const result = await this.tuneService.find(req.filters, req.pagination, user);
 
             if (!result.success) {
                 res.status(500).json({error: result.error});
@@ -133,59 +145,50 @@ class TuneController {
         }
     }
 
-    async serveAudio(req: ApiRequest, res: Response): Promise<void> {
+    async playTune(req: ApiRequest, res: Response): Promise<void> {
         try {
-            const filename = req.query.filename as string;
+            const id = req.params.id;
+            const variant = Number(req.query.variant ?? 0);
 
-            if (!filename) {
-                res.status(400).json({error: "Missing filename query parameter"});
+            // @ts-ignore todo use custom type
+            const user = req.user;
+
+            const result = await this.tuneService.findById(id);
+
+            if (!result.success || !result.data) {
+                res.status(404).json({error: "Tune not found"});
                 return;
             }
 
-            const baseDir = path.resolve(process.env.VITE_RECORDINGS_DIR || "mp3");
-            const filePath = path.resolve(baseDir, filename);
+            const tune = result.data;
 
-            if (!fs.existsSync(filePath)) {
-                res.status(404).json({error: "File not found"});
+            const hasAccess = await this.tuneAccessService.hasAccess(tune, user);
+            if (!hasAccess) {
+                res.status(403).json({error: "Access denied"});
                 return;
             }
 
-            const stat = fs.statSync(filePath);
-            const total = stat.size;
-            const range = req.headers.range;
-
-            if (range) {
-                const parts = range.replace(/bytes=/, "").split("-");
-                const start = parseInt(parts[0], 10);
-                const end = parts[1] ? parseInt(parts[1], 10) : total - 1;
-
-                if (start >= total || end >= total) {
-                    res.status(416).header("Content-Range", `bytes */${total}`).end();
-                    return;
-                }
-
-                const chunkSize = end - start + 1;
-                const fileStream = fs.createReadStream(filePath, {start, end});
-
-                res.writeHead(206, {
-                    "Content-Range": `bytes ${start}-${end}/${total}`,
-                    "Accept-Ranges": "bytes",
-                    "Content-Length": chunkSize,
-                    "Content-Type": "audio/mpeg",
-                });
-
-                fileStream.pipe(res);
-            } else {
-                res.writeHead(200, {
-                    "Content-Length": total,
-                    "Content-Type": "audio/mpeg",
-                });
-
-                fs.createReadStream(filePath).pipe(res);
+            const audios = tune.audio?.split(";") ?? [];
+            if (audios.length === 0) {
+                res.status(404).json({error: "Audio not found"});
+                return;
             }
+
+            if (!Number.isInteger(variant) || variant < 0 || variant >= audios.length) {
+                res.status(400).json({error: "Invalid audio variant"});
+                return;
+            }
+
+            const filename = audios[variant];
+
+            this.audioService.serve(filename, req, res);
+
         } catch (err) {
             this.logger.error(err);
-            res.status(500).json({error: "An unexpected error occurred."});
+
+            res.status(500).json({
+                error: "An unexpected error occurred."
+            });
         }
     }
 }

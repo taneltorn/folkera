@@ -6,8 +6,7 @@ import {useAudioPlayer} from "../../../../../hooks/useAudioContext.tsx";
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../../model/Tune.ts";
 import {IconSize} from "../../../../../utils/mappers.ts";
-import {useAuth} from "../../../../../hooks/useAuth.tsx";
-import {getPlayButtonTitle, isPlaybackEnabled} from "../helpers.ts";
+import {getPlayButtonTitle} from "../helpers.ts";
 import {FaPlay} from "react-icons/fa";
 import {LuAudioLines} from "react-icons/lu";
 import {IoMusicalNotes} from "react-icons/io5";
@@ -20,7 +19,6 @@ interface Properties {
 const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
 
     const {t} = useTranslation();
-    const {currentUser} = useAuth();
     const theme = useMantineTheme();
     const {track, isPlaying, play, pause} = useAudioPlayer();
 
@@ -29,8 +27,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
 
     const iconSize = IconSize.get("sm");
 
-    const isUser = currentUser?.isUser;
-    const disabled = !isPlaybackEnabled(tune, isUser);
+    const disabled = !tune.canListen;
     const isCurrentTrack = track?.audio === tune.audio;
     const isCurrentTrackPlaying = isCurrentTrack && isPlaying;
 
@@ -73,7 +70,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
             size="sm"
             color={theme.colors.dark[disabled ? 1 : 9]}
             variant="transparent"
-            title={getPlayButtonTitle(tune, isUser, t)}
+            title={getPlayButtonTitle(tune, disabled, t)}
             disabled={disabled}
             onClick={handleClick}
         >

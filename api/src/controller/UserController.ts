@@ -22,6 +22,7 @@ class UserController {
         this.router.get("/:usernameOrEmail", verifyToken, logRequest, this.getUser.bind(this));
         this.router.get("/", verifyToken, logRequest, this.getUsers.bind(this));
         this.router.post("/", verifyToken, logRequest, this.createUser.bind(this));
+
         this.router.patch("/:id", verifyToken, logRequest, this.updateUser.bind(this));
         this.router.patch("/:id/password", verifyToken, logRequest, this.updateUserPassword.bind(this));
         this.router.delete("/:id", verifyToken, logRequest, this.deleteUser.bind(this));
@@ -32,7 +33,7 @@ class UserController {
             // @ts-ignore todo use custom type
             const user = req.user;
             const usernameOrEmail = req.params.usernameOrEmail;
-            
+
             if (user?.role !== 'ADMIN') {
                 this.logger.info(`Not authorized: ${user.usernameOrEmail}`);
                 res.status(403).json({error: "Not authorized"});

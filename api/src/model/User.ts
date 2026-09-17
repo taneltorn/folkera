@@ -5,6 +5,7 @@ export interface User {
     password?: string;
     name: string;
     role: UserRole;
+    accessRefs: string[];
     createdAt?: Date;
     modifiedAt?: Date;
 }

@@ -4,8 +4,8 @@ import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import useUserService from "../../../../services/useUserService.ts";
 import IconButton from "../../../../components/buttons/IconButton.tsx";
-import UserForm from "./UserForm.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
+import UserForm from "./UserForm.tsx";
 
 interface Properties {
     user: User;
@@ -29,6 +29,7 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
     const openModal = () =>
         modals.open({
             title: <ModalTitle title={t("modal.modifyUser.title")}/>,
+            size: "xl",
             centered: true,
             children: (
                 <UserForm

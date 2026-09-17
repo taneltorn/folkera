@@ -5,8 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../../model/Tune.ts";
 import {MdPauseCircle, MdPlayCircle} from "react-icons/md";
 import {Size} from "../../../../../utils/constants.ts";
-import {getPlayButtonTitle, isPlaybackEnabled} from "../helpers.ts";
-import {useAuth} from "../../../../../hooks/useAuth.tsx";
+import {getPlayButtonTitle} from "../helpers.ts";
 
 interface Properties {
     tune: Tune;
@@ -16,13 +15,12 @@ const PlayAudioButton: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
     const theme = useMantineTheme();
-    const {currentUser} = useAuth();
     const {track, isPlaying, play, pause} = useAudioPlayer();
-    const disabled = !isPlaybackEnabled(tune, currentUser?.isUser);
+    const disabled = !tune.canListen;
 
     return (
         <Button
-            title={getPlayButtonTitle(tune, currentUser?.isUser, t)}
+            title={getPlayButtonTitle(tune, disabled, t)}
             radius={"xl"}
             color={isPlaying && track?.audio === tune.audio ? "gray" : theme.primaryColor}
             variant={isPlaying && track?.audio === tune.audio ? "light" : "filled"}

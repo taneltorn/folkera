@@ -15,26 +15,6 @@ const useUserService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const fetchUserByEmail = async (email: string): Promise<User> => {
-        setIsLoading(true);
-        return axios.get(`${API_URL}/users/${email}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true
-        })
-            .then(response => {
-                setIsLoading(false);
-                return response.data;
-            })
-            .catch(error => {
-                notify(t("toast.error.fetchUser"), ToastType.ERROR, error);
-
-                setIsLoading(false);
-                throw error;
-            });
-    }
-
     const fetchUsers = async (): Promise<User[]> => {
         setIsLoading(true);
         return axios.get(`${API_URL}/users`, {
@@ -65,7 +45,7 @@ const useUserService = () => {
         })
             .then(response => {
                 notify(t("toast.success.createUser"), ToastType.SUCCESS);
-                
+
                 setIsLoading(false);
                 return response.data;
             })
@@ -87,7 +67,7 @@ const useUserService = () => {
         })
             .then(response => {
                 notify(t("toast.success.modifyUser"), ToastType.SUCCESS);
-                
+
                 setIsLoading(false);
                 return response.data;
             })
@@ -110,7 +90,7 @@ const useUserService = () => {
         })
             .then(response => {
                 notify(t("toast.success.modifyUser"), ToastType.SUCCESS);
-                
+
                 setIsLoading(false);
                 return response.data;
             })
@@ -132,7 +112,7 @@ const useUserService = () => {
         })
             .then(response => {
                 notify(t("toast.success.removeUser"), ToastType.SUCCESS);
-                
+
                 setIsLoading(false);
                 return response.data;
             })
@@ -144,15 +124,16 @@ const useUserService = () => {
             });
     }
 
+
     return {
         isLoading,
-        fetchUserByEmail,
+        cancelSource,
+
         fetchUsers,
         createUser,
         modifyUser,
         updateUserPassword,
         removeUser,
-        cancelSource
     }
 };
 

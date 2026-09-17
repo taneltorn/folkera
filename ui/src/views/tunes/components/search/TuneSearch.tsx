@@ -45,6 +45,7 @@ const TuneSearch: React.FC = () => {
             value={value}
             id={focused ? "search-input-focused" : ""}
             className={"search-input"}
+            autoComplete={"off"}
             leftSection={<IoSearchOutline size={Size.icon.MD}/>}
             placeholder={t("page.tunes.controls.search")}
             onChange={e => handleSearch(e.currentTarget.value)}

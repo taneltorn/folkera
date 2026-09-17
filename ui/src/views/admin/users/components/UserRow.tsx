@@ -20,7 +20,7 @@ const UserRow: React.FC<Properties> = ({user, onChange}) => {
             <Table.Td>{user.id}</Table.Td>
             <Table.Td>{user.username}</Table.Td>
             <Table.Td>{user.email}</Table.Td>
-            <Table.Td>{user.name}</Table.Td>
+            <Table.Td>{user.name} </Table.Td>
             <Table.Td>
                 {t(`role.${user?.role}`, {defaultValue: user?.role || "N/A"})}
             </Table.Td>

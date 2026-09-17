@@ -9,6 +9,7 @@ class Mapper {
             email: user.email,
             name: user.name,
             role: user.role,
+            accessRefs: user.accessRefs || [],
             createdAt: user.createdAt,
             modifiedAt: user.modifiedAt,
         };

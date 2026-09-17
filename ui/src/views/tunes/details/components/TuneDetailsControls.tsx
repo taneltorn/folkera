@@ -40,7 +40,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
 
                 {tune.flatLink && <FlatLinkButton tune={tune}/>}
 
-                {tune.audio && currentUser?.isUser && <LoadSimilarTunesButton tune={tune}/>}
+                {tune.audio && currentUser?.isResearcher && <LoadSimilarTunesButton tune={tune}/>}
 
                 {currentUser?.isAdmin && <>
                     <ModifyTuneButton

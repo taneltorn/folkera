@@ -8,6 +8,8 @@ import {filter, sortByField} from "../../utils/filtering.helpers";
 import {Pagination, SortDirection} from "../../model/Pagination";
 import {Tune} from "../../model/Tune";
 import {Result} from "../../model/Result";
+import {User, UserRole} from "../../model/User";
+import TuneAccessService from "./TuneAccessService";
 
 const TUNE_IDS_HARD_LIMIT = 1000;
 
@@ -16,11 +18,13 @@ class CsvTuneService implements TuneService {
     private logger = log4js.getLogger("TuneService");
     private csvFile = path.resolve(process.env.CSV_DATA_DIR, `tunes.csv`);
 
+    tuneAccessService = new TuneAccessService();
+
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
     }
 
-    public async findById(id: string): Promise<Result<Tune>> {
+    public async findById(id: string, user?: User): Promise<Result<Tune>> {
         try {
             const data = this.readFromCsvFile();
             const found = data.find(tune => tune.id === id);
@@ -34,9 +38,10 @@ class CsvTuneService implements TuneService {
                 };
             }
 
+            const tune = await this.addCanListen(found, user)
             return {
                 success: true,
-                data: found
+                data: tune
             };
         } catch (err) {
             this.logger.error(`Error finding tune with ID ${id}`, err);
@@ -48,16 +53,17 @@ class CsvTuneService implements TuneService {
         }
     }
 
-    public async findByIds(ids: string[]): Promise<Result<Tune[]>> {
+    public async findByIds(ids: string[], user?: User): Promise<Result<Tune[]>> {
         try {
             const data = this.readFromCsvFile();
             const matched = data.filter(tune => ids.includes(tune.id));
 
             this.logger.info(`Found ${matched.length} tunes for ${ids.length} requested IDs`);
 
+            const tunes = await this.addCanListenToMany(matched, user);
             return {
                 success: true,
-                data: matched
+                data: tunes
             };
         } catch (err) {
             this.logger.error(`Error finding tunes by IDs`, err);
@@ -71,7 +77,7 @@ class CsvTuneService implements TuneService {
     }
 
 
-    public async find(filters?: Filter[], pagination?: Pagination): Promise<Result<Tune[]>> {
+    public async find(filters?: Filter[], pagination?: Pagination, user?: User): Promise<Result<Tune[]>> {
         try {
             const data = this.readFromCsvFile();
 
@@ -92,11 +98,14 @@ class CsvTuneService implements TuneService {
                 paginated = filtered.slice(start, end);
             }
 
+            const found = paginated || filtered;
+            const tunes = await this.addCanListenToMany(found, user);
+
             this.logger.info(`Returning ${(paginated || filtered).length} entries from total of ${filtered.length}`);
 
             return {
                 success: true,
-                data: paginated || filtered,
+                data: tunes,
                 page: pagination
                     ? {
                         number: pagination.page,
@@ -180,6 +189,45 @@ class CsvTuneService implements TuneService {
             this.logger.error(err);
             return {success: false, error: "Error updating the tune", detail: err?.message};
         }
+    }
+
+    private async addCanListen(  tune: Tune,  user?: User ): Promise<Tune> {
+        return {
+            ...tune,
+            canListen: await this.tuneAccessService.hasAccess(tune, user)
+        };
+    }
+
+    private async addCanListenToMany(
+        tunes: Tune[],
+        user?: User
+    ): Promise<Tune[]> {
+        if (!user?.username) {
+            return tunes.map(tune => ({
+                ...tune,
+                canListen: tune.access === "OPEN"
+            }));
+        }
+
+        if ([UserRole.ADMIN, UserRole.RESEARCHER].includes(user.role)) {
+            return tunes.map(tune => ({
+                ...tune,
+                canListen: true
+            }));
+        }
+
+        const result = await this.tuneAccessService.findByUserId(user.id);
+
+        const accessRefs = result.success
+            ? result.data.map(access => access.accessRef)
+            : [];
+
+        return tunes.map(tune => ({
+            ...tune,
+            canListen:
+                tune.access === "OPEN" ||
+                accessRefs.some(accessRef => tune.ref.startsWith(accessRef))
+        }));
     }
 
     private readFromCsvFile = (): Tune[] => {

@@ -55,7 +55,6 @@ const TunesTableCell: React.FC<Properties> = ({tune, field, alwaysVisible, child
         <Table.Td
             py={"lg"}
             hidden={!alwaysVisible && !visibleFields.includes(field)}
-            style={{borderLeft: "1px solid #efefef"}}
         >
             {visibleFields.includes(field) && <>
                 {state === ControlState.EDIT ? (

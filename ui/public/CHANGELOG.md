@@ -1,3 +1,8 @@
+#### [0.9.0] - 17.09.2026
+- Lisatud ligipääsude haldus
+- Tehnilised täiendused seoses helifailide mängimisega
+- Muud täiendused ja parandused
+
 #### [0.8.13] - 16.09.2026
 - Mängija täiendused
 - Pisiparandused

@@ -16,6 +16,7 @@ const InitialValues: User = {
     email: "",
     name: "",
     password: "",
+    accessRefs: [],
     role: UserRole.USER
 }
 

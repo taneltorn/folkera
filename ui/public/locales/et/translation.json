@@ -202,6 +202,7 @@
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
       "fetchUsers": "Kasutajate laadimine ebaõnnestus",
+      "fetchUser": "Kasutaja laadimine ebaõnnestus",
       "createUser": "Kasutaja loomine ebaõnnestus",
       "modifyUser": "Kasutaja muutmine ebaõnnestus",
       "removeUser": "Kasutaja kustutamine ebaõnnestus",
@@ -354,6 +355,9 @@
     "email": "E-mail",
     "role": "Roll",
     "createdAt": "Loodud"
+  },
+  "tuneAccess": {
+    "accessRef": "Ligipääsu viited"
   },
   "notification": {
     "id": "ID",

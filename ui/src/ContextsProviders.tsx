@@ -24,23 +24,23 @@ const ContextProviders: React.FC<Properties> = ({children}) => {
             <AuthContextProvider>
                 <AudioContextProvider>
                     <ActiveVariantContextProvider>
-                    <ModalsProvider>
-                        <ControlStateContextProvider>
-                            <TuneSelectionContextProvider>
-                                <ModificationsContextProvider>
-                                    <ExportContextProvider>
-                                        <DataContextProvider>
-                                            <StatsContextProvider>
-                                                <AdvancedFilteringContextProvider>
-                                                    {children}
-                                                </AdvancedFilteringContextProvider>
-                                            </StatsContextProvider>
-                                        </DataContextProvider>
-                                    </ExportContextProvider>
-                                </ModificationsContextProvider>
-                            </TuneSelectionContextProvider>
-                        </ControlStateContextProvider>
-                    </ModalsProvider>
+                        <ModalsProvider>
+                            <ControlStateContextProvider>
+                                <TuneSelectionContextProvider>
+                                    <ModificationsContextProvider>
+                                        <ExportContextProvider>
+                                            <DataContextProvider>
+                                                <StatsContextProvider>
+                                                    <AdvancedFilteringContextProvider>
+                                                        {children}
+                                                    </AdvancedFilteringContextProvider>
+                                                </StatsContextProvider>
+                                            </DataContextProvider>
+                                        </ExportContextProvider>
+                                    </ModificationsContextProvider>
+                                </TuneSelectionContextProvider>
+                            </ControlStateContextProvider>
+                        </ModalsProvider>
                     </ActiveVariantContextProvider>
                 </AudioContextProvider>
             </AuthContextProvider>

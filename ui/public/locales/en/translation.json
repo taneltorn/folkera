@@ -200,6 +200,7 @@
     "error": {
       "fetchData": "Failed to load data",
       "fetchUsers": "Failed to load users",
+      "fetchUser": "Failed to load user",
       "createUser": "Failed to create user",
       "modifyUser": "Failed to modify user",
       "removeUser": "Failed to delete user",
@@ -352,6 +353,9 @@
     "email": "E-mail",
     "role": "Role",
     "createdAt": "Created"
+  },
+  "tuneAccess": {
+    "accessRef": "Access refs"
   },
   "notification": {
     "id": "ID",

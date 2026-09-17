@@ -28,10 +28,11 @@ table {
   thead {
     border-bottom: 1px solid var(--mantine-color-gray-1);
   }
+}
 
-  td {
-    border-left: none !important;
-  }
+.editing-row-main,
+.editing-row-sub {
+  background: var(--mantine-color-gray-1);
 }
 
 .hover-pointer:hover {
@@ -184,6 +185,7 @@ table {
 .rhap_time {
   width: 45px;
 }
+
 .looping-player {
   .rhap_progress-container,
   .rhap_progress-bar {
