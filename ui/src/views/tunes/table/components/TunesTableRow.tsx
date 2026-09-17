@@ -13,6 +13,9 @@ import {AiFillEdit} from "react-icons/ai";
 import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
+import {useControlState} from "../../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../../model/ControlState.ts";
+import TuneChecker from "./TuneChecker.tsx";
 
 interface Properties {
     tune: Tune;
@@ -24,14 +27,16 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
     const {currentUser} = useAuth();
     const {hovered, ref} = useHover();
     const {loadData} = useDataContext();
+    const {state} = useControlState();
 
     return (
         <Table.Tr ref={ref}>
             <Table.Td>
                 <Group justify={"center"}>
-                    {/*<Group wrap={"nowrap"} gap={0}>*/}
-                        <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
-                    {/*</Group>*/}
+                    {state === ControlState.SELECTION
+                        ?  <TuneChecker  tune={tune}/>
+                       : <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
+                    }
                 </Group>
             </Table.Td>
 

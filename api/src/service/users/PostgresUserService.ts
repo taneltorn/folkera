@@ -4,6 +4,7 @@ import Mapper from "../../utils/Mapper";
 import UserService from "./UserService";
 import {User} from "../../model/User";
 import {Result} from "../../model/Result";
+import {TuneAccess} from "../../model/TuneAccess";
 
 class PostgresUserService implements UserService {
 

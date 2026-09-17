@@ -29,7 +29,6 @@ const ModifyUserButton: React.FC<Properties> = ({user, onChange}) => {
     const openModal = () =>
         modals.open({
             title: <ModalTitle title={t("modal.modifyUser.title")}/>,
-            size: "xl",
             centered: true,
             children: (
                 <UserForm

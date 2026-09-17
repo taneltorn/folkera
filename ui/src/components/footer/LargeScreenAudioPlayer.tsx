@@ -42,8 +42,6 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
     const theme = useMantineTheme()
     const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
 
-
-
     // @ts-ignore
     return (
         <Grid>

@@ -33,7 +33,6 @@ const RemoveUserButton: React.FC<Properties> = ({user, onChange}) => {
                 confirm: t("modal.removeUser.confirm"),
                 cancel: t("modal.removeUser.cancel")
             },
-            onCancel: () => console.log('Cancel'),
             onConfirm: () => user.id && removeUser(user.id).then(onChange),
         });
 

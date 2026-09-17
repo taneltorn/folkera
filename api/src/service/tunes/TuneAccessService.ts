@@ -87,6 +87,45 @@ class TuneAccessService {
 
         return false;
     }
+
+    public async insertAll(tuneAccesses: TuneAccess[]): Promise<Result<void>> {
+        try {
+            if (tuneAccesses.length === 0) {
+                return {success: true};
+            }
+
+            const values = tuneAccesses
+                .map((_, index) =>
+                    `($${index * 2 + 1}, $${index * 2 + 2})`
+                )
+                .join(", ");
+
+            const params = tuneAccesses.flatMap(tuneAccess => [
+                tuneAccess.userId,
+                tuneAccess.accessRef.trim()
+            ]);
+
+            await pool.query(`
+                INSERT INTO folkera.user_tune_access (user_id, access_ref)
+                VALUES ${values} ON CONFLICT (user_id, access_ref) DO NOTHING
+            `, params);
+
+            this.logger.info(`Added ${tuneAccesses.length} tune access entries`);
+
+            return {
+                success: true
+            };
+
+        } catch (err: any) {
+            this.logger.error(`Failed to add tune access entries: ${err.message}`);
+
+            return {
+                success: false,
+                error: "Failed to add tune access entries",
+                detail: err.message
+            };
+        }
+    }
 }
 
 export default TuneAccessService;

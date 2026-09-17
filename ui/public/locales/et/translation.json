@@ -32,7 +32,8 @@
         "visibleFields": "Kuvatavad väljad",
         "mapOptions": "Kuvasätted",
         "clearFilters": "Eemalda filtrid",
-        "edit": "Redigeeri"
+        "edit": "Redigeeri",
+        "select": "Hulgivalik"
       },
       "details": {
         "similarTunes": "Otsi sarnaseid viise",
@@ -192,6 +193,7 @@
     "success": {
       "saveData": "Andmed salvestatud",
       "exportData": "{{count}} rida eksporditud",
+      "assignAccess": "Ligipääs määratud",
       "createUser": "Kasutaja lisatud",
       "modifyUser": "Kasutaja muudetud",
       "removeUser": "Kasutaja eemaldatud",
@@ -202,6 +204,7 @@
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
       "fetchUsers": "Kasutajate laadimine ebaõnnestus",
+      "assignAccess": "Ligipääsu määramine ebaõnnestus",
       "fetchUser": "Kasutaja laadimine ebaõnnestus",
       "createUser": "Kasutaja loomine ebaõnnestus",
       "modifyUser": "Kasutaja muutmine ebaõnnestus",
@@ -236,6 +239,10 @@
   "modal": {
     "archiveDocuments": {
       "title": "Käsikirjaline noodistus"
+    },
+    "assignAccess": {
+      "title": "Määra ligipääs",
+      "content": "Määra ligipääs ({{count}}) salvestusele"
     },
     "createNotification": {
       "title": "Lisa teavitus"
@@ -391,6 +398,7 @@
     "assign": "Määra",
     "play": "Esita",
     "stop": "Peata",
+    "assignAccess": "Määra ligipääs",
     "copyToClipboard": "Kopeeri",
     "showArchiveItems": "Kuva käsikiri",
     "loadSimilarTunes": "Helianalüüs",

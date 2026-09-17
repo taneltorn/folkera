@@ -12,6 +12,7 @@ import OptionsController from "./controller/OptionsController";
 import UserController from "./controller/UserController";
 import IdentifyController from "./controller/IdentifyController";
 import NotificationController from "./controller/NotificationController";
+import AccessController from "./controller/AccessController";
 
 const app = express();
 const port = 3000;
@@ -45,6 +46,7 @@ app.use('/options', new OptionsController().router);
 app.use('/users', new UserController().router);
 app.use('/identify', new IdentifyController().router);
 app.use('/notifications', new NotificationController().router);
+app.use('/access', new AccessController().router);
 
 app.listen(port, () => {
     logger.info(`Application started`);
