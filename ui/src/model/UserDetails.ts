@@ -6,6 +6,7 @@ export interface UserDetails {
     email: string;
     name: string;
     role: UserRole;
+    accessRefs: string[];
     createdAt: Date;
     isUser: boolean;
     isResearcher: boolean;
