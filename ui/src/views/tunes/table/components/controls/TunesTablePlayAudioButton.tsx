@@ -27,7 +27,7 @@ const TunesTablePlayAudioButton: React.FC<Properties> = ({tune, hovered}) => {
 
     const iconSize = IconSize.get("sm");
 
-    const disabled = !tune.canListen;
+    const disabled = !tune.canListen || !tune.audio;
     const isCurrentTrack = track?.audio === tune.audio;
     const isCurrentTrackPlaying = isCurrentTrack && isPlaying;
 

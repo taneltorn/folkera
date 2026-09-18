@@ -168,7 +168,11 @@ class TuneController {
                 return;
             }
 
-            const audios = tune.audio?.split(";") ?? [];
+            const audios = tune.audio
+                ?.split(";")
+                .map(audio => audio.trim())
+                .filter(Boolean) ?? [];
+
             if (audios.length === 0) {
                 res.status(404).json({error: "Audio not found"});
                 return;
@@ -181,6 +185,7 @@ class TuneController {
 
             const filename = audios[variant];
 
+            this.logger.info(`Playing tune: id=${id}, variant=${variant}, filename='${filename}'`);
             this.audioService.serve(filename, req, res);
 
         } catch (err) {

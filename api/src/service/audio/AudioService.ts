@@ -1,8 +1,15 @@
 import fs from "fs";
 import path from "path";
 import {Request, Response} from "express";
+import log4js from "log4js";
 
 class AudioService {
+
+    logger = log4js.getLogger("AudioService");
+
+    constructor() {
+        this.logger.level = process.env.LOG_LEVEL;
+    }
 
     serve(filename: string, req: Request, res: Response): void {
         const baseDir = path.resolve(
@@ -11,7 +18,11 @@ class AudioService {
 
         const filePath = path.resolve(baseDir, filename);
 
-        if (!fs.existsSync(filePath)) {
+        this.logger.info(`Serving audio: ${filePath}`);
+
+        const exists = fs.existsSync(filePath);
+        if (!exists) {
+            this.logger.warn(`Audio file not found: ${filePath}`);
             res.status(404).json({error: "File not found"});
             return;
         }
@@ -56,6 +67,7 @@ class AudioService {
         });
 
         fs.createReadStream(filePath).pipe(res);
+
     }
 }
 

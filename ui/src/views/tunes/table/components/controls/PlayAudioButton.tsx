@@ -16,7 +16,7 @@ const PlayAudioButton: React.FC<Properties> = ({tune}) => {
     const {t} = useTranslation();
     const theme = useMantineTheme();
     const {track, isPlaying, play, pause} = useAudioPlayer();
-    const disabled = !tune.canListen;
+    const disabled = !tune.canListen || !tune.audio;
 
     return (
         <Button

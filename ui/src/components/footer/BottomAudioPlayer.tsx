@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Box, Group, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
-import {useAuth} from "../../hooks/useAuth.tsx";
 import {Trans, useTranslation} from "react-i18next";
 import {useToasts} from "../../hooks/useToasts.tsx";
 import {ToastType} from "../../context/ToastContext.tsx";
@@ -14,7 +13,6 @@ import {useActiveVariant} from "../../hooks/useActiveVariant.tsx";
 const BottomAudioPlayer: React.FC = () => {
 
     const {t} = useTranslation();
-    const {currentUser} = useAuth();
     const {notify} = useToasts();
     const breakpoint = useCurrentBreakpoint();
     const {track, isPlaying, playerRef, setIsPlaying, loopStage, setCurrentTime} = useAudioPlayer();
@@ -62,7 +60,7 @@ const BottomAudioPlayer: React.FC = () => {
 
         <Box py={4} px={"xs"}>
             {track && <>
-                {currentUser?.isUser || track.access === "OPEN"
+                {track.canListen
                     ? <>
                         {["xxs", "xs"].includes(breakpoint) ?
                             <SmallScreenAudioPlayer
