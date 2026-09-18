@@ -1,3 +1,6 @@
+#### [0.9.1] - 18.09.2026
+- Heli taasesitamise parandused
+
 #### [0.9.0] - 17.09.2026
 - Lisatud ligipääsude haldus
 - Tehnilised täiendused seoses helifailide mängimisega
