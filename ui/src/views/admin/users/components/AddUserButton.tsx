@@ -12,11 +12,15 @@ interface Properties {
 }
 
 const InitialValues: User = {
+    id: 0,
     username: "",
     email: "",
     name: "",
     password: "",
     accessRefs: [],
+    favourites: {
+        tunes: [],
+    },
     role: UserRole.USER
 }
 
