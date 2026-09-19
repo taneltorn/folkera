@@ -1,8 +1,8 @@
 import {createContext} from 'react';
-import {UserDetails} from "../model/UserDetails.ts";
+import {UserDetails} from "../model/User.ts";
 
 export interface AuthContextProperties {
-    currentUser: UserDetails | null | undefined;
+    currentUser: UserDetails | null;
     login: (usernameOrEmail: string, password: string) => Promise<any>;
     logout: () => Promise<any>;
     verify: () => void;

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useStatsService} from "../../../services/useStatsService.ts";
+import {useStatsService} from "../../../hooks/useStatsService.ts";
 import {Box, LoadingOverlay} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";

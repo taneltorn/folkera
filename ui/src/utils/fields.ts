@@ -42,6 +42,7 @@ export const fields: TunesTableField[] = [
 export const AutocompleteFields = ["melody", "dance", "instrument", "performer", "collector", "parish", "county", "origin"];
 
 export const DynamicFieldTypes = [
+    "ref",
     "melody",
     "year",
     "instrument",

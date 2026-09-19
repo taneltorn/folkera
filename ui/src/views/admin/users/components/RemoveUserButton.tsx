@@ -3,7 +3,7 @@ import {User} from "../../../../model/User.ts";
 import {Text} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
-import useUserService from "../../../../services/useUserService.ts";
+import useUserService from "../../../../hooks/useUserService.ts";
 import IconButton from "../../../../components/buttons/IconButton.tsx";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 

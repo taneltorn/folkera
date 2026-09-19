@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {modals} from "@mantine/modals";
 import {User} from "../../../../model/User.ts";
-import useUserService from "../../../../services/useUserService.ts";
+import useUserService from "../../../../hooks/useUserService.ts";
 import {Checkbox, Group, Table, Text} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
 import CancelButton from "../../../../components/buttons/CancelButton.tsx";
 import SaveButton from "../../../../components/buttons/SaveButton.tsx";
 import {TuneAccess} from "../../../../model/TuneAccess.ts";
-import useAccessService from "../../../../services/useAccessService.ts";
+import useAccessService from "../../../../hooks/useAccessService.ts";
 
 interface Properties {
     selectedTunes: Tune[];

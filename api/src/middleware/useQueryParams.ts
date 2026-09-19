@@ -33,6 +33,7 @@ const filterableKeys = [
     "from",
     "to",
     "pid",
+    "favourites"
 ];
 
 export const useQueryParams = (req: ApiRequest, res: Response, next: NextFunction) => {

@@ -4,7 +4,7 @@ import {Trans, useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {Alert, Box, Divider, Group, LoadingOverlay, Stack, Text} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
-import {useTuneService} from "../../services/useTuneService.ts";
+import {useTuneService} from "../../hooks/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
 import {useToasts} from "../../hooks/useToasts.tsx";
 import TuneHeader from "./details/components/TuneHeader.tsx";

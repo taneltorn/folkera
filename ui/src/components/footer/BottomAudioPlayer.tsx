@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Box, Group, Text} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Trans, useTranslation} from "react-i18next";
@@ -11,6 +11,8 @@ import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import {useActiveVariant} from "../../hooks/useActiveVariant.tsx";
 
 const BottomAudioPlayer: React.FC = () => {
+
+    const playbackErrorRef = useRef<string | null>(null);
 
     const {t} = useTranslation();
     const {notify} = useToasts();
@@ -25,11 +27,19 @@ const BottomAudioPlayer: React.FC = () => {
         ? `${import.meta.env.VITE_API_URL}/tunes/${track.id}/audio?variant=${index}`
         : "";
 
-    const handlePlaybackError = () => {
-        notify(t("toast.error.playbackError", {file: audio || ""}), ToastType.ERROR)
-        setIsPlaying(false);
-    }
 
+    const handlePlaybackError = () => {
+        if (playbackErrorRef.current === src) return;
+
+        playbackErrorRef.current = src;
+
+        notify(
+            t("toast.error.playbackError", {file: audio || ""}),
+            ToastType.ERROR
+        );
+
+        setIsPlaying(false);
+    };
     const updateCurrentTime = (event: React.SyntheticEvent<HTMLAudioElement>) => {
         setCurrentTime(event.currentTarget.currentTime);
     };
@@ -55,6 +65,10 @@ const BottomAudioPlayer: React.FC = () => {
 
         return () => window.clearTimeout(timeout);
     }, [track, src, isPlaying, playerRef, setIsPlaying]);
+
+    useEffect(() => {
+        playbackErrorRef.current = null;
+    }, [src]);
 
     return (
 

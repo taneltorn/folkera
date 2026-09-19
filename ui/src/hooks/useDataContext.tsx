@@ -5,11 +5,11 @@ import {Tune} from "../model/Tune.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
 import {DefaultVisibleFields, ItemsPerPageOptions} from "../utils/lists.ts";
 import {Pagination, SortDirection} from "../model/Pagination.ts";
-import {useTuneService} from "../services/useTuneService.ts";
+import {useTuneService} from "./useTuneService.ts";
 import {useTranslation} from "react-i18next";
 import {ToastType} from "../context/ToastContext.tsx";
 import {useToasts} from "./useToasts.tsx";
-import {useOptionsService} from "../services/useOptionsService.ts";
+import {useOptionsService} from "./useOptionsService.ts";
 import {FilteringOptions} from "../model/FilteringOptions.ts";
 import {Filter} from "../model/Filter.ts";
 import {useDataExport} from "./useDataExport.tsx";
@@ -144,6 +144,14 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         setPagination({...pagination, page: 1});
     };
 
+    const toggleFilter = (filter: Filter) => {
+        if (!!filters.find(f => f.field === filter.field)) {
+            removeFilter(filter);
+            return;
+        }
+        addFilter(filter);
+    };
+
     const useFilter = (filter: Filter) => {
         const filterList: Filter[] = filters.filter(f => !(f.field === filter.field && (!filter.type || f.type === filter.type)));
         filterList.push({...filter});
@@ -226,6 +234,7 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         addFilter, setFilters,
         useFilter,
         removeFilter,
+        toggleFilter,
         clearFilters,
         replaceFilters,
 

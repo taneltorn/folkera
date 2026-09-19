@@ -14,23 +14,21 @@ const AdvancedSearchToggle: React.FC = () => {
     const bp = useCurrentBreakpoint();
 
     return (
-        <>
-            <Button
-                px={"xs"}
-                color={"dark.9"}
-                size={bp === "xxs" ? "md" : "sm"}
-                title={t(`filtering.advanced.${visible ? "close" : "open"}`)}
-                onClick={() => setVisible(!visible)}
-                variant={bp === "xxs" && visible ? "filled" : "transparent"}
-            >
-                {bp === "xxs"
-                    ? <LuSlidersHorizontal size={Size.icon.MD}/>
-                    : <>
-                {t(`filtering.advanced.${visible ? "close" : "open"}`)}
-                {visible ? <FaCaretUp/> : <FaCaretDown/>}
-                    </>}
-            </Button>
-        </>
+        <Button
+            px={"xs"}
+            color={"dark.9"}
+            size={bp === "xxs" ? "md" : "sm"}
+            title={t(`filtering.advanced.${visible ? "close" : "open"}`)}
+            onClick={() => setVisible(!visible)}
+            variant={bp === "xxs" && visible ? "filled" : "transparent"}
+        >
+            {bp === "xxs"
+                ? <LuSlidersHorizontal size={Size.icon.MD}/>
+                : <>
+                    {t(`filtering.advanced.${visible ? "close" : "open"}`)}
+                    {visible ? <FaCaretUp/> : <FaCaretDown/>}
+                </>}
+        </Button>
     );
 }
 

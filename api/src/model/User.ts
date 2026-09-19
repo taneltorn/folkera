@@ -1,3 +1,5 @@
+import {Favourites} from "./Favourites";
+
 export interface User {
     id?: number;
     username: string;
@@ -6,6 +8,7 @@ export interface User {
     name: string;
     role: UserRole;
     accessRefs: string[];
+    favourites: Favourites;
     createdAt?: Date;
     modifiedAt?: Date;
 }

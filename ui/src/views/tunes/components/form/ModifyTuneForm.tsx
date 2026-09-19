@@ -4,7 +4,7 @@ import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {useForm} from "@mantine/form";
 import {Tune} from "../../../../model/Tune.ts";
-import {useTuneService} from "../../../../services/useTuneService.ts";
+import {useTuneService} from "../../../../hooks/useTuneService.ts";
 import FormInput from "../../../../components/form/FormInput.tsx";
 import StandardFormControls from "../../../admin/notifications/components/StandardFormControls.tsx";
 

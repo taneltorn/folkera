@@ -1,3 +1,7 @@
+#### [0.10.0] - 19.09.2026
+- Lisatud lemmikute lisamise võimalus
+- Pisiparandused
+
 #### [0.9.1] - 18.09.2026
 - Heli taasesitamise parandused
 

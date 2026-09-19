@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {PiPassword} from 'react-icons/pi';
 import {modals} from "@mantine/modals";
 import {isNotEmpty, useForm} from "@mantine/form";
-import useUserService from "../../../services/useUserService.ts";
+import useUserService from "../../../hooks/useUserService.ts";
 import FormInput from "../../../components/form/FormInput.tsx";
 import ModalTitle from "../../tunes/components/controls/ModalTitle.tsx";
 

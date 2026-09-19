@@ -1,10 +1,10 @@
 import React, {ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {useTranslation} from "react-i18next";
 import {AuthContext} from "../context/AuthContext.tsx";
-import {UserDetails} from '../model/UserDetails.ts';
-import {UserRole} from '../model/User.ts';
+import {UserDetails} from '../model/User.ts';
 import {ToastType} from "../context/ToastContext.tsx";
 import {useToasts} from "./useToasts.tsx";
+import {toUserDetails} from "../utils/helpers.tsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,7 +17,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
     const {t} = useTranslation();
     const {notify} = useToasts();
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
-    const [currentUser, setCurrentUser] = useState<UserDetails | null>();
+    const [currentUser, setCurrentUser] = useState<UserDetails | null>(null);
 
     const login = async (usernameOrEmail: string, password: string): Promise<any> => {
         return fetch(`${API_URL}/auth/login`, {
@@ -34,14 +34,9 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
             .then(response => response.json())
             .then(data => {
                 if (data.token && data.user) {
-                    setCurrentUser({
-                        ...data.user,
-                        isUser: [UserRole.ADMIN, UserRole.RESEARCHER, UserRole.USER].includes(data.user.role),
-                        isResearcher: [UserRole.ADMIN, UserRole.RESEARCHER].includes(data.user.role),
-                        isAdmin: UserRole.ADMIN === data.user.role
-                    });
+                    setCurrentUser(toUserDetails(data.user));
                     return data;
-                } else { 
+                } else {
                     throw new Error(t("toast.error.wrongCredentials"));
                 }
             })
@@ -70,12 +65,7 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
             .then(response => response.json())
             .then((data) => {
                 if (data.user) {
-                    setCurrentUser({
-                        ...data.user,
-                        isUser: [UserRole.ADMIN,  UserRole.RESEARCHER, UserRole.USER].includes(data.user.role),
-                        isResearcher: [UserRole.ADMIN, UserRole.RESEARCHER].includes(data.user.role),
-                        isAdmin: UserRole.ADMIN === data.user.role
-                    });
+                    setCurrentUser(toUserDetails(data.user));
                     return;
                 } else {
                     setCurrentUser(null);

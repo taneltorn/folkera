@@ -10,6 +10,9 @@ class Mapper {
             name: user.name,
             role: user.role,
             accessRefs: user.accessRefs || [],
+            favourites: user.favourites || {
+                tunes: [],
+            },
             createdAt: user.createdAt,
             modifiedAt: user.modifiedAt,
         };

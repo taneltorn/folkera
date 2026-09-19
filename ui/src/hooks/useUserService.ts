@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from 'axios';
 import {ToastType} from "../context/ToastContext.tsx";
 import {useTranslation} from "react-i18next";
-import {useToasts} from "../hooks/useToasts.tsx";
+import {useToasts} from "./useToasts.tsx";
 import {User} from "../model/User.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;

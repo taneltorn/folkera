@@ -4,7 +4,7 @@ import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 import {useDataContext} from "../../hooks/useDataContext.tsx";
-import {useTuneService} from "../../services/useTuneService.ts";
+import {useTuneService} from "../../hooks/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
 import {useToasts} from "../../hooks/useToasts.tsx";
 import {IoPlaySkipForward} from "react-icons/io5";

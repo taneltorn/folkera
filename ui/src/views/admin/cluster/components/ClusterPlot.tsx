@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
 import {useAudioPlayer} from "../../../../hooks/useAudioContext.tsx";
-import {useTuneService} from "../../../../services/useTuneService.ts";
+import {useTuneService} from "../../../../hooks/useTuneService.ts";
 import {useToasts} from "../../../../hooks/useToasts.tsx";
 import {useClusterContext} from "../../../../hooks/useClusterContext.tsx";
 import useCurrentBreakpoint from "../../../../hooks/useCurrentBreakPoint.tsx";

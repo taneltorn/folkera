@@ -5,6 +5,7 @@ import TuneFilters from "./search/TuneFilters.tsx";
 import AdvancedFilteringPanel from "./search/AdvancedFilteringPanel.tsx";
 import {useAdvancedFilteringContext} from "../../../hooks/useAdvancedFilteringContext.tsx";
 import AdvancedSearchToggle from "./search/AdvancedSearchToggle.tsx";
+import FavouritesToggle from "./search/FavouritesToggle.tsx";
 
 const TopControlBar: React.FC = () => {
 
@@ -13,6 +14,7 @@ const TopControlBar: React.FC = () => {
     return (<>
             <Group gap={"xs"} justify={"start"}  wrap={"nowrap"}>
                 <TuneSearch/>
+                <FavouritesToggle/>
                 <AdvancedSearchToggle/>
             </Group>
 

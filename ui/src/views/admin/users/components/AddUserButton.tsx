@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {modals} from "@mantine/modals";
 import UserForm from "./UserForm.tsx";
 import {User, UserRole} from "../../../../model/User.ts";
-import useUserService from "../../../../services/useUserService.ts";
+import useUserService from "../../../../hooks/useUserService.ts";
 import ModalTitle from "../../../tunes/components/controls/ModalTitle.tsx";
 import AddButton from "../../../../components/buttons/AddButton.tsx";
 

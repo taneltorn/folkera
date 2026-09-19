@@ -199,7 +199,9 @@
       "removeUser": "Kasutaja eemaldatud",
       "createNotification": "Teavitus lisatud",
       "modifyNotification": "Teavitus muudetud",
-      "removeNotification": "Teavitus eemaldatud"
+      "removeNotification": "Teavitus eemaldatud",
+      "addFavourite": "Lisatud lemmikuks",
+      "removeFavourite": "Lemmikutest eemaldatud"
     },
     "error": {
       "fetchData": "Andmete laadimine ebaõnnestus",
@@ -223,7 +225,9 @@
       "verifyToken": "Autentimine ebaõnnestus",
       "login": "Sisselogimine ebaõnnestus",
       "wrongCredentials": "Vale kasutajanimi/parool",
-      "playbackError": "Faili {{file}} ei õnnestunud mängida"
+      "playbackError": "Faili {{file}} ei õnnestunud mängida",
+      "addFavourite": "Lemmikuks lisamine ebaõnnestus",
+      "removeFavourite": "Lemmikutest eemaldamine ebaõnnestus"
     }
   },
   "similarity": {
@@ -302,6 +306,10 @@
       "open": "Ava täpsem otsing",
       "close": "Sulge täpsem otsing",
       "selectYearRange": "...või määra vahemik"
+    },
+    "favourites": {
+      "showFavourites": "Näita lemmikuid",
+      "showAll": "Näita kõiki"
     }
   },
   "tune": {
@@ -340,7 +348,8 @@
     "settings": "Seaded",
     "flatLink": "Flat.io link",
     "hideTimeSignature": "Peida taktimõõt",
-    "hideTempo": "Peida tempo"
+    "hideTempo": "Peida tempo",
+    "favourites": "Lemmikud"
   },
   "access": {
     "OPEN": "avalik",
@@ -403,6 +412,8 @@
     "showArchiveItems": "Kuva käsikiri",
     "loadSimilarTunes": "Helianalüüs",
     "openInFlat": "Ava Flat.io",
+    "addToFavourites": "Lisa lemmikuks",
+    "removeFromFavourites": "Eemalda lemmikutest",
     "addFilter": "Lisa filter",
     "variant": "Variant {{index}}"
   },

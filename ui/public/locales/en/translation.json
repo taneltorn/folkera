@@ -196,7 +196,9 @@
       "removeUser": "User removed",
       "createNotification": "Notification created",
       "modifyNotification": "Notification modified",
-      "removeNotification": "Notification removed"
+      "removeNotification": "Notification removed",
+      "addFavourite": "Added to favourites",
+      "removeFavourite": "Removed from favourites"
     },
     "error": {
       "fetchData": "Failed to load data",
@@ -219,7 +221,9 @@
       "verifyToken": "Authentication failed",
       "login": "Login failed",
       "wrongCredentials": "Wrong username/password",
-      "playbackError": "Failed to play file {{file}}"
+      "playbackError": "Failed to play file {{file}}",
+      "addFavourite": "Failed to add to favourites",
+      "removeFavourite": "Failed to remove from favourites"
     }
   },
   "similarity": {
@@ -294,6 +298,10 @@
       "open": "Open advanced search",
       "close": "Close advanced search",
       "selectYearRange": "...or define a range"
+    },
+    "favourites": {
+      "showFavourites": "Show favourites",
+      "showAll": "Show all"
     }
   },
   "tune": {
@@ -332,7 +340,8 @@
     "settings": "Settings",
     "flatLink": "Flat.io link",
     "hideTimeSignature": "Hide time signature",
-    "hideTempo": "Hide tempo"
+    "hideTempo": "Hide tempo",
+    "favourites": "Favourites"
   },
   "access": {
     "OPEN": "public",
@@ -393,6 +402,8 @@
     "copyToClipboard": "Copy",
     "showArchiveItems": "Show manuscript",
     "loadSimilarTunes": "Start audio analysis",
+    "addToFavourites": "Add to favourites",
+    "removeFromFavourites": "Remove from favourites",
     "openInFlat": "Open in Flat.io",
     "addFilter": "Add filter",
     "variant": "Variant {{index}}"

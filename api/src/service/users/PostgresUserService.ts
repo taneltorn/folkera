@@ -67,17 +67,46 @@ class PostgresUserService implements UserService {
         try {
             this.logger.info(`Fetching user with username or email = ${usernameOrEmail}`);
 
-            const query = "SELECT * FROM folkera.users WHERE deleted_at IS NULL AND (LOWER(username) = LOWER($1) OR LOWER(email) = LOWER($1))";
+            const query = `
+                SELECT u.*,
+                       COALESCE(
+                                       ARRAY_AGG(utf.tune_id) FILTER (WHERE utf.tune_id IS NOT NULL),
+                                       ARRAY []::text[]
+                       ) AS favourite_tunes
+                FROM folkera.users u
+                         LEFT JOIN folkera.user_tune_favourite utf
+                                   ON utf.user_id = u.id
+                WHERE u.deleted_at IS NULL
+                  AND (LOWER(u.username) = LOWER($1) OR LOWER(u.email) = LOWER($1))
+                GROUP BY u.id
+            `;
+
             const result = await pool.query(query, [usernameOrEmail]);
 
-            this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`);
-            if (result.rows.length === 0) {
-                return {success: false, error: "Not found"};
-            }
-            return {success: true, data: Mapper.mapFields(result.rows[0])};
+            this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`  );
 
-        } catch (err) {
+            if (result.rows.length === 0) {
+                return {
+                    success: false,
+                    error: "Not found"
+                };
+            }
+
+            const {favourite_tunes, ...userRow} = result.rows[0];
+            const user: User = {
+                ...Mapper.mapFields(userRow),
+                favourites: {
+                    tunes: favourite_tunes
+                }
+            };
+            return {
+                success: true,
+                data: user,
+            };
+
+        } catch (err: any) {
             this.logger.error(err);
+
             return {
                 success: false,
                 error: `Error querying user with username or email = ${usernameOrEmail}`,
@@ -129,7 +158,7 @@ class PostgresUserService implements UserService {
                 await client.query(`
                     INSERT INTO folkera.user_tune_access (user_id, access_ref)
                     VALUES
-                        ${values}
+                    ${values}
                 `, [
                     userId,
                     ...accessRefs
@@ -227,7 +256,8 @@ class PostgresUserService implements UserService {
 
                 await client.query(`
                     INSERT INTO folkera.user_tune_access (user_id, access_ref)
-                    VALUES ${values}
+                    VALUES
+                    ${values}
                 `, [id, ...accessRefs]);
             }
 

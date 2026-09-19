@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Alert, Box, Button, FileButton, Group, Stack, Text} from "@mantine/core";
-import {useIdentifyService} from "../../services/useIdentifyService.ts";
+import {useIdentifyService} from "../../hooks/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
 import SimilarTunesTable from "../tunes/table/components/SimilarTunesTable.tsx";

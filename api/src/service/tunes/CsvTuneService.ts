@@ -10,6 +10,7 @@ import {Tune} from "../../model/Tune";
 import {Result} from "../../model/Result";
 import {User, UserRole} from "../../model/User";
 import TuneAccessService from "./TuneAccessService";
+import FavouritesService from "../favourites/FavouritesService";
 
 const TUNE_IDS_HARD_LIMIT = 1000;
 
@@ -19,6 +20,7 @@ class CsvTuneService implements TuneService {
     private csvFile = path.resolve(process.env.CSV_DATA_DIR, `tunes.csv`);
 
     tuneAccessService = new TuneAccessService();
+    favouritesService = new FavouritesService();
 
     constructor() {
         this.logger.level = process.env.LOG_LEVEL;
@@ -76,32 +78,74 @@ class CsvTuneService implements TuneService {
         }
     }
 
-
-    public async find(filters?: Filter[], pagination?: Pagination, user?: User): Promise<Result<Tune[]>> {
+    public async find(
+        filters?: Filter[],
+        pagination?: Pagination,
+        user?: User
+    ): Promise<Result<Tune[]>> {
         try {
             const data = this.readFromCsvFile();
 
-            let filtered = filter(data, filters);
+            const favouritesFilter = filters?.find(
+                filter => filter.field === "favourites"
+            );
+
+            const regularFilters = filters?.filter(
+                filter => filter.field !== "favourites"
+            );
+
+            let filtered = data;
+
+            if (favouritesFilter) {
+                if (!user?.id) {
+                    filtered = [];
+                } else {
+                    const result = await this.favouritesService.findByUserId(user.id);
+
+                    if (!result.success) {
+                        return {
+                            success: false,
+                            data: [],
+                            error: result.error
+                        };
+                    }
+
+                    const favouriteIds = new Set(
+                        result.data.map(favourite => favourite.tuneId)
+                    );
+
+                    filtered = filtered.filter(tune =>
+                        favouriteIds.has(tune.id)
+                    );
+                }
+            }
+
+            filtered = filter(filtered, regularFilters);
+
             let paginated = undefined;
 
             if (pagination?.sortField) {
                 filtered = sortByField(
                     filtered,
                     pagination.sortField as keyof Tune,
-                    pagination.sortDirection as SortDirection || SortDirection.ASC);
+                    pagination.sortDirection as SortDirection || SortDirection.ASC
+                );
             }
 
             if (pagination?.size) {
-                const page: number = pagination?.page || 1;
-                const start: number = (page - 1) * pagination.size;
-                const end: number = Number(start) + Number(pagination.size);
+                const page = pagination.page || 1;
+                const start = (page - 1) * pagination.size;
+                const end = start + Number(pagination.size);
+
                 paginated = filtered.slice(start, end);
             }
 
             const found = paginated || filtered;
             const tunes = await this.addCanListenToMany(found, user);
 
-            this.logger.info(`Returning ${(paginated || filtered).length} entries from total of ${filtered.length}`);
+            this.logger.info(
+                `Returning ${found.length} entries from total of ${filtered.length}`
+            );
 
             return {
                 success: true,
@@ -111,18 +155,22 @@ class CsvTuneService implements TuneService {
                         number: pagination.page,
                         size: pagination.size,
                         totalItems: filtered.length,
-                        totalPages: Math.ceil(filtered.length / pagination.size)
+                        totalPages: Math.ceil(
+                            filtered.length / pagination.size
+                        )
                     }
                     : undefined
             };
+
         } catch (err) {
             this.logger.error(err);
+
             return {
                 success: false,
                 data: [],
                 error: "Error querying tunes",
                 detail: err.message
-            }
+            };
         }
     }
 

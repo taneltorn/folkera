@@ -36,7 +36,6 @@ const TuneFilters: React.FC = () => {
                                     type: filter.type
                                 })}
                             >
-                                {/*{filter.value}*/}
                                 {generateFilterName(filter, t)}
                             </Pill>)}
 

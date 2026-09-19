@@ -2,6 +2,7 @@ import {Filter} from "../model/Filter.ts";
 import {Tune} from "../model/Tune.ts";
 import {TFunction} from "i18next";
 import {DistanceBreakpoint} from "../model/DistanceBreakpoint.ts";
+import {User, UserDetails, UserRole} from "../model/User.ts";
 
 export const isEmpty = (object: any) => {
     return !object || Object.keys(object).length === 0 || object.length === 0;
@@ -49,6 +50,11 @@ export const generateFileName = (basename: string, filters?: Filter[]) => {
 
 export const generateFilterName = (filter: Filter, t: TFunction): string => {
     const field = t(`tune.${filter.field}`);
+
+    if(["favourites"].includes(filter.field)) {
+        return field;
+    }
+
     const matchType = ["exact", "not_contains", "from", "to"].includes(filter.type as string)
         ? ` (${t("filtering." + filter.type)})`.toLowerCase()
         : "";
@@ -103,3 +109,20 @@ export const stringifyDistances = (distances: Record<string, number>): string =>
         .map(([id, value]) => `${id}:${value}`)
         .join(";");
 };
+
+export const toUserDetails = (user: User): UserDetails => ({
+    ...user,
+    // favourites: user.favourites ?? {
+    //     tunes: []
+    // },
+    isUser: [
+        UserRole.ADMIN,
+        UserRole.RESEARCHER,
+        UserRole.USER
+    ].includes(user.role),
+    isResearcher: [
+        UserRole.ADMIN,
+        UserRole.RESEARCHER
+    ].includes(user.role),
+    isAdmin: user.role === UserRole.ADMIN
+});
