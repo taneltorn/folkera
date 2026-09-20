@@ -41,6 +41,7 @@ services:
         - root=./
       args:
         - VITE_API_URL=${VITE_API_URL}
+        - VITE_CARTO_API_KEY=${VITE_CARTO_API_KEY}
         - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
         - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
         - VITE_NOTATIONS_DIR=${VITE_NOTATIONS_DIR}
@@ -54,6 +55,7 @@ services:
     restart: always
     environment:
       - VITE_API_URL=${VITE_API_URL}
+      - VITE_CARTO_API_KEY=${VITE_CARTO_API_KEY}
       - VITE_PUBLIC_URL=${VITE_PUBLIC_URL}
       - VITE_RECORDINGS_DIR=${VITE_RECORDINGS_DIR}
       - VITE_NOTATIONS_DIR=${VITE_NOTATIONS_DIR}
