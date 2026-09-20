@@ -18,7 +18,6 @@ interface Properties {
 
 const ContextProviders: React.FC<Properties> = ({children}) => {
 
-
     return (
         <ToastContextProvider>
             <AuthContextProvider>

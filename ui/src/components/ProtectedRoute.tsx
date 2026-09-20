@@ -1,5 +1,5 @@
-import React, {ReactNode, useEffect} from "react";
-import {Navigate} from 'react-router-dom';
+import React, {ReactNode} from "react";
+import {Navigate} from "react-router-dom";
 import {useAuth} from "../hooks/useAuth.tsx";
 import {UserRole} from "../model/User.ts";
 
@@ -10,15 +10,11 @@ interface Properties {
 
 const ProtectedRoute: React.FC<Properties> = ({children, allowedRoles}) => {
 
-    const auth = useAuth();
+    const {currentUser} = useAuth();
 
-    if (!allowedRoles.includes(auth.currentUser?.role as UserRole)) {
+    if (!currentUser || !allowedRoles.includes(currentUser.role)) {
         return <Navigate to="/" replace/>;
     }
-
-    useEffect(() => {
-        auth.verify();
-    }, []);
 
     return children;
 };

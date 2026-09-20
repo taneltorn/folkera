@@ -72,6 +72,9 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                                 size="md"
                                 fw="bold"
                             >
+                                {track.melody || "N/A"}
+                            </Text>
+                            <Text>
                                 {track.ref}
                             </Text>
                         </Link>

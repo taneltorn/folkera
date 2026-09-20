@@ -59,23 +59,23 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
     }
 
     const verify = async () => {
-        fetch(`${API_URL}/auth/verify`, {
-            credentials: "include"
-        })
-            .then(response => response.json())
-            .then((data) => {
-                if (data.user) {
-                    setCurrentUser(toUserDetails(data.user));
-                    return;
-                } else {
-                    setCurrentUser(null);
-                }
-            })
-            .catch(e => {
-                notify(t("toast.error.verifyToken"), ToastType.ERROR, e);
-                setCurrentUser(null);
+        try {
+            const response = await fetch(`${API_URL}/auth/verify`, {
+                credentials: "include"
             });
-    }
+
+            const data = await response.json();
+
+            if (data.user) {
+                setCurrentUser(toUserDetails(data.user));
+            } else {
+                setCurrentUser(null);
+            }
+        } catch (e) {
+            notify(t("toast.error.verifyToken"), ToastType.ERROR, e);
+            setCurrentUser(null);
+        }
+    };
 
     useEffect(() => {
         verify().then(() => setIsInitialized(true));

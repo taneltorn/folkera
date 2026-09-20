@@ -45,7 +45,7 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
     const [tunes, setTunes] = useState<Tune[]>([]);
     const [clusterData, setClusterData] = useState<ClusterData | null>(null);
 
-    const shouldShowLegend = !["xs", "sm"].includes(currentBreakpoint);
+    const shouldShowLegend = useMemo(() => !["xs", "sm"].includes(currentBreakpoint), [currentBreakpoint]);
 
     const numberOfColors = useMemo(() => {
         if (!clusterData) return 0;
@@ -199,6 +199,20 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
         return false;
     };
 
+    const plotLayout = useMemo<Partial<Plotly.Layout>>(() => ({
+        title: "Interactive t-SNE Cluster Plot",
+        showlegend: shouldShowLegend,
+        dragmode: "zoom",
+        autosize: true,
+        uirevision: clusterPlot.file,
+        xaxis: {
+            visible: false,
+        },
+        yaxis: {
+            visible: false,
+        },
+    }), [shouldShowLegend, clusterPlot.file]);
+
     useEffect(() => {
         fetchTunes()
             .then(r => setTunes(r.data))
@@ -227,14 +241,7 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
                 onClick={handleClick}
                 onLegendClick={handleLegendClick}
                 onLegendDoubleClick={() => false}
-                layout={{
-                    title: "Interactive t-SNE Cluster Plot",
-                    showlegend: shouldShowLegend,
-                    dragmode: "zoom",
-                    autosize: true,
-                    xaxis: {visible: false, uirevision: "time"},
-                    yaxis: {visible: false, uirevision: "time"},
-                }}
+                layout={plotLayout}
                 style={{width: "100%", maxHeight: "900px"}}
             />
 
