@@ -27,35 +27,99 @@ const BottomAudioPlayer: React.FC = () => {
         ? `${import.meta.env.VITE_API_URL}/tunes/${track.id}/audio?variant=${index}`
         : "";
 
+    const updateCurrentTime = (event: React.SyntheticEvent<HTMLAudioElement>) => {
+        setCurrentTime(event.currentTarget.currentTime);
+    };
+
+    const handleEnded = () => {
+        setIsPlaying(false);
+        setCurrentTime(0);
+
+        const element = playerRef.current?.audio?.current;
+
+        if (element) {
+            element.currentTime = 0;
+        }
+    };
 
     const handlePlaybackError = () => {
-        if (playbackErrorRef.current === src) return;
+        const element = playerRef.current?.audio?.current;
+
+        if (!element) {
+            return;
+        }
+
+        const error = element.error;
+
+        console.log("Audio error", {
+            code: error?.code,
+            message: error?.message,
+            currentTime: element.currentTime,
+            duration: element.duration,
+        });
+
+        const nearEnd =
+            Number.isFinite(element.duration) &&
+            element.duration > 0 &&
+            (
+                element.duration - element.currentTime < 2 ||
+                element.currentTime / element.duration > 0.98
+            );
+
+        if (
+            error?.code === MediaError.MEDIA_ERR_DECODE &&
+            nearEnd
+        ) {
+            setIsPlaying(false);
+            setCurrentTime(0);
+
+            // Important: clears MEDIA_ERR_DECODE state
+            element.load();
+
+            return;
+        }
+
+        if (playbackErrorRef.current === src) {
+            return;
+        }
 
         playbackErrorRef.current = src;
 
         notify(
-            t("toast.error.playbackError", {file: audio || ""}),
+            t("toast.error.playbackError", {
+                file: audio || ""
+            }),
             ToastType.ERROR
         );
 
         setIsPlaying(false);
     };
-    const updateCurrentTime = (event: React.SyntheticEvent<HTMLAudioElement>) => {
-        setCurrentTime(event.currentTarget.currentTime);
-    };
+
+    useEffect(() => {
+        playbackErrorRef.current = null;
+        setCurrentTime(0);
+    }, [src, setCurrentTime]);
 
     useEffect(() => {
         if (!track) return;
 
-        setCurrentTime(playerRef.current?.audio?.current?.duration || 0);
-
         const timeout = window.setTimeout(() => {
-            const audio = playerRef.current?.audio.current;
+            const audio = playerRef.current?.audio?.current;
             if (!audio) return;
 
             if (isPlaying) {
+                if (
+                    audio.ended ||
+                    (
+                        Number.isFinite(audio.duration) &&
+                        audio.currentTime >= audio.duration
+                    )
+                ) {
+                    audio.currentTime = 0;
+                    setCurrentTime(0);
+                }
+
                 audio.play().catch(() => {
-                    console.log("Playback error");
                     setIsPlaying(false);
                 });
             } else {
@@ -64,11 +128,7 @@ const BottomAudioPlayer: React.FC = () => {
         }, 0);
 
         return () => window.clearTimeout(timeout);
-    }, [track, src, isPlaying, playerRef, setIsPlaying]);
-
-    useEffect(() => {
-        playbackErrorRef.current = null;
-    }, [src]);
+    }, [track, src, isPlaying, playerRef, setIsPlaying, setCurrentTime]);
 
     return (
 
@@ -86,6 +146,8 @@ const BottomAudioPlayer: React.FC = () => {
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
+                                onEnded={handleEnded}
+
                             />
                             :
                             <LargeScreenAudioPlayer
@@ -97,6 +159,7 @@ const BottomAudioPlayer: React.FC = () => {
                                 onPlaying={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={handlePlaybackError}
+                                onEnded={handleEnded}
                             />}
                     </>
                     : <Group justify={"space-between"}>

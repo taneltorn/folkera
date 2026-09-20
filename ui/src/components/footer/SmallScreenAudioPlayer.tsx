@@ -16,6 +16,7 @@ interface Properties {
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
+    onEnded: () => void;
     onListen: (event: React.SyntheticEvent<HTMLAudioElement>) => void;
 }
 
@@ -25,14 +26,16 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
         src,
         track,
         playerRef,
-        onListen,
+        onEnded,
         onPlaying,
         onPause,
         onError,
+        onListen,
     } = {...props};
 
     const {isPlaying, loopLeft, loopWidth, loopStage} = useAudioPlayer();
 
+    // @ts-ignore
     return (
         <Flex>
             <Group
@@ -44,7 +47,6 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
                 } as React.CSSProperties}
             >
                 <AudioPlayer
-                    // @ts-ignore
                     ref={playerRef}
                     autoPlayAfterSrcChange={false}
                     autoPlay={isPlaying}
@@ -66,6 +68,7 @@ const SmallScreenAudioPlayer: React.FC<Properties> = (props) => {
                     onPlaying={onPlaying}
                     onPause={onPause}
                     onError={onError}
+                    onEnded={onEnded}
                     // @ts-ignore
                     onListen={onListen}
                 />

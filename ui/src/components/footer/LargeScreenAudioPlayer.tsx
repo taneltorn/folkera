@@ -22,6 +22,7 @@ interface Properties {
     onPlaying: () => void;
     onPause: () => void;
     onError: () => void;
+    onEnded: () => void;
     onListen: (event: React.SyntheticEvent<HTMLAudioElement>) => void;
 }
 
@@ -32,9 +33,10 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
         src,
         playerRef,
         onPlaying,
-        onListen,
+        onEnded,
         onPause,
         onError,
+        onListen,
     } = {...props};
 
     const {isPlaying, loopLeft, loopWidth, loopStage} = useAudioPlayer();
@@ -70,7 +72,6 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                     } as React.CSSProperties}
                 >
                     <AudioPlayer
-                        // @ts-ignore
                         ref={playerRef}
                         autoPlayAfterSrcChange={false}
                         autoPlay={isPlaying}
@@ -94,6 +95,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                         onPlaying={onPlaying}
                         onPause={onPause}
                         onError={onError}
+                        onEnded={onEnded}
                         // @ts-ignore
                         onListen={onListen}
                     />
