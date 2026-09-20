@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from "react";
 import {Box, Group, Text} from "@mantine/core";
-import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Trans, useTranslation} from "react-i18next";
+import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useToasts} from "../../hooks/useToasts.tsx";
 import {ToastType} from "../../context/ToastContext.tsx";
 import useCurrentBreakpoint from "../../hooks/useCurrentBreakPoint.tsx";
@@ -17,7 +17,14 @@ const BottomAudioPlayer: React.FC = () => {
     const {t} = useTranslation();
     const {notify} = useToasts();
     const breakpoint = useCurrentBreakpoint();
-    const {track, isPlaying, playerRef, setIsPlaying, loopStage, setCurrentTime} = useAudioPlayer();
+    const {
+        track,
+        isPlaying,
+        playerRef,
+        setIsPlaying,
+        setCurrentTime,
+    } = useAudioPlayer();
+
     const {index} = useActiveVariant();
 
     const audios = track?.audio?.split(";") || [];
@@ -27,8 +34,9 @@ const BottomAudioPlayer: React.FC = () => {
         ? `${import.meta.env.VITE_API_URL}/tunes/${track.id}/audio?variant=${index}`
         : "";
 
-    const updateCurrentTime = (event: React.SyntheticEvent<HTMLAudioElement>) => {
-        setCurrentTime(event.currentTarget.currentTime);
+    const updateCurrentTime = (event: Event) => {
+        const element = event.target as HTMLAudioElement;
+        setCurrentTime(element.currentTime);
     };
 
     const handleEnded = () => {
@@ -73,7 +81,8 @@ const BottomAudioPlayer: React.FC = () => {
             setIsPlaying(false);
             setCurrentTime(0);
 
-            // Important: clears MEDIA_ERR_DECODE state
+            // Chrome/Symphonia can report a decode error for a malformed
+            // final MP3 frame. Reload to clear the fatal media error state.
             element.load();
 
             return;
@@ -85,12 +94,7 @@ const BottomAudioPlayer: React.FC = () => {
 
         playbackErrorRef.current = src;
 
-        notify(
-            t("toast.error.playbackError", {
-                file: audio || ""
-            }),
-            ToastType.ERROR
-        );
+        notify(t("toast.error.playbackError", {file: audio || ""}), ToastType.ERROR);
 
         setIsPlaying(false);
     };
@@ -101,82 +105,88 @@ const BottomAudioPlayer: React.FC = () => {
     }, [src, setCurrentTime]);
 
     useEffect(() => {
-        if (!track) return;
+        if (!track) {
+            return;
+        }
 
         const timeout = window.setTimeout(() => {
-            const audio = playerRef.current?.audio?.current;
-            if (!audio) return;
+            const element = playerRef.current?.audio?.current;
+
+            if (!element) {
+                return;
+            }
 
             if (isPlaying) {
                 if (
-                    audio.ended ||
+                    element.ended ||
                     (
-                        Number.isFinite(audio.duration) &&
-                        audio.currentTime >= audio.duration
+                        Number.isFinite(element.duration) &&
+                        element.currentTime >= element.duration
                     )
                 ) {
-                    audio.currentTime = 0;
+                    element.currentTime = 0;
                     setCurrentTime(0);
                 }
 
-                audio.play().catch(() => {
+                element.play().catch(() => {
                     setIsPlaying(false);
                 });
             } else {
-                audio.pause();
+                element.pause();
             }
         }, 0);
 
         return () => window.clearTimeout(timeout);
-    }, [track, src, isPlaying, playerRef, setIsPlaying, setCurrentTime]);
+    }, [
+        track,
+        src,
+        isPlaying,
+        playerRef,
+        setIsPlaying,
+        setCurrentTime,
+    ]);
+
+    if (!track) {
+        return (
+            <Box py={4} px="xs"/>
+        );
+    }
+
+    const playerProps = {
+        playerRef,
+        track,
+        src,
+        onListen: updateCurrentTime,
+        onPlaying: () => setIsPlaying(true),
+        onPause: () => setIsPlaying(false),
+        onError: handlePlaybackError,
+        onEnded: handleEnded,
+    };
 
     return (
-
-        <Box py={4} px={"xs"}>
-            {track && <>
-                {track.canListen
-                    ? <>
-                        {["xxs", "xs"].includes(breakpoint) ?
-                            <SmallScreenAudioPlayer
-                                playerRef={playerRef}
-                                loopStage={loopStage}
-                                track={track}
-                                src={src}
-                                onListen={updateCurrentTime}
-                                onPlaying={() => setIsPlaying(true)}
-                                onPause={() => setIsPlaying(false)}
-                                onError={handlePlaybackError}
-                                onEnded={handleEnded}
-
-                            />
-                            :
-                            <LargeScreenAudioPlayer
-                                playerRef={playerRef}
-                                loopStage={loopStage}
-                                track={track}
-                                src={src}
-                                onListen={updateCurrentTime}
-                                onPlaying={() => setIsPlaying(true)}
-                                onPause={() => setIsPlaying(false)}
-                                onError={handlePlaybackError}
-                                onEnded={handleEnded}
-                            />}
-                    </>
-                    : <Group justify={"space-between"}>
+        <Box py={4} px="xs">
+            {track.canListen
+                ? ["xxs", "xs"].includes(breakpoint)
+                    ? <SmallScreenAudioPlayer {...playerProps}/>
+                    : <LargeScreenAudioPlayer {...playerProps}/>
+                : (
+                    <Group justify="space-between">
                         <Group>
                             <Trans
-                                i18nKey={"player.insufficientPrivileges"}
+                                i18nKey="player.insufficientPrivileges"
                                 values={{ref: track.ref}}
-                                components={{b: <Text fw={"bold"}/>}}
+                                components={{
+                                    b: <Text fw="bold"/>,
+                                }}
                             />
                         </Group>
+
                         <PlayerCloseButton/>
                     </Group>
-                }
-
-            </>}
+                )
+            }
         </Box>
     );
-}
+};
 
 export default BottomAudioPlayer;

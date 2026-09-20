@@ -1,62 +1,87 @@
-import React from 'react';
-import {Grid, Group, Stack, Text, useMantineTheme} from "@mantine/core";
-import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
+import React from "react";
+import {
+    Grid,
+    Group,
+    Stack,
+    Text,
+    useMantineTheme,
+} from "@mantine/core";
+import {RHAP_UI} from "react-h5-audio-player";
 import {Link} from "react-router-dom";
+import {LuAudioLines} from "react-icons/lu";
+import {IoMusicalNotes} from "react-icons/io5";
+
 import LoopControls from "./LoopControls.tsx";
 import TempoControls from "./TempoControls.tsx";
-import {Tune} from "../../model/Tune.ts";
-import {contentRef, truncate} from "../../utils/helpers.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import PlayNext from "./PlayNext.tsx";
 import PlayPrevious from "./PlayPrevious.tsx";
 import Play from "./Play.tsx";
-import {LuAudioLines} from "react-icons/lu";
-import {IoMusicalNotes} from "react-icons/io5";
+import BaseAudioPlayer, {
+    BaseAudioPlayerProperties,
+} from "./BaseAudioPlayer.tsx";
+
+import {Tune} from "../../model/Tune.ts";
+import {contentRef, truncate} from "../../utils/helpers.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 
-interface Properties {
-    playerRef: any;
+interface Properties extends BaseAudioPlayerProperties {
     track: Tune;
-    src: string;
-    loopStage: number | null;
-    onPlaying: () => void;
-    onPause: () => void;
-    onError: () => void;
-    onEnded: () => void;
-    onListen: (event: React.SyntheticEvent<HTMLAudioElement>) => void;
 }
 
-const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
+const LargeScreenAudioPlayer: React.FC<Properties> = ({
+                                                          track,
+                                                          ...playerProps
+                                                      }) => {
+
+    const theme = useMantineTheme();
 
     const {
-        track,
-        src,
-        playerRef,
-        onPlaying,
-        onEnded,
-        onPause,
-        onError,
-        onListen,
-    } = {...props};
+        loopLeft,
+        loopWidth,
+        loopStage,
+    } = useAudioPlayer();
 
-    const {isPlaying, loopLeft, loopWidth, loopStage} = useAudioPlayer();
+    const Icon =
+        track.datatype === "AUDIO"
+            ? LuAudioLines
+            : IoMusicalNotes;
 
-    const theme = useMantineTheme()
-    const Icon = track.datatype === "AUDIO" ? LuAudioLines : IoMusicalNotes;
-
-    // @ts-ignore
     return (
         <Grid>
             <Grid.Col span={3}>
-                <Group align="center" h="100%" wrap={"nowrap"}>
-                    {track.datatype && <Icon color={theme.colors[theme.primaryColor][9]} size={30}/>}
+                <Group
+                    align="center"
+                    h="100%"
+                    wrap="nowrap"
+                >
+                    {track.datatype && (
+                        <Icon
+                            color={
+                                theme.colors[
+                                    theme.primaryColor
+                                    ][9]
+                            }
+                            size={30}
+                        />
+                    )}
+
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>
-                            <Text size={"md"} fw={"bold"}>
+                            <Text
+                                size="md"
+                                fw="bold"
+                            >
                                 {track.ref}
                             </Text>
                         </Link>
-                        <Text size={"sm"}>{truncate(contentRef(track), 40)}</Text>
+
+                        <Text size="sm">
+                            {truncate(
+                                contentRef(track),
+                                40
+                            )}
+                        </Text>
                     </Stack>
                 </Group>
             </Grid.Col>
@@ -65,51 +90,50 @@ const LargeScreenAudioPlayer: React.FC<Properties> = (props) => {
                 <Group
                     align="center"
                     h={80}
-                    className={loopStage > 0 ? "looping-player" : ""}
+                    className={
+                        loopStage > 0
+                            ? "looping-player"
+                            : ""
+                    }
                     style={{
                         "--loop-left": loopLeft,
                         "--loop-width": loopWidth,
                     } as React.CSSProperties}
                 >
-                    <AudioPlayer
-                        ref={playerRef}
-                        autoPlayAfterSrcChange={false}
-                        autoPlay={isPlaying}
-                        showSkipControls={false}
-                        layout={"stacked-reverse"}
-                        customControlsSection={[
-                            RHAP_UI.ADDITIONAL_CONTROLS,
+                    <BaseAudioPlayer
+                        {...playerProps}
+                        layout="stacked-reverse"
+                        customProgressBarSection={[
+                            RHAP_UI.CURRENT_TIME,
+                            RHAP_UI.PROGRESS_BAR,
+                            RHAP_UI.DURATION,
                         ]}
-                        customProgressBarSection={
-                            [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION]
-                        }
-                        customVolumeControls={[]}
                         customAdditionalControls={[
-                            <LoopControls/>,
-                            <PlayPrevious/>,
-                            <Play/>,
-                            <PlayNext/>,
-                            <TempoControls playerRef={playerRef} track={track}/>,
+                            <LoopControls key="loop"/>,
+                            <PlayPrevious key="previous"/>,
+                            <Play key="play"/>,
+                            <PlayNext key="next"/>,
+                            <TempoControls
+                                key="tempo"
+                                playerRef={playerProps.playerRef}
+                                track={track}
+                            />,
                         ]}
-                        src={src}
-                        onPlaying={onPlaying}
-                        onPause={onPause}
-                        onError={onError}
-                        onEnded={onEnded}
-                        // @ts-ignore
-                        onListen={onListen}
                     />
                 </Group>
             </Grid.Col>
 
             <Grid.Col span={3}>
-                <Group justify={"end"} align="center" h="100%">
+                <Group
+                    justify="end"
+                    align="center"
+                    h="100%"
+                >
                     <PlayerCloseButton/>
                 </Group>
             </Grid.Col>
         </Grid>
     );
-
-}
+};
 
 export default LargeScreenAudioPlayer;
