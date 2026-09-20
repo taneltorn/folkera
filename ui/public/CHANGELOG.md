@@ -1,4 +1,5 @@
 #### [0.10.1] - 20.09.2026
+- Parandatud taasesituse viga Chrome'is
 - Pisiparandused
 
 #### [0.10.0] - 19.09.2026
