@@ -6,15 +6,17 @@ import AdvancedFilteringPanel from "./search/AdvancedFilteringPanel.tsx";
 import {useAdvancedFilteringContext} from "../../../hooks/useAdvancedFilteringContext.tsx";
 import AdvancedSearchToggle from "./search/AdvancedSearchToggle.tsx";
 import FavouritesToggle from "./search/FavouritesToggle.tsx";
+import {useAuth} from "../../../hooks/useAuth.tsx";
 
 const TopControlBar: React.FC = () => {
 
+    const {currentUser} = useAuth();
     const {visible} = useAdvancedFilteringContext();
 
     return (<>
             <Group gap={"xs"} justify={"start"}  wrap={"nowrap"}>
                 <TuneSearch/>
-                <FavouritesToggle/>
+                {currentUser && <FavouritesToggle/>}
                 <AdvancedSearchToggle/>
             </Group>
 
