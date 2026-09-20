@@ -1,6 +1,6 @@
 import React from "react";
 import {Tune} from "../../../../model/Tune.ts";
-import {Divider, Group} from "@mantine/core";
+import {Group} from "@mantine/core";
 import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
 import {useTranslation} from "react-i18next";
 import {AiFillEdit} from "react-icons/ai";
@@ -15,8 +15,6 @@ import {MdScatterPlot} from "react-icons/md";
 import {RiNodeTree} from "react-icons/ri";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
 import LoadSimilarTunesButton from "../../components/controls/LoadSimilarTunesButton.tsx";
-import FlatLinkButton from "../../components/controls/FlatLinkButton.tsx";
-import ToggleFavouriteButton from "../../components/controls/ToggleFavouriteButton.tsx";
 
 interface Properties {
     tune: Tune;
@@ -39,18 +37,12 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                         {t("button.showArchiveItems")}
                     </ShowArchiveDocumentsButton>}
 
-                {tune.flatLink && <FlatLinkButton tune={tune}/>}
-
-                {currentUser && <ToggleFavouriteButton tune={tune}/>}
-
                 {tune.audio && currentUser?.isResearcher && <LoadSimilarTunesButton tune={tune}/>}
 
                 {currentUser?.isAdmin && <>
-                    <Divider mx={"md"} orientation={"vertical"} />
-
                     <ModifyTuneButton
-                        size={"sm"}
                         tune={tune}
+                        variant={"subtle"}
                         leftSection={<AiFillEdit size={Size.icon.MD}/>}
                         onSubmit={reloadData}>
                         {t("button.modify")}

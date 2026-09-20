@@ -1,3 +1,6 @@
+#### [0.10.1] - 20.09.2026
+- Pisiparandused
+
 #### [0.10.0] - 19.09.2026
 - Lisatud lemmikute lisamise võimalus
 - Pisiparandused

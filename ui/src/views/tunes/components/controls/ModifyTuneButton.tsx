@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from '@mantine/core';
+import {Button, ButtonProps} from '@mantine/core';
 import {modals} from '@mantine/modals';
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../model/Tune.ts";
@@ -10,14 +10,9 @@ import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 import ModalTitle from "./ModalTitle.tsx";
 
-interface Properties {
+interface Properties extends ButtonProps {
     tune: Tune;
-    variant?: string;
-    size?: string;
-    color?: string;
-    leftSection?: React.ReactNode;
     onSubmit?: () => void;
-    children?: React.ReactNode;
 }
 
 const ModifyTuneButton: React.FC<Properties> = ({tune, onSubmit, children, ...props}) => {
@@ -43,15 +38,16 @@ const ModifyTuneButton: React.FC<Properties> = ({tune, onSubmit, children, ...pr
             ),
         });
 
-    return (<>
+    return (
+        <>
             {state === ControlState.IDLE &&
                 <Button
-                    size={props.size || "md"}
                     radius={"xl"}
-                    color={props.color || "gray"}
-                    variant={props.variant || "subtle"}
+                    color={"dark.9"}
+                    variant={"transparent"}
                     leftSection={props.leftSection}
                     onClick={openModal}
+                    {...props}
                 >
                     {children}
                 </Button>}

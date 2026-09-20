@@ -6,6 +6,8 @@ import {FaTableList} from "react-icons/fa6";
 import {Size} from "../../../utils/constants.ts";
 import {FaMapMarkerAlt} from "react-icons/fa";
 import {IoStatsChartSharp} from "react-icons/io5";
+import {useControlState} from "../../../hooks/useControlState.tsx";
+import {ControlState} from "../../../model/ControlState.ts";
 
 interface Properties {
     children?: ReactNode;
@@ -13,15 +15,18 @@ interface Properties {
 
 const BottomControlBar: React.FC<Properties> = ({children}) => {
 
+    const {state} = useControlState();
+
     return (
         <Group px={"md"} py={"xs"} justify={"space-between"} mb={"md"} mt={"xs"}>
             {children}
 
-            <Group gap={4}>
+            {state === ControlState.IDLE &&
+                <Group gap={4}>
                 <ActiveViewButton view={View.TABLE} icon={<FaTableList size={Size.icon.SM}/>}/>
                 <ActiveViewButton view={View.MAP} icon={<FaMapMarkerAlt size={Size.icon.SM}/>}/>
                 <ActiveViewButton view={View.STATS} icon={<IoStatsChartSharp size={Size.icon.SM}/>}/>
-            </Group>
+            </Group>}
         </Group>
     );
 }

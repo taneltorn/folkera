@@ -29,11 +29,17 @@ class StatsController {
 
     async getStats(req: Request, res: Response): Promise<Stats> {
         try {
+            // @ts-ignore todo use custom type
+            const user = req.user;
+
             const {groupBy} = req.query;
-            
+
             // @ts-ignore
-            const data = await this.tuneService.find(req.filters, {sortField: groupBy, sortDirection: SortDirection.ASC}).then(result => result.data);
-            
+            const data = await this.tuneService.find(req.filters, {
+                sortField: groupBy as string,
+                sortDirection: SortDirection.ASC
+            }, user).then(result => result.data);
+
             if (!groupBy) {
                 res.status(400).json({error: "Missing groupBy URL parameter"});
                 return;
@@ -41,7 +47,7 @@ class StatsController {
 
             const dataTransformers: DataTransformer[] = GroupByToDataTransformerMap.get(groupBy as GroupBy) || [];
             const groups: string[] | undefined = GroupByToListMap.get(groupBy as GroupBy);
-            
+
             const result = await this.statsService.getStats(data, groupBy as GroupBy, dataTransformers, groups);
             if (!result.success) {
                 res.status(500).json({error: result.error});

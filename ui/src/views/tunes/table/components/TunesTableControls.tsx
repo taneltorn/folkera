@@ -1,6 +1,6 @@
 import React from "react";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Divider, Group} from "@mantine/core";
+import { Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import LabelValue from "../../../../components/LabelValue.tsx";
 import ExportTunesCsvButton from "../../components/controls/ExportTunesCsvButton.tsx";
@@ -37,7 +37,6 @@ const TunesTableControls: React.FC = () => {
                         <VisibleFieldsSelector/>
 
                         {currentUser?.isAdmin && <>
-                            <Divider mx={"md"} orientation={"vertical"} />
                             <ToggleEditModeButton/>
                             <ToggleSelectionModeButton/>
                         </>}

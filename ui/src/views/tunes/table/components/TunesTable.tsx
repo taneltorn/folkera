@@ -26,6 +26,7 @@ const TunesTable: React.FC<Properties> = ({data}) => {
         <>
             <ScrollArea pb={"xs"}>
                 <Table
+                    className={"tunes-table"}
                     highlightOnHover
                     withColumnBorders={false}
                     withRowBorders={false}
@@ -48,7 +49,10 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                                     type={tf.type}
                                 />)}
 
-                            {currentUser?.isAdmin && <Table.Th/>}
+                            {currentUser && <Table.Th
+                                pos="sticky"
+                                right={0}
+                            />}
                         </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>

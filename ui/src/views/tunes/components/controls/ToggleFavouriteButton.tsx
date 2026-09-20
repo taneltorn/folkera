@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Loader} from '@mantine/core';
+import {Button, ButtonProps, Tooltip} from '@mantine/core';
 import {Tune} from "../../../../model/Tune.ts";
 import {useTranslation} from "react-i18next";
 import useFavouritesService from "../../../../hooks/useFavouritesService.ts";
@@ -8,47 +8,42 @@ import {MdFavoriteBorder, MdOutlineFavorite} from "react-icons/md";
 import {Size} from "../../../../utils/constants.ts";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 
-interface Properties {
+interface Properties extends ButtonProps {
     tune: Tune;
-    children?: React.ReactNode;
 }
 
-const ToggleFavouriteButton: React.FC<Properties> = ({tune}) => {
+const ToggleFavouriteButton: React.FC<Properties> = ({tune, ...props}) => {
 
     const {t} = useTranslation();
 
     const {currentUser} = useAuth();
-
-    const {
-        addFavourite,
-        removeFavourite,
-        isLoading
-    } = useFavouritesService();
-
-    const dataContext = useDataContext();
+    const {addFavourite, removeFavourite, isLoading} = useFavouritesService();
+    const {loadData} = useDataContext();
 
     const isFavourite = currentUser?.favourites.tunes.includes(tune.id) ?? false;
 
     const toggleFavourite = async () => {
-        if (isFavourite) {
-            await removeFavourite(tune.id);
-        } else {
-            await addFavourite(tune.id);
-        }
-        dataContext.loadData();
+        await (isFavourite ? removeFavourite : addFavourite)(tune.id);
+        await loadData();
     };
 
     return (
-        <Button
-            size={"sm"}
-            color={"dark.9"}
-            radius={"xl"}
-            variant={"subtle"}
-            onClick={toggleFavourite}
-            leftSection={isLoading || dataContext.isLoading ?<Loader size={20}/> :  (isFavourite ? <MdOutlineFavorite size={Size.icon.MD}/> : <MdFavoriteBorder size={Size.icon.MD}/>)}
-        >
-            {t(`button.${isFavourite ? "removeFromFavourites" : "addToFavourites"}`)}
-        </Button>
+        <Tooltip label={t(`button.${isFavourite ? "removeFromFavourites" : "addToFavourites"}`)}>
+            <Button
+                radius={"xl"}
+                color={"dark"}
+                variant={"transparent"}
+                loading={isLoading}
+                loaderProps={{type: "dots"}}
+                onClick={toggleFavourite}
+                {...props}
+
+            >
+                {isFavourite
+                    ? <MdOutlineFavorite size={Size.icon.MD}/>
+                    : <MdFavoriteBorder size={Size.icon.MD}/>}
+            </Button>
+        </Tooltip>
     );
 }
 

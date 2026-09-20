@@ -8,14 +8,11 @@ import TunesTablePlayAudioButton from "./controls/TunesTablePlayAudioButton.tsx"
 import {useHover} from "@mantine/hooks";
 import TuneLink from "../../../../components/TuneLink.tsx";
 import {refToId} from "../../../../utils/helpers.tsx";
-import ModifyTuneButton from "../../components/controls/ModifyTuneButton.tsx";
-import {AiFillEdit} from "react-icons/ai";
-import {Size} from "../../../../utils/constants.ts";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
-import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import {useControlState} from "../../../../hooks/useControlState.tsx";
 import {ControlState} from "../../../../model/ControlState.ts";
 import TuneChecker from "./TuneChecker.tsx";
+import UserTuneControls from "./controls/UserTuneControls.tsx";
 
 interface Properties {
     tune: Tune;
@@ -26,7 +23,6 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
 
     const {currentUser} = useAuth();
     const {hovered, ref} = useHover();
-    const {loadData} = useDataContext();
     const {state} = useControlState();
 
     return (
@@ -34,8 +30,8 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
             <Table.Td>
                 <Group justify={"center"}>
                     {state === ControlState.SELECTION
-                        ?  <TuneChecker  tune={tune}/>
-                       : <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
+                        ? <TuneChecker tune={tune}/>
+                        : <TunesTablePlayAudioButton tune={tune} hovered={hovered}/>
                     }
                 </Group>
             </Table.Td>
@@ -80,18 +76,9 @@ const TunesTableRow: React.FC<Properties> = ({tune, sortedFields}) => {
                 </TunesTableCell>
             ))}
 
-            {currentUser?.isAdmin &&
-                <Table.Td>
-                    <ModifyTuneButton
-                        variant={"transparent"}
-                        color={hovered ? "dark" : "white"}
-                        size={"compact-xl"}
-                        tune={tune}
-                        onSubmit={loadData}
-                    >
-                        <AiFillEdit size={Size.icon.SM}/>
-                    </ModifyTuneButton>
-                </Table.Td>}
+            {currentUser && <Table.Td pos="sticky" right={0}>
+                <UserTuneControls tune={tune} show={hovered}/>
+            </Table.Td>}
         </Table.Tr>
     );
 }

@@ -19,6 +19,8 @@ interface Properties {
 
 const LabelPositions = new Map<string, number[]>([]);
 
+const API_KEY = import.meta.env.VITE_CARTO_API_KEY;
+
 // todo: refactor
 const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onClick, valueCap}) => {
 
@@ -105,7 +107,7 @@ const MapTemplate: React.FC<Properties> = ({stats, layers, groupBy, options, onC
                 style={{height: "800px", width: "100%", zIndex: 10}}
             >
                 <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                    url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${API_KEY}`}
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
                     subdomains={['a', 'b', 'c']}
                 />

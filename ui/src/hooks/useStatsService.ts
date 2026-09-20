@@ -25,6 +25,7 @@ export const useStatsService = () => {
                 groupBy: groupBy,
                 ...urlify(filters)
             },
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             },

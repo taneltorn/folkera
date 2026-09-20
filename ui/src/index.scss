@@ -29,6 +29,10 @@ table {
     border-bottom: 1px solid var(--mantine-color-gray-1);
   }
 }
+table td {
+  //padding-top: 15px !important;
+  //padding-bottom: 15px !important;
+}
 
 .editing-row-main,
 .editing-row-sub {

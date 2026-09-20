@@ -8,6 +8,8 @@ import {useTranslation} from "react-i18next";
 import {PiCaretLeftBold} from "react-icons/pi";
 import {Size} from "../../../../utils/constants.ts";
 import {useNavigate} from "react-router-dom";
+import ToggleFavouriteButton from "../../components/controls/ToggleFavouriteButton.tsx";
+import {useAuth} from "../../../../hooks/useAuth.tsx";
 
 interface Properties {
     tune: Tune;
@@ -16,6 +18,7 @@ interface Properties {
 const TuneHeader: React.FC<Properties> = ({tune}) => {
 
     const {t} = useTranslation();
+    const {currentUser} = useAuth();
     const navigate = useNavigate();
 
     return (
@@ -33,6 +36,8 @@ const TuneHeader: React.FC<Properties> = ({tune}) => {
                     <PiCaretLeftBold size={Size.icon.LG}/>
                 </Button>
                 <TuneReference tune={tune}/>
+
+                {currentUser && <ToggleFavouriteButton tune={tune}/>}
             </Group>
 
             <Group gap={4} wrap={"nowrap"}>

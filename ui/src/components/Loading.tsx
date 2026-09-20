@@ -14,7 +14,7 @@ const Loading: React.FC<Properties> = ({isLoading, text}) => {
             loaderProps={{
                 children:
                     <Group>
-                        <Loader/>
+                        <Loader type={"dots"}/>
                         {text && <Text>{text}</Text>}
                     </Group>
             }}
