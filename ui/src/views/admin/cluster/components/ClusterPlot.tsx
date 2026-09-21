@@ -45,7 +45,7 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
     const [tunes, setTunes] = useState<Tune[]>([]);
     const [clusterData, setClusterData] = useState<ClusterData | null>(null);
 
-    const shouldShowLegend = useMemo(() => !["xs", "sm"].includes(currentBreakpoint), [currentBreakpoint]);
+    const shouldShowLegend = useMemo(() => !["xxs", "xs", "sm"].includes(currentBreakpoint), [currentBreakpoint]);
 
     const numberOfColors = useMemo(() => {
         if (!clusterData) return 0;
