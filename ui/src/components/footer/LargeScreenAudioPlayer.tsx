@@ -68,12 +68,6 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
 
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>
-                            <Text
-                                size="md"
-                                fw="bold"
-                            >
-                                {track.melody || "N/A"}
-                            </Text>
                             <Text>
                                 {track.ref}
                             </Text>
