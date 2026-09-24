@@ -1,3 +1,7 @@
+#### [0.10.2] - 24.09.2026
+- Lisatud helivaljuse muutmine
+- Pisiparandused
+
 #### [0.10.1] - 20.09.2026
 - Parandatud taasesituse viga Chrome'is
 - Pisiparandused
