@@ -26,6 +26,7 @@ import {contentRef, truncate} from "../../utils/helpers.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import VolumeControls from "./PlayerVolumeControls.tsx";
 import ToggleFavouriteButton from "../../views/tunes/components/controls/ToggleFavouriteButton.tsx";
+import {useAuth} from "../../hooks/useAuth.tsx";
 
 interface Properties extends BaseAudioPlayerProperties {
     track: Tune;
@@ -37,7 +38,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                                                       }) => {
 
     const theme = useMantineTheme();
-
+    const {currentUser} = useAuth();
     const {
         loopLeft,
         loopWidth,
@@ -117,7 +118,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                     align="center"
                     h="100%"
                 >
-                    <ToggleFavouriteButton color={"red"}        tune={track} px={"xs"}  />
+                    {currentUser && <ToggleFavouriteButton color={"red"} tune={track} px={"xs"}/>}
                     <VolumeControls/>
                     <PlayerCloseButton/>
                 </Group>
