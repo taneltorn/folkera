@@ -180,7 +180,6 @@ const BottomAudioPlayer: React.FC = () => {
                                 }}
                             />
                         </Group>
-
                         <PlayerCloseButton/>
                     </Group>
                 )

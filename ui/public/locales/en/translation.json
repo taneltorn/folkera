@@ -432,6 +432,7 @@
     "next": "Play next",
     "previous": "Play previous",
     "tempo": "Change tempo",
+    "close": "Close",
     "loop": {
       "0": "Mark start",
       "1": "Mark end",

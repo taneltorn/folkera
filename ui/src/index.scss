@@ -24,7 +24,7 @@ a {
   }
 }
 
- .player-tempo-indicator .mantine-Indicator-indicator {
+.player-tempo-indicator .mantine-Indicator-indicator {
   padding: 0 !important;
 }
 
@@ -38,10 +38,12 @@ table {
   th {
     border-color: var(--mantine-color-gray-1);
   }
+
   td {
     padding-top: 15px !important;
     padding-bottom: 15px !important;
   }
+
   .mantine-datatable-pagination {
     border-top: none;
 
@@ -226,14 +228,14 @@ table {
     width: var(--loop-width);
     top: 0;
     height: 100%;
-    background-color: var(--mantine-color-yellow-9);
+    background-color: var(--mantine-color-red-9);
     border-radius: inherit;
     z-index: 10;
     pointer-events: none;
   }
 
   .rhap_progress-indicator {
-    background-color: var(--mantine-color-yellow-9) !important;
+    background-color: var(--mantine-color-red-9) !important;
     z-index: 20;
   }
 }

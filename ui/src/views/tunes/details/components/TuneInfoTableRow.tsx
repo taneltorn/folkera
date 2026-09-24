@@ -2,7 +2,7 @@ import React, {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {Group, Stack, Table, Text} from "@mantine/core";
 import {Tune} from "../../../../model/Tune.ts";
-import TableLink from "../../../../components/footer/TableLink.tsx";
+import TableLink from "../../../../components/player/TableLink.tsx";
 import KivikeLink from "./KivikeLink.tsx";
 import TuneLink from "../../../../components/TuneLink.tsx";
 import {refToId} from "../../../../utils/helpers.tsx";

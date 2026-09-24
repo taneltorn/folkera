@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "@mantine/core";
+import {Button, Tooltip} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
@@ -7,16 +7,15 @@ import {useDataContext} from "../../hooks/useDataContext.tsx";
 import {useTuneService} from "../../hooks/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
 import {useToasts} from "../../hooks/useToasts.tsx";
-import {IoPlaySkipBackSharp} from "react-icons/io5";
+import {IoPlaySkipForward} from "react-icons/io5";
 
-const PlayPrevious: React.FC = () => {
+const PlayNext: React.FC = () => {
 
     const {t} = useTranslation();
     const {notify} = useToasts();
     const {
         track,
-        setTrack,
-        reset
+        setTrack
     } = useAudioPlayer();
 
     const {tuneIds} = useDataContext();
@@ -26,29 +25,28 @@ const PlayPrevious: React.FC = () => {
 
     const handleClick = () => {
         if (tuneIndex >= 0 && tuneIndex <= tuneIds.length) {
-            const previousId = tuneIds[tuneIndex - 1];
-            if (previousId) {
-                tuneService.fetchTune(previousId)
+            const nextId = tuneIds[tuneIndex + 1];
+            if (nextId) {
+                tuneService.fetchTune(nextId)
                     .then(r => setTrack(r))
                     .catch(error => {
                         notify(t("toast.error.fetchData"), ToastType.ERROR, error);
                     })
-            } else {
-                reset();
             }
         }
     };
 
     return (
-        <Button
-            title={t(`player.previous`)}
-            size={"compact-md"}
-            variant={"transparent"}
-            onClick={handleClick}
-        >
-            <IoPlaySkipBackSharp size={Size.icon.MD}/>
-        </Button>
+        <Tooltip label={t("player.next")}>
+            <Button
+                size={"compact-md"}
+                variant={"transparent"}
+                onClick={handleClick}
+            >
+                <IoPlaySkipForward size={Size.icon.MD}/>
+            </Button>
+        </Tooltip>
     );
 }
 
-export default PlayPrevious;
+export default PlayNext;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "@mantine/core";
+import {Button, Tooltip} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {useTranslation} from "react-i18next";
 import {FaPauseCircle, FaPlayCircle} from "react-icons/fa";
@@ -25,18 +25,19 @@ const Play: React.FC = () => {
     };
 
     return (
-        <Button
-            px={4}
-            title={t(`player.${isPlaying ? "pause" : "play"}`)}
-            size={"md"}
-            radius={"xl"}
-            variant={"transparent"}
-            onClick={handleClick}
-        >
-            {isPlaying
-                ? <FaPauseCircle size={40}/>
-                : <FaPlayCircle size={40}/>}
-        </Button>
+        <Tooltip label={t(`player.${isPlaying ? "pause" : "play"}`)}>
+            <Button
+                px={4}
+                size={"md"}
+                radius={"xl"}
+                variant={"transparent"}
+                onClick={handleClick}
+            >
+                {isPlaying
+                    ? <FaPauseCircle size={40}/>
+                    : <FaPlayCircle size={40}/>}
+            </Button>
+        </Tooltip>
     );
 }
 

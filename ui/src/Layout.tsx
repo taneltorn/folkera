@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom";
 import {AppShell, Divider, Portal, useMantineTheme} from "@mantine/core";
 import {Notifications} from "@mantine/notifications";
 import Header from "./components/header/Header.tsx";
-import BottomAudioPlayer from "./components/footer/BottomAudioPlayer.tsx";
+import BottomAudioPlayer from "./components/player/BottomAudioPlayer.tsx";
 import {useAudioPlayer} from "./hooks/useAudioContext.tsx";
 import {ActiveViewContextProvider} from "./hooks/useActiveView.tsx";
 import ActiveNotificationsPanel from "./ActiveNotificationsPanel.tsx";

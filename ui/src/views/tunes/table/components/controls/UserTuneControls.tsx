@@ -19,7 +19,7 @@ const UserTuneControls: React.FC<Properties> = ({tune, show}) => {
     const {loadData} = useDataContext();
 
     return (<>
-            <Group gap={0} wrap={"nowrap"} style={{visibility: show ? "visible" : "hidden"}}>
+            <Group gap={0} wrap={"nowrap"} style={{visibility: show ? "visible" : "hidden"}} bg={"gray.1"}>
                 <ToggleFavouriteButton
                     tune={tune}
                     px={0}

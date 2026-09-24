@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button} from "@mantine/core";
+import {Button, Tooltip} from "@mantine/core";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
@@ -56,17 +56,18 @@ const LoopControls: React.FC = () => {
 
 
     return (
-        <Button
-            color={loopStage === 0 ? "dark.1" : "yellow"}
-            title={t(`player.loop.${loopStage}`)}
-            size={"compact-md"}
-            variant={"transparent"}
-            onClick={handleLoopClick}
-        >
-            {loopStage === 0 && <TbRepeat size={Size.icon.MD}/>}
-            {loopStage === 1 && <TbArrowBarToRight size={Size.icon.MD}/>}
-            {loopStage === 2 && <TbRepeatOff size={Size.icon.MD}/>}
-        </Button>
+        <Tooltip label={t(`player.loop.${loopStage}`)}>
+            <Button
+                color={loopStage === 0 ? "dark.1" : "red"}
+                size={"compact-md"}
+                variant={"transparent"}
+                onClick={handleLoopClick}
+            >
+                {loopStage === 0 && <TbRepeat size={Size.icon.MD}/>}
+                {loopStage === 1 && <TbArrowBarToRight size={Size.icon.MD}/>}
+                {loopStage === 2 && <TbRepeatOff size={Size.icon.MD}/>}
+            </Button>
+        </Tooltip>
     );
 }
 

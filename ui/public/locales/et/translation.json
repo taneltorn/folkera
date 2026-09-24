@@ -433,6 +433,7 @@
     "next": "Esita järgmine",
     "previous": "Esite eelmine",
     "tempo": "Muuda tempot",
+    "close": "Sulge",
     "loop": {
       "0": "Märgi algus",
       "1": "Märgi lõpp",
