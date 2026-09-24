@@ -7,8 +7,11 @@ import {
 } from "react-icons/md";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
+import {useTranslation} from "react-i18next";
 
 const VolumeControls: React.FC = () => {
+
+    const {t} = useTranslation();
 
     const {
         volume,
@@ -30,12 +33,12 @@ const VolumeControls: React.FC = () => {
 
     return (
         <Group gap="xs" wrap="nowrap">
-            <Tooltip label={isMuted ? "Unmute" : "Mute"}>
+            <Tooltip label={t(`button.${isMuted ? "unmute" : "mute"}`)}>
                 <ActionIcon
                     color={isMuted ? "gray.3" : "red"}
                     variant="transparent"
                     onClick={toggleMute}
-                    aria-label={isMuted ? "Unmute" : "Mute"}
+                    aria-label={t(`button.${isMuted ? "unmute" : "mute"}`)}
                 >
                     <VolumeIcon size={Size.icon.LG}/>
                 </ActionIcon>

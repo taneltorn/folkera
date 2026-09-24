@@ -92,7 +92,9 @@
           "melody": "By tune type",
           "performer": "By performer",
           "county": "By county",
-          "collector": "By collector"
+          "collector": "By collector",
+          "dance": "By dance",
+          "datatype": "By source type"
         },
         "tooltip": {
           "year": "Performances (years)",
@@ -191,6 +193,7 @@
     "success": {
       "saveData": "Data saved",
       "exportData": "{{count}} rows exported",
+      "assignAccess": "Access assigned",
       "createUser": "User created",
       "modifyUser": "User modified",
       "removeUser": "User removed",
@@ -204,6 +207,7 @@
       "fetchData": "Failed to load data",
       "fetchUsers": "Failed to load users",
       "fetchUser": "Failed to load user",
+      "assignAccess": "Failed to assign access",
       "createUser": "Failed to create user",
       "modifyUser": "Failed to modify user",
       "removeUser": "Failed to delete user",
@@ -239,6 +243,10 @@
   "modal": {
     "archiveDocuments": {
       "title": "Handwritten notation"
+    },
+    "assignAccess": {
+      "title": "Assign access",
+      "content": "Assign access to ({{count}}) recordings"
     },
     "createNotification": {
       "title": "Add notification"
@@ -406,7 +414,9 @@
     "removeFromFavourites": "Remove from favourites",
     "openInFlat": "Open in Flat.io",
     "addFilter": "Add filter",
-    "variant": "Variant {{index}}"
+    "variant": "Variant {{index}}",
+    "mute": "Mute",
+    "unmute": "Unmute"
   },
   "data": {
     "noOptions": "No options found.",

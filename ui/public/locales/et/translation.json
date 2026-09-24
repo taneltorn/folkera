@@ -415,7 +415,9 @@
     "addToFavourites": "Lisa lemmikuks",
     "removeFromFavourites": "Eemalda lemmikutest",
     "addFilter": "Lisa filter",
-    "variant": "Variant {{index}}"
+    "variant": "Variant {{index}}",
+    "mute": "Vaigista",
+    "unmute": "Lülita heli sisse"
   },
   "data": {
     "noOptions": "Valikuid ei leitud.",
