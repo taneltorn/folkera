@@ -7,6 +7,12 @@ export interface Properties {
     currentTime: number;
     setCurrentTime: (value: number) => void;
 
+    volume: number;
+    setVolume: (value: number) => void;
+
+    isMuted: boolean;
+    toggleMute: () => void;
+
     loopStage: number;
     setLoopStage: (value: number) => void;
 

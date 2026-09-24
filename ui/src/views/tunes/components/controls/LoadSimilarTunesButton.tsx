@@ -24,14 +24,14 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
 
     const handleSubmit = () => {
         if (tune.audio && !isBusy) {
-
             loadSimilarTunes({
                     filePath: tune.audio,
                     top: SIMILAR_TUNES_TO_FETCH,
                     selfRef: tune.id,
                     dataset: "folkera",
                 },
-                tune);
+                tune,
+                true);
 
             setActiveView(View.SIMILAR_TUNES);
             modals.closeAll();

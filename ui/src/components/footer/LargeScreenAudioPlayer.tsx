@@ -24,6 +24,8 @@ import BaseAudioPlayer, {
 import {Tune} from "../../model/Tune.ts";
 import {contentRef, truncate} from "../../utils/helpers.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
+import VolumeControls from "./PlayerVolumeControls.tsx";
+import ToggleFavouriteButton from "../../views/tunes/components/controls/ToggleFavouriteButton.tsx";
 
 interface Properties extends BaseAudioPlayerProperties {
     track: Tune;
@@ -42,10 +44,9 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
         loopStage,
     } = useAudioPlayer();
 
-    const Icon =
-        track.datatype === "AUDIO"
-            ? LuAudioLines
-            : IoMusicalNotes;
+    const Icon = track.datatype === "AUDIO"
+        ? LuAudioLines
+        : IoMusicalNotes;
 
     return (
         <Grid>
@@ -57,27 +58,20 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                 >
                     {track.datatype && (
                         <Icon
-                            color={
-                                theme.colors[
-                                    theme.primaryColor
-                                    ][9]
-                            }
+                            color={theme.colors[theme.primaryColor][9]}
                             size={30}
                         />
                     )}
 
                     <Stack gap={0}>
                         <Link to={`/tunes/${track.id}`}>
-                            <Text>
+                            <Text fw={"bold"}>
                                 {track.ref}
                             </Text>
                         </Link>
 
                         <Text size="sm">
-                            {truncate(
-                                contentRef(track),
-                                40
-                            )}
+                            {truncate(contentRef(track), 40)}
                         </Text>
                     </Stack>
                 </Group>
@@ -87,11 +81,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                 <Group
                     align="center"
                     h={80}
-                    className={
-                        loopStage > 0
-                            ? "looping-player"
-                            : ""
-                    }
+                    className={loopStage > 0 ? "looping-player" : ""}
                     style={{
                         "--loop-left": loopLeft,
                         "--loop-width": loopWidth,
@@ -122,10 +112,13 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
 
             <Grid.Col span={3}>
                 <Group
+                    gap={4}
                     justify="end"
                     align="center"
                     h="100%"
                 >
+                    <ToggleFavouriteButton color={"red"}        tune={track} px={"xs"}  />
+                    <VolumeControls/>
                     <PlayerCloseButton/>
                 </Group>
             </Grid.Col>

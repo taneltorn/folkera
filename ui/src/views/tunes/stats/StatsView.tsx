@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useStatsService} from "../../../hooks/useStatsService.ts";
-import {Box, LoadingOverlay} from "@mantine/core";
+import {Box} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
 import BottomControlBar from "../components/BottomControlBar.tsx";
@@ -8,6 +8,7 @@ import TuneStatsControls from "./components/TuneStatsControls.tsx";
 import {View} from "../../../context/ActiveViewContext.tsx";
 import {useActiveView} from "../../../hooks/useActiveView.tsx";
 import TuneStatsChart from "./components/TuneStatsChart.tsx";
+import Loading from "../../../components/Loading.tsx";
 
 const StatsView: React.FC = () => {
 
@@ -28,7 +29,7 @@ const StatsView: React.FC = () => {
 
     return (
         <Box pos={"relative"}>
-            <LoadingOverlay visible={isLoading}/>
+            <Loading isLoading={isLoading}/>
 
             <BottomControlBar>
                 <TuneStatsControls/>

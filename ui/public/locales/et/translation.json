@@ -423,7 +423,7 @@
     "fetchFailed": "Andmeid ei õnnestunud laadida."
   },
   "pagination": {
-    "itemsPerPage": "Kuva korraga {{n}} tulemust"
+    "itemsPerPage": "Kuva korraga"
   },
   "player": {
     "play": "Esita",

@@ -2,19 +2,20 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import UserRow from "./components/UserRow.tsx";
 import useUserService from "../../../hooks/useUserService.ts";
-import {Box, CloseButton, Input, LoadingOverlay, Table} from "@mantine/core";
+import {Box, CloseButton, Input, Table} from "@mantine/core";
 import {User} from "../../../model/User.ts";
 import AddUserButton from "./components/AddUserButton.tsx";
 import {IoSearchOutline} from "react-icons/io5";
 import {Size} from "../../../utils/constants.ts";
 import {useFocusWithin} from "@mantine/hooks";
 import NoData from "../../tunes/table/components/NoData.tsx";
+import Loading from "../../../components/Loading.tsx";
 
 const UserList: React.FC = () => {
 
     const {t} = useTranslation();
-    const {fetchUsers, isLoading, cancelSource} = useUserService();
     const {ref, focused} = useFocusWithin();
+    const {fetchUsers, isLoading, cancelSource} = useUserService();
 
     const [search, setSearch] = useState<string>();
     const [users, setUsers] = useState<User[]>([]);
@@ -89,7 +90,7 @@ const UserList: React.FC = () => {
 
             <AddUserButton onChange={fetchData}/>
 
-            <LoadingOverlay visible={isLoading} />
+            <Loading isLoading={isLoading}/>
         </Box>
     );
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {LoadingOverlay, useMantineTheme} from "@mantine/core";
+import {useMantineTheme} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 import Plot from "react-plotly.js";
 import Plotly, {LegendClickEvent} from "plotly.js";
@@ -12,6 +12,7 @@ import {ToastType} from "../../../../context/ToastContext.tsx";
 import {ClusterPlots, ColorSchemes, MarkerSymbols} from "../../../../utils/lists.ts";
 import {Tune} from "../../../../model/Tune.ts";
 import {ClusterData} from "../../../../model/ClusterData.ts";
+import Loading from "../../../../components/Loading.tsx";
 
 // @ts-ignore
 interface ExtendedPlotlyData extends Plotly.Data {
@@ -245,7 +246,7 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
                 style={{width: "100%", maxHeight: "900px"}}
             />
 
-            <LoadingOverlay visible={isLoading}/>
+            <Loading isLoading={isLoading}/>
         </>
     );
 };

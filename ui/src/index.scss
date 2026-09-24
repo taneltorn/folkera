@@ -24,15 +24,33 @@ a {
   }
 }
 
+ .player-tempo-indicator .mantine-Indicator-indicator {
+  padding: 0 !important;
+}
+
 table {
   thead {
     border-bottom: 1px solid var(--mantine-color-gray-1);
   }
 }
-table td {
-  //padding-top: 15px !important;
-  //padding-bottom: 15px !important;
+
+.data-table {
+  th {
+    border-color: var(--mantine-color-gray-1);
+  }
+  td {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+  .mantine-datatable-pagination {
+    border-top: none;
+
+    button[data-active=true] {
+      background: var(--mantine-color-dark-9);
+    }
+  }
 }
+
 
 .editing-row-main,
 .editing-row-sub {

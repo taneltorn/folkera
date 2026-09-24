@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Page from "../../Page.tsx";
 import {Trans, useTranslation} from "react-i18next";
 import {useParams} from "react-router";
-import {Alert, Box, Divider, Group, LoadingOverlay, Stack, Text} from "@mantine/core";
+import {Alert, Box, Divider, Group, Stack, Text} from "@mantine/core";
 import {Tune} from "../../model/Tune.ts";
 import {useTuneService} from "../../hooks/useTuneService.ts";
 import {ToastType} from "../../context/ToastContext.tsx";
@@ -24,6 +24,7 @@ import {IoMdAlert} from "react-icons/io";
 import {Size} from "../../utils/constants.ts";
 import {Link} from "react-router-dom";
 import {PiCaretLeft} from "react-icons/pi";
+import Loading from "../../components/Loading.tsx";
 
 const TuneDetails: React.FC = () => {
 
@@ -105,7 +106,7 @@ const TuneDetails: React.FC = () => {
                             : <InfoMessage mx={"md"} color={"blue"}
                                            title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
-                    <LoadingOverlay visible={dataService.isLoading}/>
+                    <Loading isLoading={dataService.isLoading}/>
                 </Box>}
         </Page>
     );

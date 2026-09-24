@@ -414,7 +414,7 @@
     "fetchFeiled": "Failed to load data."
   },
   "pagination": {
-    "itemsPerPage": "Show {{n}} results"
+    "itemsPerPage": "Show per page"
   },
   "player": {
     "play": "Play",

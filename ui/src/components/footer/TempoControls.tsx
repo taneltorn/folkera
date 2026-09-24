@@ -30,7 +30,15 @@ const TempoControls: React.FC<Properties> = ({playerRef, track}) => {
             <Menu.Target>
                 <Group>
                 {track?.hideTempo
-                    ? <Indicator offset={5} inline size={"compact-xs"} color={"yellow.3"} variant={"transparent"} processing label={<TempoAlert/>}>
+                    ? <Indicator
+                        offset={{x: 10, y: 5}}
+                        className={"player-tempo-indicator"}
+                        inline
+                        size={"compact-xs"}
+                        color={"gray.1"}
+                        variant={"transparent"}
+                        label={<TempoAlert/>}
+                    >
                         <PlayerTempoButton tempo={tempo}/>
                     </Indicator>
                     : <PlayerTempoButton tempo={tempo}/>}

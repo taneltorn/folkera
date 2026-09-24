@@ -17,6 +17,8 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
     const [loopEnd, setLoopEnd] = useState<number | null>(null);
     const [track, setTrack] = useState<Tune>();
     const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolumeState] = useState(1);
+    const [isMuted, setIsMuted] = useState(false);
 
     const play = (nextTrack: Tune) => {
         setTrack(nextTrack);
@@ -42,6 +44,31 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         if (audio) {
             audio.currentTime = 0;
         }
+    };
+
+    const setVolume = (value: number) => {
+        // @ts-ignore
+        const audio = playerRef.current?.audio.current;
+
+        if (audio) {
+            audio.volume = value;
+            audio.muted = false;
+        }
+
+        setVolumeState(value);
+        setIsMuted(false);
+    };
+
+    const toggleMute = () => {
+        const muted = !isMuted;
+        // @ts-ignore
+        const audio = playerRef.current?.audio.current;
+
+        if (audio) {
+            audio.muted = muted;
+        }
+
+        setIsMuted(muted);
     };
 
     // @ts-ignore
@@ -78,7 +105,9 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         pause,
         clearLoop,
         reset,
-    }), [isPlaying, currentTime, loopStart, loopEnd, loopStage, track]);
+        volume, setVolume,
+        isMuted, toggleMute,
+    }), [isPlaying, volume, isMuted, currentTime, loopStart, loopEnd, loopStage, track]);
 
     return (
         <AudioContext.Provider value={context}>

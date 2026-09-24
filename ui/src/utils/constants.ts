@@ -8,6 +8,10 @@ export const Size = {
     }
 }
 
+export const DEFAULT_PAGE_SIZE = 10;
+
+export const ITEMS_PER_PAGE = [10, 20, 50];
+
 export const Color = new Map([
     ["melody", "red"],
     ["year", "pink"],

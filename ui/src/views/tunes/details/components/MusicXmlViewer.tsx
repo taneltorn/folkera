@@ -163,7 +163,7 @@ const MusicXmlViewer: React.FC<Props> = ({tune}) => {
                 </InfoMessage>
             )}
 
-            {loading && <Loader size="sm"/>}
+            {loading && <Loader size="sm" type={"dots"}/>}
 
             <Box
                 ref={wrapperRef}

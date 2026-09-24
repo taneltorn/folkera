@@ -43,10 +43,10 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
     const loadSimilarTunes = async (
         options: IdentifyOptions,
         tune?: Tune,
-        reloadData?: () => void
+        forceLoadDistances?: boolean,
     ): Promise<void> => {
         try {
-            const distances = tune?.distances
+            const distances = tune?.distances && !forceLoadDistances
                 ? parseDistances(tune.distances)
                 : await fetchDistances(options);
 
@@ -58,10 +58,6 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
 
             setSimilarTunes(tunes);
             setLoadingState(LoadingState.IDLE);
-
-            if (reloadData) {
-                reloadData();
-            }
         } catch (e) {
             console.log(e);
             setLoadingState(LoadingState.ERROR);

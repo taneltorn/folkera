@@ -26,7 +26,7 @@ const ActiveViewButton: React.FC<Properties> = ({view, loading, icon, disabled})
             size={"sm"}
             onClick={() => setActiveView(view)}
         >
-            {loading ? <Loader size={20}/> : icon}
+            {loading ? <Loader size={20} type={"dots"}/> : icon}
         </Button>
     );
 }
