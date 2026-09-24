@@ -14,13 +14,14 @@ const TunesTablePagination: React.FC = () => {
 
     return (
         <Group mt={"md"} px={"md"} justify={"space-between"}>
-            <Group gap={4}>
+            <Group gap={"xs"}>
                 {ItemsPerPageOptions.map(it => (
                     <Button
                         key={it}
+                        size={"xs"}
                         title={t("pagination.itemsPerPage", {n: it})}
-                        px={10}
-                        h={32}
+                        px={7}
+                        h={26}
                         color={it === pagination.size ? "dark" : "dark"}
                         variant={it === pagination.size ? "filled" : "transparent"}
                         style={{border: "none"}}
@@ -32,7 +33,7 @@ const TunesTablePagination: React.FC = () => {
 
             <Pagination
                 color={"dark.9"}
-                size={"md"}
+                size={"sm"}
                 withPages={!["xxs", "xs"].includes(bp)}
                 variant={"subtle"}
                 value={pagination.page}
