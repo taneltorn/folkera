@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {User, UserRole} from "../../../../model/User.ts";
-import {isEmail, isNotEmpty, useForm} from "@mantine/form";
+import {isNotEmpty, useForm} from "@mantine/form";
 import FormInput from "../../../../components/form/FormInput.tsx";
 import StandardFormControls from "../../notifications/components/StandardFormControls.tsx";
 import {modals} from "@mantine/modals";
@@ -23,7 +23,6 @@ const UserForm: React.FC<Properties> = ({initialValues, onSubmit, isEdit}) => {
             ...initialValues
         },
         validate: {
-            email: isEmail(t("validation.invalidEmail")),
             name: isNotEmpty(t("validation.required")),
             username: isNotEmpty(t("validation.required")),
             password: (value) =>
