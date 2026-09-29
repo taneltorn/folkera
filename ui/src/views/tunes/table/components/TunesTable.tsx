@@ -49,10 +49,7 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                                     type={tf.type}
                                 />)}
 
-                            {currentUser && <Table.Th
-                                pos="sticky"
-                                right={0}
-                            />}
+                            {currentUser && <Table.Th pos="sticky" right={0}/>}
                         </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>
@@ -71,7 +68,7 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                 <TunesTablePagination/>
             </>}
 
-            <NoData show={!data.length}/>
+            <NoData show={!data.length && !isLoading}/>
         </>
     );
 }
