@@ -33,7 +33,7 @@ class AuthController {
         try {
             const {usernameOrEmail, password} = req.body;
 
-            const result = await userService.findByUsernameOrEmail(
+            const result = await userService.findByUsername(
                 usernameOrEmail
             );
 
@@ -108,7 +108,7 @@ class AuthController {
             // @ts-ignore todo use custom Request type
             const tokenUser = req.user;
 
-            const result = await userService.findByUsernameOrEmail(
+            const result = await userService.findByUsername(
                 tokenUser.username
             );
 

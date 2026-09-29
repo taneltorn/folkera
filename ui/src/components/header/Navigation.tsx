@@ -64,7 +64,7 @@ const Navigation: React.FC = () => {
     const userMenu = <>
         <LanguageSelector/>
         <Help/>
-        {!auth.currentUser?.email
+        {!auth.currentUser
             ? <LoginButton/>
             : <UserMenu/>}
     </>;

@@ -63,9 +63,9 @@ class PostgresUserService implements UserService {
         }
     }
 
-    public async findByUsernameOrEmail(usernameOrEmail: string): Promise<Result<User>> {
+    public async findByUsername(username: string): Promise<Result<User>> {
         try {
-            this.logger.info(`Fetching user with username or email = ${usernameOrEmail}`);
+            this.logger.info(`Fetching user with username = ${username}`);
 
             const query = `
                 SELECT u.*,
@@ -77,11 +77,11 @@ class PostgresUserService implements UserService {
                          LEFT JOIN folkera.user_tune_favourite utf
                                    ON utf.user_id = u.id
                 WHERE u.deleted_at IS NULL
-                  AND (LOWER(u.username) = LOWER($1) OR LOWER(u.email) = LOWER($1))
+                  AND LOWER(u.username) = LOWER($1)
                 GROUP BY u.id
             `;
 
-            const result = await pool.query(query, [usernameOrEmail]);
+            const result = await pool.query(query, [username]);
 
             this.logger.info(`Found ${result.rows.length} ${result.rows.length === 1 ? "row" : "rows"}`  );
 
@@ -109,7 +109,7 @@ class PostgresUserService implements UserService {
 
             return {
                 success: false,
-                error: `Error querying user with username or email = ${usernameOrEmail}`,
+                error: `Error querying user with username = ${username}`,
                 detail: err.detail
             };
         }
