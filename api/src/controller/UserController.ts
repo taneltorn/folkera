@@ -40,7 +40,7 @@ class UserController {
                 return;
             }
 
-            const result = await userService.findByUsernameOrEmail(usernameOrEmail);
+            const result = await userService.findByUsername(usernameOrEmail);
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;
