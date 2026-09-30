@@ -7,6 +7,7 @@ import IdentifyLoader from "./components/IdentifyLoader.tsx";
 import InfoMessage from "../../components/InfoMessage.tsx";
 import {useTranslation} from "react-i18next";
 import {SIMILAR_TUNES_TO_FETCH} from "../../utils/constants.ts";
+import PrototypeAlert from "../../components/PrototypeAlert.tsx";
 
 interface Properties {
     tune: Tune;
@@ -39,6 +40,11 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
     return (
         <Box pos={"relative"} mih={100}>
             {!tune.audio && <InfoMessage mx={"md"} color={"blue"} title={t("page.tunes.details.audioNotYetAdded")}/>}
+
+            {similarTunes.length > 0 &&
+                <Box mx={"md"}>
+                    <PrototypeAlert/>
+                </Box>}
 
             <SimilarTunesTable onSave={loadData}/>
 

@@ -44,6 +44,7 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
         options: IdentifyOptions,
         tune?: Tune,
         forceLoadDistances?: boolean,
+        onLoad?: () => void,
     ): Promise<void> => {
         try {
             const distances = tune?.distances && !forceLoadDistances
@@ -58,6 +59,7 @@ export const SimilarTunesContextProvider: React.FC<Properties> = ({children}) =>
 
             setSimilarTunes(tunes);
             setLoadingState(LoadingState.IDLE);
+            onLoad && onLoad();
         } catch (e) {
             console.log(e);
             setLoadingState(LoadingState.ERROR);

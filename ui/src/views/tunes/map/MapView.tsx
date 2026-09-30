@@ -7,8 +7,11 @@ import TuneMap from "./components/TuneMap.tsx";
 import TuneMapControls from "./components/TuneMapControls.tsx";
 import {useMapContext} from "../../../hooks/useMapContext.tsx";
 import Loading from "../../../components/Loading.tsx";
+import {useTranslation} from "react-i18next";
 
 const MapView: React.FC = () => {
+
+    const {t} = useTranslation();
 
     const {setStats, groupBy} = useMapContext();
     const {fetchStats, isLoading} = useStatsService();
@@ -25,7 +28,7 @@ const MapView: React.FC = () => {
             </BottomControlBar>
 
             <Box px={"md"} pos={"relative"}>
-                <Loading isLoading={isLoading}/>
+                <Loading isLoading={isLoading} text={t("loading.data")}/>
                 <TuneMap/>
             </Box>
         </Box>

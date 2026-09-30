@@ -76,21 +76,21 @@ const TuneDetails: React.FC = () => {
 
     return (
         <Page title={tune?.ref || id}>
-            {notFound && <Stack mx={"md"}>
-                <Alert color={"blue"} icon={<IoMdAlert size={Size.icon.MD}/>}>
-                    <Text size={"md"}><Trans i18nKey={"page.tunes.details.tuneNotFound"} values={{ref: id}}/></Text>
-                </Alert>
+            <Box pos={"relative"}>
+                {notFound && <Stack mx={"md"}>
+                    <Alert color={"blue"} icon={<IoMdAlert size={Size.icon.MD}/>}>
+                        <Text size={"md"}><Trans i18nKey={"page.tunes.details.tuneNotFound"} values={{ref: id}}/></Text>
+                    </Alert>
 
-                <Link to={"/tunes?view=table"}>
-                    <Group wrap={"nowrap"} gap={"xs"}>
-                        <PiCaretLeft size={Size.icon.MD}/>
-                        <Text fw={"bold"}>{t("page.tunes.details.allTunes")}</Text>
-                    </Group>
-                </Link>
-            </Stack>}
+                    <Link to={"/tunes?view=table"}>
+                        <Group wrap={"nowrap"} gap={"xs"}>
+                            <PiCaretLeft size={Size.icon.MD}/>
+                            <Text fw={"bold"}>{t("page.tunes.details.allTunes")}</Text>
+                        </Group>
+                    </Link>
+                </Stack>}
 
-            {tune &&
-                <Box pos={"relative"}>
+                {tune && <>
                     <Box px={"md"}>
                         <TuneHeader tune={tune}/>
                         <TuneDetailsControls tune={tune} reloadData={() => fetchData(id)}/>
@@ -107,8 +107,9 @@ const TuneDetails: React.FC = () => {
                             : <InfoMessage mx={"md"} color={"blue"}
                                            title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
-                </Box>}
-            <Loading isLoading={dataService.isLoading}/>
+                </>}
+                <Loading isLoading={dataService.isLoading} text={t("loading.data")}/>
+            </Box>
         </Page>
     );
 }

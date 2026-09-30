@@ -431,7 +431,7 @@
     "play": "Esita",
     "pause": "Peata",
     "next": "Esita järgmine",
-    "previous": "Esite eelmine",
+    "previous": "Esita eelmine",
     "tempo": "Muuda tempot",
     "close": "Sulge",
     "loop": {
@@ -444,5 +444,8 @@
   "validation": {
     "required": "Väli on kohustuslik",
     "invalidEmail": "Ebakorrektne email"
+  },
+  "loading": {
+    "data": "Laen andmeid..."
   }
 }

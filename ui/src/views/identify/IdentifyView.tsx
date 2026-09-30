@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Box, Button, FileButton, Group, Stack, Text} from "@mantine/core";
+import {Box, Button, FileButton, Group, Stack, Text} from "@mantine/core";
 import {useIdentifyService} from "../../hooks/useIdentifyService.ts";
 import {useTranslation} from "react-i18next";
 import AudioPlayer from "react-h5-audio-player";
@@ -10,7 +10,6 @@ import {IoIosClose, IoIosCloudUpload} from "react-icons/io";
 import {LuAudioLines} from "react-icons/lu";
 import {FaMagnifyingGlass} from "react-icons/fa6";
 import {SIMILAR_TUNES_TO_FETCH, Size} from "../../utils/constants.ts";
-import {FaInfo} from "react-icons/fa";
 import IdentifyLoader from "../tunes/components/IdentifyLoader.tsx";
 import {LoadingState} from "../../model/LoadingState.ts";
 import Page from "../../Page.tsx";
@@ -18,6 +17,7 @@ import {useAuth} from "../../hooks/useAuth.tsx";
 import SimpleMenu from "../../components/SimpleMenu.tsx";
 import {CoverHunterDatasets} from "../../utils/lists.ts";
 import IconButton from "../../components/buttons/IconButton.tsx";
+import PrototypeAlert from "../../components/PrototypeAlert.tsx";
 
 const MAX_SIZE = 10;
 
@@ -82,13 +82,7 @@ const IdentifyView: React.FC = () => {
     return (
         <Page title={t("page.identify.title")}>
             <Box px={"md"} pos={"relative"}>
-                <Alert
-                    mb={"md"}
-                    variant="light"
-                    color="blue"
-                    title={t("page.identify.alert")}
-                    icon={<FaInfo size={Size.icon.MD}/>}
-                />
+                <PrototypeAlert/>
 
                 <Stack justify={"center"}>
                     <Dropzone

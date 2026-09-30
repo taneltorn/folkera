@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, ButtonProps, Text} from '@mantine/core';
+import {Button, ButtonProps, Loader, Text} from '@mantine/core';
 import {useTranslation} from "react-i18next";
 import {Tune} from "../../../../model/Tune.ts";
 import {useSimilarTunes} from "../../../../hooks/useSimilarTunes.tsx";
@@ -13,9 +13,10 @@ import ModalTitle from "./ModalTitle.tsx";
 
 interface Properties extends ButtonProps {
     tune: Tune;
+    isLoading?: boolean;
 }
 
-const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
+const LoadSimilarTunesButton: React.FC<Properties> = ({tune, isLoading}) => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
@@ -31,9 +32,8 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
                     dataset: "folkera",
                 },
                 tune,
-                true);
-
-            setActiveView(View.SIMILAR_TUNES);
+                true,
+                () => setActiveView(View.SIMILAR_TUNES));
             modals.closeAll();
         }
     }
@@ -65,7 +65,7 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune}) => {
             color={"gray"}
             disabled={isBusy || !currentUser?.isResearcher || !tune.audio}
             variant={"subtle"}
-            leftSection={<TbZoomQuestion size={Size.icon.SM}/>}
+            leftSection={isLoading ? <Loader size={"sm"} type={"dots"}/> : <TbZoomQuestion size={Size.icon.SM}/>}
             onClick={tune.distances ? openModal : handleSubmit}
         >
             {t("button.loadSimilarTunes")}

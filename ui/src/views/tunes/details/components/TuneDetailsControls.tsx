@@ -37,7 +37,7 @@ const TuneDetailsControl: React.FC<Properties> = ({tune, reloadData}) => {
                         {t("button.showArchiveItems")}
                     </ShowArchiveDocumentsButton>}
 
-                {tune.audio && currentUser?.isResearcher && <LoadSimilarTunesButton tune={tune}/>}
+                {tune.audio && currentUser?.isResearcher && <LoadSimilarTunesButton tune={tune} isLoading={isBusy}/>}
 
                 {currentUser?.isAdmin && <>
                     <ModifyTuneButton

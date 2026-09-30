@@ -443,5 +443,8 @@
   "validation": {
     "required": "Field is required",
     "invalidEmail": "Invalid email"
+  },
+  "loading": {
+    "data": "Loading data..."
   }
 }

@@ -9,8 +9,11 @@ import {View} from "../../../context/ActiveViewContext.tsx";
 import {useActiveView} from "../../../hooks/useActiveView.tsx";
 import TuneStatsChart from "./components/TuneStatsChart.tsx";
 import Loading from "../../../components/Loading.tsx";
+import {useTranslation} from "react-i18next";
 
 const StatsView: React.FC = () => {
+
+    const {t} = useTranslation();
 
     const {groupBy, setStats} = useStatsContext();
     const {fetchStats, isLoading} = useStatsService();
@@ -28,14 +31,13 @@ const StatsView: React.FC = () => {
     }, [filters, groupBy]);
 
     return (
-        <Box pos={"relative"}>
-            <Loading isLoading={isLoading}/>
-
+        <Box>
             <BottomControlBar>
                 <TuneStatsControls/>
             </BottomControlBar>
 
-            <Box px={"md"}>
+            <Box px={"md"} pos={"relative"}>
+                <Loading isLoading={isLoading} text={t("loading.data")}/>
                 <TuneStatsChart onElementClick={handleClick}/>
             </Box>
         </Box>
