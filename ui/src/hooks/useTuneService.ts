@@ -22,11 +22,9 @@ export const useTuneService = () => {
             withCredentials: true
         })
             .then(response => {
-                setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                setIsLoading(false);
                 throw error;
             });
     }

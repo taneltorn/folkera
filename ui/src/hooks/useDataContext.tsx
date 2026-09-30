@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {DataContext} from "../context/DataContext.tsx";
 import {Tune} from "../model/Tune.ts";
@@ -204,18 +204,9 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         setVisibleFields([...visibleFields]);
     }
 
-    useEffect(() => {
-        loadFilteringOptions();
-        return () => optionsService.cancelSource.cancel();
-    }, []);
-
-    useEffect(() => {
-        loadData();
-        return () => dataService.cancelSource.cancel();
-    }, [pagination]);
-
     const context = useMemo(() => ({
         loadData,
+        loadFilteringOptions,
         saveData,
         exportData,
 

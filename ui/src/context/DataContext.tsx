@@ -6,6 +6,7 @@ import {Filter} from "../model/Filter.ts";
 
 export interface Properties {
     loadData: (filters?: Filter[]) => void;
+    loadFilteringOptions: () => void;
     exportData: () => void;
     saveData: (data: Tune[]) => void;
 

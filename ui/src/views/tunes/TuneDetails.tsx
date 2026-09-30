@@ -58,7 +58,8 @@ const TuneDetails: React.FC = () => {
                     return;
                 }
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
-            });
+            })
+            .finally(() => dataService.setIsLoading(false));
     }
 
     useEffect(() => {

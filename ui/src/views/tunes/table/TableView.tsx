@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BottomControlBar from "../components/BottomControlBar.tsx";
 import TunesTableControls from "./components/TunesTableControls.tsx";
 import TunesTable from "./components/TunesTable.tsx";
@@ -9,7 +9,16 @@ import {TableColumnOrderContextProvider} from "../../../hooks/useTableColumnOrde
 
 const TableView: React.FC = () => {
 
-    const {data, isLoading} = useDataContext();
+    const {data, isLoading, loadData, loadFilteringOptions, pagination} = useDataContext();
+
+    useEffect(() => {
+        loadData();
+    }, [pagination]);
+
+
+    useEffect(() => {
+        loadFilteringOptions();
+    }, []);
 
     return (
         <Box pos={"relative"}>
