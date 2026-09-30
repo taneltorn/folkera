@@ -107,8 +107,8 @@ const TuneDetails: React.FC = () => {
                             : <InfoMessage mx={"md"} color={"blue"}
                                            title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
-                    <Loading isLoading={dataService.isLoading}/>
                 </Box>}
+            <Loading isLoading={dataService.isLoading}/>
         </Page>
     );
 }
