@@ -2,7 +2,6 @@ import React from "react";
 import {Divider, Group, ScrollArea, Table,} from "@mantine/core";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
 import TunesTablePagination from "./TunesTablePagination.tsx";
-import {useModifications} from "../../../../hooks/useModifications.tsx";
 import {Tune} from "../../../../model/Tune.ts";
 import TunesTableRow from "./TunesTableRow.tsx";
 import DataTypeSelector from "./controls/DataTypeSelector.tsx";
@@ -19,7 +18,6 @@ const TunesTable: React.FC<Properties> = ({data}) => {
 
     const {currentUser} = useAuth();
     const {isLoading} = useDataContext();
-    const {modifications} = useModifications();
     const {sortedFields} = useTableColumnOrderContext();
 
     return (
@@ -31,7 +29,6 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                     withColumnBorders={false}
                     withRowBorders={false}
                     stickyHeader={true}
-                    opacity={(modifications.length || isLoading) ? 0.8 : 1}
                 >
                     <Table.Thead>
                         <Table.Tr className={"hover-parent"}>
