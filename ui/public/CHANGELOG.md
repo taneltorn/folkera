@@ -1,3 +1,7 @@
+#### [0.10.3] - 30.09.2026
+- Parandatud viga, kus pärast sisselogimist ei kuvatud kasutaja menüüd
+- Pisiparandused
+
 #### [0.10.2] - 24.09.2026
 - Lisatud helivaljuse muutmine
 - Pisiparandused

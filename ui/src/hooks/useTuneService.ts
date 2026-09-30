@@ -22,7 +22,7 @@ export const useTuneService = () => {
             withCredentials: true
         })
             .then(response => {
-                setIsLoading(false);
+                // setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
@@ -44,11 +44,9 @@ export const useTuneService = () => {
             withCredentials: true
         })
             .then(response => {
-                setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                setIsLoading(false);
                 throw error;
             });
     }
@@ -66,11 +64,9 @@ export const useTuneService = () => {
             withCredentials: true
         })
             .then(response => {
-                setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                setIsLoading(false);
                 throw error;
             });
     }
@@ -137,7 +133,7 @@ export const useTuneService = () => {
     }
 
     return {
-        isLoading,
+        isLoading, setIsLoading,
         cancelSource,
         fetchTune,
         fetchTunes,

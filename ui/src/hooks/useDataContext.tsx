@@ -49,24 +49,22 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
 
         setFilters(filtersToUse);
 
-        dataService.fetchTunes(filtersToUse, pagination)
-            .then((result) => {
-                setData(result.data);
-                setTotalItems(result.page.totalItems);
-                setTotalPages(result.page.totalPages);
-            })
-            .catch(error => {
-                notify(t("toast.error.fetchData"), ToastType.ERROR, error);
-            });
+        Promise.all([
+            dataService.fetchTunes(filtersToUse, pagination),
+            dataService.fetchTuneIds(filtersToUse, pagination),
+        ])
+            .then(([tunesResult, tuneIdsResult]) => {
+                setData(tunesResult.data);
+                setTotalItems(tunesResult.page.totalItems);
+                setTotalPages(tunesResult.page.totalPages);
 
-        dataService.fetchTuneIds(filtersToUse, pagination)
-            .then((result) => {
-                setTuneIds(result.data);
+                setTuneIds(tuneIdsResult.data);
             })
             .catch(error => {
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
-            });
-    }
+            })
+            .finally(() => dataService.setIsLoading(false));
+    };
 
     const loadFilteringOptions = () => {
         optionsService.fetchOptions(filters)
