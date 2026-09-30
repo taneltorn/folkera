@@ -31,7 +31,7 @@ const TuneDetails: React.FC = () => {
     const {t} = useTranslation();
     const {id} = useParams();
     const {notify} = useToasts();
-    const dataService = useTuneService();
+    const {fetchTune, isLoading, setIsLoading, cancelSource} = useTuneService();
     const {setSimilarTunes} = useSimilarTunes();
     const {clearSelection} = useTuneSelection();
     const {clearModifications} = useModifications();
@@ -48,7 +48,7 @@ const TuneDetails: React.FC = () => {
         setNotFound(false);
         setTune(undefined);
 
-        dataService.fetchTune(id)
+        fetchTune(id)
             .then(data => {
                 setTune(data);
             })
@@ -59,7 +59,7 @@ const TuneDetails: React.FC = () => {
                 }
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
             })
-            .finally(() => dataService.setIsLoading(false));
+            .finally(() => setIsLoading(false));
     }
 
     useEffect(() => {
@@ -71,12 +71,14 @@ const TuneDetails: React.FC = () => {
 
         fetchData(id);
 
-        return () => dataService.cancelSource.cancel();
+        return () => cancelSource.cancel();
     }, [id]);
 
     return (
         <Page title={tune?.ref || id}>
-            <Box pos={"relative"}>
+            <Box pos={"relative"} mih={300}>
+                <Loading isLoading={isLoading} text={t("loading.data")}/>
+
                 {notFound && <Stack mx={"md"}>
                     <Alert color={"blue"} icon={<IoMdAlert size={Size.icon.MD}/>}>
                         <Text size={"md"}><Trans i18nKey={"page.tunes.details.tuneNotFound"} values={{ref: id}}/></Text>
@@ -108,7 +110,6 @@ const TuneDetails: React.FC = () => {
                                            title={t("page.tunes.details.audioNotYetAdded")}/>}
                     </>}
                 </>}
-                <Loading isLoading={dataService.isLoading} text={t("loading.data")}/>
             </Box>
         </Page>
     );
