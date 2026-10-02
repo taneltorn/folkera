@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {isEmpty} from "../utils/helpers.tsx";
 import {GroupBy} from "../model/GroupBy.ts";
 import useLocalStorage from "./useLocalStorage.tsx";
@@ -18,31 +18,75 @@ export const MapContextProvider: React.FC<Properties> = ({children}) => {
     const {filters} = useDataContext();
 
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
-    const [groupBy, setGroupBy] = useLocalStorage<GroupBy>("map.groupBy", GroupBy.PARISH);
-    const [mapOptions, setMapOptions] = useLocalStorage<MapOptions>("map.options", DefaultMapOptions);
+    const [layers, setLayers] = useState<any>(null);
+    const [statsLoading, setStatsLoading] = useState(false);
+    const [layersLoading, setLayersLoading] = useState(false);
+
+    const [groupBy, setGroupBy] = useLocalStorage<GroupBy>(
+        "map.groupBy",
+        GroupBy.PARISH
+    );
+
+    const [mapOptions, setMapOptions] = useLocalStorage<MapOptions>(
+        "map.options",
+        DefaultMapOptions
+    );
 
     useEffect(() => {
-        fetchStats(filters, groupBy).then(r => setStats(r));
+        setStatsLoading(true);
+
+        fetchStats(filters, groupBy)
+            .then(setStats)
+            .finally(() => setStatsLoading(false));
     }, [filters, groupBy]);
 
-    const context = useMemo(() => ({
-        stats, setStats,
-        groupBy, setGroupBy,
-        mapOptions, setMapOptions,
-    }), [stats, groupBy, mapOptions]);
+    useEffect(() => {
+        const controller = new AbortController();
+
+        setLayers(null);
+        setLayersLoading(true);
+
+        fetch(`/map-layers/${groupBy}.json`, {
+            signal: controller.signal,
+        })
+            .then(response => response.json())
+            .then(setLayers)
+            .finally(() => setLayersLoading(false));
+
+        return () => controller.abort();
+    }, [groupBy]);
+
+    const isLoading = statsLoading || layersLoading;
+
+    const context = useMemo(
+        () => ({
+            stats,
+            setStats,
+            groupBy,
+            setGroupBy,
+            mapOptions,
+            setMapOptions,
+            layers,
+            setLayers,
+            isLoading,
+        }),
+        [stats, groupBy, mapOptions, layers, isLoading]
+    );
 
     return (
         <MapContext.Provider value={context}>
             {children}
         </MapContext.Provider>
-    )
-}
+    );
+};
 
 export const useMapContext = () => {
     const context = useContext(MapContext);
-    if (isEmpty(context)) {
-        throw new Error('useMapContext must be used within a MapContextProvider')
-    }
 
+    if (isEmpty(context)) {
+        throw new Error(
+            "useMapContext must be used within a MapContextProvider"
+        );
+    }
     return context;
 };

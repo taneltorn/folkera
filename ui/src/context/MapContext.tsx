@@ -9,8 +9,13 @@ export interface Properties {
     groupBy: GroupBy;
     setGroupBy: (value: GroupBy) => void;
 
+    layers: any;
+    setLayers: (value: any) => void;
+
     mapOptions: MapOptions;
     setMapOptions: (value: MapOptions) => void;
+
+    isLoading: boolean;
 }
 
 export const MapContext = React.createContext<Properties>({} as Properties);

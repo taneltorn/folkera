@@ -17,10 +17,12 @@ interface Properties {
 export const StatsContextProvider: React.FC<Properties> = ({children}) => {
 
     const {t} = useTranslation();
+
     const {exportCsv} = useDataExport();
     const {filters} = useDataContext();
-    const {fetchStats, isLoading, setIsLoading} = useStatsService();
+    const {fetchStats} = useStatsService();
 
+    const [isLoading, setIsLoading] = useState(false);
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
     const [chartType, setChartType] = useLocalStorage<ChartType>("stats.chartType", ChartType.BAR);
     const [groupBy, setGroupBy] = useLocalStorage<GroupBy>("stats.groupBy", GroupBy.YEAR);
@@ -39,6 +41,7 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         fetchStats(filters, groupBy)
             .then(r => setStats(r))
             .finally(() => setIsLoading(false));
@@ -49,11 +52,9 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
         groupsCount,
         groupBy, setGroupBy,
         chartType, setChartType,
-        isLoading: isLoading,
-
-        exportStats
-
-    }), [stats, groupBy, isLoading, setIsLoading, chartType]);
+        exportStats,
+        isLoading,
+    }), [stats, groupBy, isLoading, chartType]);
 
     return (
         <StatsContext.Provider value={context}>

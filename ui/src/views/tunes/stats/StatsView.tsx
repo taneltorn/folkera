@@ -1,5 +1,4 @@
 import React from "react";
-import {useStatsService} from "../../../hooks/useStatsService.ts";
 import {Box} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 import {useDataContext} from "../../../hooks/useDataContext.tsx";
@@ -15,8 +14,7 @@ const StatsView: React.FC = () => {
 
     const {t} = useTranslation();
 
-    const {groupBy} = useStatsContext();
-    const {isLoading} = useStatsService();
+    const {groupBy, isLoading} = useStatsContext();
     const {addFilter} = useDataContext();
     const {setActiveView} = useActiveView();
 
