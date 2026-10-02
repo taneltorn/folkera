@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {StatsContext} from "../context/StatsContext.tsx";
 import {GroupBy} from "../model/GroupBy.ts";
@@ -7,6 +7,8 @@ import useLocalStorage from "./useLocalStorage.tsx";
 import {useTranslation} from "react-i18next";
 import {Filter} from "../model/Filter.ts";
 import {useDataExport} from "./useDataExport.tsx";
+import {useStatsService} from "./useStatsService.ts";
+import {useDataContext} from "./useDataContext.tsx";
 
 interface Properties {
     children: React.ReactNode;
@@ -16,6 +18,8 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
 
     const {t} = useTranslation();
     const {exportCsv} = useDataExport();
+    const { filters} = useDataContext();
+    const {fetchStats} = useStatsService();
 
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
     const [chartType, setChartType] = useLocalStorage<ChartType>("stats.chartType", ChartType.BAR);
@@ -33,6 +37,11 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
         
         exportCsv(filename, transformedData);
     };
+
+    useEffect(() => {
+        fetchStats(filters, groupBy)
+            .then(r => setStats(r));
+    }, [filters, groupBy]);
 
     const context = useMemo(() => ({
         stats, setStats,

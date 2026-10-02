@@ -11,12 +11,7 @@ import {useTranslation} from "react-i18next";
 const TableView: React.FC = () => {
 
     const {t} = useTranslation();
-    const {data, isLoading, loadData, loadFilteringOptions, pagination} = useDataContext();
-
-    useEffect(() => {
-        loadData();
-    }, [pagination]);
-
+    const {data, isLoading, loadFilteringOptions} = useDataContext();
 
     useEffect(() => {
         loadFilteringOptions();

@@ -1,3 +1,6 @@
+#### [0.10.4] - 02.10.2026
+- Andmete laadimise täiendused
+
 #### [0.10.3] - 30.09.2026
 - Parandatud viga, kus pärast sisselogimist ei kuvatud kasutaja menüüd
 - Pisiparandused

@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {generateFileName, isEmpty} from "../utils/helpers.tsx";
 import {DataContext} from "../context/DataContext.tsx";
 import {Tune} from "../model/Tune.ts";
@@ -203,6 +203,10 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
         visibleFields.push(field);
         setVisibleFields([...visibleFields]);
     }
+
+    useEffect(() => {
+        loadData();
+    }, [pagination]);
 
     const context = useMemo(() => ({
         loadData,

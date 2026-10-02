@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useStatsService} from "../../../hooks/useStatsService.ts";
 import {Box} from "@mantine/core";
 import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
@@ -15,20 +15,15 @@ const StatsView: React.FC = () => {
 
     const {t} = useTranslation();
 
-    const {groupBy, setStats} = useStatsContext();
-    const {fetchStats, isLoading} = useStatsService();
-    const {filters, addFilter} = useDataContext();
+    const {groupBy} = useStatsContext();
+    const {isLoading} = useStatsService();
+    const {addFilter} = useDataContext();
     const {setActiveView} = useActiveView();
 
     const handleClick = (label: string) => {
         addFilter({field: groupBy, value: label});
         setActiveView(View.TABLE);
     }
-
-    useEffect(() => {
-        fetchStats(filters, groupBy)
-            .then(r => setStats(r));
-    }, [filters, groupBy]);
 
     return (
         <Box>
