@@ -31,19 +31,16 @@ export const useStatsService = () => {
             },
         })
             .then(response => {
-                setIsLoading(false);
                 return response.data;
             })
             .catch(error => {
-                setIsLoading(false);
-                
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
                 throw error;
             });
     }
     
     return {
-        isLoading,
+        isLoading, setIsLoading,
         cancelSource,
         fetchStats,
     };

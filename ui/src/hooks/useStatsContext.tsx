@@ -18,8 +18,8 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
 
     const {t} = useTranslation();
     const {exportCsv} = useDataExport();
-    const { filters} = useDataContext();
-    const {fetchStats} = useStatsService();
+    const {filters} = useDataContext();
+    const {fetchStats, isLoading, setIsLoading} = useStatsService();
 
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
     const [chartType, setChartType] = useLocalStorage<ChartType>("stats.chartType", ChartType.BAR);
@@ -34,13 +34,14 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
             [t(`tune.${groupBy}`)]: key,
             [t("export.count")]: value,
         }));
-        
+
         exportCsv(filename, transformedData);
     };
 
     useEffect(() => {
         fetchStats(filters, groupBy)
-            .then(r => setStats(r));
+            .then(r => setStats(r))
+            .finally(() => setIsLoading(false));
     }, [filters, groupBy]);
 
     const context = useMemo(() => ({
@@ -48,9 +49,11 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
         groupsCount,
         groupBy, setGroupBy,
         chartType, setChartType,
+        isLoading: isLoading,
+
         exportStats
 
-    }), [stats, groupBy, chartType]);
+    }), [stats, groupBy, isLoading, setIsLoading, chartType]);
 
     return (
         <StatsContext.Provider value={context}>

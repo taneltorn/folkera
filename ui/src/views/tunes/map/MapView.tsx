@@ -1,17 +1,17 @@
 import React from "react";
-import {useStatsService} from "../../../hooks/useStatsService.ts";
 import {Box} from "@mantine/core";
 import BottomControlBar from "../components/BottomControlBar.tsx";
 import TuneMap from "./components/TuneMap.tsx";
 import TuneMapControls from "./components/TuneMapControls.tsx";
 import Loading from "../../../components/Loading.tsx";
 import {useTranslation} from "react-i18next";
+import {useStatsContext} from "../../../hooks/useStatsContext.tsx";
 
 const MapView: React.FC = () => {
 
     const {t} = useTranslation();
 
-    const {isLoading} = useStatsService();
+    const {isLoading} = useStatsContext();
 
     return (
         <Box>

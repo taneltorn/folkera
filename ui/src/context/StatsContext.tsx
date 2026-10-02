@@ -16,6 +16,8 @@ export interface Properties {
     setChartType: (value: ChartType) => void;
 
     exportStats: (filters?: Filter[]) => void;
+
+    isLoading: boolean;
 }
 
 export const StatsContext = React.createContext<Properties>({} as Properties);
