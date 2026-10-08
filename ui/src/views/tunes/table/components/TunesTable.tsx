@@ -9,6 +9,8 @@ import TunesTableHeaderCell from "./TunesTableHeaderCell.tsx";
 import {useTableColumnOrderContext} from "../../../../hooks/useTableColumnOrderContext.tsx";
 import NoData from "./NoData.tsx";
 import {useAuth} from "../../../../hooks/useAuth.tsx";
+import Loading from "../../../../components/Loading.tsx";
+import {useTranslation} from "react-i18next";
 
 interface Properties {
     data: Tune[];
@@ -16,6 +18,7 @@ interface Properties {
 
 const TunesTable: React.FC<Properties> = ({data}) => {
 
+    const {t} = useTranslation();
     const {currentUser} = useAuth();
     const {isLoading} = useDataContext();
     const {sortedFields} = useTableColumnOrderContext();
@@ -49,7 +52,14 @@ const TunesTable: React.FC<Properties> = ({data}) => {
                             {currentUser && <Table.Th pos="sticky" right={0}/>}
                         </Table.Tr>
                     </Table.Thead>
-                    <Table.Tbody>
+                    <Table.Tbody pos={"relative"}>
+                        {isLoading && (
+                            <Table.Tr>
+                                <Table.Td>
+                                    <Loading isLoading={isLoading} text={t("loading.data")}/>
+                                </Table.Td>
+                            </Table.Tr>)}
+
                         {data.map((row, index) =>
                             <TunesTableRow
                                 key={`row-${index}`}
