@@ -40,8 +40,8 @@ table {
   }
 
   td {
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
+    //padding-top: 15px !important;
+    //padding-bottom: 15px !important;
   }
 
   .mantine-datatable-pagination {
@@ -53,6 +53,10 @@ table {
   }
 }
 
+.data-table-compact {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
 
 .editing-row-main,
 .editing-row-sub {
@@ -240,3 +244,21 @@ table {
   }
 }
 
+//.hovered-player {
+//  .rhap_progress-bar {
+//    height: 7px;
+//    top: 0px
+//    //border-radius: 4px;
+//  }
+//
+//  .rhap_progress-indicator {
+//    width: 20px;
+//    height: 20px;
+//    top: -7px;
+//    visibility: visible;
+//  }
+//}
+//
+//.rhap_progress-indicator {
+//  visibility: hidden;
+//}

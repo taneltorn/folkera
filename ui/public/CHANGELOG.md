@@ -1,3 +1,6 @@
+#### [0.10.5] - 09.10.2026
+- Pisiparandused
+
 #### [0.10.4] - 02.10.2026
 - Andmete laadimise täiendused
 

@@ -6,10 +6,17 @@ import {MdOutlineLogin} from "react-icons/md";
 import {modals} from "@mantine/modals";
 import ModalTitle from "../../views/tunes/components/controls/ModalTitle.tsx";
 import LoginForm from "./LoginForm.tsx";
+import {useDataContext} from "../../hooks/useDataContext.tsx";
 
 const LoginButton: React.FC = () => {
 
     const {t} = useTranslation();
+    const {loadData} = useDataContext();
+
+    const onLogin = () => {
+        modals.closeAll();
+        loadData();
+    }
 
     const openModal = () =>
         modals.open({
@@ -17,7 +24,7 @@ const LoginButton: React.FC = () => {
             centered: true,
             size: "xs",
             children: (<>
-                    <LoginForm onSubmit={modals.closeAll}/>
+                    <LoginForm onSubmit={onLogin}/>
                 </>
             ),
         });

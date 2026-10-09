@@ -37,7 +37,7 @@ const Login: React.FC<Properties> = ({onSubmit}) => {
             .then(response => {
                 if (response) {
                     onSubmit();
-                    window.location.reload();
+                    // window.location.reload();
                 }
             })
     }

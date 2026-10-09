@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import UserRow from "./components/UserRow.tsx";
 import useUserService from "../../../hooks/useUserService.ts";
-import {Box, CloseButton, Input, Table} from "@mantine/core";
+import {Box, CloseButton, Input} from "@mantine/core";
 import {User} from "../../../model/User.ts";
 import AddUserButton from "./components/AddUserButton.tsx";
 import {IoSearchOutline} from "react-icons/io5";
@@ -10,6 +9,7 @@ import {Size} from "../../../utils/constants.ts";
 import {useFocusWithin} from "@mantine/hooks";
 import NoData from "../../tunes/table/components/NoData.tsx";
 import Loading from "../../../components/Loading.tsx";
+import UserTable from "./UserTable.tsx";
 
 const UserList: React.FC = () => {
 
@@ -43,6 +43,7 @@ const UserList: React.FC = () => {
             <Input
                 ref={ref}
                 radius={"lg"}
+                mb={"md"}
                 w={300}
                 autoComplete={"off"}
                 id={focused ? "search-input-focused" : ""}
@@ -62,30 +63,8 @@ const UserList: React.FC = () => {
                 }
             />
 
-            <Table
-                my={"md"}
-                withRowBorders={false}
-            >
-                <Table.Thead>
-                    <Table.Tr>
-                        <Table.Th>{t("user.id")}</Table.Th>
-                        <Table.Th>{t("user.username")}</Table.Th>
-                        <Table.Th>{t("user.email")}</Table.Th>
-                        <Table.Th>{t("user.name")}</Table.Th>
-                        <Table.Th>{t("user.role")}</Table.Th>
-                        <Table.Th>{t("user.createdAt")}</Table.Th>
-                        <Table.Th/>
-                    </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                    {filteredUsers.map(user => (
-                        <UserRow
-                            key={user.id}
-                            user={user}
-                            onChange={fetchData}
-                        />))}
-                </Table.Tbody>
-            </Table>
+            <UserTable users={filteredUsers} onChange={fetchData}/>
+
             <NoData show={!isLoading && !filteredUsers.length}/>
 
             <AddUserButton onChange={fetchData}/>

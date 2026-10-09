@@ -24,6 +24,40 @@ const UserFormTuneAccessTable: React.FC<Properties> = ({
 
     return (
         <>
+            {/*<PaginatedTable*/}
+            {/*    className={"data-table-compact"}*/}
+            {/*    records={accessRefs}*/}
+            {/*    columns={[*/}
+            {/*        {*/}
+            {/*            accessor: 'accessRef',*/}
+            {/*            title: t("tuneAccess.accessRef"),*/}
+            {/*            render: (accessRef, index) => (*/}
+            {/*                <TextInput*/}
+            {/*                    value={accessRef}*/}
+            {/*                    variant={"filled"}*/}
+            {/*                    error={!accessRef.trim() ? error : undefined}*/}
+            {/*                    onChange={event =>*/}
+            {/*                        onChange(*/}
+            {/*                            index,*/}
+            {/*                            event.currentTarget.value*/}
+            {/*                        )*/}
+            {/*                    }*/}
+            {/*                />*/}
+            {/*            )*/}
+            {/*        },*/}
+            {/*        {*/}
+            {/*            accessor: 'actions',*/}
+            {/*            textAlign: 'right',*/}
+            {/*            render: (_, index) => (*/}
+            {/*                <IconButton*/}
+            {/*                    type="remove"*/}
+            {/*                    onClick={() => onRemove(index)}*/}
+            {/*                />*/}
+            {/*            ),*/}
+            {/*        },*/}
+            {/*    ]}*/}
+            {/*/>*/}
+
             <Table withRowBorders={false} mt={"xl"}>
                 <Table.Thead>
                     <Table.Tr>
