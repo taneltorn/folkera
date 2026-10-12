@@ -20,7 +20,7 @@ export const useStatsService = () => {
     const fetchStats = async (
         filters: Filter[],
         groupBy: GroupBy,
-        skipEmpty: boolean,
+        skipEmpty?: boolean,
     ): Promise<{ [key: string]: number }[]> => {
         setIsLoading(true);
 
