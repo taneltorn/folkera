@@ -244,21 +244,13 @@ table {
   }
 }
 
-//.hovered-player {
-//  .rhap_progress-bar {
-//    height: 7px;
-//    top: 0px
-//    //border-radius: 4px;
-//  }
-//
-//  .rhap_progress-indicator {
-//    width: 20px;
-//    height: 20px;
-//    top: -7px;
-//    visibility: visible;
-//  }
-//}
-//
+.rhap_progress-container:hover {
+  .rhap_progress-bar {
+    height: 7px;
+    top: 0;
+  }
+}
+
 .rhap_progress-indicator {
   visibility: hidden;
 }
