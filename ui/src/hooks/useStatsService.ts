@@ -17,12 +17,17 @@ export const useStatsService = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const cancelSource = axios.CancelToken.source();
 
-    const fetchStats = async (filters: Filter[], groupBy: GroupBy): Promise<{ [key: string]: number }[]> => {
+    const fetchStats = async (
+        filters: Filter[],
+        groupBy: GroupBy,
+        skipEmpty: boolean,
+    ): Promise<{ [key: string]: number }[]> => {
         setIsLoading(true);
 
         return axios.get(`${API_URL}/stats`, {
             params: {
                 groupBy: groupBy,
+                skipEmpty: skipEmpty,
                 ...urlify(filters)
             },
             withCredentials: true,
@@ -38,7 +43,7 @@ export const useStatsService = () => {
                 throw error;
             });
     }
-    
+
     return {
         isLoading, setIsLoading,
         cancelSource,

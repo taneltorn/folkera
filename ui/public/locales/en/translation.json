@@ -85,6 +85,7 @@
         "barChart": "Bar chart",
         "pieChart": "Pie chart",
         "export": "Export",
+        "skipEmpty": "Hide empty values",
         "groupBy": {
           "year": "By year",
           "instrument": "By instrument",

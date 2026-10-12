@@ -4,7 +4,7 @@ import {Stats} from "../../model/Stats";
 import {Tune} from "../../model/Tune";
 
 interface StatsService {
-    getStats: (data: Tune[], groupBy: string, dataTransformers: DataTransformer[], groups?: string[]) => Promise<Result<Stats>>
+    getStats: (data: Tune[], groupBy: string, dataTransformers: DataTransformer[], groups?: string[], skipEmpty?: boolean) => Promise<Result<Stats>>
 }
 
 export default StatsService;

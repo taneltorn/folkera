@@ -85,6 +85,7 @@
         "barChart": "Tulpdiagramm",
         "pieChart": "Sektordiagramm",
         "export": "Ekspordi",
+        "skipEmpty": "Peida tühjad väärtused",
         "groupBy": {
           "year": "Aastate lõikes",
           "instrument": "Pillide lõikes",

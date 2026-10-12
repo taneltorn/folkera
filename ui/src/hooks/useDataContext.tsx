@@ -120,7 +120,8 @@ export const DataContextProvider: React.FC<Properties> = ({children}) => {
             })
             .catch(error => {
                 notify(t("toast.error.fetchData"), ToastType.ERROR, error);
-            });
+            })
+            .finally(() => dataService.setIsLoading(false));
     }
 
     const addFilter = (filter: Filter, replace?: boolean) => {

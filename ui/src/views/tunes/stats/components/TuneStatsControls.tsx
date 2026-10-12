@@ -5,7 +5,7 @@ import SimpleMenu from "../../../../components/SimpleMenu.tsx";
 import LabelValue from "../../../../components/LabelValue.tsx";
 import {GroupBy} from "../../../../model/GroupBy.ts";
 import {useDataContext} from "../../../../hooks/useDataContext.tsx";
-import {Group} from "@mantine/core";
+import {Group, Switch} from "@mantine/core";
 import ExportStatsCsvButton from "../../components/controls/ExportStatsCsvButton.tsx";
 import {FaRegChartBar} from "react-icons/fa";
 import {Size} from "../../../../utils/constants.ts";
@@ -14,7 +14,7 @@ const TuneStatsControls: React.FC = () => {
 
     const {t} = useTranslation();
     const {totalItems} = useDataContext();
-    const {groupsCount, groupBy, setGroupBy} = useStatsContext();
+    const {groupsCount, groupBy, setGroupBy, skipEmpty, setSkipEmpty} = useStatsContext();
 
     return (
         <Group gap={4}>
@@ -47,6 +47,17 @@ const TuneStatsControls: React.FC = () => {
                 }))}
                 onChange={(v) => setGroupBy(v as GroupBy)}
             />
+
+            {[
+                GroupBy.YEAR,
+                GroupBy.PARISH,
+                GroupBy.COUNTY,
+            ].includes(groupBy as GroupBy) && <Switch
+                checked={skipEmpty}
+                label={t(`page.tunes.stats.skipEmpty`)}
+                onChange={() => setSkipEmpty(!skipEmpty)}
+            />}
+
         </Group>
     );
 }

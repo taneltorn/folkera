@@ -8,14 +8,14 @@ import {Tune} from "../../model/Tune";
 
 class CsvStatsService implements StatsService {
 
-    private logger = log4js.getLogger("StatsService");
-
-    constructor() {
-        this.logger.level = process.env.LOG_LEVEL;
-    }
-
-    public async getStats(data: Tune[], groupBy: string, dataTransformers: DataTransformer[], groups?: string[]): Promise<Result<Stats>> {
-        this.logger.info(`Counting statistics for field '${groupBy}'`);
+    public async getStats(
+        data: Tune[],
+        groupBy: string,
+        dataTransformers: DataTransformer[],
+        groups?: string[],
+        skipEmpty?: boolean,
+    ): Promise<Result<Stats>> {
+        this.logger.info(`Counting statistics for field '${groupBy}', skip empty: ${skipEmpty}`);
 
         try {
             const stats = new Map<string, number>();
@@ -32,14 +32,21 @@ class CsvStatsService implements StatsService {
                 if (!field) continue;
 
                 let values = [field];
+
                 if (dataTransformers.length) {
                     dataTransformers.forEach(dt => {
                         const result: string[] = [];
+
                         values.forEach(v => {
                             const transformed = dt.transform(v);
-                            result.push(...(Array.isArray(transformed) ? transformed : [transformed]));
+                            result.push(
+                                ...(Array.isArray(transformed)
+                                    ? transformed
+                                    : [transformed])
+                            );
                         });
-                        values = [...result];
+
+                        values = result;
                     });
                 }
 
@@ -48,16 +55,30 @@ class CsvStatsService implements StatsService {
                 });
             }
 
-            return {success: true, data: Object.fromEntries(stats)};
+            const entries = skipEmpty
+                ? [...stats.entries()].filter(([, count]) => count > 0)
+                : stats.entries();
+
+            return {
+                success: true,
+                data: Object.fromEntries(entries)
+            };
         } catch (err) {
             this.logger.error(err);
+
             return {
                 success: false,
                 data: null,
-                error:  "Error querying stats",
+                error: "Error querying stats",
                 detail: err.message
             };
         }
+    }
+
+    private logger = log4js.getLogger("StatsService");
+
+    constructor() {
+        this.logger.level = process.env.LOG_LEVEL;
     }
 }
 

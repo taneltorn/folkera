@@ -32,7 +32,7 @@ class StatsController {
             // @ts-ignore todo use custom type
             const user = req.user;
 
-            const {groupBy} = req.query;
+            const {groupBy, skipEmpty} = req.query;
 
             // @ts-ignore
             const data = await this.tuneService.find(req.filters, {
@@ -48,7 +48,13 @@ class StatsController {
             const dataTransformers: DataTransformer[] = GroupByToDataTransformerMap.get(groupBy as GroupBy) || [];
             const groups: string[] | undefined = GroupByToListMap.get(groupBy as GroupBy);
 
-            const result = await this.statsService.getStats(data, groupBy as GroupBy, dataTransformers, groups);
+            const result = await this.statsService.getStats(
+                data,
+                groupBy as GroupBy,
+                dataTransformers,
+                groups,
+                skipEmpty === "true"
+            );
             if (!result.success) {
                 res.status(500).json({error: result.error});
                 return;

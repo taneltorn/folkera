@@ -8,9 +8,12 @@ export interface Properties {
     setStats: (value: { [key: string]: number }[]) => void;
 
     groupsCount: number;
-    
+
     groupBy: GroupBy;
     setGroupBy: (value: GroupBy) => void;
+
+    skipEmpty: boolean;
+    setSkipEmpty: (value: boolean) => void;
 
     chartType: ChartType;
     setChartType: (value: ChartType) => void;

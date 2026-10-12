@@ -26,6 +26,7 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
     const [stats, setStats] = useState<{ [key: string]: number }[]>([]);
     const [chartType, setChartType] = useLocalStorage<ChartType>("stats.chartType", ChartType.BAR);
     const [groupBy, setGroupBy] = useLocalStorage<GroupBy>("stats.groupBy", GroupBy.YEAR);
+    const [skipEmpty, setSkipEmpty] = useState(false);
 
     const groupsCount = useMemo<number>(() => Object.values(stats || []).filter(x => !!x).length, [stats]);
 
@@ -42,19 +43,20 @@ export const StatsContextProvider: React.FC<Properties> = ({children}) => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetchStats(filters, groupBy)
+        fetchStats(filters, groupBy, skipEmpty)
             .then(r => setStats(r))
             .finally(() => setIsLoading(false));
-    }, [filters, groupBy]);
+    }, [filters, groupBy, skipEmpty]);
 
     const context = useMemo(() => ({
         stats, setStats,
         groupsCount,
         groupBy, setGroupBy,
+        skipEmpty, setSkipEmpty,
         chartType, setChartType,
         exportStats,
         isLoading,
-    }), [stats, groupBy, isLoading, chartType]);
+    }), [stats, groupBy, isLoading, chartType, skipEmpty]);
 
     return (
         <StatsContext.Provider value={context}>
