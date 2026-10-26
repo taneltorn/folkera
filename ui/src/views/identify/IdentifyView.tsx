@@ -69,7 +69,7 @@ const IdentifyView: React.FC = () => {
                     filePath: file,
                     top: SIMILAR_TUNES_TO_FETCH,
                     selfRef: "",
-                    dataset: "folkera",
+                    dataset: dataset,
                 })
             })
             .finally(() => setIsUploading(false));

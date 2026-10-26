@@ -43,9 +43,18 @@ export const ColorSchemes: ColorScheme[] = [
 export const CoverHunterDatasets = [
     "folkera",
     "3030",
+    "folk4008"
 ];
 
 export const ClusterPlots: ClusterPlot[] = [
+    {
+        name: "SHS100K + FolkERA",
+        version: "v0.4",
+        file: "cluster-data/eval_pretrained_folk4008.json",
+        works: 299,
+        perfs: 4008,
+        colorSchemeType: ColorSchemeType.VIRIDIS,
+    },
     {
         name: "SHS100K + FolkERA",
         version: "v0.3",
@@ -151,6 +160,18 @@ export const ClusterPlots: ClusterPlot[] = [
         perfs: undefined,
         testWorks: 30,
         testPerfs: 677,
+        colorSchemeType: ColorSchemeType.SET1,
+    },
+    {
+        name: "TEST: SHS100K",
+        version: "v0.1",
+        file: "cluster-data/eval_pretrained_v0.1.json",
+        mAP: 0.508,
+        rank1: 5.881,
+        works: undefined,
+        perfs: undefined,
+        testWorks: 30,
+        testPerfs: 480,
         colorSchemeType: ColorSchemeType.SET1,
     },
     {
