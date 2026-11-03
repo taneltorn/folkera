@@ -110,7 +110,7 @@ const ClusterPlot: React.FC<Properties> = ({needle}) => {
                     visible: true,
                     opacity: 1,
                     marker: {
-                        size: work ? 10 : 6,
+                        size: work ? 8 : 5,
                         color: work
                             ? identifiedColors[i % identifiedColors.length]
                             : colorScheme.unidentified,
