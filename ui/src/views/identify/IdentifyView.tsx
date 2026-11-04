@@ -20,7 +20,7 @@ import IconButton from "../../components/buttons/IconButton.tsx";
 import PrototypeAlert from "../../components/PrototypeAlert.tsx";
 
 const MAX_SIZE = 10;
-
+const DEFAULT_DATASET = import.meta.env.VITE_FOLKERA_DATASET || "folkera";
 const ACCEPTED_AUDIO_TYPES = [
     "audio/*",
 ];
@@ -33,7 +33,7 @@ const IdentifyView: React.FC = () => {
     const {loadSimilarTunes, setSimilarTunes} = useSimilarTunes();
 
     const [file, setFile] = useState<File | null>(null);
-    const [dataset, setDataset] = useState<string>("folkera");
+    const [dataset, setDataset] = useState<string>(DEFAULT_DATASET);
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
 

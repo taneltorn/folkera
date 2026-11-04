@@ -41,8 +41,8 @@ export const ColorSchemes: ColorScheme[] = [
 ];
 
 export const CoverHunterDatasets = [
-    "folkera",
-    "3030",
+    "folk3030",
+    "folk3859",
     "folk4008"
 ];
 

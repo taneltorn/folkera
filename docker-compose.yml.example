@@ -48,6 +48,7 @@ services:
         - VITE_MUSICXML_DIR=${VITE_MUSICXML_DIR}
         - VITE_CONTACT_EMAIL=${VITE_CONTACT_EMAIL}
         - VITE_KIVIKE_PID_URL=${VITE_KIVIKE_PID_URL}
+        - VITE_FOLKERA_DATASET=${VITE_FOLKERA_DATASET}
     container_name: folkera-ui
     ports:
       - "80:80"
@@ -62,6 +63,7 @@ services:
       - VITE_MUSICXML_DIR=${VITE_MUSICXML_DIR}
       - VITE_CONTACT_EMAIL=${VITE_CONTACT_EMAIL}
       - VITE_KIVIKE_PID_URL=${VITE_KIVIKE_PID_URL}
+      - VITE_FOLKERA_DATASET=${VITE_FOLKERA_DATASET}
     depends_on:
       - api
     networks:

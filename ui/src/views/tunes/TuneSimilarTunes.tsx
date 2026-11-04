@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 import {SIMILAR_TUNES_TO_FETCH} from "../../utils/constants.ts";
 import PrototypeAlert from "../../components/PrototypeAlert.tsx";
 
+const DEFAULT_DATASET = import.meta.env.VITE_FOLKERA_DATASET || "folkera";
+
 interface Properties {
     tune: Tune;
 }
@@ -27,7 +29,7 @@ const TuneDetails: React.FC<Properties> = ({tune}) => {
                 filePath: tune.audio,
                 top: SIMILAR_TUNES_TO_FETCH,
                 selfRef: tune.id,
-                dataset: "folkera",
+                dataset: DEFAULT_DATASET,
             },
             tune);
     }

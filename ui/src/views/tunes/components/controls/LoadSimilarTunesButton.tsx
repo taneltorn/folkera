@@ -11,12 +11,15 @@ import {View} from "../../../../context/ActiveViewContext.tsx";
 import {modals} from "@mantine/modals";
 import ModalTitle from "./ModalTitle.tsx";
 
+const DEFAULT_DATASET = import.meta.env.VITE_FOLKERA_DATASET || "folkera";
+
 interface Properties extends ButtonProps {
     tune: Tune;
+    dataset?: string;
     isLoading?: boolean;
 }
 
-const LoadSimilarTunesButton: React.FC<Properties> = ({tune, isLoading}) => {
+const LoadSimilarTunesButton: React.FC<Properties> = ({tune, dataset, isLoading}) => {
 
     const {t} = useTranslation();
     const {currentUser} = useAuth();
@@ -29,7 +32,7 @@ const LoadSimilarTunesButton: React.FC<Properties> = ({tune, isLoading}) => {
                     filePath: tune.audio,
                     top: SIMILAR_TUNES_TO_FETCH,
                     selfRef: tune.id,
-                    dataset: "folkera",
+                    dataset: dataset || DEFAULT_DATASET,
                 },
                 tune,
                 true,
