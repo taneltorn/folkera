@@ -28,6 +28,9 @@ export const usePlayNext = () => {
 
         try {
             const nextTrack = await tuneService.fetchTune(nextId);
+            if (!nextTrack.canListen) {
+                return;
+            }
             setTrack(nextTrack);
 
             if (startPlayback) {
