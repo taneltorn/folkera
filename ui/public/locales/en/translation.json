@@ -417,7 +417,9 @@
     "addFilter": "Add filter",
     "variant": "Variant {{index}}",
     "mute": "Mute",
-    "unmute": "Unmute"
+    "unmute": "Unmute",
+    "autoplay": "Autoplay",
+    "disableAutoplay": "Disable autoplay"
   },
   "data": {
     "noOptions": "No options found.",

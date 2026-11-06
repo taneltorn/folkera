@@ -1,3 +1,7 @@
+#### [0.12.0] - 06.11.2026
+- Lisatud automaatse esituse funktsionaalsus
+- Pisiparandused
+
 #### [0.11.0] - 12.10.2026
 - Statistika vaade: lisatud võimalus tühje väärtuseid peita
 - Parandatud CSV-ekspordi viga, kus andmed jäid laadima

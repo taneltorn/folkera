@@ -9,7 +9,7 @@ import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
 import {Size} from "../../utils/constants.ts";
 import {useTranslation} from "react-i18next";
 
-const VolumeControls: React.FC = () => {
+const PlayerVolumeControls: React.FC = () => {
 
     const {t} = useTranslation();
 
@@ -32,7 +32,7 @@ const VolumeControls: React.FC = () => {
                 : MdVolumeUp;
 
     return (
-        <Group gap="xs" wrap="nowrap">
+        <Group gap={4} wrap="nowrap">
             <Tooltip label={t(`button.${isMuted ? "unmute" : "mute"}`)}>
                 <ActionIcon
                     color={isMuted ? "gray.3" : "red"}
@@ -40,11 +40,12 @@ const VolumeControls: React.FC = () => {
                     onClick={toggleMute}
                     aria-label={t(`button.${isMuted ? "unmute" : "mute"}`)}
                 >
-                    <VolumeIcon size={Size.icon.LG}/>
+                    <VolumeIcon size={Size.icon.MD}/>
                 </ActionIcon>
             </Tooltip>
 
             <Slider
+                visibleFrom={"lg"}
                 w={100}
                 min={0}
                 max={100}
@@ -57,4 +58,4 @@ const VolumeControls: React.FC = () => {
     );
 };
 
-export default VolumeControls;
+export default PlayerVolumeControls;

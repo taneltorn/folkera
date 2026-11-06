@@ -2,7 +2,6 @@ import React from "react";
 import {Flex, Group} from "@mantine/core";
 import {RHAP_UI} from "react-h5-audio-player";
 import LoopControls from "./LoopControls.tsx";
-import TempoControls from "./TempoControls.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import Play from "./Play.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
@@ -10,6 +9,7 @@ import {Tune} from "../../model/Tune.ts";
 import BaseAudioPlayer, {
     BaseAudioPlayerProperties,
 } from "./BaseAudioPlayer.tsx";
+import PlayerAutoplayControls from "./PlayerAutoplayControls.tsx";
 
 interface Properties extends BaseAudioPlayerProperties {
     track: Tune;
@@ -45,11 +45,7 @@ const SmallScreenAudioPlayer: React.FC<Properties> = ({
                     customAdditionalControls={[
                         <LoopControls key="loop"/>,
                         <Play key="play"/>,
-                        <TempoControls
-                            key="tempo"
-                            playerRef={playerProps.playerRef}
-                            track={track}
-                        />,
+                        <PlayerAutoplayControls key={"autoplay"}/>
                     ]}
                 />
             </Group>

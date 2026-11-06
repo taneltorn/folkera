@@ -19,7 +19,7 @@ const PlayerTempoButton: React.FC<Properties> = ({tempo}) => {
                 color={tempo === 1 ? "dark.1" : "red"}
                 variant={"transparent"}
             >
-                <IoIosSpeedometer size={Size.icon.LG}/>
+                <IoIosSpeedometer size={Size.icon.MD}/>
             </Button>
         </Tooltip>
     );

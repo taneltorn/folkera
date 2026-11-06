@@ -16,7 +16,7 @@ const TempoAlert: React.FC<Properties> = () => {
         <Tooltip label={t("page.player.tooltip.noSpecificTempo")}>
             <IoIosAlert
                 color={theme.colors.red[9]}
-                size={Size.icon.SM}
+                size={Size.icon.XS}
             />
         </Tooltip>
     );

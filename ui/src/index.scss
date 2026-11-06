@@ -246,11 +246,14 @@ table {
 
 .rhap_progress-container:hover {
   .rhap_progress-bar {
-    height: 7px;
-    top: 0;
+    //height: 7px;
+    //top: 0;
   }
 }
 
 .rhap_progress-indicator {
-  visibility: hidden;
+  top: -5px !important;
+  width: 14px !important;
+  height: 14px !important;
+  //visibility: hidden;
 }

@@ -19,6 +19,7 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolumeState] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+    const [autoplay, setAutoplay] = useState(false);
 
     const play = (nextTrack: Tune) => {
         setTrack(nextTrack);
@@ -71,6 +72,10 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         setIsMuted(muted);
     };
 
+    const toggleAutoplay = () => {
+        setAutoplay(!autoplay);
+    };
+
     // @ts-ignore
     const duration = playerRef.current?.audio?.current?.duration || 0;
 
@@ -107,7 +112,8 @@ export const AudioContextProvider: React.FC<Properties> = ({children}) => {
         reset,
         volume, setVolume,
         isMuted, toggleMute,
-    }), [isPlaying, volume, isMuted, currentTime, loopStart, loopEnd, loopStage, track]);
+        autoplay, toggleAutoplay,
+    }), [isPlaying, volume, isMuted, autoplay, currentTime, loopStart, loopEnd, loopStage, track]);
 
     return (
         <AudioContext.Provider value={context}>

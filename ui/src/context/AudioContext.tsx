@@ -13,6 +13,9 @@ export interface Properties {
     isMuted: boolean;
     toggleMute: () => void;
 
+    autoplay: boolean;
+    toggleAutoplay: () => void;
+
     loopStage: number;
     setLoopStage: (value: number) => void;
 

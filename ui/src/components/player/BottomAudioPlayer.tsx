@@ -9,6 +9,7 @@ import LargeScreenAudioPlayer from "./LargeScreenAudioPlayer.tsx";
 import SmallScreenAudioPlayer from "./SmallScreenAudioPlayer.tsx";
 import PlayerCloseButton from "./PlayerCloseButton.tsx";
 import {useActiveVariant} from "../../hooks/useActiveVariant.tsx";
+import {usePlayNext} from "../../hooks/usePlayNext.tsx";
 
 const BottomAudioPlayer: React.FC = () => {
 
@@ -20,11 +21,13 @@ const BottomAudioPlayer: React.FC = () => {
     const {
         track,
         isPlaying,
+        autoplay,
         playerRef,
         setIsPlaying,
         setCurrentTime,
     } = useAudioPlayer();
 
+    const {hasNext, playNext} = usePlayNext();
     const {index} = useActiveVariant();
 
     const audios = track?.audio?.split(";") || [];
@@ -47,6 +50,10 @@ const BottomAudioPlayer: React.FC = () => {
 
         if (element) {
             element.currentTime = 0;
+        }
+
+        if (autoplay && hasNext) {
+            void playNext(true);
         }
     };
 

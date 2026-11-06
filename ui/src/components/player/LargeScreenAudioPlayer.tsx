@@ -24,9 +24,10 @@ import BaseAudioPlayer, {
 import {Tune} from "../../model/Tune.ts";
 import {contentRef, truncate} from "../../utils/helpers.tsx";
 import {useAudioPlayer} from "../../hooks/useAudioContext.tsx";
-import VolumeControls from "./PlayerVolumeControls.tsx";
+import PlayerVolumeControls from "./PlayerVolumeControls.tsx";
 import ToggleFavouriteButton from "../../views/tunes/components/controls/ToggleFavouriteButton.tsx";
 import {useAuth} from "../../hooks/useAuth.tsx";
+import PlayerAutoplayControls from "./PlayerAutoplayControls.tsx";
 
 interface Properties extends BaseAudioPlayerProperties {
     track: Tune;
@@ -101,11 +102,7 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
                             <PlayPrevious key="previous"/>,
                             <Play key="play"/>,
                             <PlayNext key="next"/>,
-                            <TempoControls
-                                key="tempo"
-                                playerRef={playerProps.playerRef}
-                                track={track}
-                            />,
+                            <PlayerAutoplayControls key={"autoplay"}/>
                         ]}
                     />
                 </Group>
@@ -113,13 +110,17 @@ const LargeScreenAudioPlayer: React.FC<Properties> = ({
 
             <Grid.Col span={3}>
                 <Group
-                    gap={4}
+                    gap={0}
                     justify="end"
                     align="center"
                     h="100%"
                 >
-                    {currentUser && <ToggleFavouriteButton color={"red"} tune={track} px={"xs"}/>}
-                    <VolumeControls/>
+                    {currentUser && <ToggleFavouriteButton color={"red"} tune={track} px={0}/>}
+                    <TempoControls
+                        playerRef={playerProps.playerRef}
+                        track={track}
+                    />
+                    <PlayerVolumeControls/>
                     <PlayerCloseButton/>
                 </Group>
             </Grid.Col>

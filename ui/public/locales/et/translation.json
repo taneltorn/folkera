@@ -418,7 +418,9 @@
     "addFilter": "Lisa filter",
     "variant": "Variant {{index}}",
     "mute": "Vaigista",
-    "unmute": "Lülita heli sisse"
+    "unmute": "Lülita heli sisse",
+    "autoplay": "Automaatne esitus",
+    "disableAutoplay": "Tühista automaatne esitus"
   },
   "data": {
     "noOptions": "Valikuid ei leitud.",
